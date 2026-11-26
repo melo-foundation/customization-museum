@@ -1,6 +1,6 @@
 # Customization Museum
 
-Themes, skins and add-ons for old customizable programs, every file backed up on the Wayback Machine.
+An initiative to archive all themes, skins and add-ons for old customizable programs in an easily searchable way and backed up on the Wayback Machine.
 
 Browse: https://melo-foundation.github.io/customization-museum/
 
