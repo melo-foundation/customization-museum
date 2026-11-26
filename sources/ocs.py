@@ -1,4 +1,3 @@
-# Download links are signed and expire after 48h: save them (archive.py save N W pling.com) right after scraping.
 import json
 from lib import get, pmap
 
@@ -23,11 +22,11 @@ def pages(cat):
 
 
 def entry(it, app):
-    # download links are signed and expire 48h after the API call (hence cache=False); only an archived copy lasts
+    # downloadlink1 is signed and expires in 48h; the store page lists the files
     return dict(
         app=app, id=f"ocs-{it['id']}", title=it["name"], date=(it.get("created") or "")[:10],
         page=it.get("detailpage") or f"https://www.pling.com/p/{it['id']}",
-        preview=it.get("previewpic1") or None, download=it.get("downloadlink1") or None,
+        preview=it.get("previewpic1") or None, download=None,
         tags=[it.get("typename") or "Themes"],
     )
 
