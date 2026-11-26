@@ -10,6 +10,7 @@
   body { margin:0; background:var(--bg); color:var(--text); font:14px -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif; }
   header { position:sticky; top:0; z-index:10; background:rgba(17,19,24,.94); backdrop-filter:blur(8px); border-bottom:1px solid var(--border); padding:12px 20px; display:flex; flex-wrap:wrap; gap:10px; align-items:center; }
   h1 { font-size:16px; margin:0; font-weight:600; white-space:nowrap; }
+  h1 a { color:inherit; text-decoration:none; }
   input, select { background:var(--panel); border:1px solid var(--border); color:var(--text); padding:8px 12px; border-radius:8px; font:inherit; }
   input { flex:1 1 220px; min-width:160px; }
   input:focus, select:focus { outline:none; border-color:var(--accent); }
@@ -22,6 +23,17 @@
   #types button.chip { background:#2c3140; color:var(--text); font-size:13px; }
   #types button.chip.on { background:var(--accent); color:#0c1420; }
   button.chip i { font-style:normal; opacity:.6; margin-left:4px; }
+  #about { max-width:1700px; margin:14px auto 0; padding:0 20px; }
+  #about:empty { display:none; }
+  #about .box { position:relative; background:var(--panel); border:1px solid var(--border); border-radius:10px; padding:14px 20px; line-height:1.55; }
+  #about h1 { font-size:20px; margin:0 0 6px; white-space:normal; }
+  #about h2 { font-size:16px; margin:14px 0 4px; }
+  #about h3 { font-size:14px; margin:12px 0 4px; }
+  #about p, #about ul { margin:6px 0; }
+  #about a { color:var(--accent); }
+  #about code { background:#0c0d10; padding:1px 5px; border-radius:4px; }
+  #about .tools { position:absolute; top:12px; right:14px; display:flex; gap:8px; }
+  #about .tools a, #about .tools button { color:var(--accent); background:none; border:1px solid var(--border); border-radius:6px; padding:3px 10px; font:12px inherit; cursor:pointer; text-decoration:none; }
   main { padding:16px 20px 40px; max-width:1700px; margin:0 auto; }
   .grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(200px,1fr)); gap:14px; }
   .card { background:var(--panel); border:1px solid var(--border); border-radius:10px; overflow:hidden; display:flex; flex-direction:column; }
@@ -30,6 +42,7 @@
   .body { padding:10px 12px 12px; display:flex; flex-direction:column; gap:6px; flex:1; }
   .title { font-weight:500; line-height:1.35; word-break:break-word; }
   .meta { font-size:11px; color:var(--muted); }
+  .meta button { background:none; border:0; padding:0; font:inherit; color:var(--accent); cursor:pointer; }
   .tags { display:flex; flex-wrap:wrap; gap:4px; }
   .tags .chip { font-size:10px; padding:2px 6px; }
   .links { display:flex; gap:8px; margin-top:auto; font-size:12px; }
@@ -42,7 +55,7 @@
 </head>
 <body>
 <header>
-  <h1>Customization Museum</h1>
+  <h1><a href="#">Customization Museum</a></h1>
   <input id="q" type="search" placeholder="Search">
   <select id="sort"><option value="new">Newest</option><option value="old">Oldest</option><option value="az">A&ndash;Z</option></select>
   <select id="arch"><option value="">All</option><option value="1">Archived</option><option value="0">Not archived</option></select>
@@ -52,13 +65,17 @@
 <div class="bar" id="apps"></div>
 <div class="bar" id="types"></div>
 <div class="bar" id="tags"></div>
+<div id="about"></div>
 <main><div class="grid" id="grid"></div><div id="empty">No results</div><div id="more"></div></main>
 <script>
+const REPO = 'melo-foundation/customization-museum';
 const $ = id => document.getElementById(id);
 const wb = (f, url, mode='') => { const [ts, u] = f.split('|'); return `https://web.archive.org/web/${ts}${mode}/${u || url}`; };
 const esc = s => String(s).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
-let DATA = [], view = [], shown = 0, app = '', typ = '', tag = '';
-const PAGE = 120;
+const real = f => !!f && /^\d{14}/.test(f);
+const slug = s => s.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');
+let DATA = [], PAGES = new Set(), SITE = {}, view = [], shown = 0, site = '', app = '', typ = '', tag = '';
+const PAGE = 120, mdCache = {};
 
 const chips = (el, list, cur, fn) => {
   el.innerHTML = list.map(([k, n]) => `<button class="chip${k === cur ? ' on' : ''}" data-k="${esc(k)}">${esc(k)}<i>${n}</i></button>`).join('');
@@ -66,12 +83,61 @@ const chips = (el, list, cur, fn) => {
 };
 const tally = items => Object.entries(items.reduce((m, k) => (m[k] = (m[k] || 0) + 1, m), {})).sort((a, b) => b[1] - a[1]);
 
+// Minimal markdown: headings, lists, links, bold, italic, code. Input is escaped first.
+function md(src) {
+  const inline = s => esc(s)
+    .replace(/`([^`]+)`/g, '<code>$1</code>')
+    .replace(/\[([^\]]+)\]\((https?:\/\/[^)\s]+)\)/g, '<a href="$2" target="_blank" rel="noopener">$1</a>')
+    .replace(/(^|[\s(])(https?:\/\/[^\s<)]+)/g, '$1<a href="$2" target="_blank" rel="noopener">$2</a>')
+    .replace(/\*\*([^*]+)\*\*/g, '<b>$1</b>').replace(/\*([^*]+)\*/g, '<i>$1</i>');
+  let html = '', list = false, para = [];
+  const flush = () => { if (para.length) html += `<p>${inline(para.join(' '))}</p>`; para = []; if (list) { html += '</ul>'; list = false; } };
+  for (const line of src.split('\n')) {
+    const h = line.match(/^(#{1,3})\s+(.*)/), li = line.match(/^\s*[-*]\s+(.*)/);
+    if (h) { flush(); html += `<h${h[1].length}>${inline(h[2])}</h${h[1].length}>`; }
+    else if (li) { if (para.length) { html += `<p>${inline(para.join(' '))}</p>`; para = []; } if (!list) { html += '<ul>'; list = true; } html += `<li>${inline(li[1])}</li>`; }
+    else if (!line.trim()) flush();
+    else { if (list) { html += '</ul>'; list = false; } para.push(line.trim()); }
+  }
+  flush();
+  return html;
+}
+
+function summary(items) {
+  const dates = items.map(e => e.d).filter(Boolean).sort();
+  const archived = items.filter(e => real(e.tp) || real(e.tl)).length;
+  const list = arr => tally(arr).slice(0, 12).map(([k, n]) => `${k} (${n})`).join(', ');
+  return { dates: dates.length ? `${dates[0].slice(0, 4)} to ${dates[dates.length - 1].slice(0, 4)}` : '', archived, list };
+}
+
+function autoPage() {
+  if (site) {
+    const items = DATA.filter(e => e.s === site), s = summary(items), name = SITE[site];
+    return `# ${name}\n\n${items.length} items${s.dates ? `, ${s.dates}` : ''}.\n\n- Programs: ${s.list(items.map(e => e.a))}\n- Types: ${s.list(items.flatMap(e => e.y))}\n- Archived on the Wayback Machine: ${s.archived} of ${items.length}\n- Site: https://${name}\n`;
+  }
+  const items = DATA.filter(e => e.y.includes(typ)), s = summary(items);
+  return `# ${typ}\n\n${items.length} items${s.dates ? `, ${s.dates}` : ''}.\n\n- Programs: ${s.list(items.map(e => e.a))}\n- Sites: ${s.list(items.map(e => SITE[e.s]))}\n- Archived on the Wayback Machine: ${s.archived} of ${items.length}\n`;
+}
+
+let aboutToken = 0;
+async function about() {
+  if (!site && !typ) { $('about').innerHTML = ''; return; }
+  const key = site ? `site-${site}` : `type-${slug(typ)}`, mine = ++aboutToken;
+  const exists = PAGES.has(key), auto = autoPage();
+  const text = exists ? (mdCache[key] ??= await fetch(`pages/${key}.md`).then(r => r.ok ? r.text() : auto)) : auto;
+  if (mine !== aboutToken) return;
+  const edit = exists ? `https://github.com/${REPO}/edit/main/pages/${key}.md`
+    : `https://github.com/${REPO}/new/main?filename=pages/${key}.md&value=${encodeURIComponent(auto)}`;
+  $('about').innerHTML = `<div class="box"><div class="tools"><a href="${esc(edit)}" target="_blank" rel="noopener">Edit</a>${site ? '<button id="unsite">Close</button>' : ''}</div>${md(text)}</div>`;
+  if (site) $('unsite').onclick = () => { site = ''; render(); };
+}
+
 function card(e) {
   const img = e.v ? (e.tv ? wb(e.tv, e.v, 'im_') : e.v) : '';
   const page = e.p ? `<a href="${esc(e.tp ? wb(e.tp, e.p) : e.p)}" target="_blank" rel="noopener"${e.tp ? '' : ' class="live"'}>Page</a>` : '';
   const file = e.l ? `<a href="${esc(e.tl ? wb(e.tl, e.l, 'id_') : e.l)}" target="_blank" rel="noopener"${e.tl ? '' : ' class="live"'}>File</a>` : '';
   return `<div class="card"><div class="thumb">${img ? `<img src="${esc(img)}" loading="lazy" data-alt="${esc(e.tv ? e.v : wb('2', e.v, 'im_'))}" onerror="if(!this.dataset.f){this.dataset.f=1;this.src=this.dataset.alt}else{this.remove()}">` : ''}</div>
-    <div class="body"><div class="title">${esc(e.t)}</div><div class="meta">${esc(e.a)}${e.d ? ' · ' + e.d : ''}</div>
+    <div class="body"><div class="title">${esc(e.t)}</div><div class="meta">${esc(e.a)}${e.d ? ' · ' + e.d : ''} · <button data-s="${esc(e.s)}">${esc(SITE[e.s])}</button></div>
     <div class="tags">${e.g.map(t => `<button class="chip" data-t="${esc(t)}">${esc(t)}</button>`).join('')}</div>
     <div class="links">${page}${file}</div></div></div>`;
 }
@@ -84,7 +150,7 @@ function more() {
 
 function render() {
   const q = $('q').value.trim().toLowerCase(), sort = $('sort').value, arch = $('arch').value;
-  let base = DATA.filter(e => (!q || e.t.toLowerCase().includes(q) || e.g.some(t => t.toLowerCase().includes(q)) || e.y.some(t => t.toLowerCase().includes(q))) && (arch === '' || (arch === '1') === !!(e.tp || e.tl)));
+  let base = DATA.filter(e => (!site || e.s === site) && (!q || e.t.toLowerCase().includes(q) || e.g.some(t => t.toLowerCase().includes(q)) || e.y.some(t => t.toLowerCase().includes(q))) && (arch === '' || (arch === '1') === (real(e.tp) || real(e.tl))));
   chips($('apps'), [['', base.length], ...tally(base.map(e => e.a))].map(([k, n]) => [k || 'All', n]), app || 'All', k => { app = k === 'All' ? '' : k; typ = ''; tag = ''; render(); });
   const inApp = base.filter(e => !app || e.a === app);
   chips($('types'), tally(inApp.flatMap(e => e.y)), typ, k => { typ = typ === k ? '' : k; tag = ''; render(); });
@@ -95,12 +161,29 @@ function render() {
   $('count').textContent = view.length + ' / ' + DATA.length;
   $('empty').style.display = view.length ? 'none' : 'block';
   $('grid').innerHTML = ''; shown = 0; more();
+  const h = new URLSearchParams(Object.entries({ site, app, type: typ, tag }).filter(([, v]) => v)).toString();
+  history.replaceState(null, '', h ? '#' + h : location.pathname);
+  about();
 }
 
-$('grid').addEventListener('click', e => { const t = e.target.closest('[data-t]'); if (t) { tag = tag === t.dataset.t ? '' : t.dataset.t; render(); } });
+function fromHash() {
+  const p = new URLSearchParams(location.hash.slice(1));
+  site = p.get('site') || ''; app = p.get('app') || ''; typ = p.get('type') || ''; tag = p.get('tag') || '';
+}
+
+$('grid').addEventListener('click', e => {
+  const t = e.target.closest('[data-t]'), s = e.target.closest('[data-s]');
+  if (t) { tag = tag === t.dataset.t ? '' : t.dataset.t; render(); }
+  if (s) { site = s.dataset.s; app = ''; typ = ''; tag = ''; render(); scrollTo(0, 0); }
+});
 ['q', 'sort', 'arch'].forEach(id => $(id).addEventListener('input', render));
+addEventListener('hashchange', () => { fromHash(); render(); });
 new IntersectionObserver(es => es[0].isIntersecting && more(), { rootMargin: '600px' }).observe($('more'));
-fetch('entries.json').then(r => r.json()).then(d => { DATA = d; render(); });
+Promise.all([fetch('entries.json').then(r => r.json()), fetch('pages.json').then(r => r.ok ? r.json() : []).catch(() => [])]).then(([d, p]) => {
+  DATA = d; PAGES = new Set(p);
+  for (const e of d) if (!(e.s in SITE)) { try { SITE[e.s] = new URL(e.p || e.l).hostname.replace(/^www\./, ''); } catch { SITE[e.s] = e.s; } }
+  fromHash(); render();
+});
 </script>
 </body>
 </html>

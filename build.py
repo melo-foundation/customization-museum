@@ -34,7 +34,8 @@ out = []
 for f in sorted(glob.glob("data/*.json")):
     if f.endswith("archive_state.json"):
         continue
-    dead = os.path.basename(f)[:-5] in DEAD
+    src = os.path.basename(f)[:-5]
+    dead = src in DEAD
     for e in json.load(open(f, encoding="utf-8")):
         def ts(k):
             s = state.get(e.get(k) or "") or {}
@@ -43,7 +44,7 @@ for f in sorted(glob.glob("data/*.json")):
             return "2" if dead and e.get(k) else None
         y, g = classify(e["app"], e.get("tags") or [])
         out.append(dict(
-            a=e["app"], t=e["title"], d=e.get("date") or "", y=y, g=g,
+            s=src, a=e["app"], t=e["title"], d=e.get("date") or "", y=y, g=g,
             p=e.get("page"), v=e.get("preview"), l=e.get("download"),
             tp=ts("page"), tv=ts("preview"), tl=ts("download"),
         ))
@@ -53,4 +54,6 @@ if __name__ == "__main__":
     assert classify("Windows Desktop Themes", ["music"]) == (["Skins & Themes"], ["Windows 9x Classic", "Music"])
     assert classify("x", []) == (["Other"], [])
     json.dump(out, open("entries.json", "w", encoding="utf-8"), separators=(",", ":"), ensure_ascii=False)
+    pages = sorted(os.path.basename(p)[:-3] for p in glob.glob("pages/*.md"))
+    json.dump(pages, open("pages.json", "w", encoding="utf-8"))
     print(len(out), "entries,", os.path.getsize("entries.json") // 1024, "KB")
