@@ -22935,8 +22935,8 @@
   "ts": null
  },
  "https://www.adiumxtras.com/download/2010": {
-  "err": "URLError",
-  "ts": null
+  "saved": 1795730421,
+  "ts": "20261126190028"
  },
  "https://www.adiumxtras.com/download/2011": {
   "ts": null
@@ -23246,8 +23246,8 @@
   "ts": null
  },
  "https://www.adiumxtras.com/download/2224": {
-  "err": "URLError",
-  "ts": null
+  "saved": 1795730421,
+  "ts": "20261126190151"
  },
  "https://www.adiumxtras.com/download/2225": {
   "ts": null
@@ -25919,8 +25919,8 @@
   "ts": null
  },
  "https://www.adiumxtras.com/download/3968": {
-  "err": "URLError",
-  "ts": null
+  "saved": 1795730421,
+  "ts": "20261126190028"
  },
  "https://www.adiumxtras.com/download/3970": {
   "ts": null
@@ -30703,6 +30703,7 @@
  },
  "https://www.adiumxtras.com/download/7079": {
   "err": "http 429",
+  "fails": 0,
   "ts": null
  },
  "https://www.adiumxtras.com/download/7080": {
