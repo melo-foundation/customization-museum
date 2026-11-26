@@ -23,6 +23,9 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - run: echo "$SOURCES" | grep -qE '^[a-z0-9_ ]+$'
+      - run: printf '%s' "$KEYS" > .archive-keys
+        env:
+          KEYS: ${{ secrets.ARCHIVE_KEYS }}
       - uses: actions/cache/restore@v4
         with:
           path: .cache

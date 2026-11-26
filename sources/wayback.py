@@ -17,12 +17,18 @@ class Blocked(Exception):
     pass
 
 
+_KEYS = os.path.join(os.path.dirname(CACHE), ".archive-keys")
+HEADERS = {"User-Agent": UA}
+if os.path.exists(_KEYS):
+    HEADERS["Authorization"] = "LOW " + open(_KEYS).read().strip()
+
+
 def _get(url, timeout):
     wait = _last[0] + GAP - time.time()
     if wait > 0:
         time.sleep(wait)
     _last[0] = time.time()
-    with urllib.request.urlopen(urllib.request.Request(url, headers={"User-Agent": UA}), timeout=timeout) as r:
+    with urllib.request.urlopen(urllib.request.Request(url, headers=HEADERS), timeout=timeout) as r:
         return r.read().decode("utf-8", "replace")
 
 
