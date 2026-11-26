@@ -23,13 +23,21 @@ if os.path.exists(_KEYS):
     HEADERS["Authorization"] = "LOW " + open(_KEYS).read().strip()
 
 
+def decode(data):
+    """UTF-8 if valid, else Windows-1252 (most 2000s pages)."""
+    try:
+        return data.decode("utf-8")
+    except UnicodeDecodeError:
+        return data.decode("cp1252", "replace")
+
+
 def _get(url, timeout):
     wait = _last[0] + GAP - time.time()
     if wait > 0:
         time.sleep(wait)
     _last[0] = time.time()
     with urllib.request.urlopen(urllib.request.Request(url, headers=HEADERS), timeout=timeout) as r:
-        return r.read().decode("utf-8", "replace")
+        return decode(r.read())
 
 
 def fetch(url, timeout=120):
@@ -59,6 +67,9 @@ def fetch(url, timeout=120):
     os.makedirs(CACHE, exist_ok=True)
     open(path, "w", encoding="utf-8").write(text)
     return text
+
+
+assert decode("café".encode("cp1252")) == "café" and decode("café".encode()) == "café"
 
 
 def cdx(pattern, extra=""):
