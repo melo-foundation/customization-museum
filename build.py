@@ -9,6 +9,7 @@ TYPE_OF = {t.lower(): ty for ty, tags in A["types"].items() for t in tags}
 ALIAS = {k.lower(): v for k, v in A["aliases"].items()}
 DROP = {t.lower() for t in A["drop"]}
 APP_TAGS = A.get("app_tags", {})
+HIDDEN = set(json.load(open("hidden.json", encoding="utf-8")))
 
 
 def classify(app, tags):
@@ -52,6 +53,8 @@ for f in sorted(glob.glob("data/*.json")):
     src = os.path.basename(f)[:-5]
     dead = src in DEAD
     for e in json.load(open(f, encoding="utf-8")):
+        if HIDDEN & {e.get("page"), e.get("download")}:
+            continue
         def ts(k):
             s = state.get(e.get(k) or "") or {}
             if s.get("ts"):

@@ -50,6 +50,10 @@
   .links a { color:var(--accent); text-decoration:none; padding:3px 8px; border:1px solid var(--border); border-radius:6px; }
   .links a:hover { border-color:var(--accent); }
   .links a.live { color:var(--muted); }
+  .links a.report { margin-left:auto; color:var(--muted); border:0; padding:3px 0; }
+  #warn { max-width:1700px; margin:10px auto 0; padding:0 20px; }
+  #warn div { display:flex; gap:12px; align-items:center; background:#2a2414; border:1px solid #5a4a1c; color:#f0dca0; border-radius:8px; padding:8px 14px; font-size:13px; }
+  #warn button { margin-left:auto; background:none; border:1px solid #5a4a1c; color:inherit; border-radius:6px; padding:2px 10px; cursor:pointer; font:inherit; }
   #more { height:1px; }
   #empty { display:none; text-align:center; color:var(--muted); padding:60px 0; }
 </style>
@@ -63,6 +67,7 @@
   <span id="count"></span>
   <a id="req" href="https://github.com/melo-foundation/customization-museum/issues/new/choose" target="_blank" rel="noopener">Request</a>
 </header>
+<div id="warn" hidden><div>Files are archived automatically and not checked. They may contain malware: scan anything you download.<button id="warnok">OK</button></div></div>
 <div class="bar" id="apps"></div>
 <div class="bar" id="types"></div>
 <div class="bar" id="tags"></div>
@@ -135,6 +140,8 @@ async function about() {
   if (site) $('unsite').onclick = () => { site = ''; render(); };
 }
 
+const report = e => `https://github.com/${REPO}/issues/new?template=report.yml&title=${encodeURIComponent('Report: ' + e.t)}&item=${encodeURIComponent(e.t + ' (' + e.a + ')')}&link=${encodeURIComponent(e.l || e.p || '')}`;
+
 function card(e) {
   const img = e.v ? (e.tv ? wb(e.tv, e.v, 'im_') : e.v) : '';
   const page = e.p ? `<a href="${esc(e.tp ? wb(e.tp, e.p) : e.p)}" target="_blank" rel="noopener"${e.tp ? '' : ' class="live"'}>Page</a>` : '';
@@ -142,7 +149,7 @@ function card(e) {
   return `<div class="card"><div class="thumb">${img ? `<img src="${esc(img)}" loading="lazy" data-alt="${esc(e.tv ? e.v : wb('2', e.v, 'im_'))}" onerror="if(!this.dataset.f){this.dataset.f=1;this.src=this.dataset.alt}else{this.remove()}">` : ''}</div>
     <div class="body"><div class="title">${esc(e.t)}</div><div class="meta">${esc(e.a)}${e.d ? ' · ' + e.d : ''} · <button data-s="${esc(e.s)}">${esc(SITE[e.s])}</button></div>
     <div class="tags">${e.g.map(t => `<button class="chip" data-t="${esc(t)}">${esc(t)}</button>`).join('')}</div>
-    <div class="links">${page}${file}</div></div></div>`;
+    <div class="links">${page}${file}<a class="report" href="${esc(report(e))}" target="_blank" rel="noopener">Report</a></div></div></div>`;
 }
 
 function more() {
@@ -191,6 +198,8 @@ $('grid').addEventListener('click', e => {
 ['q', 'sort', 'arch'].forEach(id => $(id).addEventListener('input', render));
 addEventListener('hashchange', () => { fromHash(); render(); });
 new IntersectionObserver(es => es[0].isIntersecting && more(), { rootMargin: '600px' }).observe($('more'));
+if (!localStorage.getItem('warned')) $('warn').hidden = false;
+$('warnok').onclick = () => { localStorage.setItem('warned', '1'); $('warn').hidden = true; };
 Promise.all([fetch('entries.json').then(r => r.json()), fetch('pages.json').then(r => r.ok ? r.json() : []).catch(() => [])]).then(([d, p]) => {
   DATA = d; PAGES = new Set(p);
   for (const e of d) if (!(e.s in SITE)) { try { SITE[e.s] = new URL(e.p || e.l).hostname.replace(/^www\./, ''); } catch { SITE[e.s] = e.s; } }

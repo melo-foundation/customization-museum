@@ -1,0 +1,33 @@
+name: Report an item
+description: Malware, broken or wrong link, inappropriate content
+title: "Report: "
+labels: [report]
+body:
+  - type: input
+    id: item
+    attributes:
+      label: Item
+    validations:
+      required: true
+  - type: input
+    id: link
+    attributes:
+      label: Link
+    validations:
+      required: true
+  - type: dropdown
+    id: reason
+    attributes:
+      label: Reason
+      options:
+        - Malware or virus
+        - Broken link
+        - Wrong information
+        - Inappropriate content
+        - Other
+    validations:
+      required: true
+  - type: textarea
+    id: details
+    attributes:
+      label: Details
