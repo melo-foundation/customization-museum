@@ -33,3 +33,38 @@ jobs:
           GH_REPO: ${{ github.repository }}
           N: ${{ github.event.issue.number }}
           ALL_OK: ${{ steps.save.outputs.all_ok }}
+
+  alias:
+    if: github.event.label.name == 'approved' && contains(github.event.issue.labels.*.name, 'alias-request')
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      issues: write
+    steps:
+      - uses: actions/checkout@v4
+      - id: apply
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          for attempt in 1 2 3 4 5; do
+            git fetch -q origin main && git reset -q --hard origin/main
+            python3 alias.py
+            grep -q "ok=true" "$GITHUB_OUTPUT" || exit 0
+            python3 build.py
+            git add aliases.json entries.json
+            git diff --cached --quiet && exit 0
+            git commit -q -m "Tag alias #$N" && git push -q origin HEAD:main && exit 0
+            sleep $((attempt * 10))
+          done
+          exit 1
+        env:
+          ISSUE_BODY: ${{ github.event.issue.body }}
+          N: ${{ github.event.issue.number }}
+      - run: |
+          gh issue comment "$N" --body-file result.md
+          if [ "$OK" = true ]; then gh issue close "$N" --reason completed; fi
+        env:
+          GH_TOKEN: ${{ github.token }}
+          GH_REPO: ${{ github.repository }}
+          N: ${{ github.event.issue.number }}
+          OK: ${{ steps.apply.outputs.ok }}

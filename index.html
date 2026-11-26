@@ -19,6 +19,8 @@
   button.chip { background:var(--chip); color:#b7c3d6; border:0; border-radius:6px; padding:5px 10px; font:12px inherit; cursor:pointer; }
   button.chip:hover { color:var(--text); }
   button.chip.on { background:var(--accent); color:#0c1420; font-weight:600; }
+  #types button.chip { background:#2c3140; color:var(--text); font-size:13px; }
+  #types button.chip.on { background:var(--accent); color:#0c1420; }
   button.chip i { font-style:normal; opacity:.6; margin-left:4px; }
   main { padding:16px 20px 40px; max-width:1700px; margin:0 auto; }
   .grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(200px,1fr)); gap:14px; }
@@ -48,13 +50,14 @@
   <a id="req" href="https://github.com/melo-foundation/customization-museum/issues/new/choose" target="_blank" rel="noopener">Request</a>
 </header>
 <div class="bar" id="apps"></div>
+<div class="bar" id="types"></div>
 <div class="bar" id="tags"></div>
 <main><div class="grid" id="grid"></div><div id="empty">No results</div><div id="more"></div></main>
 <script>
 const $ = id => document.getElementById(id);
 const wb = (f, url, mode='') => { const [ts, u] = f.split('|'); return `https://web.archive.org/web/${ts}${mode}/${u || url}`; };
 const esc = s => String(s).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
-let DATA = [], view = [], shown = 0, app = '', tag = '';
+let DATA = [], view = [], shown = 0, app = '', typ = '', tag = '';
 const PAGE = 120;
 
 const chips = (el, list, cur, fn) => {
@@ -67,7 +70,7 @@ function card(e) {
   const img = e.v ? (e.tv ? wb(e.tv, e.v, 'im_') : e.v) : '';
   const page = e.p ? `<a href="${esc(e.tp ? wb(e.tp, e.p) : e.p)}" target="_blank" rel="noopener"${e.tp ? '' : ' class="live"'}>Page</a>` : '';
   const file = e.l ? `<a href="${esc(e.tl ? wb(e.tl, e.l, 'id_') : e.l)}" target="_blank" rel="noopener"${e.tl ? '' : ' class="live"'}>File</a>` : '';
-  return `<div class="card"><div class="thumb">${img ? `<img src="${esc(img)}" loading="lazy" onerror="if(!this.dataset.f){this.dataset.f=1;this.src='${esc(e.v || '')}'}else{this.remove()}">` : ''}</div>
+  return `<div class="card"><div class="thumb">${img ? `<img src="${esc(img)}" loading="lazy" data-alt="${esc(e.tv ? e.v : wb('2', e.v, 'im_'))}" onerror="if(!this.dataset.f){this.dataset.f=1;this.src=this.dataset.alt}else{this.remove()}">` : ''}</div>
     <div class="body"><div class="title">${esc(e.t)}</div><div class="meta">${esc(e.a)}${e.d ? ' · ' + e.d : ''}</div>
     <div class="tags">${e.g.map(t => `<button class="chip" data-t="${esc(t)}">${esc(t)}</button>`).join('')}</div>
     <div class="links">${page}${file}</div></div></div>`;
@@ -81,11 +84,13 @@ function more() {
 
 function render() {
   const q = $('q').value.trim().toLowerCase(), sort = $('sort').value, arch = $('arch').value;
-  let base = DATA.filter(e => (!q || e.t.toLowerCase().includes(q) || e.g.some(t => t.toLowerCase().includes(q))) && (arch === '' || (arch === '1') === !!(e.tp || e.tl)));
-  chips($('apps'), [['', base.length], ...tally(base.map(e => e.a))].map(([k, n]) => [k || 'All', n]), app || 'All', k => { app = k === 'All' ? '' : k; tag = ''; render(); });
+  let base = DATA.filter(e => (!q || e.t.toLowerCase().includes(q) || e.g.some(t => t.toLowerCase().includes(q)) || e.y.some(t => t.toLowerCase().includes(q))) && (arch === '' || (arch === '1') === !!(e.tp || e.tl)));
+  chips($('apps'), [['', base.length], ...tally(base.map(e => e.a))].map(([k, n]) => [k || 'All', n]), app || 'All', k => { app = k === 'All' ? '' : k; typ = ''; tag = ''; render(); });
   const inApp = base.filter(e => !app || e.a === app);
-  chips($('tags'), tally(inApp.flatMap(e => e.g)).slice(0, 40), tag, k => { tag = tag === k ? '' : k; render(); });
-  view = inApp.filter(e => !tag || e.g.includes(tag));
+  chips($('types'), tally(inApp.flatMap(e => e.y)), typ, k => { typ = typ === k ? '' : k; tag = ''; render(); });
+  const inType = inApp.filter(e => !typ || e.y.includes(typ));
+  chips($('tags'), tally(inType.flatMap(e => e.g)).slice(0, 40), tag, k => { tag = tag === k ? '' : k; render(); });
+  view = inType.filter(e => !tag || e.g.includes(tag));
   view.sort(sort === 'az' ? (a, b) => a.t.localeCompare(b.t) : sort === 'old' ? (a, b) => (a.d || '9').localeCompare(b.d || '9') : (a, b) => b.d.localeCompare(a.d));
   $('count').textContent = view.length + ' / ' + DATA.length;
   $('empty').style.display = view.length ? 'none' : 'block';

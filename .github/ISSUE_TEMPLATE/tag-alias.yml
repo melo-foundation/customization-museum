@@ -1,0 +1,28 @@
+name: Tag alias
+description: Rename, retype or hide a tag
+title: "Alias: "
+labels: [alias-request]
+body:
+  - type: input
+    id: tag
+    attributes:
+      label: Tag
+      placeholder: Varios
+    validations:
+      required: true
+  - type: dropdown
+    id: action
+    attributes:
+      label: Action
+      options:
+        - Rename
+        - Set type
+        - Hide
+    validations:
+      required: true
+  - type: input
+    id: target
+    attributes:
+      label: Target
+      description: New name, or type (Skins & Themes, Emoticons, Icons, Display Pictures, Sounds, Backgrounds, Message Styles, Splash Screens, Visualizations, Scripts & Plugins)
+      placeholder: Misc
