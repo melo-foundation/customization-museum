@@ -1,0 +1,39 @@
+name: fetch
+
+on:
+  workflow_dispatch:
+    inputs:
+      urls:
+        description: URLs separated by spaces or newlines (max 300)
+        required: true
+      tag:
+        description: Name for the artifact
+        default: pages
+
+permissions:
+  contents: read
+
+jobs:
+  fetch:
+    runs-on: ubuntu-latest
+    timeout-minutes: 120
+    steps:
+      - run: |
+          mkdir out
+          printf '%s\n' $URLS | grep -E '^https?://[^[:space:]]+$' | head -300 > out/urls.txt
+          n=0
+          while read -r u; do
+            n=$((n + 1))
+            f=$(printf '%s' "$u" | sha1sum | cut -c1-16)
+            code=$(curl -sL -m 90 -A "customization-museum/0.1 (+https://github.com/melo-foundation/customization-museum)" -o "out/$f" -w '%{http_code}' "$u" || echo 000)
+            printf '%s\t%s\t%s\n' "$f" "$code" "$u" >> out/index.tsv
+            sleep 1
+          done < out/urls.txt
+          echo "fetched $n"
+        env:
+          URLS: ${{ inputs.urls }}
+      - uses: actions/upload-artifact@v4
+        with:
+          name: ${{ inputs.tag }}
+          path: out
+          retention-days: 7
