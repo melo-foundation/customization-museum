@@ -109,5 +109,10 @@
   "MTS 1.1",
   "MTS 1.2",
   "MTS 1.3"
- ]
+ ],
+ "app_tags": {
+  "Windows Desktop Themes": [
+   "Windows 9x Classic"
+  ]
+ }
 }

@@ -8,6 +8,7 @@ A = json.load(open("aliases.json", encoding="utf-8"))
 TYPE_OF = {t.lower(): ty for ty, tags in A["types"].items() for t in tags}
 ALIAS = {k.lower(): v for k, v in A["aliases"].items()}
 DROP = {t.lower() for t in A["drop"]}
+APP_TAGS = A.get("app_tags", {})
 
 
 def classify(app, tags):
@@ -26,7 +27,7 @@ def classify(app, tags):
         else:
             subjects.append(tag)
     types = list(dict.fromkeys(types)) or [A["default_type"].get(app, "Other")]
-    return types, list(dict.fromkeys(subjects))
+    return types, list(dict.fromkeys(APP_TAGS.get(app, []) + subjects))
 
 
 out = []
@@ -49,7 +50,7 @@ for f in sorted(glob.glob("data/*.json")):
 
 if __name__ == "__main__":
     assert classify("x", ["Smileys", "varios", "Customise", "anime"]) == (["Emoticons"], ["Misc", "Anime"])
-    assert classify("Windows Desktop Themes", ["music"]) == (["Skins & Themes"], ["Music"])
+    assert classify("Windows Desktop Themes", ["music"]) == (["Skins & Themes"], ["Windows 9x Classic", "Music"])
     assert classify("x", []) == (["Other"], [])
     json.dump(out, open("entries.json", "w", encoding="utf-8"), separators=(",", ":"), ensure_ascii=False)
     print(len(out), "entries,", os.path.getsize("entries.json") // 1024, "KB")
