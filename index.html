@@ -69,10 +69,12 @@
 <main><div class="grid" id="grid"></div><div id="empty">No results</div><div id="more"></div></main>
 <script>
 const REPO = 'melo-foundation/customization-museum';
+const ROOT = new URL('.', document.baseURI).href;
 const $ = id => document.getElementById(id);
 const wb = (f, url, mode='') => { const [ts, u] = f.split('|'); return `https://web.archive.org/web/${ts}${mode}/${u || url}`; };
 const esc = s => String(s).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 const real = f => !!f && /^\d{14}/.test(f);
+const saved = e => real(e.tp) || real(e.tl) || /^https?:\/\/(\w+\.)?archive\.org\//.test(e.l || '');
 const slug = s => s.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');
 let DATA = [], PAGES = new Set(), SITE = {}, view = [], shown = 0, site = '', app = '', typ = '', tag = '';
 const PAGE = 120, mdCache = {};
@@ -105,7 +107,7 @@ function md(src) {
 
 function summary(items) {
   const dates = items.map(e => e.d).filter(Boolean).sort();
-  const archived = items.filter(e => real(e.tp) || real(e.tl)).length;
+  const archived = items.filter(saved).length;
   const list = arr => tally(arr).slice(0, 12).map(([k, n]) => `${k} (${n})`).join(', ');
   return { dates: dates.length ? `${dates[0].slice(0, 4)} to ${dates[dates.length - 1].slice(0, 4)}` : '', archived, list };
 }
@@ -113,10 +115,10 @@ function summary(items) {
 function autoPage() {
   if (site) {
     const items = DATA.filter(e => e.s === site), s = summary(items), name = SITE[site];
-    return `# ${name}\n\n${items.length} items${s.dates ? `, ${s.dates}` : ''}.\n\n- Programs: ${s.list(items.map(e => e.a))}\n- Types: ${s.list(items.flatMap(e => e.y))}\n- Archived on the Wayback Machine: ${s.archived} of ${items.length}\n- Site: https://${name}\n`;
+    return `# ${name}\n\n${items.length} items${s.dates ? `, ${s.dates}` : ''}.\n\n- Programs: ${s.list(items.map(e => e.a))}\n- Types: ${s.list(items.flatMap(e => e.y))}\n- Archived: ${s.archived} of ${items.length}\n- Site: https://${name}\n`;
   }
   const items = DATA.filter(e => e.y.includes(typ)), s = summary(items);
-  return `# ${typ}\n\n${items.length} items${s.dates ? `, ${s.dates}` : ''}.\n\n- Programs: ${s.list(items.map(e => e.a))}\n- Sites: ${s.list(items.map(e => SITE[e.s]))}\n- Archived on the Wayback Machine: ${s.archived} of ${items.length}\n`;
+  return `# ${typ}\n\n${items.length} items${s.dates ? `, ${s.dates}` : ''}.\n\n- Programs: ${s.list(items.map(e => e.a))}\n- Sites: ${s.list(items.map(e => SITE[e.s]))}\n- Archived: ${s.archived} of ${items.length}\n`;
 }
 
 let aboutToken = 0;
@@ -150,7 +152,7 @@ function more() {
 
 function render() {
   const q = $('q').value.trim().toLowerCase(), sort = $('sort').value, arch = $('arch').value;
-  let base = DATA.filter(e => (!site || e.s === site) && (!q || e.t.toLowerCase().includes(q) || e.g.some(t => t.toLowerCase().includes(q)) || e.y.some(t => t.toLowerCase().includes(q))) && (arch === '' || (arch === '1') === (real(e.tp) || real(e.tl))));
+  let base = DATA.filter(e => (!site || e.s === site) && (!q || e.t.toLowerCase().includes(q) || e.g.some(t => t.toLowerCase().includes(q)) || e.y.some(t => t.toLowerCase().includes(q))) && (arch === '' || (arch === '1') === saved(e)));
   chips($('apps'), [['', base.length], ...tally(base.map(e => e.a))].map(([k, n]) => [k || 'All', n]), app || 'All', k => { app = k === 'All' ? '' : k; typ = ''; tag = ''; render(); });
   const inApp = base.filter(e => !app || e.a === app);
   chips($('types'), tally(inApp.flatMap(e => e.y)), typ, k => { typ = typ === k ? '' : k; tag = ''; render(); });
@@ -161,14 +163,23 @@ function render() {
   $('count').textContent = view.length + ' / ' + DATA.length;
   $('empty').style.display = view.length ? 'none' : 'block';
   $('grid').innerHTML = ''; shown = 0; more();
-  const h = new URLSearchParams(Object.entries({ site, app, type: typ, tag }).filter(([, v]) => v)).toString();
-  history.replaceState(null, '', h ? '#' + h : location.pathname);
+  const only = Object.entries({ site, app, type: typ, tag }).filter(([, v]) => v);
+  const path = only.length === 1 && only[0][0] !== 'tag' ? `${only[0][0]}/${only[0][0] === 'site' ? only[0][1] : slug(only[0][1])}/` : '';
+  const hash = path ? '' : new URLSearchParams(only).toString();
+  history.replaceState(null, '', ROOT + path + (hash ? '#' + hash : ''));
   about();
 }
 
 function fromHash() {
   const p = new URLSearchParams(location.hash.slice(1));
   site = p.get('site') || ''; app = p.get('app') || ''; typ = p.get('type') || ''; tag = p.get('tag') || '';
+  const m = location.href.slice(ROOT.length).split('#')[0].match(/^(site|app|type)\/([^/]+)\/?$/);
+  if (m) {
+    const [, k, v] = m, find = list => list.find(x => slug(x) === v) || '';
+    if (k === 'site') site = v;
+    if (k === 'app') app = find([...new Set(DATA.map(e => e.a))]);
+    if (k === 'type') typ = find([...new Set(DATA.flatMap(e => e.y))]);
+  }
 }
 
 $('grid').addEventListener('click', e => {

@@ -1,4 +1,4 @@
-import glob, json, os
+import glob, json, os, re, shutil
 from lib import load
 
 state = load("archive_state.json")
@@ -30,6 +30,21 @@ def classify(app, tags):
     return types, list(dict.fromkeys(APP_TAGS.get(app, []) + subjects))
 
 
+def slug(s):
+    return re.sub(r"[^a-z0-9]+", "-", s.lower()).strip("-")
+
+
+def write_section_pages(entries):
+    """site/<src>/, app/<slug>/, type/<slug>/: copies of index.html one level down so each section has a real URL."""
+    page = open("index.html", encoding="utf-8").read().replace("<head>", '<head>\n<base href="../../">', 1)
+    for kind in ("site", "app", "type"):
+        shutil.rmtree(kind, ignore_errors=True)
+    keys = {("site", e["s"]) for e in entries} | {("app", slug(e["a"])) for e in entries} | {("type", slug(t)) for e in entries for t in e["y"]}
+    for kind, key in keys:
+        os.makedirs(f"{kind}/{key}", exist_ok=True)
+        open(f"{kind}/{key}/index.html", "w", encoding="utf-8").write(page)
+
+
 out = []
 for f in sorted(glob.glob("data/*.json")):
     if f.endswith("archive_state.json"):
@@ -55,5 +70,6 @@ if __name__ == "__main__":
     assert classify("x", []) == (["Other"], [])
     json.dump(out, open("entries.json", "w", encoding="utf-8"), separators=(",", ":"), ensure_ascii=False)
     pages = sorted(os.path.basename(p)[:-3] for p in glob.glob("pages/*.md"))
+    write_section_pages(out)
     json.dump(pages, open("pages.json", "w", encoding="utf-8"))
     print(len(out), "entries,", os.path.getsize("entries.json") // 1024, "KB")
