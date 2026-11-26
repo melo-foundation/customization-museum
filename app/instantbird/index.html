@@ -176,7 +176,8 @@ function media(e) {
 
 async function showItem(id) {
   const e = DATA.find(d => d.i === id);
-  ['apps', 'types', 'tags', 'about', 'q', 'sort', 'arch', 'count'].forEach(k => $(k).hidden = true);
+  ['apps', 'types', 'tags', 'about', 'sort', 'arch', 'count'].forEach(k => $(k).hidden = true);
+  $('q').onkeydown = ev => { if (ev.key === 'Enter') location.href = ROOT + '#q=' + encodeURIComponent($('q').value.trim()); };
   document.querySelector('main').hidden = true;
   const v = $('itemview'); v.hidden = false;
   if (!e) { v.innerHTML = `<p>Item not found. <a href="${ROOT}">Back to the museum</a></p>`; return; }
@@ -240,8 +241,8 @@ function render() {
   $('count').textContent = view.length + ' / ' + DATA.length;
   $('empty').style.display = view.length ? 'none' : 'block';
   $('grid').innerHTML = ''; shown = 0; more();
-  const only = Object.entries({ site, app, type: typ, tag }).filter(([, v]) => v);
-  const path = only.length === 1 && only[0][0] !== 'tag' ? `${only[0][0]}/${only[0][0] === 'site' ? only[0][1] : slug(only[0][1])}/` : '';
+  const only = Object.entries({ site, app, type: typ, tag, q: $('q').value.trim() }).filter(([, v]) => v);
+  const path = only.length === 1 && !['tag', 'q'].includes(only[0][0]) ? `${only[0][0]}/${only[0][0] === 'site' ? only[0][1] : slug(only[0][1])}/` : '';
   const hash = path ? '' : new URLSearchParams(only).toString();
   history.replaceState(null, '', ROOT + path + (hash ? '#' + hash : ''));
   about();
@@ -249,7 +250,7 @@ function render() {
 
 function fromHash() {
   const p = new URLSearchParams(location.hash.slice(1));
-  site = p.get('site') || ''; app = p.get('app') || ''; typ = p.get('type') || ''; tag = p.get('tag') || '';
+  site = p.get('site') || ''; app = p.get('app') || ''; typ = p.get('type') || ''; tag = p.get('tag') || ''; $('q').value = p.get('q') || '';
   const m = location.href.slice(ROOT.length).split('#')[0].match(/^(site|app|type)\/([^/]+)\/?$/);
   if (m) {
     const [, k, v] = m, find = list => list.find(x => slug(x) === v) || '';
