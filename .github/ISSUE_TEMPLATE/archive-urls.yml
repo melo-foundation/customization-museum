@@ -1,0 +1,22 @@
+name: Archive URLs
+description: Save pages or files to the Wayback Machine
+title: "Archive: "
+labels: [archive-request]
+body:
+  - type: input
+    id: program
+    attributes:
+      label: Program
+      placeholder: Trillian
+    validations:
+      required: true
+  - type: textarea
+    id: urls
+    attributes:
+      label: URLs
+      description: One per line, max 50
+      placeholder: |
+        https://example.com/skins/123
+        https://example.com/files/skin.zip
+    validations:
+      required: true

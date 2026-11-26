@@ -1,0 +1,24 @@
+name: Add a program or site
+description: Index a whole skin/theme/add-on catalogue
+title: "Index: "
+labels: [index-request]
+body:
+  - type: input
+    id: program
+    attributes:
+      label: Program
+      placeholder: Trillian
+    validations:
+      required: true
+  - type: textarea
+    id: sites
+    attributes:
+      label: Sites
+      description: Live or dead, one per line
+      placeholder: https://www.ceruleanstudios.com/skins.php
+    validations:
+      required: true
+  - type: textarea
+    id: notes
+    attributes:
+      label: Notes

@@ -13,6 +13,7 @@
   input, select { background:var(--panel); border:1px solid var(--border); color:var(--text); padding:8px 12px; border-radius:8px; font:inherit; }
   input { flex:1 1 220px; min-width:160px; }
   input:focus, select:focus { outline:none; border-color:var(--accent); }
+  #req { color:var(--accent); text-decoration:none; font-size:13px; }
   #count { color:var(--muted); font-size:13px; white-space:nowrap; }
   .bar { display:flex; flex-wrap:wrap; gap:6px; padding:10px 20px 0; max-width:1700px; margin:0 auto; }
   button.chip { background:var(--chip); color:#b7c3d6; border:0; border-radius:6px; padding:5px 10px; font:12px inherit; cursor:pointer; }
@@ -44,6 +45,7 @@
   <select id="sort"><option value="new">Newest</option><option value="old">Oldest</option><option value="az">A&ndash;Z</option></select>
   <select id="arch"><option value="">All</option><option value="1">Archived</option><option value="0">Not archived</option></select>
   <span id="count"></span>
+  <a id="req" href="https://github.com/melo-foundation/customization-museum/issues/new/choose" target="_blank" rel="noopener">Request</a>
 </header>
 <div class="bar" id="apps"></div>
 <div class="bar" id="tags"></div>

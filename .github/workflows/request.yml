@@ -1,0 +1,35 @@
+name: request
+
+on:
+  issues:
+    types: [labeled]
+
+concurrency:
+  group: archive-request-${{ github.event.issue.number }}
+
+permissions:
+  contents: read
+  issues: write
+
+jobs:
+  save:
+    if: github.event.label.name == 'approved' && contains(github.event.issue.labels.*.name, 'archive-request')
+    runs-on: ubuntu-latest
+    timeout-minutes: 120
+    steps:
+      - uses: actions/checkout@v4
+      - run: printf '%s' "$KEYS" > .archive-keys
+        env:
+          KEYS: ${{ secrets.ARCHIVE_KEYS }}
+      - id: save
+        run: python3 request.py
+        env:
+          ISSUE_BODY: ${{ github.event.issue.body }}
+      - run: |
+          gh issue comment "$N" --body-file result.md
+          if [ "$ALL_OK" = true ]; then gh issue close "$N" --reason completed; fi
+        env:
+          GH_TOKEN: ${{ github.token }}
+          GH_REPO: ${{ github.repository }}
+          N: ${{ github.event.issue.number }}
+          ALL_OK: ${{ steps.save.outputs.all_ok }}
