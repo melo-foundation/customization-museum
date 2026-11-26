@@ -49,13 +49,14 @@ def view_page(text):
 
 def scrape():
     rows = cdx("msgpluslive.net/skins/*", "&limit=200000")
-    views, listings, uploads = {}, [], {}
+    views, listings, uploads, seen_listing = {}, [], {}, set()
     for ts, orig in rows:
         u = urllib.parse.urlsplit(orig)
         p = u.path + ("?" + u.query if u.query else "")
         if (m := VIEW.search(u.path)):
             views.setdefault(int(m.group(1)), (ts, orig, m.group(2)))
-        elif LISTING.search(p):
+        elif LISTING.search(p) and u.path not in seen_listing:
+            seen_listing.add(u.path)
             listings.append((ts, orig))
         elif u.path.startswith("/skins/uploads/"):
             uploads[u.path[len("/skins/uploads/"):]] = ts
