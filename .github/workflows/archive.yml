@@ -18,6 +18,7 @@ concurrency:
 
 permissions:
   contents: write
+  actions: write
 
 jobs:
   save:
@@ -46,3 +47,12 @@ jobs:
             sleep $((attempt * 10))
           done
           exit 1
+      # keep going until nothing is left to save; cron alone proved unreliable
+      - if: success()
+        run: |
+          left=$(python3 -c "import json,glob;s=json.load(open('data/archive_state.json'));print(sum(1 for v in s.values() if not v.get('ts') and v.get('fails',0)<3))")
+          echo "$left urls still missing"
+          if [ "$left" -gt 0 ]; then gh workflow run archive.yml -f limit="${{ inputs.limit || '400' }}" -f workers="${{ inputs.workers || '2' }}"; fi
+        env:
+          GH_TOKEN: ${{ github.token }}
+          GH_REPO: ${{ github.repository }}
