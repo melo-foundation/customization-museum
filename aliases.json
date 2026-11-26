@@ -52,6 +52,12 @@
    "Scripts",
    "Plugin Extensions",
    "Tools"
+  ],
+  "Winks": [
+   "Winks"
+  ],
+  "Cursors": [
+   "Cursors"
   ]
  },
  "default_type": {
