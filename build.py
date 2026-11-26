@@ -35,6 +35,28 @@ def slug(s):
     return re.sub(r"[^a-z0-9]+", "-", s.lower()).strip("-")
 
 
+def front_matter(text):
+    """({key: value}, body) from a '---' header of 'key: value' lines."""
+    if not text.startswith("---"):
+        return {}, text
+    head, _, body = text[3:].partition("\n---")
+    meta = {}
+    for line in head.strip().splitlines():
+        k, sep, v = line.partition(":")
+        if sep and v.strip():
+            meta[k.strip().lower()] = v.strip()
+    return meta, body.lstrip("\n")
+
+
+def item_overrides():
+    """items/<id>.md: community edits. Front matter overrides title/date/type/tags."""
+    out = {}
+    for p in glob.glob("items/*.md"):
+        meta, _ = front_matter(open(p, encoding="utf-8").read())
+        out[os.path.basename(p)[:-3]] = meta
+    return out
+
+
 def write_section_pages(entries):
     """site/<src>/, app/<slug>/, type/<slug>/: copies of index.html one level down so each section has a real URL."""
     page = open("index.html", encoding="utf-8").read().replace("<head>", '<head>\n<base href="../../">', 1)
@@ -44,8 +66,12 @@ def write_section_pages(entries):
     for kind, key in keys:
         os.makedirs(f"{kind}/{key}", exist_ok=True)
         open(f"{kind}/{key}/index.html", "w", encoding="utf-8").write(page)
+    os.makedirs("item", exist_ok=True)
+    open("item/index.html", "w", encoding="utf-8").write(page.replace('<base href="../../">', '<base href="../">'))
 
 
+OVERRIDES = item_overrides()
+split = lambda v: [x.strip() for x in v.split(",") if x.strip()]
 out = []
 for f in sorted(glob.glob("data/*.json")):
     if f.endswith("archive_state.json"):
@@ -61,16 +87,24 @@ for f in sorted(glob.glob("data/*.json")):
                 return s["ts"] + ("|" + s["u"] if s.get("u") else "")
             return "2" if dead and e.get(k) else None
         y, g = classify(e["app"], e.get("tags") or [])
-        out.append(dict(
-            s=src, a=e["app"], t=e["title"], d=e.get("date") or "", y=y, g=g,
+        o = OVERRIDES.get(e["id"], {})
+        row = dict(
+            i=e["id"], s=src, a=e["app"], t=o.get("title", e["title"]), d=o.get("date", e.get("date") or ""),
+            y=split(o["type"]) if "type" in o else y, g=split(o["tags"]) if "tags" in o else g,
             p=e.get("page"), v=e.get("preview"), l=e.get("download"),
             tp=ts("page"), tv=ts("preview"), tl=ts("download"),
-        ))
+        )
+        if e.get("extra"):
+            row["x"] = e["extra"]
+        if e["id"] in OVERRIDES:
+            row["m"] = 1
+        out.append(row)
 
 if __name__ == "__main__":
     assert classify("x", ["Smileys", "varios", "Customise", "anime"]) == (["Emoticons"], ["Misc", "Anime"])
     assert classify("Windows Desktop Themes", ["music"]) == (["Skins & Themes"], ["Windows 9x Classic", "Music"])
     assert classify("x", []) == (["Other"], [])
+    assert front_matter("---\ntitle: A: B\ntags: x, y\n---\nbody") == ({"title": "A: B", "tags": "x, y"}, "body")
     json.dump(out, open("entries.json", "w", encoding="utf-8"), separators=(",", ":"), ensure_ascii=False)
     pages = sorted(os.path.basename(p)[:-3] for p in glob.glob("pages/*.md"))
     write_section_pages(out)

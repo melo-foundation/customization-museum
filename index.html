@@ -53,6 +53,24 @@
   #warn { max-width:1700px; margin:10px auto 0; padding:0 20px; }
   #warn div { display:flex; gap:12px; align-items:center; background:#2a2414; border:1px solid #5a4a1c; color:#f0dca0; border-radius:8px; padding:8px 14px; font-size:13px; }
   #warn button { margin-left:auto; background:none; border:1px solid #5a4a1c; color:inherit; border-radius:6px; padding:2px 10px; cursor:pointer; font:inherit; }
+  #itemview { max-width:1150px; margin:20px auto 40px; padding:0 20px; }
+  #itemview .wrap { display:grid; grid-template-columns:minmax(0,1.25fr) minmax(0,1fr); gap:24px; align-items:start; }
+  #itemview .big { background:#0c0d10; border:1px solid var(--border); border-radius:10px; min-height:280px; display:flex; align-items:center; justify-content:center; padding:12px; color:var(--muted); }
+  #itemview .big img, #itemview .big video { max-width:100%; max-height:70vh; }
+  #itemview audio { width:100%; margin-top:10px; }
+  #itemview h2 { margin:0 0 4px; font-size:22px; line-height:1.3; word-break:break-word; }
+  #itemview dl { display:grid; grid-template-columns:max-content 1fr; gap:6px 16px; margin:14px 0; font-size:13px; }
+  #itemview dt { color:var(--muted); }
+  #itemview dd { margin:0; word-break:break-word; }
+  #itemview a { color:var(--accent); }
+  #itemview .acts { display:flex; flex-wrap:wrap; gap:8px; margin:14px 0; }
+  #itemview .acts a { text-decoration:none; padding:6px 12px; border:1px solid var(--border); border-radius:8px; font-size:13px; }
+  #itemview .acts a.primary { background:var(--accent); color:#0c1420; border-color:var(--accent); font-weight:600; }
+  #itemview .acts a.dim { color:var(--muted); }
+  #itemview .desc { margin-top:18px; line-height:1.6; }
+  @media (max-width:800px) { #itemview .wrap { grid-template-columns:1fr; } }
+  .card .title a, .card .thumb a { color:inherit; text-decoration:none; }
+  .card .thumb a { position:absolute; inset:0; }
   #more { height:1px; }
   #empty { display:none; text-align:center; color:var(--muted); padding:60px 0; }
 </style>
@@ -71,6 +89,7 @@
 <div class="bar" id="types"></div>
 <div class="bar" id="tags"></div>
 <div id="about"></div>
+<div id="itemview" hidden></div>
 <main><div class="grid" id="grid"></div><div id="empty">No results</div><div id="more"></div></main>
 <script>
 const REPO = 'melo-foundation/customization-museum';
@@ -139,14 +158,64 @@ async function about() {
   if (site) $('unsite').onclick = () => { site = ''; render(); };
 }
 
+const itemUrl = e => `${ROOT}item/?id=${encodeURIComponent(e.i)}`;
+const fmtTs = f => real(f) ? `${f.slice(0, 4)}-${f.slice(4, 6)}-${f.slice(6, 8)}` : '';
+const ext = u => ((u || '').split(/[?#]/)[0].match(/\.([a-z0-9]+)$/i) || [])[1]?.toLowerCase() || '';
+const AUDIO = ['mp3', 'wav', 'ogg', 'mid', 'midi', 'wma'], VIDEO = ['mp4', 'webm'];
+
+// Per-type layout: what goes in the big media box. Sites add their own rows via the scraped "extra" fields.
+function media(e) {
+  const file = e.l ? (real(e.tl) ? wb(e.tl, e.l, 'id_') : e.l) : '', x = ext(e.l);
+  const img = e.v ? (e.tv ? wb(e.tv, e.v, 'im_') : e.v) : '';
+  const pic = img ? `<img src="${esc(img)}" data-alt="${esc(e.tv ? e.v : wb('2', e.v, 'im_'))}" onerror="if(!this.dataset.f){this.dataset.f=1;this.src=this.dataset.alt}else{this.replaceWith('No preview')}" onload="if(this.naturalWidth&&this.naturalWidth<160){this.style.width=Math.min(this.naturalWidth*3,480)+'px';this.style.imageRendering='pixelated'}">` : 'No preview';
+  if (VIDEO.includes(x)) return `<video src="${esc(file)}" controls loop ${img ? `poster="${esc(img)}"` : ''}></video>`;
+  if (AUDIO.includes(x)) return `<div style="width:100%;text-align:center">${pic}<audio src="${esc(file)}" controls></audio></div>`;
+  return pic;
+}
+
+async function showItem(id) {
+  const e = DATA.find(d => d.i === id);
+  ['apps', 'types', 'tags', 'about', 'q', 'sort', 'arch', 'count'].forEach(k => $(k).hidden = true);
+  document.querySelector('main').hidden = true;
+  const v = $('itemview'); v.hidden = false;
+  if (!e) { v.innerHTML = `<p>Item not found. <a href="${ROOT}">Back to the museum</a></p>`; return; }
+  document.title = `${e.t} · Customization Museum`;
+  const key = encodeURIComponent(e.i);
+  const template = `---\ntitle: ${e.t}\ndate: ${e.d}\ntype: ${e.y.join(', ')}\ntags: ${e.g.join(', ')}\n---\n\n`;
+  const edit = e.m ? `https://github.com/${REPO}/edit/main/items/${key}.md`
+    : `https://github.com/${REPO}/new/main?filename=items/${key}.md&value=${encodeURIComponent(template)}`;
+  const file = e.l ? (real(e.tl) ? wb(e.tl, e.l, 'id_') : e.l) : '';
+  const page = e.p ? (real(e.tp) ? wb(e.tp, e.p) : e.p) : '';
+  const link = (href, text, cls = '') => href ? `<a href="${esc(href)}" target="_blank" rel="noopener" class="${cls}">${text}</a>` : '';
+  const rows = [
+    ['Program', `<a href="${ROOT}app/${slug(e.a)}/">${esc(e.a)}</a>`],
+    ['Type', e.y.map(t => `<a href="${ROOT}type/${slug(t)}/">${esc(t)}</a>`).join(', ')],
+    e.g.length && ['Tags', e.g.map(t => `<a href="${ROOT}#tag=${encodeURIComponent(t)}">${esc(t)}</a>`).join(', ')],
+    e.d && ['Date', esc(e.d)],
+    ['Source', `<a href="${ROOT}site/${esc(e.s)}/">${esc(SITE[e.s])}</a>`],
+    ...Object.entries(e.x || {}).map(([k, val]) => [esc(k), esc(val)]),
+    ['Page archived', fmtTs(e.tp) || (e.p ? 'Not yet' : '')],
+    e.l && ['File archived', fmtTs(e.tl) || (/archive\.org\//.test(e.l) ? 'Hosted on archive.org' : 'Not yet')],
+  ].filter(r => r && r[1]);
+  v.innerHTML = `<div class="wrap"><div class="big">${media(e)}</div><div>
+    <h2>${esc(e.t)}</h2>
+    <dl>${rows.map(([k, val]) => `<dt>${k}</dt><dd>${val}</dd>`).join('')}</dl>
+    <div class="acts">${link(file, 'Download', 'primary')}${link(page, 'Original page')}${(e.p && real(e.tp)) ? link(e.p, 'Live link', 'dim') : ''}${link(edit, 'Edit')}${link(report(e), 'Report', 'dim')}</div>
+    <div class="desc" id="desc"></div></div></div>`;
+  if (e.m) {
+    const text = await fetch(`items/${key}.md`).then(r => r.ok ? r.text() : '');
+    $('desc').innerHTML = md(text.replace(/^---[\s\S]*?\n---\n?/, ''));
+  }
+}
+
 const report = e => `https://github.com/${REPO}/issues/new?template=report.yml&title=${encodeURIComponent('Report: ' + e.t)}&item=${encodeURIComponent(e.t + ' (' + e.a + ')')}&link=${encodeURIComponent(e.l || e.p || '')}`;
 
 function card(e) {
   const img = e.v ? (e.tv ? wb(e.tv, e.v, 'im_') : e.v) : '';
   const page = e.p ? `<a href="${esc(e.tp ? wb(e.tp, e.p) : e.p)}" target="_blank" rel="noopener"${e.tp ? '' : ' class="live"'}>Page</a>` : '';
   const file = e.l ? `<a href="${esc(e.tl ? wb(e.tl, e.l, 'id_') : e.l)}" target="_blank" rel="noopener"${e.tl ? '' : ' class="live"'}>File</a>` : '';
-  return `<div class="card"><div class="thumb">${img ? `<img src="${esc(img)}" loading="lazy" data-alt="${esc(e.tv ? e.v : wb('2', e.v, 'im_'))}" onerror="if(!this.dataset.f){this.dataset.f=1;this.src=this.dataset.alt}else{this.remove()}">` : ''}</div>
-    <div class="body"><div class="title">${esc(e.t)}</div><div class="meta">${esc(e.a)}${e.d ? ' · ' + e.d : ''} · <button data-s="${esc(e.s)}">${esc(SITE[e.s])}</button></div>
+  return `<div class="card"><div class="thumb">${img ? `<img src="${esc(img)}" loading="lazy" data-alt="${esc(e.tv ? e.v : wb('2', e.v, 'im_'))}" onerror="if(!this.dataset.f){this.dataset.f=1;this.src=this.dataset.alt}else{this.remove()}">` : ''}<a href="${esc(itemUrl(e))}" aria-label="${esc(e.t)}"></a></div>
+    <div class="body"><div class="title"><a href="${esc(itemUrl(e))}">${esc(e.t)}</a></div><div class="meta">${esc(e.a)}${e.d ? ' · ' + e.d : ''} · <button data-s="${esc(e.s)}">${esc(SITE[e.s])}</button></div>
     <div class="tags">${e.g.map(t => `<button class="chip" data-t="${esc(t)}">${esc(t)}</button>`).join('')}</div>
     <div class="links">${page}${file}<a class="report" href="${esc(report(e))}" target="_blank" rel="noopener">Report</a></div></div></div>`;
 }
@@ -202,6 +271,7 @@ $('warnok').onclick = () => { localStorage.setItem('warned', '1'); $('warn').hid
 Promise.all([fetch('entries.json').then(r => r.json()), fetch('pages.json').then(r => r.ok ? r.json() : []).catch(() => [])]).then(([d, p]) => {
   DATA = d; PAGES = new Set(p);
   for (const e of d) if (!(e.s in SITE)) { try { SITE[e.s] = new URL(e.p || e.l).hostname.replace(/^www\./, ''); } catch { SITE[e.s] = e.s; } }
+  if (location.href.slice(ROOT.length).startsWith('item/')) return showItem(new URLSearchParams(location.search).get('id'));
   fromHash(); render();
 });
 </script>
