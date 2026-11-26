@@ -1,0 +1,49 @@
+name: scrape
+
+on:
+  workflow_dispatch:
+    inputs:
+      sources:
+        description: Source modules, space separated (e.g. wlm mirandaim)
+        required: true
+
+concurrency:
+  group: scrape
+  cancel-in-progress: false
+
+permissions:
+  contents: write
+
+jobs:
+  scrape:
+    runs-on: ubuntu-latest
+    timeout-minutes: 340
+    env:
+      SOURCES: ${{ inputs.sources }}
+    steps:
+      - uses: actions/checkout@v4
+      - run: echo "$SOURCES" | grep -qE '^[a-z0-9_ ]+$'
+      - uses: actions/cache/restore@v4
+        with:
+          path: .cache
+          key: scrape-${{ github.run_id }}
+          restore-keys: scrape-
+      - run: timeout 19000 python3 scrape.py $SOURCES
+      - if: always()
+        uses: actions/cache/save@v4
+        with:
+          path: .cache
+          key: scrape-${{ github.run_id }}
+      - run: |
+          mkdir -p /tmp/out && for s in $SOURCES; do cp "data/$s.json" /tmp/out/; done
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          for attempt in 1 2 3 4 5; do
+            git fetch -q origin main && git reset -q --hard origin/main
+            cp /tmp/out/*.json data/ && python3 build.py
+            git add data/*.json entries.json
+            git diff --cached --quiet && exit 0
+            git commit -q -m "Scrape: $SOURCES" && git push -q origin HEAD:main && exit 0
+            sleep $((attempt * 10))
+          done
+          exit 1
