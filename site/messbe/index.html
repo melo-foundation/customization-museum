@@ -1,0 +1,280 @@
+<!doctype html>
+<html lang="en">
+<head>
+<base href="../../">
+<meta charset="utf-8">
+<title>Customization Museum</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<style>
+  :root { --bg:#111318; --panel:#1a1d24; --border:#2a2e37; --text:#e8e9ec; --muted:#9aa0ac; --accent:#6fa8ff; --chip:#23262f; }
+  * { box-sizing: border-box; }
+  body { margin:0; background:var(--bg); color:var(--text); font:14px -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif; }
+  header { position:sticky; top:0; z-index:10; background:rgba(17,19,24,.94); backdrop-filter:blur(8px); border-bottom:1px solid var(--border); padding:12px 20px; display:flex; flex-wrap:wrap; gap:10px; align-items:center; }
+  h1 { font-size:16px; margin:0; font-weight:600; white-space:nowrap; }
+  h1 a { color:inherit; text-decoration:none; }
+  input, select { background:var(--panel); border:1px solid var(--border); color:var(--text); padding:8px 12px; border-radius:8px; font:inherit; }
+  input { flex:1 1 220px; min-width:160px; }
+  input:focus, select:focus { outline:none; border-color:var(--accent); }
+  #req { color:var(--accent); text-decoration:none; font-size:13px; }
+  #count { color:var(--muted); font-size:13px; white-space:nowrap; }
+  .bar { display:flex; flex-wrap:wrap; gap:6px; padding:10px 20px 0; max-width:1700px; margin:0 auto; }
+  button.chip { background:var(--chip); color:#b7c3d6; border:0; border-radius:6px; padding:5px 10px; font:12px inherit; cursor:pointer; }
+  button.chip:hover { color:var(--text); }
+  button.chip.on { background:var(--accent); color:#0c1420; font-weight:600; }
+  #types button.chip { background:#2c3140; color:var(--text); font-size:13px; }
+  #types button.chip.on { background:var(--accent); color:#0c1420; }
+  button.chip i { font-style:normal; opacity:.6; margin-left:4px; }
+  #about { max-width:1700px; margin:14px auto 0; padding:0 20px; }
+  #about:empty { display:none; }
+  #about .box { position:relative; background:var(--panel); border:1px solid var(--border); border-radius:10px; padding:14px 20px; line-height:1.55; }
+  #about h1 { font-size:20px; margin:0 0 6px; white-space:normal; }
+  #about h2 { font-size:16px; margin:14px 0 4px; }
+  #about h3 { font-size:14px; margin:12px 0 4px; }
+  #about p, #about ul { margin:6px 0; }
+  #about a { color:var(--accent); }
+  #about code { background:#0c0d10; padding:1px 5px; border-radius:4px; }
+  #about .tools { position:absolute; top:12px; right:14px; display:flex; gap:8px; }
+  #about .tools a, #about .tools button { color:var(--accent); background:none; border:1px solid var(--border); border-radius:6px; padding:3px 10px; font:12px inherit; cursor:pointer; text-decoration:none; }
+  main { padding:16px 20px 40px; max-width:1700px; margin:0 auto; }
+  .grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(200px,1fr)); gap:14px; }
+  .card { background:var(--panel); border:1px solid var(--border); border-radius:10px; overflow:hidden; display:flex; flex-direction:column; }
+  .thumb { aspect-ratio:4/3; overflow:hidden; position:relative; background:#0c0d10; display:flex; align-items:center; justify-content:center; color:var(--muted); font-size:11px; }
+  .thumb img { position:absolute; inset:0; width:100%; height:100%; object-fit:contain; }
+  .body { padding:10px 12px 12px; display:flex; flex-direction:column; gap:6px; flex:1; }
+  .title { font-weight:500; line-height:1.35; word-break:break-word; }
+  .meta { font-size:11px; color:var(--muted); }
+  .meta button { background:none; border:0; padding:0; font:inherit; color:var(--accent); cursor:pointer; }
+  .tags { display:flex; flex-wrap:wrap; gap:4px; }
+  .tags .chip { font-size:10px; padding:2px 6px; }
+  .links { display:flex; gap:8px; margin-top:auto; font-size:12px; }
+  .links a { color:var(--accent); text-decoration:none; padding:3px 8px; border:1px solid var(--border); border-radius:6px; }
+  .links a:hover { border-color:var(--accent); }
+  .links a.live { color:var(--muted); }
+  .links a.report { margin-left:auto; color:var(--muted); border:0; padding:3px 0; }
+  #warn { max-width:1700px; margin:10px auto 0; padding:0 20px; }
+  #warn div { display:flex; gap:12px; align-items:center; background:#2a2414; border:1px solid #5a4a1c; color:#f0dca0; border-radius:8px; padding:8px 14px; font-size:13px; }
+  #warn button { margin-left:auto; background:none; border:1px solid #5a4a1c; color:inherit; border-radius:6px; padding:2px 10px; cursor:pointer; font:inherit; }
+  #itemview { max-width:1150px; margin:20px auto 40px; padding:0 20px; }
+  #itemview .wrap { display:grid; grid-template-columns:minmax(0,1.25fr) minmax(0,1fr); gap:24px; align-items:start; }
+  #itemview .big { background:#0c0d10; border:1px solid var(--border); border-radius:10px; min-height:280px; display:flex; align-items:center; justify-content:center; padding:12px; color:var(--muted); }
+  #itemview .big img, #itemview .big video { max-width:100%; max-height:70vh; }
+  #itemview audio { width:100%; margin-top:10px; }
+  #itemview h2 { margin:0 0 4px; font-size:22px; line-height:1.3; word-break:break-word; }
+  #itemview dl { display:grid; grid-template-columns:max-content 1fr; gap:6px 16px; margin:14px 0; font-size:13px; }
+  #itemview dt { color:var(--muted); }
+  #itemview dd { margin:0; word-break:break-word; }
+  #itemview a { color:var(--accent); }
+  #itemview .acts { display:flex; flex-wrap:wrap; gap:8px; margin:14px 0; }
+  #itemview .acts a { text-decoration:none; padding:6px 12px; border:1px solid var(--border); border-radius:8px; font-size:13px; }
+  #itemview .acts a.primary { background:var(--accent); color:#0c1420; border-color:var(--accent); font-weight:600; }
+  #itemview .acts a.dim { color:var(--muted); }
+  #itemview .desc { margin-top:18px; line-height:1.6; }
+  @media (max-width:800px) { #itemview .wrap { grid-template-columns:1fr; } }
+  .card .title a, .card .thumb a { color:inherit; text-decoration:none; }
+  .card .thumb a { position:absolute; inset:0; }
+  #more { height:1px; }
+  #empty { display:none; text-align:center; color:var(--muted); padding:60px 0; }
+</style>
+</head>
+<body>
+<header>
+  <h1><a href="#">Customization Museum</a></h1>
+  <input id="q" type="search" placeholder="Search">
+  <select id="sort"><option value="new">Newest</option><option value="old">Oldest</option><option value="az">A&ndash;Z</option></select>
+  <select id="arch"><option value="">All</option><option value="1">Archived</option><option value="0">Not archived</option></select>
+  <span id="count"></span>
+  <a id="req" href="https://github.com/melo-foundation/customization-museum/issues/new/choose" target="_blank" rel="noopener">Request</a>
+</header>
+<div id="warn" hidden><div>Files are archived automatically and not checked. They may contain malware: scan anything you download.<button id="warnok">OK</button></div></div>
+<div class="bar" id="apps"></div>
+<div class="bar" id="types"></div>
+<div class="bar" id="tags"></div>
+<div id="about"></div>
+<div id="itemview" hidden></div>
+<main><div class="grid" id="grid"></div><div id="empty">No results</div><div id="more"></div></main>
+<script>
+const REPO = 'melo-foundation/customization-museum';
+const ROOT = new URL('.', document.baseURI).href;
+const $ = id => document.getElementById(id);
+const wb = (f, url, mode='') => { const [ts, u] = f.split('|'); return `https://web.archive.org/web/${ts}${mode}/${u || url}`; };
+const esc = s => String(s).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const real = f => !!f && /^\d{14}/.test(f);
+const saved = e => real(e.tp) || real(e.tl) || /^https?:\/\/(\w+\.)?archive\.org\//.test(e.l || '');
+const slug = s => s.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');
+let DATA = [], PAGES = new Set(), SITE = {}, view = [], shown = 0, site = '', app = '', typ = '', tag = '';
+const PAGE = 120, mdCache = {};
+
+const chips = (el, list, cur, fn) => {
+  el.innerHTML = list.map(([k, n]) => `<button class="chip${k === cur ? ' on' : ''}" data-k="${esc(k)}">${esc(k)}<i>${n}</i></button>`).join('');
+  el.querySelectorAll('button').forEach(b => b.onclick = () => fn(b.dataset.k));
+};
+const tally = items => Object.entries(items.reduce((m, k) => (m[k] = (m[k] || 0) + 1, m), {})).sort((a, b) => b[1] - a[1]);
+
+// Minimal markdown: headings, lists, links, bold, italic, code. Input is escaped first.
+function md(src) {
+  const inline = s => esc(s)
+    .replace(/`([^`]+)`/g, '<code>$1</code>')
+    .replace(/\[([^\]]+)\]\((https?:\/\/[^)\s]+)\)/g, '<a href="$2" target="_blank" rel="noopener">$1</a>')
+    .replace(/(^|[\s(])(https?:\/\/[^\s<)]+)/g, '$1<a href="$2" target="_blank" rel="noopener">$2</a>')
+    .replace(/\*\*([^*]+)\*\*/g, '<b>$1</b>').replace(/\*([^*]+)\*/g, '<i>$1</i>');
+  let html = '', list = false, para = [];
+  const flush = () => { if (para.length) html += `<p>${inline(para.join(' '))}</p>`; para = []; if (list) { html += '</ul>'; list = false; } };
+  for (const line of src.split('\n')) {
+    const h = line.match(/^(#{1,3})\s+(.*)/), li = line.match(/^\s*[-*]\s+(.*)/);
+    if (h) { flush(); html += `<h${h[1].length}>${inline(h[2])}</h${h[1].length}>`; }
+    else if (li) { if (para.length) { html += `<p>${inline(para.join(' '))}</p>`; para = []; } if (!list) { html += '<ul>'; list = true; } html += `<li>${inline(li[1])}</li>`; }
+    else if (!line.trim()) flush();
+    else { if (list) { html += '</ul>'; list = false; } para.push(line.trim()); }
+  }
+  flush();
+  return html;
+}
+
+function summary(items) {
+  const dates = items.map(e => e.d).filter(Boolean).sort();
+  const archived = items.filter(saved).length;
+  const list = arr => tally(arr).slice(0, 12).map(([k, n]) => `${k} (${n})`).join(', ');
+  return { dates: dates.length ? `${dates[0].slice(0, 4)} to ${dates[dates.length - 1].slice(0, 4)}` : '', archived, list };
+}
+
+function autoPage() {
+  if (site) {
+    const items = DATA.filter(e => e.s === site), s = summary(items), name = SITE[site];
+    return `# ${name}\n\n${items.length} items${s.dates ? `, ${s.dates}` : ''}.\n\n- Programs: ${s.list(items.map(e => e.a))}\n- Types: ${s.list(items.flatMap(e => e.y))}\n- Archived: ${s.archived} of ${items.length}\n- Site: https://${name}\n`;
+  }
+  const items = DATA.filter(e => e.y.includes(typ)), s = summary(items);
+  return `# ${typ}\n\n${items.length} items${s.dates ? `, ${s.dates}` : ''}.\n\n- Programs: ${s.list(items.map(e => e.a))}\n- Sites: ${s.list(items.map(e => SITE[e.s]))}\n- Archived: ${s.archived} of ${items.length}\n`;
+}
+
+let aboutToken = 0;
+async function about() {
+  if (!site && !typ) { $('about').innerHTML = ''; return; }
+  const key = site ? `site-${site}` : `type-${slug(typ)}`, mine = ++aboutToken;
+  const exists = PAGES.has(key), auto = autoPage();
+  const text = exists ? (mdCache[key] ??= await fetch(`pages/${key}.md`).then(r => r.ok ? r.text() : auto)) : auto;
+  if (mine !== aboutToken) return;
+  const edit = exists ? `https://github.com/${REPO}/edit/main/pages/${key}.md`
+    : `https://github.com/${REPO}/new/main?filename=pages/${key}.md&value=${encodeURIComponent(auto)}`;
+  $('about').innerHTML = `<div class="box"><div class="tools"><a href="${esc(edit)}" target="_blank" rel="noopener">Edit</a>${site ? '<button id="unsite">Close</button>' : ''}</div>${md(text)}</div>`;
+  if (site) $('unsite').onclick = () => { site = ''; render(); };
+}
+
+const itemUrl = e => `${ROOT}item/?id=${encodeURIComponent(e.i)}`;
+const fmtTs = f => real(f) ? `${f.slice(0, 4)}-${f.slice(4, 6)}-${f.slice(6, 8)}` : '';
+const ext = u => ((u || '').split(/[?#]/)[0].match(/\.([a-z0-9]+)$/i) || [])[1]?.toLowerCase() || '';
+const AUDIO = ['mp3', 'wav', 'ogg', 'mid', 'midi', 'wma'], VIDEO = ['mp4', 'webm'];
+
+// Per-type layout: what goes in the big media box. Sites add their own rows via the scraped "extra" fields.
+function media(e) {
+  const file = e.l ? (real(e.tl) ? wb(e.tl, e.l, 'id_') : e.l) : '', x = ext(e.l);
+  const img = e.v ? (e.tv ? wb(e.tv, e.v, 'im_') : e.v) : '';
+  const pic = img ? `<img src="${esc(img)}" data-alt="${esc(e.tv ? e.v : wb('2', e.v, 'im_'))}" onerror="if(!this.dataset.f){this.dataset.f=1;this.src=this.dataset.alt}else{this.replaceWith('No preview')}" onload="if(this.naturalWidth&&this.naturalWidth<160){this.style.width=Math.min(this.naturalWidth*3,480)+'px';this.style.imageRendering='pixelated'}">` : 'No preview';
+  if (VIDEO.includes(x)) return `<video src="${esc(file)}" controls loop ${img ? `poster="${esc(img)}"` : ''}></video>`;
+  if (AUDIO.includes(x)) return `<div style="width:100%;text-align:center">${pic}<audio src="${esc(file)}" controls></audio></div>`;
+  return pic;
+}
+
+async function showItem(id) {
+  const e = DATA.find(d => d.i === id);
+  ['apps', 'types', 'tags', 'about', 'q', 'sort', 'arch', 'count'].forEach(k => $(k).hidden = true);
+  document.querySelector('main').hidden = true;
+  const v = $('itemview'); v.hidden = false;
+  if (!e) { v.innerHTML = `<p>Item not found. <a href="${ROOT}">Back to the museum</a></p>`; return; }
+  document.title = `${e.t} · Customization Museum`;
+  const key = encodeURIComponent(e.i);
+  const template = `---\ntitle: ${e.t}\ndate: ${e.d}\ntype: ${e.y.join(', ')}\ntags: ${e.g.join(', ')}\n---\n\n`;
+  const edit = e.m ? `https://github.com/${REPO}/edit/main/items/${key}.md`
+    : `https://github.com/${REPO}/new/main?filename=items/${key}.md&value=${encodeURIComponent(template)}`;
+  const file = e.l ? (real(e.tl) ? wb(e.tl, e.l, 'id_') : e.l) : '';
+  const page = e.p ? (real(e.tp) ? wb(e.tp, e.p) : e.p) : '';
+  const link = (href, text, cls = '') => href ? `<a href="${esc(href)}" target="_blank" rel="noopener" class="${cls}">${text}</a>` : '';
+  const rows = [
+    ['Program', `<a href="${ROOT}app/${slug(e.a)}/">${esc(e.a)}</a>`],
+    ['Type', e.y.map(t => `<a href="${ROOT}type/${slug(t)}/">${esc(t)}</a>`).join(', ')],
+    e.g.length && ['Tags', e.g.map(t => `<a href="${ROOT}#tag=${encodeURIComponent(t)}">${esc(t)}</a>`).join(', ')],
+    e.d && ['Date', esc(e.d)],
+    ['Source', `<a href="${ROOT}site/${esc(e.s)}/">${esc(SITE[e.s])}</a>`],
+    ...Object.entries(e.x || {}).map(([k, val]) => [esc(k), esc(val)]),
+    ['Page archived', fmtTs(e.tp) || (e.p ? 'Not yet' : '')],
+    e.l && ['File archived', fmtTs(e.tl) || (/archive\.org\//.test(e.l) ? 'Hosted on archive.org' : 'Not yet')],
+  ].filter(r => r && r[1]);
+  v.innerHTML = `<div class="wrap"><div class="big">${media(e)}</div><div>
+    <h2>${esc(e.t)}</h2>
+    <dl>${rows.map(([k, val]) => `<dt>${k}</dt><dd>${val}</dd>`).join('')}</dl>
+    <div class="acts">${link(file, 'Download', 'primary')}${link(page, 'Original page')}${(e.p && real(e.tp)) ? link(e.p, 'Live link', 'dim') : ''}${link(edit, 'Edit')}${link(report(e), 'Report', 'dim')}</div>
+    <div class="desc" id="desc"></div></div></div>`;
+  if (e.m) {
+    const text = await fetch(`items/${key}.md`).then(r => r.ok ? r.text() : '');
+    $('desc').innerHTML = md(text.replace(/^---[\s\S]*?\n---\n?/, ''));
+  }
+}
+
+const report = e => `https://github.com/${REPO}/issues/new?template=report.yml&title=${encodeURIComponent('Report: ' + e.t)}&item=${encodeURIComponent(e.t + ' (' + e.a + ')')}&link=${encodeURIComponent(e.l || e.p || '')}`;
+
+function card(e) {
+  const img = e.v ? (e.tv ? wb(e.tv, e.v, 'im_') : e.v) : '';
+  const page = e.p ? `<a href="${esc(e.tp ? wb(e.tp, e.p) : e.p)}" target="_blank" rel="noopener"${e.tp ? '' : ' class="live"'}>Page</a>` : '';
+  const file = e.l ? `<a href="${esc(e.tl ? wb(e.tl, e.l, 'id_') : e.l)}" target="_blank" rel="noopener"${e.tl ? '' : ' class="live"'}>File</a>` : '';
+  return `<div class="card"><div class="thumb">${img ? `<img src="${esc(img)}" loading="lazy" data-alt="${esc(e.tv ? e.v : wb('2', e.v, 'im_'))}" onerror="if(!this.dataset.f){this.dataset.f=1;this.src=this.dataset.alt}else{this.remove()}">` : ''}<a href="${esc(itemUrl(e))}" aria-label="${esc(e.t)}"></a></div>
+    <div class="body"><div class="title"><a href="${esc(itemUrl(e))}">${esc(e.t)}</a></div><div class="meta">${esc(e.a)}${e.d ? ' · ' + e.d : ''} · <button data-s="${esc(e.s)}">${esc(SITE[e.s])}</button></div>
+    <div class="tags">${e.g.map(t => `<button class="chip" data-t="${esc(t)}">${esc(t)}</button>`).join('')}</div>
+    <div class="links">${page}${file}<a class="report" href="${esc(report(e))}" target="_blank" rel="noopener">Report</a></div></div></div>`;
+}
+
+function more() {
+  if (shown >= view.length) return;
+  $('grid').insertAdjacentHTML('beforeend', view.slice(shown, shown + PAGE).map(card).join(''));
+  shown += PAGE;
+}
+
+function render() {
+  const q = $('q').value.trim().toLowerCase(), sort = $('sort').value, arch = $('arch').value;
+  let base = DATA.filter(e => (!site || e.s === site) && (!q || e.t.toLowerCase().includes(q) || e.g.some(t => t.toLowerCase().includes(q)) || e.y.some(t => t.toLowerCase().includes(q))) && (arch === '' || (arch === '1') === saved(e)));
+  chips($('apps'), [['', base.length], ...tally(base.map(e => e.a))].map(([k, n]) => [k || 'All', n]), app || 'All', k => { app = k === 'All' ? '' : k; typ = ''; tag = ''; render(); });
+  const inApp = base.filter(e => !app || e.a === app);
+  chips($('types'), tally(inApp.flatMap(e => e.y)), typ, k => { typ = typ === k ? '' : k; tag = ''; render(); });
+  const inType = inApp.filter(e => !typ || e.y.includes(typ));
+  chips($('tags'), tally(inType.flatMap(e => e.g)).slice(0, 40), tag, k => { tag = tag === k ? '' : k; render(); });
+  view = inType.filter(e => !tag || e.g.includes(tag));
+  view.sort(sort === 'az' ? (a, b) => a.t.localeCompare(b.t) : sort === 'old' ? (a, b) => (a.d || '9').localeCompare(b.d || '9') : (a, b) => b.d.localeCompare(a.d));
+  $('count').textContent = view.length + ' / ' + DATA.length;
+  $('empty').style.display = view.length ? 'none' : 'block';
+  $('grid').innerHTML = ''; shown = 0; more();
+  const only = Object.entries({ site, app, type: typ, tag }).filter(([, v]) => v);
+  const path = only.length === 1 && only[0][0] !== 'tag' ? `${only[0][0]}/${only[0][0] === 'site' ? only[0][1] : slug(only[0][1])}/` : '';
+  const hash = path ? '' : new URLSearchParams(only).toString();
+  history.replaceState(null, '', ROOT + path + (hash ? '#' + hash : ''));
+  about();
+}
+
+function fromHash() {
+  const p = new URLSearchParams(location.hash.slice(1));
+  site = p.get('site') || ''; app = p.get('app') || ''; typ = p.get('type') || ''; tag = p.get('tag') || '';
+  const m = location.href.slice(ROOT.length).split('#')[0].match(/^(site|app|type)\/([^/]+)\/?$/);
+  if (m) {
+    const [, k, v] = m, find = list => list.find(x => slug(x) === v) || '';
+    if (k === 'site') site = v;
+    if (k === 'app') app = find([...new Set(DATA.map(e => e.a))]);
+    if (k === 'type') typ = find([...new Set(DATA.flatMap(e => e.y))]);
+  }
+}
+
+$('grid').addEventListener('click', e => {
+  const t = e.target.closest('[data-t]'), s = e.target.closest('[data-s]');
+  if (t) { tag = tag === t.dataset.t ? '' : t.dataset.t; render(); }
+  if (s) { site = s.dataset.s; app = ''; typ = ''; tag = ''; render(); scrollTo(0, 0); }
+});
+['q', 'sort', 'arch'].forEach(id => $(id).addEventListener('input', render));
+addEventListener('hashchange', () => { fromHash(); render(); });
+new IntersectionObserver(es => es[0].isIntersecting && more(), { rootMargin: '600px' }).observe($('more'));
+if (!localStorage.getItem('warned')) $('warn').hidden = false;
+$('warnok').onclick = () => { localStorage.setItem('warned', '1'); $('warn').hidden = true; };
+Promise.all([fetch('entries.json').then(r => r.json()), fetch('pages.json').then(r => r.ok ? r.json() : []).catch(() => [])]).then(([d, p]) => {
+  DATA = d; PAGES = new Set(p);
+  for (const e of d) if (!(e.s in SITE)) { try { SITE[e.s] = new URL(e.p || e.l).hostname.replace(/^www\./, ''); } catch { SITE[e.s] = e.s; } }
+  if (location.href.slice(ROOT.length).startsWith('item/')) return showItem(new URLSearchParams(location.search).get('id'));
+  fromHash(); render();
+});
+</script>
+</body>
+</html>
