@@ -1,14 +1,15 @@
 """Resumable Wayback Machine archiver.
 
   python3 archive.py check          # record existing snapshots (availability API)
-  python3 archive.py save [N]       # Save Page Now for what is still missing, at most N urls
+  python3 archive.py save [N] [W]   # Save Page Now for what is still missing, at most N urls, W parallel
   python3 archive.py stats
 """
-import glob, json, re, sys, time, urllib.error, urllib.parse, urllib.request
-from lib import UA, load, pmap, save
+import glob, json, os, re, sys, time, urllib.error, urllib.parse, urllib.request
+from lib import ROOT, UA, load, pmap, save
 
 STATE = "archive_state.json"
 SPN_DELAY = 6  # seconds between anonymous saves
+TRANSIENT = ("http 429", "http 502", "http 503", "URLError", "TimeoutError")
 
 
 def all_urls():
@@ -98,29 +99,58 @@ def check():
     stats()
 
 
-def save_missing(limit):
+def keys():
+    p = os.path.join(ROOT, ".archive-keys")
+    return open(p).read().strip() if os.path.exists(p) else None
+
+
+def spn2(url, auth):
+    """Authenticated Save Page Now. Returns (timestamp|None, error|None)."""
+    h = {"User-Agent": UA, "Accept": "application/json", "Authorization": "LOW " + auth}
+    try:
+        req = urllib.request.Request("https://web.archive.org/save", urllib.parse.urlencode({"url": url, "skip_first_archive": 1}).encode(), h)
+        job = json.load(urllib.request.urlopen(req, timeout=60)).get("job_id")
+        if not job:
+            return None, "no job"
+        for _ in range(60):
+            time.sleep(5)
+            st = json.load(urllib.request.urlopen(urllib.request.Request("https://web.archive.org/save/status/" + job, headers=h), timeout=60))
+            if st.get("status") == "success":
+                return st.get("timestamp"), None
+            if st.get("status") == "error":
+                return None, st.get("status_ext") or "error"
+        return None, "timeout"
+    except urllib.error.HTTPError as e:
+        return None, f"http {e.code}"
+    except Exception as e:
+        return None, type(e).__name__
+
+
+def save_missing(limit, workers=4):
     state = load(STATE)
-    todo = [u for u in all_urls() if state.get(u, {}).get("ts") is None and state.get(u, {}).get("fails", 0) < 3]
-    print(len(todo), "urls missing,", min(limit, len(todo)), "this run", flush=True)
-    backoff = 60
-    for u in todo[:limit]:
-        ts, err = spn(u)
-        s = state.setdefault(u, {"ts": None})
-        if ts:
-            s.update(ts=ts, saved=int(time.time()))
-            s.pop("err", None)
-            backoff = 60
-        else:
-            s["err"] = err
-            if err == "http 429":
-                print("rate limited, sleeping", backoff, flush=True)
-                time.sleep(backoff)
-                backoff = min(backoff * 2, 900)
+    auth = keys()
+    todo = [u for u in all_urls() if state.get(u, {}).get("ts") is None and state.get(u, {}).get("fails", 0) < 3][:limit]
+    print(len(todo), "urls this run,", "authenticated" if auth else "anonymous", flush=True)
+
+    def one(u):
+        ts, err = spn2(u, auth) if auth else spn(u)
+        if not auth:
+            time.sleep(SPN_DELAY)
+        if err in TRANSIENT:
+            time.sleep(60)
+        return u, ts, err
+
+    for i in range(0, len(todo), workers * 5):
+        for u, ts, err in pmap(one, todo[i : i + workers * 5], workers=workers if auth else 1):
+            s = state.setdefault(u, {"ts": None})
+            if ts:
+                s.update(ts=ts, saved=int(time.time()))
+                s.pop("err", None)
             else:
-                s["fails"] = s.get("fails", 0) + 1
+                s["err"] = err
+                s["fails"] = s.get("fails", 0) + (0 if err in TRANSIENT else 1)
+            print(ts or err, u, flush=True)
         save(STATE, state)
-        print(ts or err, u, flush=True)
-        time.sleep(SPN_DELAY)
 
 
 def stats():
@@ -131,4 +161,4 @@ def stats():
 
 if __name__ == "__main__":
     cmd = sys.argv[1] if len(sys.argv) > 1 else "stats"
-    {"check": check, "save": lambda: save_missing(int(sys.argv[2]) if len(sys.argv) > 2 else 10**9), "stats": stats}[cmd]()
+    {"check": check, "save": lambda: save_missing(int(sys.argv[2]) if len(sys.argv) > 2 else 10**9, int(sys.argv[3]) if len(sys.argv) > 3 else 4), "stats": stats}[cmd]()
