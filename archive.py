@@ -10,6 +10,7 @@ from lib import ROOT, UA, load, pmap, save
 STATE = "archive_state.json"
 SPN_DELAY = 6  # seconds between anonymous saves
 TRANSIENT = ("http 429", "http 502", "http 503", "URLError", "TimeoutError")
+is_transient = lambda err: bool(err) and err.startswith(TRANSIENT)
 
 
 def all_urls():
@@ -122,8 +123,19 @@ def spn2(url, auth):
         return None, "timeout"
     except urllib.error.HTTPError as e:
         return None, f"http {e.code}"
+    except urllib.error.URLError as e:
+        return None, f"URLError {e.reason}"
     except Exception as e:
-        return None, type(e).__name__
+        return None, f"{type(e).__name__} {e}"[:120]
+
+
+def merge(path):
+    """Copy snapshots found in another state file into ours (CI: ours is fresh from origin)."""
+    state, theirs = load(STATE), json.load(open(path, encoding="utf-8"))
+    for u, s in theirs.items():
+        if not state.get(u, {}).get("ts"):
+            state[u] = s
+    save(STATE, state)
 
 
 def save_missing(limit, workers=4, match=""):
@@ -136,7 +148,7 @@ def save_missing(limit, workers=4, match=""):
         ts, err = spn2(u, auth) if auth else spn(u)
         if not auth:
             time.sleep(SPN_DELAY)
-        if err in TRANSIENT:
+        if is_transient(err):
             time.sleep(60)
         return u, ts, err
 
@@ -148,7 +160,7 @@ def save_missing(limit, workers=4, match=""):
                 s.pop("err", None)
             else:
                 s["err"] = err
-                s["fails"] = s.get("fails", 0) + (0 if err in TRANSIENT else 1)
+                s["fails"] = s.get("fails", 0) + (0 if is_transient(err) else 1)
             print(ts or err, u, flush=True)
         save(STATE, state)
 
@@ -161,4 +173,4 @@ def stats():
 
 if __name__ == "__main__":
     cmd = sys.argv[1] if len(sys.argv) > 1 else "stats"
-    {"check": check, "save": lambda: save_missing(int(sys.argv[2]) if len(sys.argv) > 2 else 10**9, int(sys.argv[3]) if len(sys.argv) > 3 else 4, sys.argv[4] if len(sys.argv) > 4 else ""), "stats": stats}[cmd]()
+    {"check": check, "save": lambda: save_missing(int(sys.argv[2]) if len(sys.argv) > 2 else 10**9, int(sys.argv[3]) if len(sys.argv) > 3 else 4, sys.argv[4] if len(sys.argv) > 4 else ""), "stats": stats, "merge": lambda: merge(sys.argv[2])}[cmd]()
