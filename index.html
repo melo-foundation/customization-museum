@@ -1,0 +1,99 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Customization Museum</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<style>
+  :root { --bg:#111318; --panel:#1a1d24; --border:#2a2e37; --text:#e8e9ec; --muted:#9aa0ac; --accent:#6fa8ff; --chip:#23262f; }
+  * { box-sizing: border-box; }
+  body { margin:0; background:var(--bg); color:var(--text); font:14px -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif; }
+  header { position:sticky; top:0; z-index:10; background:rgba(17,19,24,.94); backdrop-filter:blur(8px); border-bottom:1px solid var(--border); padding:12px 20px; display:flex; flex-wrap:wrap; gap:10px; align-items:center; }
+  h1 { font-size:16px; margin:0; font-weight:600; white-space:nowrap; }
+  input, select { background:var(--panel); border:1px solid var(--border); color:var(--text); padding:8px 12px; border-radius:8px; font:inherit; }
+  input { flex:1 1 220px; min-width:160px; }
+  input:focus, select:focus { outline:none; border-color:var(--accent); }
+  #count { color:var(--muted); font-size:13px; white-space:nowrap; }
+  .bar { display:flex; flex-wrap:wrap; gap:6px; padding:10px 20px 0; max-width:1700px; margin:0 auto; }
+  button.chip { background:var(--chip); color:#b7c3d6; border:0; border-radius:6px; padding:5px 10px; font:12px inherit; cursor:pointer; }
+  button.chip:hover { color:var(--text); }
+  button.chip.on { background:var(--accent); color:#0c1420; font-weight:600; }
+  button.chip i { font-style:normal; opacity:.6; margin-left:4px; }
+  main { padding:16px 20px 40px; max-width:1700px; margin:0 auto; }
+  .grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(200px,1fr)); gap:14px; }
+  .card { background:var(--panel); border:1px solid var(--border); border-radius:10px; overflow:hidden; display:flex; flex-direction:column; }
+  .thumb { aspect-ratio:4/3; overflow:hidden; position:relative; background:#0c0d10; display:flex; align-items:center; justify-content:center; color:var(--muted); font-size:11px; }
+  .thumb img { position:absolute; inset:0; width:100%; height:100%; object-fit:contain; }
+  .body { padding:10px 12px 12px; display:flex; flex-direction:column; gap:6px; flex:1; }
+  .title { font-weight:500; line-height:1.35; word-break:break-word; }
+  .meta { font-size:11px; color:var(--muted); }
+  .tags { display:flex; flex-wrap:wrap; gap:4px; }
+  .tags .chip { font-size:10px; padding:2px 6px; }
+  .links { display:flex; gap:8px; margin-top:auto; font-size:12px; }
+  .links a { color:var(--accent); text-decoration:none; padding:3px 8px; border:1px solid var(--border); border-radius:6px; }
+  .links a:hover { border-color:var(--accent); }
+  .links a.live { color:var(--muted); }
+  #more { height:1px; }
+  #empty { display:none; text-align:center; color:var(--muted); padding:60px 0; }
+</style>
+</head>
+<body>
+<header>
+  <h1>Customization Museum</h1>
+  <input id="q" type="search" placeholder="Search">
+  <select id="sort"><option value="new">Newest</option><option value="old">Oldest</option><option value="az">A&ndash;Z</option></select>
+  <select id="arch"><option value="">All</option><option value="1">Archived</option><option value="0">Not archived</option></select>
+  <span id="count"></span>
+</header>
+<div class="bar" id="apps"></div>
+<div class="bar" id="tags"></div>
+<main><div class="grid" id="grid"></div><div id="empty">No results</div><div id="more"></div></main>
+<script>
+const $ = id => document.getElementById(id);
+const wb = (f, url, mode='') => { const [ts, u] = f.split('|'); return `https://web.archive.org/web/${ts}${mode}/${u || url}`; };
+const esc = s => String(s).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+let DATA = [], view = [], shown = 0, app = '', tag = '';
+const PAGE = 120;
+
+const chips = (el, list, cur, fn) => {
+  el.innerHTML = list.map(([k, n]) => `<button class="chip${k === cur ? ' on' : ''}" data-k="${esc(k)}">${esc(k)}<i>${n}</i></button>`).join('');
+  el.querySelectorAll('button').forEach(b => b.onclick = () => fn(b.dataset.k));
+};
+const tally = items => Object.entries(items.reduce((m, k) => (m[k] = (m[k] || 0) + 1, m), {})).sort((a, b) => b[1] - a[1]);
+
+function card(e) {
+  const img = e.v ? (e.tv ? wb(e.tv, e.v, 'im_') : e.v) : '';
+  const page = e.p ? `<a href="${esc(e.tp ? wb(e.tp, e.p) : e.p)}" target="_blank" rel="noopener"${e.tp ? '' : ' class="live"'}>Page</a>` : '';
+  const file = e.l ? `<a href="${esc(e.tl ? wb(e.tl, e.l, 'id_') : e.l)}" target="_blank" rel="noopener"${e.tl ? '' : ' class="live"'}>File</a>` : '';
+  return `<div class="card"><div class="thumb">${img ? `<img src="${esc(img)}" loading="lazy" onerror="if(!this.dataset.f){this.dataset.f=1;this.src='${esc(e.v || '')}'}else{this.remove()}">` : ''}</div>
+    <div class="body"><div class="title">${esc(e.t)}</div><div class="meta">${esc(e.a)}${e.d ? ' · ' + e.d : ''}</div>
+    <div class="tags">${e.g.map(t => `<button class="chip" data-t="${esc(t)}">${esc(t)}</button>`).join('')}</div>
+    <div class="links">${page}${file}</div></div></div>`;
+}
+
+function more() {
+  if (shown >= view.length) return;
+  $('grid').insertAdjacentHTML('beforeend', view.slice(shown, shown + PAGE).map(card).join(''));
+  shown += PAGE;
+}
+
+function render() {
+  const q = $('q').value.trim().toLowerCase(), sort = $('sort').value, arch = $('arch').value;
+  let base = DATA.filter(e => (!q || e.t.toLowerCase().includes(q) || e.g.some(t => t.toLowerCase().includes(q))) && (arch === '' || (arch === '1') === !!(e.tp || e.tl)));
+  chips($('apps'), [['', base.length], ...tally(base.map(e => e.a))].map(([k, n]) => [k || 'All', n]), app || 'All', k => { app = k === 'All' ? '' : k; tag = ''; render(); });
+  const inApp = base.filter(e => !app || e.a === app);
+  chips($('tags'), tally(inApp.flatMap(e => e.g)).slice(0, 40), tag, k => { tag = tag === k ? '' : k; render(); });
+  view = inApp.filter(e => !tag || e.g.includes(tag));
+  view.sort(sort === 'az' ? (a, b) => a.t.localeCompare(b.t) : sort === 'old' ? (a, b) => (a.d || '9').localeCompare(b.d || '9') : (a, b) => b.d.localeCompare(a.d));
+  $('count').textContent = view.length + ' / ' + DATA.length;
+  $('empty').style.display = view.length ? 'none' : 'block';
+  $('grid').innerHTML = ''; shown = 0; more();
+}
+
+$('grid').addEventListener('click', e => { const t = e.target.closest('[data-t]'); if (t) { tag = tag === t.dataset.t ? '' : t.dataset.t; render(); } });
+['q', 'sort', 'arch'].forEach(id => $(id).addEventListener('input', render));
+new IntersectionObserver(es => es[0].isIntersecting && more(), { rootMargin: '600px' }).observe($('more'));
+fetch('entries.json').then(r => r.json()).then(d => { DATA = d; render(); });
+</script>
+</body>
+</html>
