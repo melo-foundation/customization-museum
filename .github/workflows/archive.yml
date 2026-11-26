@@ -9,6 +9,8 @@ on:
         default: "400"
       workers:
         default: "2"
+      match:
+        default: ""
 
 concurrency:
   group: archive
@@ -26,8 +28,11 @@ jobs:
       - run: printf '%s' "$KEYS" > .archive-keys
         env:
           KEYS: ${{ secrets.ARCHIVE_KEYS }}
+      - run: timeout 3600 python3 archive.py check || true
       # stop before the job limit so progress still gets committed
-      - run: timeout 19000 python3 archive.py save ${{ inputs.limit || '400' }} ${{ inputs.workers || '2' }} || true
+      - run: timeout 16000 python3 archive.py save ${{ inputs.limit || '400' }} ${{ inputs.workers || '2' }} "$MATCH" || true
+        env:
+          MATCH: ${{ inputs.match }}
       - run: python3 build.py
       - run: |
           git config user.name "github-actions[bot]"

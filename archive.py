@@ -1,7 +1,7 @@
 """Resumable Wayback Machine archiver.
 
   python3 archive.py check          # record existing snapshots (availability API)
-  python3 archive.py save [N] [W]   # Save Page Now for what is still missing, at most N urls, W parallel
+  python3 archive.py save [N] [W] [S]  # Save Page Now for what is still missing: at most N urls, W parallel, only urls containing S
   python3 archive.py stats
 """
 import glob, json, os, re, sys, time, urllib.error, urllib.parse, urllib.request
@@ -126,10 +126,10 @@ def spn2(url, auth):
         return None, type(e).__name__
 
 
-def save_missing(limit, workers=4):
+def save_missing(limit, workers=4, match=""):
     state = load(STATE)
     auth = keys()
-    todo = [u for u in all_urls() if state.get(u, {}).get("ts") is None and state.get(u, {}).get("fails", 0) < 3][:limit]
+    todo = [u for u in all_urls() if state.get(u, {}).get("ts") is None and state.get(u, {}).get("fails", 0) < 3 and match in u][:limit]
     print(len(todo), "urls this run,", "authenticated" if auth else "anonymous", flush=True)
 
     def one(u):
@@ -161,4 +161,4 @@ def stats():
 
 if __name__ == "__main__":
     cmd = sys.argv[1] if len(sys.argv) > 1 else "stats"
-    {"check": check, "save": lambda: save_missing(int(sys.argv[2]) if len(sys.argv) > 2 else 10**9, int(sys.argv[3]) if len(sys.argv) > 3 else 4), "stats": stats}[cmd]()
+    {"check": check, "save": lambda: save_missing(int(sys.argv[2]) if len(sys.argv) > 2 else 10**9, int(sys.argv[3]) if len(sys.argv) > 3 else 4, sys.argv[4] if len(sys.argv) > 4 else ""), "stats": stats}[cmd]()

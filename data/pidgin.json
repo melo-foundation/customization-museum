@@ -1,0 +1,362 @@
+[
+ {
+  "app": "Pidgin",
+  "date": "2013-07-06",
+  "download": "https://developer.pidgin.im/raw-attachment/wiki/ThirdPartySmileyThemes/AdvSmileys.tar.gz",
+  "id": "pidgin-smiley-advanced-smiley-package",
+  "page": "https://developer.pidgin.im/wiki/ThirdPartySmileyThemes#advanced-smiley-package",
+  "preview": null,
+  "tags": [
+   "Smiley Themes"
+  ],
+  "title": "Advanced Smiley Package"
+ },
+ {
+  "app": "Pidgin",
+  "date": "2015-08-21",
+  "download": "https://developer.pidgin.im/raw-attachment/wiki/ThirdPartySmileyThemes/AdvSmileys2.tar.gz",
+  "id": "pidgin-smiley-advanced-smiley-package-2",
+  "page": "https://developer.pidgin.im/wiki/ThirdPartySmileyThemes#advanced-smiley-package-2",
+  "preview": null,
+  "tags": [
+   "Smiley Themes"
+  ],
+  "title": "Advanced Smiley Package 2"
+ },
+ {
+  "app": "Pidgin",
+  "date": "2009-03-13",
+  "download": "https://developer.pidgin.im/raw-attachment/wiki/ThirdPartySmileyThemes/BackToBasics.tar.gz",
+  "id": "pidgin-smiley-back-to-basics",
+  "page": "https://developer.pidgin.im/wiki/ThirdPartySmileyThemes#back-to-basics",
+  "preview": null,
+  "tags": [
+   "Smiley Themes"
+  ],
+  "title": "Back to Basics"
+ },
+ {
+  "app": "Pidgin",
+  "date": "",
+  "download": null,
+  "id": "pidgin-smiley-cheeky",
+  "page": "http://www.inviticon.eu/cheeky/latest-pidgin",
+  "preview": null,
+  "tags": [
+   "Smiley Themes"
+  ],
+  "title": "Cheeky"
+ },
+ {
+  "app": "Pidgin",
+  "date": "",
+  "download": "http://github.com/VxJasonxV/emoji-for-pidgin/tarball/master",
+  "id": "pidgin-smiley-emoji-for-pidgin",
+  "page": "http://github.com/VxJasonxV/emoji-for-pidgin/tarball/master",
+  "preview": null,
+  "tags": [
+   "Smiley Themes"
+  ],
+  "title": "Emoji for Pidgin"
+ },
+ {
+  "app": "Pidgin",
+  "date": "",
+  "download": null,
+  "id": "pidgin-smiley-emoji-one-for-pidgin",
+  "page": "https://github.com/niclashoyer/pidgin-emojione/",
+  "preview": null,
+  "tags": [
+   "Smiley Themes"
+  ],
+  "title": "Emoji One for Pidgin"
+ },
+ {
+  "app": "Pidgin",
+  "date": "2014-01-01",
+  "download": "https://developer.pidgin.im/raw-attachment/wiki/ThirdPartySmileyThemes/Facebook.tar.gz",
+  "id": "pidgin-smiley-facebook",
+  "page": "https://developer.pidgin.im/wiki/ThirdPartySmileyThemes#facebook",
+  "preview": null,
+  "tags": [
+   "Smiley Themes"
+  ],
+  "title": "Facebook"
+ },
+ {
+  "app": "Pidgin",
+  "date": "2011-03-05",
+  "download": "https://developer.pidgin.im/raw-attachment/wiki/ThirdPartySmileyThemes/GaiaOnline.tar.gz",
+  "id": "pidgin-smiley-gaia-online",
+  "page": "https://developer.pidgin.im/wiki/ThirdPartySmileyThemes#gaia-online",
+  "preview": null,
+  "tags": [
+   "Smiley Themes"
+  ],
+  "title": "Gaia Online"
+ },
+ {
+  "app": "Pidgin",
+  "date": "2014-05-31",
+  "download": "https://developer.pidgin.im/raw-attachment/wiki/ThirdPartySmileyThemes/GG12.zip",
+  "id": "pidgin-smiley-gg12",
+  "page": "https://developer.pidgin.im/wiki/ThirdPartySmileyThemes#gg12",
+  "preview": null,
+  "tags": [
+   "Smiley Themes"
+  ],
+  "title": "GG12"
+ },
+ {
+  "app": "Pidgin",
+  "date": "",
+  "download": "https://bitbucket.org/ignisf/hipchat-pidgin-theme/downloads",
+  "id": "pidgin-smiley-hipchat-emoticons",
+  "page": "https://bitbucket.org/ignisf/hipchat-pidgin-theme/downloads",
+  "preview": null,
+  "tags": [
+   "Smiley Themes"
+  ],
+  "title": "HipChat Emoticons"
+ },
+ {
+  "app": "Pidgin",
+  "date": "",
+  "download": "http://www.kolobok.us/download.php?list.12",
+  "id": "pidgin-smiley-kolobok-qip-set",
+  "page": "http://www.kolobok.us/download.php?list.12",
+  "preview": null,
+  "tags": [
+   "Smiley Themes"
+  ],
+  "title": "Kolobok (QIP set)"
+ },
+ {
+  "app": "Pidgin",
+  "date": "2013-11-16",
+  "download": "https://developer.pidgin.im/raw-attachment/wiki/ThirdPartySmileyThemes/memeticons-pidgin.tar.gz",
+  "id": "pidgin-smiley-memeticons",
+  "page": "https://developer.pidgin.im/wiki/ThirdPartySmileyThemes#memeticons",
+  "preview": null,
+  "tags": [
+   "Smiley Themes"
+  ],
+  "title": "Memeticons"
+ },
+ {
+  "app": "Pidgin",
+  "date": "",
+  "download": "https://github.com/PowaBanga/pidgin-EAP/archive/master.zip",
+  "id": "pidgin-smiley-multi-the-pack",
+  "page": "https://github.com/PowaBanga/pidgin-EAP/archive/master.zip",
+  "preview": null,
+  "tags": [
+   "Smiley Themes"
+  ],
+  "title": "Multi, the Pack"
+ },
+ {
+  "app": "Pidgin",
+  "date": "",
+  "download": "https://github.com/radiocane/noto-emoji/releases/download/pidgintheme-1.0/NOTO-EMOJI.ZIP",
+  "id": "pidgin-smiley-noto-emoji",
+  "page": "https://github.com/radiocane/noto-emoji/releases/download/pidgintheme-1.0/NOTO-EMOJI.ZIP",
+  "preview": null,
+  "tags": [
+   "Smiley Themes"
+  ],
+  "title": "Noto Emoji"
+ },
+ {
+  "app": "Pidgin",
+  "date": "2013-09-02",
+  "download": "https://developer.pidgin.im/raw-attachment/wiki/ThirdPartySmileyThemes/twitch_smiley_theme.tar.gz",
+  "id": "pidgin-smiley-twitch-tv",
+  "page": "https://developer.pidgin.im/wiki/ThirdPartySmileyThemes#twitch-tv",
+  "preview": null,
+  "tags": [
+   "Smiley Themes"
+  ],
+  "title": "Twitch.tv"
+ },
+ {
+  "app": "Pidgin",
+  "date": "2008-12-17",
+  "download": "https://developer.pidgin.im/raw-attachment/wiki/ThirdPartySmileyThemes/aMSN.tar.gz",
+  "id": "pidgin-smiley-ubitux-smiley-set-default-amsn-smiley-set",
+  "page": "https://developer.pidgin.im/wiki/ThirdPartySmileyThemes#ubitux-smiley-set-default-amsn-smiley-set",
+  "preview": null,
+  "tags": [
+   "Smiley Themes"
+  ],
+  "title": "Ubitux Smiley set (default aMSN smiley set)"
+ },
+ {
+  "app": "Pidgin",
+  "date": "",
+  "download": null,
+  "id": "pidgin-smiley-unicode-emojis-for-pidgin",
+  "page": "https://github.com/stv0g/unicode-emoji",
+  "preview": null,
+  "tags": [
+   "Smiley Themes"
+  ],
+  "title": "Unicode Emojis for Pidgin"
+ },
+ {
+  "app": "Pidgin",
+  "date": "2009-02-13",
+  "download": "https://developer.pidgin.im/raw-attachment/wiki/ThirdPartySmileyThemes/White_Emoticons_that_work.tar.gz",
+  "id": "pidgin-smiley-white-emoticons-that-work",
+  "page": "https://developer.pidgin.im/wiki/ThirdPartySmileyThemes#white-emoticons-that-work",
+  "preview": null,
+  "tags": [
+   "Smiley Themes"
+  ],
+  "title": "White Emoticons that work"
+ },
+ {
+  "app": "Pidgin",
+  "date": "2008-09-05",
+  "download": "https://developer.pidgin.im/raw-attachment/wiki/ThirdPartySmileyThemes/yahoo.tar.gz",
+  "id": "pidgin-smiley-yahoo-messenger-8-1",
+  "page": "https://developer.pidgin.im/wiki/ThirdPartySmileyThemes#yahoo-messenger-8-1",
+  "preview": null,
+  "tags": [
+   "Smiley Themes"
+  ],
+  "title": "Yahoo! Messenger 8.1"
+ },
+ {
+  "app": "Pidgin",
+  "date": "2009-09-06",
+  "download": "https://developer.pidgin.im/raw-attachment/wiki/ThirdPartySmileyThemes/yahoo.zip",
+  "id": "pidgin-smiley-yahoo-messenger-9",
+  "page": "https://developer.pidgin.im/wiki/ThirdPartySmileyThemes#yahoo-messenger-9",
+  "preview": null,
+  "tags": [
+   "Smiley Themes"
+  ],
+  "title": "Yahoo! Messenger 9"
+ },
+ {
+  "app": "Pidgin",
+  "date": "2010-07-20",
+  "download": "https://developer.pidgin.im/raw-attachment/wiki/ThirdPartySmileyThemes/yahoo_10.zip",
+  "id": "pidgin-smiley-yahoo-messenger-10",
+  "page": "https://developer.pidgin.im/wiki/ThirdPartySmileyThemes#yahoo-messenger-10",
+  "preview": null,
+  "tags": [
+   "Smiley Themes"
+  ],
+  "title": "Yahoo! Messenger 10"
+ },
+ {
+  "app": "Pidgin",
+  "date": "2011-08-19",
+  "download": "https://developer.pidgin.im/raw-attachment/wiki/ThirdPartySmileyThemes/Yahoo__Messenger_11_Smiley_Pack.zip",
+  "id": "pidgin-smiley-yahoo-messenger-11-beta",
+  "page": "https://developer.pidgin.im/wiki/ThirdPartySmileyThemes#yahoo-messenger-11-beta",
+  "preview": null,
+  "tags": [
+   "Smiley Themes"
+  ],
+  "title": "Yahoo! Messenger 11 Beta"
+ },
+ {
+  "app": "Pidgin",
+  "date": "2009-08-30",
+  "download": "https://developer.pidgin.im/raw-attachment/wiki/StatusIconThemes/Pidgin_original_theme.zip",
+  "id": "pidgin-status-icon-themes-pidgin-original-theme",
+  "page": "https://developer.pidgin.im/wiki/StatusIconThemes",
+  "preview": null,
+  "tags": [
+   "Status Icon Themes"
+  ],
+  "title": "Example status icon theme by freakazoid"
+ },
+ {
+  "app": "Pidgin",
+  "date": "2011-01-26",
+  "download": "https://developer.pidgin.im/raw-attachment/wiki/StatusIconThemes/ekiga-icon-theme.zip",
+  "id": "pidgin-status-icon-themes-ekiga-icon-theme",
+  "page": "https://developer.pidgin.im/wiki/StatusIconThemes",
+  "preview": null,
+  "tags": [
+   "Status Icon Themes"
+  ],
+  "title": "Ekiga style icon theme"
+ },
+ {
+  "app": "Pidgin",
+  "date": "2012-09-21",
+  "download": "https://developer.pidgin.im/raw-attachment/wiki/StatusIconThemes/Metro%20Status.zip",
+  "id": "pidgin-status-icon-themes-metro-status",
+  "page": "https://developer.pidgin.im/wiki/StatusIconThemes",
+  "preview": "https://developer.pidgin.im/raw-attachment/wiki/StatusIconThemes/Metro%20Status.png",
+  "tags": [
+   "Status Icon Themes"
+  ],
+  "title": "Metro status icon theme"
+ },
+ {
+  "app": "Pidgin",
+  "date": "2012-09-22",
+  "download": "https://developer.pidgin.im/raw-attachment/wiki/StatusIconThemes/Clean%20Status.zip",
+  "id": "pidgin-status-icon-themes-clean-status",
+  "page": "https://developer.pidgin.im/wiki/StatusIconThemes",
+  "preview": "https://developer.pidgin.im/raw-attachment/wiki/StatusIconThemes/Clean%20Status.png",
+  "tags": [
+   "Status Icon Themes"
+  ],
+  "title": "Clean status icon theme"
+ },
+ {
+  "app": "Pidgin",
+  "date": "2009-08-21",
+  "download": "https://developer.pidgin.im/raw-attachment/wiki/SoundThemes/Synthetic_Frost.zip",
+  "id": "pidgin-sound-themes-synthetic-frost",
+  "page": "https://developer.pidgin.im/wiki/SoundThemes",
+  "preview": null,
+  "tags": [
+   "Sound Themes"
+  ],
+  "title": "Synthetic Frost"
+ },
+ {
+  "app": "Pidgin",
+  "date": "2009-09-12",
+  "download": "https://developer.pidgin.im/raw-attachment/wiki/SoundThemes/Synthetic_Frost_in_WAV.zip",
+  "id": "pidgin-sound-themes-synthetic-frost-in-wav",
+  "page": "https://developer.pidgin.im/wiki/SoundThemes",
+  "preview": null,
+  "tags": [
+   "Sound Themes"
+  ],
+  "title": "Synthetic Frost in WAV-format"
+ },
+ {
+  "app": "Pidgin",
+  "date": "2009-12-09",
+  "download": "https://developer.pidgin.im/raw-attachment/wiki/SoundThemes/Glados.tar.gz",
+  "id": "pidgin-sound-themes-glados",
+  "page": "https://developer.pidgin.im/wiki/SoundThemes",
+  "preview": null,
+  "tags": [
+   "Sound Themes"
+  ],
+  "title": "GLaDOS Sound theme for Pidgin"
+ },
+ {
+  "app": "Pidgin",
+  "date": "2010-05-24",
+  "download": "https://developer.pidgin.im/raw-attachment/wiki/SoundThemes/Simplex.tar.gz",
+  "id": "pidgin-sound-themes-simplex",
+  "page": "https://developer.pidgin.im/wiki/SoundThemes",
+  "preview": null,
+  "tags": [
+   "Sound Themes"
+  ],
+  "title": "Simplex sound themes from adiumxtras.com"
+ }
+]
