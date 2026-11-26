@@ -1,0 +1,43 @@
+name: ratetest
+
+on: workflow_dispatch
+
+permissions:
+  contents: read
+
+jobs:
+  burst:
+    strategy:
+      matrix:
+        auth: [anonymous, keys]
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+    steps:
+      - run: |
+          python3 - <<'EOF'
+          import collections, os, time, urllib.error, urllib.request
+          auth = os.environ["AUTH"] == "keys"
+          h = {"User-Agent": "customization-museum/0.1 ratetest"}
+          if auth:
+              h["Authorization"] = "LOW " + os.environ["KEYS"]
+          urls = []
+          for i in range(1, 151):
+              urls.append(f"https://web.archive.org/cdx/search/cdx?url=addons.miranda-im.org/details.php?action=viewfile%26id={i}&limit=1")
+              urls.append(f"https://web.archive.org/web/2006id_/http://addons.miranda-im.org/details.php?action=viewfile&id={i}")
+          codes, first_bad, t0 = collections.Counter(), None, time.time()
+          for n, u in enumerate(urls, 1):
+              try:
+                  with urllib.request.urlopen(urllib.request.Request(u, headers=h), timeout=60) as r:
+                      r.read(); c = str(r.status)
+              except urllib.error.HTTPError as e:
+                  c = str(e.code)
+              except Exception as e:
+                  c = type(e).__name__
+              codes[c] += 1
+              if first_bad is None and c not in ("200", "404"):
+                  first_bad = (n, c)
+          print(f"{os.environ['AUTH']}: {dict(codes)} first non-200 at request {first_bad}, {time.time() - t0:.0f}s for {len(urls)} requests")
+          EOF
+        env:
+          AUTH: ${{ matrix.auth }}
+          KEYS: ${{ secrets.ARCHIVE_KEYS }}
