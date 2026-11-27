@@ -43,6 +43,15 @@
   #warn { max-width:1700px; margin:10px auto 0; padding:0 20px; }
   #warn div { display:flex; gap:12px; align-items:center; background:#2a2414; border:1px solid #5a4a1c; color:#f0dca0; border-radius:8px; padding:8px 14px; font-size:13px; }
   #warn button { margin-left:auto; background:none; border:1px solid #5a4a1c; color:inherit; border-radius:6px; padding:2px 10px; cursor:pointer; font:inherit; }
+  #about { max-width:1700px; margin:14px auto 0; padding:0 20px; }
+  #about:empty { display:none; }
+  #about .box { position:relative; background:var(--panel); border:1px solid var(--border); border-radius:10px; padding:14px 20px; line-height:1.55; }
+  #about h1 { font-size:20px; margin:0 0 6px; white-space:normal; }
+  #about h2 { font-size:16px; margin:14px 0 4px; }
+  #about p, #about ul { margin:6px 0; }
+  #about a { color:var(--accent); }
+  #about .tools { position:absolute; top:12px; right:14px; display:flex; gap:8px; }
+  #about .tools a, #about .tools button { color:var(--accent); background:none; border:1px solid var(--border); border-radius:6px; padding:3px 10px; font:12px inherit; cursor:pointer; text-decoration:none; }
   #itemview { max-width:1150px; margin:20px auto 40px; padding:0 20px; }
   #itemview .wrap { display:grid; grid-template-columns:minmax(0,1.25fr) minmax(0,1fr); gap:24px; align-items:start; }
   #itemview .big { background:#0c0d10; border:1px solid var(--border); border-radius:10px; min-height:280px; display:flex; align-items:center; justify-content:center; padding:12px; color:var(--muted); }
@@ -78,6 +87,7 @@
 <div class="bar" id="apps"></div>
 <div class="bar" id="types"></div>
 <div class="bar" id="tags"></div>
+<div id="about"></div>
 <div id="itemview" hidden></div>
 <main><div class="grid" id="grid"></div><div id="empty">No results</div><div id="more"></div></main>
 <script>
@@ -87,7 +97,7 @@ const $ = id => document.getElementById(id);
 const wb = (f, url, mode='') => { const [ts, u] = f.split('|'); return `https://web.archive.org/web/${ts}${mode}/${u || url}`; };
 const esc = s => String(s).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 const real = f => !!f && /^\d{14}/.test(f);
-const saved = e => real(e.tp) || real(e.tl) || /^https?:\/\/(\w+\.)?archive\.org\//.test(e.l || '');
+const saved = e => real(e.tp) || real(e.tl) || e.tp === '2' || /^https?:\/\/(\w+\.)?archive\.org\//.test(e.l || '');
 const slug = s => s.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');
 let DATA = [], SITE = {}, view = [], shown = 0, site = '', app = '', typ = '', tag = '';
 const PAGE = 120;
@@ -136,7 +146,7 @@ function media(e) {
 
 async function showItem(id) {
   const e = DATA.find(d => d.i === id);
-  ['apps', 'types', 'tags', 'sort', 'arch', 'count'].forEach(k => $(k).hidden = true);
+  ['apps', 'types', 'tags', 'about', 'sort', 'arch', 'count'].forEach(k => $(k).hidden = true);
   $('q').onkeydown = ev => { if (ev.key === 'Enter') location.href = ROOT + '#q=' + encodeURIComponent($('q').value.trim()); };
   document.querySelector('main').hidden = true;
   const v = $('itemview'); v.hidden = false;
@@ -168,6 +178,21 @@ async function showItem(id) {
     const text = await fetch(`items/${key}.md`).then(r => r.ok ? r.text() : '');
     $('desc').innerHTML = md(text.replace(/^---[\s\S]*?\n---\n?/, ''));
   }
+}
+
+let SITEPAGES = new Set(), aboutToken = 0;
+async function siteAbout() {
+  if (!site) { $('about').innerHTML = ''; return; }
+  const mine = ++aboutToken, items = DATA.filter(e => e.s === site), name = SITE[site];
+  const dates = items.map(e => e.d).filter(Boolean).sort();
+  const list = arr => Object.entries(arr.reduce((m, k) => (m[k] = (m[k] || 0) + 1, m), {})).sort((a, b) => b[1] - a[1]).slice(0, 8).map(([k, n]) => `${k} (${n})`).join(', ');
+  const auto = `# ${name}\n\n${items.length} items${dates.length ? `, ${dates[0].slice(0, 4)} to ${dates[dates.length - 1].slice(0, 4)}` : ''}.\n\n- Programs: ${list(items.map(e => e.a))}\n- Types: ${list(items.flatMap(e => e.y))}\n- Archived: ${items.filter(saved).length} of ${items.length}\n- Site: https://${name}\n`;
+  const key = `site-${site}`, has = SITEPAGES.has(key);
+  const text = has ? await fetch(`pages/${key}.md`).then(r => r.ok ? r.text() : auto) : auto;
+  if (mine !== aboutToken) return;
+  const edit = has ? `https://github.com/${REPO}/edit/main/pages/${key}.md` : `https://github.com/${REPO}/new/main?filename=pages/${key}.md&value=${encodeURIComponent(auto)}`;
+  $('about').innerHTML = `<div class="box"><div class="tools"><a href="${esc(edit)}" target="_blank" rel="noopener">Edit</a><button id="unsite">Close</button></div>${md(text)}</div>`;
+  $('unsite').onclick = () => { site = ''; render(); };
 }
 
 const report = e => `https://github.com/${REPO}/issues/new?template=report.yml&title=${encodeURIComponent('Report: ' + e.t)}&item=${encodeURIComponent(e.t + ' (' + e.a + ')')}&link=${encodeURIComponent(e.l || e.p || '')}`;
@@ -205,6 +230,7 @@ function render() {
   const path = only.length === 1 && !['tag', 'q'].includes(only[0][0]) ? `${only[0][0]}/${only[0][0] === 'site' ? only[0][1] : slug(only[0][1])}/` : '';
   const hash = path ? '' : new URLSearchParams(only).toString();
   history.replaceState(null, '', ROOT + path + (hash ? '#' + hash : ''));
+  siteAbout();
 }
 
 function fromHash() {
@@ -229,8 +255,8 @@ addEventListener('hashchange', () => { fromHash(); render(); });
 new IntersectionObserver(es => es[0].isIntersecting && more(), { rootMargin: '600px' }).observe($('more'));
 if (!localStorage.getItem('warned')) $('warn').hidden = false;
 $('warnok').onclick = () => { localStorage.setItem('warned', '1'); $('warn').hidden = true; };
-fetch('entries.json').then(r => r.json()).then(d => {
-  DATA = d;
+Promise.all([fetch('entries.json').then(r => r.json()), fetch('pages.json').then(r => r.ok ? r.json() : []).catch(() => [])]).then(([d, p]) => {
+  DATA = d; SITEPAGES = new Set(p);
   for (const e of d) if (!(e.s in SITE)) { try { SITE[e.s] = new URL(e.p || e.l).hostname.replace(/^www\./, ''); } catch { SITE[e.s] = e.s; } }
   if (location.href.slice(ROOT.length).startsWith('item/')) return showItem(new URLSearchParams(location.search).get('id'));
   fromHash(); render();
