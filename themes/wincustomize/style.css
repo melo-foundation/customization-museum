@@ -1,162 +1,33 @@
-/* WinCustomize 2003 "GreenApple": values from the original css.asp?CSSTHEME=GREENAPPLE and frame images */
-html[data-theme="wincustomize"], html[data-theme="wincustomize"] body { background:#ffffff; }
-html[data-theme="wincustomize"] body { margin:0; color:#333333; font:9pt "MS Sans Serif","Microsoft Sans Serif",Arial,Tahoma,Verdana,sans-serif; }
-html[data-theme="wincustomize"] #app, html[data-theme="wincustomize"] td { font:9pt "MS Sans Serif","Microsoft Sans Serif",Arial,Tahoma,Verdana,sans-serif; color:#333333; }
-html[data-theme="wincustomize"] table { border-collapse:separate; }
-html[data-theme="wincustomize"] a { color:#22457E; font-weight:bold; text-decoration:none; }
-html[data-theme="wincustomize"] a:hover { text-decoration:underline; }
-html[data-theme="wincustomize"] input, html[data-theme="wincustomize"] select, html[data-theme="wincustomize"] button { font:13.33px Arial,sans-serif; color:#000; margin:0; }
-html[data-theme="wincustomize"] input[type=search], html[data-theme="wincustomize"] input[type=text] { width:128px; padding:1px 2px; border:2px inset #ddd; background:#fff; }
-html[data-theme="wincustomize"] button { padding:1px 6px; }
+/* The site's own stylesheet (css.asp?CSSTHEME=GREENAPPLE, 2003), unmodified. */
+@import url("assets/greenapple.css");
 
-/* header: 75px green band with logo spot (logo_top.gif was 189x75) */
-html[data-theme="wincustomize"] .hd { width:100%; background:#007236; }
-html[data-theme="wincustomize"] .hd .logo { width:189px; height:75px; vertical-align:bottom; padding:0; }
-html[data-theme="wincustomize"] .hd .logo a { display:block; width:189px; height:75px; padding:6px 0 0 6px; box-sizing:border-box; color:#fff; text-decoration:none; font:bold 25px/30px "Arial Narrow",Arial,sans-serif; letter-spacing:-1px; text-shadow:1px 1px 0 #003a1b,-1px -1px 0 #003a1b,1px -1px 0 #003a1b,-1px 1px 0 #003a1b; }
-html[data-theme="wincustomize"] .hd .logo a span { display:block; }
-html[data-theme="wincustomize"] .hd .ad { height:75px; }
+/* what the original <body bgcolor="#FFFFFF" leftmargin="0" topmargin="0" ...> attributes did */
+html[data-theme="wincustomize"], html[data-theme="wincustomize"] body { background:#ffffff; margin:0; }
 
-/* top bar: 33px — 1px green, white, then #804702 / #febf00 / #7d4900 rule (topbar*_bg.gif) */
-html[data-theme="wincustomize"] .tb { width:100%; height:33px; background:linear-gradient(#007236 0 1px,#ffffff 1px 30px,#804702 30px 31px,#febf00 31px 32px,#7d4900 32px 33px); }
-html[data-theme="wincustomize"] .tb td { height:33px; padding:0; vertical-align:middle; padding-bottom:3px; box-sizing:border-box; color:#000; white-space:nowrap; }
-html[data-theme="wincustomize"] .tb .tbl { width:217px; padding:0; vertical-align:top; }
-html[data-theme="wincustomize"] .tb .tbl div { width:217px; height:30px; background:radial-gradient(circle at 217px 30px,#ffffff 0 28px,transparent 29px),#007236; border-bottom-right-radius:0; }
-html[data-theme="wincustomize"] .tb .tbtext a { color:#000; }
-html[data-theme="wincustomize"] .tb .tbmid { width:100%; }
-html[data-theme="wincustomize"] .tb .tbr a { color:#000; }
-html[data-theme="wincustomize"] .tb select { font:13.33px Arial,sans-serif; }
+/* logo_top.gif (189x75) replaced by our name in the same box */
+html[data-theme="wincustomize"] a.cm-logo { display:block; width:189px; height:75px; box-sizing:border-box; padding:8px 0 0 6px; color:#ffffff; text-decoration:none;
+  font:bold 25px/29px "Arial Narrow",Arial,sans-serif; letter-spacing:-1px; text-shadow:1px 1px 0 #003a1b,-1px -1px 0 #003a1b,1px -1px 0 #003a1b,-1px 1px 0 #003a1b; }
+html[data-theme="wincustomize"] a.cm-logo span { display:block; }
 
-/* toplinks: centered, 10pt bold black */
-html[data-theme="wincustomize"] .tl { width:100%; }
-html[data-theme="wincustomize"] .tl td { text-align:center; }
-html[data-theme="wincustomize"] .tl a { color:#000; font-size:10pt; }
-html[data-theme="wincustomize"] .tl a:hover { color:#22457E; }
+/* the 468x60 banner slot, filled with the malware notice and then the museum totals */
+html[data-theme="wincustomize"] .cm-ad { width:468px; height:60px; box-sizing:border-box; background:#ffffe1; border:1px solid #806733; overflow:hidden; text-align:left; }
+html[data-theme="wincustomize"] .cm-ad .cm-warning { height:58px; box-sizing:border-box; padding:4px 8px; display:flex; gap:8px; align-items:center; color:#000; font:9pt Arial,sans-serif; }
+html[data-theme="wincustomize"] .cm-ad .cm-warning button { margin-left:auto; }
+html[data-theme="wincustomize"] .cm-adstats { height:58px; display:flex; align-items:center; justify-content:center; color:#000; font:9pt Arial,sans-serif; }
 
-html[data-theme="wincustomize"] .cm-warning { margin:0 5px; padding:3px 6px; background:#ffffe1; border:1px solid #806733; color:#000; display:flex; gap:8px; align-items:center; }
-html[data-theme="wincustomize"] .cm-warning button { margin-left:auto; }
+/* our full-size previews scaled into the original 150px thumbnail box */
+html[data-theme="wincustomize"] img.cm-thumb { display:block; max-width:150px; max-height:150px; }
+html[data-theme="wincustomize"] .cm-media img, html[data-theme="wincustomize"] .cm-media video { max-width:100%; }
+html[data-theme="wincustomize"] .cm-media audio { display:block; margin:8px auto 0; }
 
-/* three columns: 170 | * | 170, cellspacing 5 */
-html[data-theme="wincustomize"] .main { width:100%; }
-html[data-theme="wincustomize"] .main td.side { width:170px; }
-html[data-theme="wincustomize"] .main td.side > .fr { width:170px; }
-html[data-theme="wincustomize"] .gap { height:12px; }
+/* the original renders in quirks mode, where a cell holding only a spacer/frame image does not grow to a text line;
+   make those images block-level so the frames keep their 1px edges in standards mode */
+html[data-theme="wincustomize"] td[height="1"] > img, html[data-theme="wincustomize"] td[width="1"] > img, html[data-theme="wincustomize"] img[src$="blank.gif"] { display:block; }
 
-/* frame: frame_corner/left/right/bottom = 1px #806733, frame_top/title = 1px #806733 + 24px #ffcc46 */
-html[data-theme="wincustomize"] .fr { width:100%; border:1px solid #806733; border-top:0; }
-html[data-theme="wincustomize"] .fr > tbody > tr > td.frt, html[data-theme="wincustomize"] .fr > tr > td.frt { height:24px; padding:0; border-top:1px solid #806733; background:#ffcc46; color:#000; font-weight:bold; font-size:9pt; text-align:center; }
-html[data-theme="wincustomize"] td.frt a { color:#000; }
-html[data-theme="wincustomize"] td.frt.title-row { text-align:left; }
-html[data-theme="wincustomize"] .frb { padding:0; }
-html[data-theme="wincustomize"] .ttl, html[data-theme="wincustomize"] .sf table { width:100%; }
-html[data-theme="wincustomize"] .ttl td, html[data-theme="wincustomize"] .sf td { color:#000; font-weight:bold; white-space:nowrap; }
-html[data-theme="wincustomize"] .ttl .l { padding-left:2px; width:100%; text-align:left; }
-html[data-theme="wincustomize"] .ttl .r, html[data-theme="wincustomize"] .sf .r { text-align:right; padding-right:2px; }
-html[data-theme="wincustomize"] .ttl .r b { font-weight:bold; }
-html[data-theme="wincustomize"] .sf { margin:0; }
-html[data-theme="wincustomize"] .sf input[type=search] { width:124px; }
+/* theme picker sits where the original's size=10 Email input was (98px) */
+html[data-theme="wincustomize"] select[data-theme] { width:98px; box-sizing:border-box; }
 
-/* 16px library icons (originals not reproduced) */
-html[data-theme="wincustomize"] .ic { display:inline-block; width:16px; height:16px; vertical-align:middle; box-sizing:border-box; border:1px solid #4a6aa0; background:linear-gradient(135deg,#dfe9fb 0 45%,#7fa1dc 46% 100%); }
-
-/* side lists: cellspacing 3, icon | name | [count] */
-html[data-theme="wincustomize"] .lib, html[data-theme="wincustomize"] .rank { width:100%; }
-html[data-theme="wincustomize"] .lib td, html[data-theme="wincustomize"] .rank td { vertical-align:bottom; color:#000; padding:0; }
-html[data-theme="wincustomize"] .lib td.w, html[data-theme="wincustomize"] .rank td.w { width:100%; }
-html[data-theme="wincustomize"] .lib td.n, html[data-theme="wincustomize"] .rank td.n { text-align:right; white-space:nowrap; font-weight:normal; }
-html[data-theme="wincustomize"] .lib a.on { color:#000; text-decoration:underline; }
-html[data-theme="wincustomize"] .plain { padding:3px; line-height:14px; }
-html[data-theme="wincustomize"] .plain a { color:#22457E; }
-html[data-theme="wincustomize"] .goodies { text-align:center; padding:8px 4px; color:#000; line-height:16px; }
-
-/* skin entry body: #F6F6F6, cellspacing 5; #AAAAAA cells with 1px-spaced #DDDDDD / #FFFFFF insets */
-html[data-theme="wincustomize"] .sk { width:100%; }
-html[data-theme="wincustomize"] .sk td.shotcell, html[data-theme="wincustomize"] .sk td.infocell, html[data-theme="wincustomize"] .sk td.bigshot { background:#AAAAAA; padding:0; }
-html[data-theme="wincustomize"] .sk td.shotcell { width:50px; }
-html[data-theme="wincustomize"] .sk td.infocell { width:100%; }
-html[data-theme="wincustomize"] .sk td.shotcell > table, html[data-theme="wincustomize"] .sk td.infocell > table, html[data-theme="wincustomize"] .sk td.bigshot > table { width:100%; height:100%; }
-html[data-theme="wincustomize"] .sk td.shot { background:#DDDDDD; color:#22457E; }
-html[data-theme="wincustomize"] .sk td.shot div { width:150px; overflow:hidden; }
-html[data-theme="wincustomize"] .sk td.shot img { display:block; max-width:150px; max-height:150px; border:0; }
-html[data-theme="wincustomize"] .sk td.shotcell.narrow td.shot { width:20px; }
-html[data-theme="wincustomize"] .sk td.shot.small { width:60px; text-align:center; color:#000; }
-html[data-theme="wincustomize"] .sk td.bigshot td.shot { text-align:center; padding:8px; }
-html[data-theme="wincustomize"] .sk td.bigshot td.shot img, html[data-theme="wincustomize"] .sk td.bigshot td.shot video { max-width:100%; max-height:none; display:inline-block; }
-html[data-theme="wincustomize"] .np { color:#000; font-weight:bold; }
-html[data-theme="wincustomize"] .sk td.info { background:#ffffff; color:#22457E; line-height:14px; }
-html[data-theme="wincustomize"] .sk td.info.big { font-size:10pt; line-height:15px; }
-html[data-theme="wincustomize"] .sk td.info a { color:#000; }
-html[data-theme="wincustomize"] .sk td.info b { color:#22457E; }
-html[data-theme="wincustomize"] .sk td.foot { background:#ffffff; border:1px solid #AAAAAA; padding:5px 8px; text-align:right; font-weight:bold; font-size:10pt; color:#000; }
-html[data-theme="wincustomize"] .sk td.foot a { color:#000; font-size:10pt; }
-
-/* change-library / category checkboxes */
-html[data-theme="wincustomize"] .chg td, html[data-theme="wincustomize"] .cats td { color:#000; padding:0; }
-html[data-theme="wincustomize"] .cats { width:100%; }
-html[data-theme="wincustomize"] .cats td { width:25%; }
-html[data-theme="wincustomize"] .cats input { margin:0 3px 0 0; vertical-align:middle; }
-html[data-theme="wincustomize"] .chg select { min-width:140px; }
-
-/* about box */
-html[data-theme="wincustomize"] .al { width:100%; }
-html[data-theme="wincustomize"] .al td { font-size:10pt; color:#22457E; padding:0; }
-html[data-theme="wincustomize"] .al td.r { text-align:right; }
-html[data-theme="wincustomize"] .al a { color:#000; font-size:10pt; }
-html[data-theme="wincustomize"] .aboutx { padding:6px 8px; color:#22457E; font-size:10pt; line-height:15px; }
-html[data-theme="wincustomize"] .aboutx h1 { font-size:10pt; margin:0 0 4px; color:#000; }
-html[data-theme="wincustomize"] .aboutx ul { margin:4px 0; padding-left:18px; }
-
-/* news items on the front page */
-html[data-theme="wincustomize"] .news { border:1px solid #AAAAAA; margin:5px; padding:4px 6px 3px; background:#fff; }
-html[data-theme="wincustomize"] .news .nt { color:#22457E; font-weight:bold; font-size:10pt; margin:2px 0 10px; }
-html[data-theme="wincustomize"] .news p { margin:0 0 12px; color:#22457E; font-size:10pt; line-height:15px; }
-html[data-theme="wincustomize"] .news p a { color:#22457E; font-weight:normal; font-size:10pt; }
-html[data-theme="wincustomize"] .news .nf { width:100%; }
-html[data-theme="wincustomize"] .news .nf td { color:#000; }
-html[data-theme="wincustomize"] .news .nf a { color:#000; }
-html[data-theme="wincustomize"] .news .nf td.r { text-align:right; color:#22457E; }
-
-/* details + pager */
-html[data-theme="wincustomize"] .det { width:100%; }
-html[data-theme="wincustomize"] .det > tbody > tr > td { background:#AAAAAA; padding:0; }
-html[data-theme="wincustomize"] .det table { width:100%; }
-html[data-theme="wincustomize"] .det td.k { background:#DDDDDD; width:110px; color:#000; font-weight:bold; }
-html[data-theme="wincustomize"] .det td.v { background:#ffffff; color:#22457E; }
-html[data-theme="wincustomize"] .det td.v a { color:#000; }
-html[data-theme="wincustomize"] .pg { padding:6px; text-align:center; color:#000; font-size:10pt; }
-html[data-theme="wincustomize"] .pg a { color:#22457E; font-size:10pt; }
-
-/* comment panels (detail page "Comments" box) */
-html[data-theme="wincustomize"] .cm { width:100%; }
-html[data-theme="wincustomize"] .cm > tbody > tr > td { background:#ffffff; border:1px solid #AAAAAA; padding:5px 6px; color:#22457E; font-size:10pt; line-height:15px; }
-html[data-theme="wincustomize"] .cmb a { color:#000; font-size:10pt; }
-html[data-theme="wincustomize"] .cmby { text-align:right; color:#000; margin-top:8px; font-size:10pt; }
-html[data-theme="wincustomize"] .cmby a { color:#000; font-size:10pt; }
-html[data-theme="wincustomize"] .dl td { color:#22457E; font-size:10pt; padding:1px 0; vertical-align:top; }
-html[data-theme="wincustomize"] .dl td.k { color:#000; font-weight:bold; padding-right:8px; white-space:nowrap; }
-html[data-theme="wincustomize"] .dl a { color:#000; font-size:10pt; }
-html[data-theme="wincustomize"] .bigshot { text-align:center; }
-html[data-theme="wincustomize"] .bigshot img, html[data-theme="wincustomize"] .bigshot video { max-width:100%; }
-
-/* header ad slot: iframe 468x60, right-aligned in the green band */
-html[data-theme="wincustomize"] .hd td.ad { text-align:right; vertical-align:middle; padding-right:0; }
-html[data-theme="wincustomize"] .adslot { display:inline-block; width:468px; height:60px; vertical-align:middle; text-align:left; background:#ffffe1; box-sizing:border-box; border:1px solid #806733; overflow:hidden; }
-html[data-theme="wincustomize"] .adslot .cm-warning { margin:0; height:58px; border:0; box-sizing:border-box; font-size:9pt; }
-html[data-theme="wincustomize"] .adstats { height:58px; display:flex; align-items:center; justify-content:center; color:#000; font-size:9pt; }
-
-/* daily shot */
-html[data-theme="wincustomize"] .ds { width:100%; }
-html[data-theme="wincustomize"] .ds td { text-align:center; color:#000; }
-html[data-theme="wincustomize"] .ds .ic { width:16px; height:16px; }
-
-/* poll: question/answer boxes with #AAAAAA 1px frame, bars #A95B2B border / #D9AE87 fill */
-html[data-theme="wincustomize"] .poll, html[data-theme="wincustomize"] .poll table { width:100%; }
-html[data-theme="wincustomize"] .poll > tbody > tr > td > table > tbody > tr > td { padding:2px; }
-html[data-theme="wincustomize"] .pb > tbody > tr > td { background:#AAAAAA; padding:1px; }
-html[data-theme="wincustomize"] .pb table td { padding:1px; }
-html[data-theme="wincustomize"] .pb table { width:100%; background:#ffffff; }
-html[data-theme="wincustomize"] .pq { width:145px; overflow:hidden; color:#22457E; text-align:left; }
-html[data-theme="wincustomize"] .pq.b { font-weight:bold; }
-html[data-theme="wincustomize"] .pq a { color:#22457E; font-weight:normal; }
-html[data-theme="wincustomize"] .votes { text-align:center; color:#000; }
-html[data-theme="wincustomize"] .pbar > tbody > tr > td { background:#AAAAAA; text-align:left; padding:1px; }
-html[data-theme="wincustomize"] .pbar div { height:1px; background:#D9AE87; border:1px solid #A95B2B; box-sizing:content-box; }
+/* our markdown about-text inside the original .content cell */
+html[data-theme="wincustomize"] .cm-about h1, html[data-theme="wincustomize"] .cm-about h2 { font-size:10pt; font-weight:bold; margin:0 0 6px; color:#22457E; }
+html[data-theme="wincustomize"] .cm-about p, html[data-theme="wincustomize"] .cm-about ul { margin:0 0 6px; }
+html[data-theme="wincustomize"] .cm-about ul { padding-left:18px; }
