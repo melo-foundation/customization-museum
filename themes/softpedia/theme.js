@@ -27,11 +27,11 @@
     return `<table width="100%" border="0" cellpadding="0" cellspacing="0" bgcolor="#001F5B"><tr>
         <td rowspan="2" valign="top"><a class="spx-logo" href="${h.url.home()}">CUSTOMIZATION MUSEUM<sup>TM</sup></a><table width="214" border="0" cellspacing="0" cellpadding="0"><tr><td width="26"></td><td align="center" class="update">${m.total.toLocaleString()} files online</td></tr></table></td>
         <td width="700" align="right" height="26">${nav.map(([t, u]) => `<a class="spx-nav" href="${u}"${ext(u)}>${t}</a>`).join('')}</td></tr>
-        <tr><td align="right" style="padding-right:14px"><div class="spx-ad468">${h.themePicker()}<span>Old skins, themes and emoticons, backed up on the Wayback Machine</span></div></td></tr></table>
+        <tr><td align="right" style="padding-right:14px"><div class="spx-ad468"><div class="spx-pickers">${h.themePicker()}${h.fidelityToggle()}</div><span>Old skins, themes and emoticons, backed up on the Wayback Machine</span></div></td></tr></table>
       <table width="100%" border="0" cellpadding="0" cellspacing="0" bgcolor="#001F5B"><tr>
         <td><table width="100%" border="0" cellpadding="0" cellspacing="0"><tr>
           <td width="74" height="85" align="center" valign="top" background="${A}um_l_bkg2.jpg" class="spx-io" style="padding-left:18px; padding-top:19px">${c(0)}</td>
-          <td width="447" align="center" valign="top" background="${A}um_bkg2.jpg" class="spx-io" style="padding-left:0px; padding-top:19px">${c(1, 1)}${c(2, 2)}${c(3, 2)}${c(4, 1)}${c(5, 1)}${c(6, 1)}</td>
+          <td width="447" align="center" valign="top" background="${A}um_bkg2.jpg" class="spx-io" style="padding-left:0px; padding-top:19px"><span class="spx-mid">${c(1, 1)}${c(2, 2)}${c(3, 2)}${c(4, 1)}${c(5, 1)}${c(6, 1)}</span></td>
           <td width="195" height="85" align="left" valign="top" background="${A}um_r_bkg3.jpg" class="spx-io" style="padding-left:2px; padding-top:19px">${c(7, 1)}</td></tr></table></td>
         <td width="86" valign="top" background="${A}menu_08_3.jpg" style="padding-top:55px"><form id="spx-search" data-search role="search" style="margin:0"><input name="q" type="text" class="searchfield" size="11" value="${E(r.q)}"></form></td>
         <td width="157"><table width="100%" border="0" cellpadding="0" cellspacing="0"><tr><td class="spx-io"><a class="spx-lbl spx-bm" href="${h.url.home()}">${img('menu_009_2_blank.png', 157, 40)}<span>BOOKMARK THIS SITE</span></a></td></tr>

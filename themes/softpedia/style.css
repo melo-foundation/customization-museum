@@ -91,3 +91,5 @@ html[data-theme="softpedia"] .spx-pick { display:flex; flex-direction:column; al
 html[data-theme="softpedia"] .spx-pick b { font:bold 26px Arial,sans-serif; }
 html[data-theme="softpedia"] .spx-pick span { font:bold 11px Arial,sans-serif; margin-bottom:6px; }
 html[data-theme="softpedia"] .spx-pick i { font:9px Verdana,sans-serif; font-style:normal; color:#5C6985; white-space:nowrap; overflow:hidden; max-width:140px; text-overflow:ellipsis; }
+html[data-theme="softpedia"] .spx-pickers { display:flex; gap:6px; }
+html[data-theme="softpedia"] .spx-pickers select { width:auto; max-width:200px; font:10px Verdana; color:#001F5B; background:#F2F5FF; }

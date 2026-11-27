@@ -1,0 +1,129 @@
+/* Readable mode for Download Portal 2006, layered over the untouched original.css + style.css.
+   Text and spacing scale; Softpedia's images stay at 1:1. Bars widen by repeating their own tiles
+   (the circle wave is already a 74px tile) or pixel columns (m-*h-*.png slices of the box headings). */
+
+/* wider page: the 984px frame grows with the window, the right column stays 150px */
+html[data-fidelity="readable"][data-theme="softpedia"] #app > div > table[width="984"] { width:min(94vw, 1880px); }
+html[data-fidelity="readable"][data-theme="softpedia"] #app td[width="822"], html[data-fidelity="readable"][data-theme="softpedia"] #app td[width="795"] { width:auto; }
+html[data-fidelity="readable"][data-theme="softpedia"] #app table[width="770"], html[data-fidelity="readable"][data-theme="softpedia"] #app table[width="754"], html[data-fidelity="readable"][data-theme="softpedia"] #app table[width="780"], html[data-fidelity="readable"][data-theme="softpedia"] #app table[width="790"], html[data-fidelity="readable"][data-theme="softpedia"] #app .onthispage { width:100% !important; }
+html[data-fidelity="readable"][data-theme="softpedia"] #app td[width="795"] > table[width="780"] { width:calc(100% - 15px) !important; }
+html[data-fidelity="readable"][data-theme="softpedia"] #app td[width="380"] { width:49%; }
+
+/* header: the wave cell between the circles takes the extra width; its six circles spread with equal gaps, which match
+   the gaps to the first and last circles in the neighbouring cells (both sit flush against this cell) */
+html[data-fidelity="readable"][data-theme="softpedia"] #app td[background$="um_bkg2.jpg"] { width:auto; }
+html[data-fidelity="readable"][data-theme="softpedia"] .spx-mid { display:flex; justify-content:space-evenly; }
+html[data-fidelity="readable"][data-theme="softpedia"] #app td[width="74"][background], html[data-fidelity="readable"][data-theme="softpedia"] #app td[width="195"][background] { width:auto; }
+html[data-fidelity="readable"][data-theme="softpedia"] #app td[width="74"][background] { width:74px; }
+html[data-fidelity="readable"][data-theme="softpedia"] #app td[width="195"][background] { width:195px; }
+html[data-fidelity="readable"][data-theme="softpedia"] .spx-nav { font-size:12px; line-height:25px; padding:0 14px 0 18px; }
+html[data-fidelity="readable"][data-theme="softpedia"] .update { font-size:12px; }
+html[data-fidelity="readable"][data-theme="softpedia"] .spx-ad468 span { font-size:12px; }
+html[data-fidelity="readable"][data-theme="softpedia"] .spx-pickers select { font-size:12px; }
+
+/* dotted rule under the section bar: the 770px image tiles instead of stretching */
+html[data-fidelity="readable"][data-theme="softpedia"] #app td:has(> img[src$="770_dot_spacer.gif"]) { background:url(assets/770_dot_spacer.gif) repeat-x 0 0; height:21px; }
+html[data-fidelity="readable"][data-theme="softpedia"] #app img[src$="770_dot_spacer.gif"] { visibility:hidden; width:100%; }
+
+/* home boxes: heading bars widen by left cap + repeated column + right cap */
+html[data-fidelity="readable"][data-theme="softpedia"] .win_heading { background:url(assets/m-winh-l.png) no-repeat 0 0, url(assets/m-winh-r.png) no-repeat 100% 0, url(assets/m-winh-m.png) repeat-x 0 0; }
+html[data-fidelity="readable"][data-theme="softpedia"] .mac_heading { background:url(assets/m-mach-l.png) no-repeat 0 0, url(assets/m-mach-r.png) no-repeat 100% 0, url(assets/m-mach-m.png) repeat-x 0 0; }
+html[data-fidelity="readable"][data-theme="softpedia"] .games_heading { background:url(assets/m-gamesh-l.png) no-repeat 0 0, url(assets/m-gamesh-r.png) no-repeat 100% 0, url(assets/m-gamesh-m.png) repeat-x 0 0; }
+html[data-fidelity="readable"][data-theme="softpedia"] .linux_heading { background:url(assets/m-linuxh-l.png) no-repeat 0 0, url(assets/m-linuxh-r.png) no-repeat 100% 0, url(assets/m-linuxh-m.png) repeat-x 0 0; }
+html[data-fidelity="readable"][data-theme="softpedia"] .drivers_heading { background:url(assets/m-driversh-l.png) no-repeat 0 0, url(assets/m-driversh-r.png) no-repeat 100% 0, url(assets/m-driversh-m.png) repeat-x 0 0; }
+html[data-fidelity="readable"][data-theme="softpedia"] .mobile_heading { background:url(assets/m-mobileh-l.png) no-repeat 0 0, url(assets/m-mobileh-r.png) no-repeat 100% 0, url(assets/m-mobileh-m.png) repeat-x 0 0; }
+html[data-fidelity="readable"][data-theme="softpedia"] span.mi_subheading_r { left:0; padding-right:10px; }
+html[data-fidelity="readable"][data-theme="softpedia"] div.mi_heading, html[data-fidelity="readable"][data-theme="softpedia"] div.mi_heading a { font-size:20px; }
+html[data-fidelity="readable"][data-theme="softpedia"] span.mi_subheading_l, html[data-fidelity="readable"][data-theme="softpedia"] span.mi_subheading_r, html[data-fidelity="readable"][data-theme="softpedia"] span.mi_subheading_r a { font-size:12px; }
+html[data-fidelity="readable"][data-theme="softpedia"] #app td.celltext span.celltitles a[style*="font-size:12px"] { font-size:15px !important; }
+
+/* text: original 9-13px Verdana/Arial up about 30%, with room between lines */
+html[data-fidelity="readable"][data-theme="softpedia"] h1.welcome_hdr { font-size:22px; }
+html[data-fidelity="readable"][data-theme="softpedia"] h2.dwlc_hdr { font-size:16px; }
+html[data-fidelity="readable"][data-theme="softpedia"] div.sect_title_win { font-size:24px; }
+html[data-fidelity="readable"][data-theme="softpedia"] span.sect_title_win a { font-size:22px; }
+html[data-fidelity="readable"][data-theme="softpedia"] div.mi_heading { font-size:22px; }
+html[data-fidelity="readable"][data-theme="softpedia"] div.mi_heading a { font-size:22px; }
+html[data-fidelity="readable"][data-theme="softpedia"] span.mi_subheading_l { font-size:13px; }
+html[data-fidelity="readable"][data-theme="softpedia"] span.mi_subheading_r { font-size:13px; }
+html[data-fidelity="readable"][data-theme="softpedia"] .right_title_bkg { font-size:15px; }
+html[data-fidelity="readable"][data-theme="softpedia"] .right_title_bkg a, html[data-fidelity="readable"][data-theme="softpedia"] .right_title_bkg a:hover, html[data-fidelity="readable"][data-theme="softpedia"] .right_title_bkg a:active, html[data-fidelity="readable"][data-theme="softpedia"] .right_title_bkg a:visited { font-size:15px; }
+html[data-fidelity="readable"][data-theme="softpedia"] .update { font-size:14px; }
+html[data-fidelity="readable"][data-theme="softpedia"] .searchfield { font-size:14px; }
+html[data-fidelity="readable"][data-theme="softpedia"] .celltitles { font-size:16px; }
+html[data-fidelity="readable"][data-theme="softpedia"] .celltitles a { font-size:14px; }
+html[data-fidelity="readable"][data-theme="softpedia"] .celltitles a:hover { font-size:14px; }
+html[data-fidelity="readable"][data-theme="softpedia"] .celltext_big { font-size:14px; }
+html[data-fidelity="readable"][data-theme="softpedia"] .celltext_big a { font-size:14px; }
+html[data-fidelity="readable"][data-theme="softpedia"] .celltext_big a:hover { font-size:14px; }
+html[data-fidelity="readable"][data-theme="softpedia"] .celltext_bigger { font-size:15px; }
+html[data-fidelity="readable"][data-theme="softpedia"] .celltext_bigger a { font-size:15px; }
+html[data-fidelity="readable"][data-theme="softpedia"] .celltext_bigger a:hover { font-size:15px; }
+html[data-fidelity="readable"][data-theme="softpedia"] .celltext { font-size:13px; }
+html[data-fidelity="readable"][data-theme="softpedia"] .celltext a { font-size:13px; }
+html[data-fidelity="readable"][data-theme="softpedia"] .celltext a:hover { font-size:13px; }
+html[data-fidelity="readable"][data-theme="softpedia"] .rightcellcontent { font-size:12px; }
+html[data-fidelity="readable"][data-theme="softpedia"] .rightcellcontent a { font-size:12px; }
+html[data-fidelity="readable"][data-theme="softpedia"] .rightcellcontent a:hover { font-size:12px; }
+html[data-fidelity="readable"][data-theme="softpedia"] li { font-size:12px; }
+html[data-fidelity="readable"][data-theme="softpedia"] li a, html[data-fidelity="readable"][data-theme="softpedia"] li a:link, html[data-fidelity="readable"][data-theme="softpedia"] li a:visited, html[data-fidelity="readable"][data-theme="softpedia"] li a:active { font-size:12px; }
+html[data-fidelity="readable"][data-theme="softpedia"] li a:hover { font-size:12px; }
+html[data-fidelity="readable"][data-theme="softpedia"] li.big { font-size:14px; }
+html[data-fidelity="readable"][data-theme="softpedia"] li.big a, html[data-fidelity="readable"][data-theme="softpedia"] li.big a:link, html[data-fidelity="readable"][data-theme="softpedia"] li.big a:visited, html[data-fidelity="readable"][data-theme="softpedia"] li.big a:active { font-size:14px; }
+html[data-fidelity="readable"][data-theme="softpedia"] li.big a:hover { font-size:14px; }
+html[data-fidelity="readable"][data-theme="softpedia"] .celltext_description li { font-size:13px; }
+html[data-fidelity="readable"][data-theme="softpedia"] .celltext_description li a, html[data-fidelity="readable"][data-theme="softpedia"] .celltext_description li a:link, html[data-fidelity="readable"][data-theme="softpedia"] .celltext_description li a:visited, html[data-fidelity="readable"][data-theme="softpedia"] .celltext_description li a:active { font-size:13px; }
+html[data-fidelity="readable"][data-theme="softpedia"] .copyrights { font-size:13px; }
+html[data-fidelity="readable"][data-theme="softpedia"] .copyrights a { font-size:13px; }
+html[data-fidelity="readable"][data-theme="softpedia"] .copyrights a:hover { font-size:13px; }
+html[data-fidelity="readable"][data-theme="softpedia"] .celltitles_categ { font-size:16px; }
+html[data-fidelity="readable"][data-theme="softpedia"] .celltitles_categ a { font-size:16px; }
+html[data-fidelity="readable"][data-theme="softpedia"] .celltitles_categ a:hover { font-size:16px; }
+html[data-fidelity="readable"][data-theme="softpedia"] .celltext_pick { font-size:13px; }
+html[data-fidelity="readable"][data-theme="softpedia"] .celltext_description { font-size:13px; }
+html[data-fidelity="readable"][data-theme="softpedia"] .celltext_description a { font-size:13px; }
+html[data-fidelity="readable"][data-theme="softpedia"] .celltext_description a:hover { font-size:13px; }
+html[data-fidelity="readable"][data-theme="softpedia"] .searchdrop { font-size:13px; }
+html[data-fidelity="readable"][data-theme="softpedia"] .general_button { font-size:14px; }
+html[data-fidelity="readable"][data-theme="softpedia"] .general_button { font-size:14px; }
+html[data-fidelity="readable"][data-theme="softpedia"] .ed_box a { font-size:12px; }
+html[data-fidelity="readable"][data-theme="softpedia"] .ed_box a:hover { font-size:12px; }
+html[data-fidelity="readable"][data-theme="softpedia"] #app b[style*="font-size:11px"] { font-size:14px !important; }
+html[data-fidelity="readable"][data-theme="softpedia"] #app .celltext, html[data-fidelity="readable"][data-theme="softpedia"] #app .celltext_description, html[data-fidelity="readable"][data-theme="softpedia"] #app .celltext_big, html[data-fidelity="readable"][data-theme="softpedia"] #app .celltext_bigger, html[data-fidelity="readable"][data-theme="softpedia"] #app .rightcellcontent { line-height:1.5; }
+html[data-fidelity="readable"][data-theme="softpedia"] #app li { line-height:22px; }
+html[data-fidelity="readable"][data-theme="softpedia"] #app .celltext_big div[align="justify"] { line-height:1.6; }
+html[data-fidelity="readable"][data-theme="softpedia"] #app td[height="22"] { height:30px; }
+html[data-fidelity="readable"][data-theme="softpedia"] #app font[size="4"] { font-size:24px; }
+html[data-fidelity="readable"][data-theme="softpedia"] .spx-ad728 td { font-size:13px; line-height:17px; }
+html[data-fidelity="readable"][data-theme="softpedia"] .spx-ad728 .spx-adt { font-size:14px; }
+html[data-fidelity="readable"][data-theme="softpedia"] .cm-warning { font-size:14px; }
+html[data-fidelity="readable"][data-theme="softpedia"] .spx-count { font-size:11px; }
+
+/* larger file icons and previews (our own images, not Softpedia's UI) */
+html[data-fidelity="readable"][data-theme="softpedia"] .spx-ico[width="32"] { width:56px; height:56px; }
+html[data-fidelity="readable"][data-theme="softpedia"] #app td[width="32"][rowspan] { width:60px; }
+html[data-fidelity="readable"][data-theme="softpedia"] .spx-noico { width:54px; height:54px; font-size:22px; line-height:54px; }
+html[data-fidelity="readable"][data-theme="softpedia"] #app td[width="220"] { width:340px; }
+html[data-fidelity="readable"][data-theme="softpedia"] #app td[width="220"] table[width="200"] { width:330px; }
+html[data-fidelity="readable"][data-theme="softpedia"] #app td[width="220"] table[width="160"] { width:320px; }
+html[data-fidelity="readable"][data-theme="softpedia"] #app td[width="220"] td[height="110"] { height:240px; }
+html[data-fidelity="readable"][data-theme="softpedia"] #app td[width="220"] td[height="110"] img, html[data-fidelity="readable"][data-theme="softpedia"] #app td[width="220"] .spx-noshot { width:320px; height:240px; line-height:240px; }
+html[data-fidelity="readable"][data-theme="softpedia"] #app div[style*="width:100px"] img.spx-ico { width:100px; height:75px; }
+
+/* section bar: the title cell takes the extra width, the tools keep their places on the right */
+html[data-fidelity="readable"][data-theme="softpedia"] #app table[width="780"] td[width="190"] { width:auto; }
+
+/* right column 210px: its 17px background tile repeats; box titles widen by cap + column + cap; buttons stay native */
+html[data-fidelity="readable"][data-theme="softpedia"] #app td.right_col_back { width:210px; }
+html[data-fidelity="readable"][data-theme="softpedia"] #app td.right_col_back table[width="150"] { width:100%; }
+html[data-fidelity="readable"][data-theme="softpedia"] #app td.right_col_back .spx-io { text-align:center; }
+html[data-fidelity="readable"][data-theme="softpedia"] #app td.right_col_back .spx-io > a, html[data-fidelity="readable"][data-theme="softpedia"] #app td.right_col_back .spx-io > img { margin:0 auto; }
+html[data-fidelity="readable"][data-theme="softpedia"] .right_title_bkg { background:url(assets/m-rt-l.png) no-repeat 0 0, url(assets/m-rt-r.png) no-repeat 100% 0, url(assets/m-rt-m.png) repeat-x 0 0; padding-left:6px; }
+
+/* our wordmark (text, not an image) grows with the page */
+html[data-fidelity="readable"][data-theme="softpedia"] .spx-logo { width:auto; font-size:24px; padding-right:20px; }
+html[data-fidelity="readable"][data-theme="softpedia"] h1.welcome_hdr { width:62% !important; }
+html[data-fidelity="readable"][data-theme="softpedia"] h2.dwlc_hdr { width:auto !important; }
+
+/* centre column keeps the original's inset (822px cell centring 770-780px tables) */
+html[data-fidelity="readable"][data-theme="softpedia"] #app td[width="822"] { padding:0 21px; }
