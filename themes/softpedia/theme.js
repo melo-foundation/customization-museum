@@ -19,16 +19,16 @@
       ['OLDEST', reset(h, r, { sort: 'old' })], ['A-Z', reset(h, r, { sort: 'az' })], ['SOURCE CODE', 'https://github.com/melo-foundation/customization-museum']];
     const types = Object.keys(m.types);
     const circ = [...types.slice(0, 6).map(t => [t.split(/[ &]/)[0], h.url.type(t)]), ['Archived', reset(h, r, { arch: '1' })]];
-    const c = (i, hs) => `<a class="spx-circ" href="${circ[i][1]}">${img(`_m_${CIRCLES[i]}_blank.png`, 71, 71, hs ? `hspace="${hs}"` : '')}<span>${E(circ[i][0].toUpperCase())}</span></a>`;
+    const c = (i, hs) => `<a class="spx-circ" href="${circ[i][1]}">${img(`um_${CIRCLES[i]}_blank.png`, 71, 71, hs ? `hspace="${hs}"` : '')}<span>${E(circ[i][0].toUpperCase())}</span></a>`;
     return `<table width="100%" border="0" cellpadding="0" cellspacing="0" bgcolor="#001F5B"><tr>
         <td rowspan="2" valign="top"><a class="spx-logo" href="${h.url.home()}">CUSTOMIZATION MUSEUM<sup>TM</sup></a><table width="214" border="0" cellspacing="0" cellpadding="0"><tr><td width="26"></td><td align="center" class="update">${m.total.toLocaleString()} files online</td></tr></table></td>
         <td width="700" align="right" height="26">${nav.map(([t, u]) => `<a class="spx-nav" href="${u}"${ext(u)}>${t}</a>`).join('')}</td></tr>
         <tr><td align="right" style="padding-right:14px"><div class="spx-ad468">${h.themePicker()}<span>Old skins, themes and emoticons, backed up on the Wayback Machine</span></div></td></tr></table>
       <table width="100%" border="0" cellpadding="0" cellspacing="0" bgcolor="#001F5B"><tr>
         <td width="635"><table width="100%" border="0" cellpadding="0" cellspacing="0"><tr>
-          <td width="75" height="85" align="center" valign="top" background="${A}_m_l_bkg2.jpg" class="spx-io" style="padding-left:18px; padding-top:19px">${c(0)}</td>
-          <td width="371" align="center" valign="top" background="${A}_m_bkg2.jpg" class="spx-io" style="padding-left:0px; padding-top:19px">${c(1, 1)}${c(2, 2)}${c(3, 1)}${c(4, 1)}${c(5, 1)}</td>
-          <td width="174" height="85" align="left" valign="top" background="${A}_m_r_bkg2.jpg" class="spx-io" style="padding-left:0px; padding-top:19px">${c(6, 1)}</td></tr></table></td>
+          <td width="75" height="85" align="center" valign="top" background="${A}um_l_bkg2.jpg" class="spx-io" style="padding-left:18px; padding-top:19px">${c(0)}</td>
+          <td width="371" align="center" valign="top" background="${A}um_bkg2.jpg" class="spx-io" style="padding-left:0px; padding-top:19px">${c(1, 1)}${c(2, 2)}${c(3, 1)}${c(4, 1)}${c(5, 1)}</td>
+          <td width="174" height="85" align="left" valign="top" background="${A}um_r_bkg2.jpg" class="spx-io" style="padding-left:0px; padding-top:19px">${c(6, 1)}</td></tr></table></td>
         <td width="96" class="spx-io">${img('menu_07_2.jpg', 96, 104)}</td>
         <td width="86" valign="top" background="${A}menu_08_2.jpg" style="padding-top:55px"><form id="spx-search" data-search role="search" style="margin:0"><input name="q" type="text" class="searchfield" size="11" value="${E(r.q)}"></form></td>
         <td width="157"><table width="100%" border="0" cellpadding="0" cellspacing="0"><tr><td class="spx-io"><a class="spx-lbl spx-bm" href="${h.url.home()}">${img('menu_009_2_blank.png', 157, 40)}<span>BOOKMARK THIS SITE</span></a></td></tr>
@@ -47,8 +47,8 @@
         <td align="right" width="120"><select class="spx-cat" onchange="if(this.value)location.href=this.value"><option value="">Choose...</option>${cats.map(([u, t]) => `<option value="${E(u)}">${E(t)}</option>`).join('')}</select></td>
         <td align="right" width="205" class="spx-io">${img('under_nav_separator.gif', 21, 35)}${img('d_m_01.gif', 78, 35)}${disc('', 'A', 'all', 2, 31)}${disc('1', 'Y', 'archived', 3, 34)}${disc('0', 'N', 'missing', 4, 36)}</td>
       </tr><tr><td colspan="5"><div class="onthispage" style="clear:both;float:left;width:770px;"><table border="0" width="100%"><tr>
-        <td width="153" class="celltext_bigger" valign="top"><img src="${A}_games_onthispage.gif"></td>
-        ${links.map(([u, t], i) => `<td class="celltext_bigger"><img src="${A}${['_games_news.gif', '_games_reviews.gif', '_games_latest_additions.gif'][i]}" align="absmiddle"> <a href="${u}"${ext(u)}>${E(t)}</a>&nbsp;&nbsp;</td>`).join('')}
+        <td width="153" class="celltext_bigger" valign="top"><img src="${A}ugames_onthispage.gif"></td>
+        ${links.map(([u, t], i) => `<td class="celltext_bigger"><img src="${A}${['ugames_news.gif', 'ugames_reviews.gif', 'ugames_latest_additions.gif'][i]}" align="absmiddle"> <a href="${u}"${ext(u)}>${E(t)}</a>&nbsp;&nbsp;</td>`).join('')}
       </tr></table></div></td></tr>
       <tr valign="middle"><td colspan="5" valign="top" class="spx-io">${img('770_dot_spacer.gif', 770, 21)}</td></tr></table>
       <table width="100%" border="0" cellpadding="0" cellspacing="0"><tr><td align="center">${ad728(ctx)}</td></tr></table>`;

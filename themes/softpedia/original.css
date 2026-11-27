@@ -173,131 +173,131 @@ HEADINGS
 }
 
 .gen_heading_center {
-	background-image: url(assets/___head_gen_bkgc.gif);
+	background-image: url(assets/uhead_gen_bkgc.gif);
 	background-repeat: repeat-x;
 	background-position: top;
 }
 .gen_heading_left {
-	background-image: url(assets/___head_gen_bkgl.gif);
+	background-image: url(assets/uhead_gen_bkgl.gif);
 	background-repeat: repeat-x;
 	background-position: left top;
 }
 .gen_heading_right {
-	background-image: url(assets/___head_gen_bkgr.gif);
+	background-image: url(assets/uhead_gen_bkgr.gif);
      background-repeat: repeat-x;
      background-position: right top;
 }
 
 .win_heading_center {
-	background-image: url(assets/___head_win_bkgc.gif);
+	background-image: url(assets/uhead_win_bkgc.gif);
 	background-repeat: repeat-x;
 	background-position: top;
 }
 .win_heading_left {
-	background-image: url(assets/___head_win_bkgl.gif);
+	background-image: url(assets/uhead_win_bkgl.gif);
 	background-repeat: repeat-x;
 	background-position: left top;
 	background-color: transparent;
 }
 .win_heading_right {
-	background-image: url(assets/___head_win_bkgr.gif);
+	background-image: url(assets/uhead_win_bkgr.gif);
      background-repeat: repeat-x;
      background-position: right top;
 	 background-color: transparent;
 }
 
 .games_heading_center {
-	background-image: url(assets/___head_games_bkgc.gif);
+	background-image: url(assets/uhead_games_bkgc.gif);
 	background-repeat: repeat-x;
 	background-position: top;
 }
 .games_heading_left {
-	background-image: url(assets/___head_games_bkgl.gif);
+	background-image: url(assets/uhead_games_bkgl.gif);
 	background-repeat: repeat-x;
 	background-position: left top;
 }
 .games_heading_right {
-	background-image: url(assets/___head_games_bkgr.gif);
+	background-image: url(assets/uhead_games_bkgr.gif);
      background-repeat: repeat-x;
      background-position: right top;
 }
 
 .drivers_heading_center {
-	background-image: url(assets/___head_drivers_bkgc.gif);
+	background-image: url(assets/uhead_drivers_bkgc.gif);
 	background-repeat: repeat-x;
 	background-position: top;
 }
 .drivers_heading_left {
-	background-image: url(assets/___head_drivers_bkgl.gif);
+	background-image: url(assets/uhead_drivers_bkgl.gif);
 	background-repeat: repeat-x;
 	background-position: left top;
 }
 .drivers_heading_right {
-	background-image: url(assets/___head_drivers_bkgr.gif);
+	background-image: url(assets/uhead_drivers_bkgr.gif);
      background-repeat: repeat-x;
      background-position: right top;
 }
 
 .linux_heading_center {
-	background-image: url(assets/___head_linux_bkgc.gif);
+	background-image: url(assets/uhead_linux_bkgc.gif);
 	background-repeat: repeat-x;
 	background-position: top;
 }
 .linux_heading_left {
-	background-image: url(assets/___head_linux_bkgl.gif);
+	background-image: url(assets/uhead_linux_bkgl.gif);
 	background-repeat: repeat-x;
 	background-position: left top;
 }
 .linux_heading_right {
-	background-image: url(assets/___head_linux_bkgr.gif);
+	background-image: url(assets/uhead_linux_bkgr.gif);
      background-repeat: repeat-x;
      background-position: right top;
 }
 
 .mac_heading_center {
-	background-image: url(assets/___head_mac_bkgc.gif);
+	background-image: url(assets/uhead_mac_bkgc.gif);
 	background-repeat: repeat-x;
 	background-position: top;
 }
 .mac_heading_left {
-	background-image: url(assets/___head_mac_bkgl.gif);
+	background-image: url(assets/uhead_mac_bkgl.gif);
 	background-repeat: repeat-x;
 	background-position: left top;
 }
 .mac_heading_right {
-	background-image: url(assets/___head_mac_bkgr.gif);
+	background-image: url(assets/uhead_mac_bkgr.gif);
      background-repeat: repeat-x;
      background-position: right top;
 }
 
 .mobile_heading_center {
-	background-image: url(assets/___head_mobile_bkgc.gif);
+	background-image: url(assets/uhead_mobile_bkgc.gif);
 	background-repeat: repeat-x;
 	background-position: top;
 }
 .mobile_heading_left {
-	background-image: url(assets/___head_mobile_bkgl.gif);
+	background-image: url(assets/uhead_mobile_bkgl.gif);
 	background-repeat: repeat-x;
 	background-position: left top;
 }
 .mobile_heading_right {
-	background-image: url(assets/___head_mobile_bkgr.gif);
+	background-image: url(assets/uhead_mobile_bkgr.gif);
      background-repeat: repeat-x;
      background-position: right top;
 }
 
 .news_heading_center {
-	background-image: url(assets/___head_news_bkgc.gif);
+	background-image: url(assets/uhead_news_bkgc.gif);
 	background-repeat: repeat-x;
 	background-position: top;
 }
 .news_heading_left {
-	background-image: url(assets/___head_news_bkgl.gif);
+	background-image: url(assets/uhead_news_bkgl.gif);
 	background-repeat: repeat-x;
 	background-position: left top;
 }
 .news_heading_right {
-	background-image: url(assets/___head_news_bkgr.gif);
+	background-image: url(assets/uhead_news_bkgr.gif);
      background-repeat: repeat-x;
      background-position: right top;
 }
