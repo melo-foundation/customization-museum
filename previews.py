@@ -10,6 +10,8 @@ from lib import UA
 
 ZIPLIKE = (".qsk", ".qsf", ".wal", ".wba", ".zip", ".plsk", ".sqinterface", ".rmskin", ".lsz", ".nth", ".themepack")
 GENERIC = re.compile(r"__ia_thumb|/services/img/")
+# image hosts whose URLs expire (signed/temporary links): keep a local copy of the image itself
+EXPIRING = re.compile(r"sites\.google\.com/sitesv-images|googleusercontent\.com/")
 PREFER = [r"thumbnail", r"preview", r"screenshot", r"screen", r"body", r"main", r"player"]
 IMG = (".bmp", ".png", ".jpg", ".jpeg", ".gif")
 
@@ -48,13 +50,16 @@ def best_image(data):
 
 
 def needs(e):
+    if e.get("preview") and EXPIRING.search(e["preview"]):
+        return True
     return (not e.get("preview") or GENERIC.search(e["preview"])) and (e.get("download") or "").lower().split("?")[0].endswith(ZIPLIKE)
 
 
 def make(e, out):
-    req = urllib.request.Request(e["download"], headers={"User-Agent": UA})
+    expiring = bool(e.get("preview") and EXPIRING.search(e["preview"]))
+    req = urllib.request.Request(e["preview"] if expiring else e["download"], headers={"User-Agent": UA})
     data = urllib.request.urlopen(req, timeout=120).read()
-    im = best_image(data)
+    im = Image.open(io.BytesIO(data)) if expiring else best_image(data)
     if not im:
         return False
     im = im.convert("RGBA") if im.mode in ("P", "LA") else im.convert("RGB")

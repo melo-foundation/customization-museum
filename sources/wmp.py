@@ -13,7 +13,7 @@ def text(s):
 def site_pages(section):
     found, queue = [SITE + section], [SITE + section]
     while queue:
-        page = get(queue.pop()) or ""
+        page = get(queue.pop(), cache=False) or ""
         for s in re.findall(rf'href="/view/wmpgoodies/{section}/([^"#?/]+)"', page):
             u = f"{SITE}{section}/{s}"
             if u not in found:
@@ -23,14 +23,14 @@ def site_pages(section):
     for n in range(2, 30):
         u = f"{SITE}{section}/{section}-{n}"
         if u not in found:
-            if get(u) is None:
+            if get(u, cache=False) is None:
                 break
             found.append(u)
     return found
 
 
 def parse_site_page(url, tag):
-    t = re.sub(r"<style.*?</style>|<script.*?</script>", "", get(url) or "", flags=re.S)
+    t = re.sub(r"<style.*?</style>|<script.*?</script>", "", get(url, cache=False) or "", flags=re.S)
     # each item is a content image (=w1280) followed by "N. Title", "Created By: X", "Size: Y"
     pieces = re.split(r'<img[^>]+src="([^"]+=w1280)"[^>]*>', t)
     out = []
