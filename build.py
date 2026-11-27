@@ -1,4 +1,4 @@
-import glob, json, os, re, shutil
+import glob, json, os, re, shutil, urllib.parse
 from lib import load
 
 state = load("archive_state.json")
@@ -70,12 +70,52 @@ def write_section_pages(entries):
     page = open("index.html", encoding="utf-8").read().replace("<head>", '<head>\n<base href="../../">', 1)
     for kind in ("site", "app", "type"):
         shutil.rmtree(kind, ignore_errors=True)
-    keys = {("site", e["s"]) for e in entries} | {("app", slug(e["a"])) for e in entries} | {("type", slug(t)) for e in entries for t in e["y"]}
+    keys = {("site", e["s"]) for e in entries} | {("app", e["k"]) for e in entries} | {("type", slug(t)) for e in entries for t in e["y"]}
     for kind, key in keys:
         os.makedirs(f"{kind}/{key}", exist_ok=True)
         open(f"{kind}/{key}/index.html", "w", encoding="utf-8").write(page)
     os.makedirs("item", exist_ok=True)
     open("item/index.html", "w", encoding="utf-8").write(page.replace('<base href="../../">', '<base href="../">'))
+
+
+def host(e):
+    try:
+        return urllib.parse.urlsplit(e.get("p") or e.get("l") or "").hostname.removeprefix("www.")
+    except AttributeError:
+        return e["s"]
+
+
+def write_index(rows):
+    """idx/manifest.json (counts for the directory), idx/app/<slug>.json (full rows),
+    idx/index.json (compact rows for filtering and search across programs)."""
+    shutil.rmtree("idx", ignore_errors=True)
+    os.makedirs("idx/app")
+    apps, sites, types = {}, {}, {}
+    for r in rows:
+        a = apps.setdefault(r["k"], {"slug": r["k"], "name": r["a"], "count": 0, "types": {}})
+        a["count"] += 1
+        for t in r["y"]:
+            a["types"][t] = a["types"].get(t, 0) + 1
+            types[t] = types.get(t, 0) + 1
+        s = sites.setdefault(r["s"], {"name": host(r), "count": 0, "apps": set()})
+        s["count"] += 1
+        s["apps"].add(r["k"])
+    for slug_, a in apps.items():
+        dump(f"idx/app/{slug_}.json", [r for r in rows if r["k"] == slug_])
+    for s in sites.values():
+        s["apps"] = sorted(s["apps"])
+    dump("idx/manifest.json", {
+        "total": len(rows), "archived": sum(1 for r in rows if r.get("z")),
+        "apps": sorted(apps.values(), key=lambda a: -a["count"]),
+        "types": dict(sorted(types.items(), key=lambda kv: -kv[1])), "sites": sites,
+        "pages": sorted(os.path.basename(p)[:-3] for p in glob.glob("pages/site-*.md")),
+    })
+    dump("idx/index.json", [[r["i"], r["t"], r["k"], r["s"], r["d"], r["y"], r["g"], r.get("z", 0)] for r in rows])
+
+
+def dump(path, obj):
+    with open(path, "w", encoding="utf-8") as f:
+        json.dump(obj, f, separators=(",", ":"), ensure_ascii=False)
 
 
 OVERRIDES = item_overrides()
@@ -100,7 +140,7 @@ for f in sorted(glob.glob("data/*.json")):
             e["date"] = ""  # epoch placeholders (1969/1970) from broken source dates
         o = OVERRIDES.get(e["id"], {})
         row = dict(
-            i=e["id"], s=src, a=e["app"], t=o.get("title", e["title"]), d=o.get("date", e.get("date") or ""),
+            i=e["id"], s=src, a=e["app"], k=slug(e["app"]), t=o.get("title", e["title"]), d=o.get("date", e.get("date") or ""),
             y=split(o["type"]) if "type" in o else y, g=split(o["tags"]) if "tags" in o else g,
             p=e.get("page"), v=f"previews/{e['id']}.png" if e["id"] in PREVIEWS else e.get("preview"), l=e.get("download"),
             tp=ts("page"), tv=None if e["id"] in PREVIEWS else ts("preview"), tl=ts("download"),
@@ -122,7 +162,11 @@ if __name__ == "__main__":
     assert not archived(None, None, "http://example.com/f.zip") and not archived("", "", None)
     assert not archived(None, None, "http://notarchive.org/f.zip") and not archived("2009", None, None)
     assert front_matter("---\ntitle: A: B\ntags: x, y\n---\nbody") == ({"title": "A: B", "tags": "x, y"}, "body")
-    json.dump(out, open("entries.json", "w", encoding="utf-8"), separators=(",", ":"), ensure_ascii=False)
+    write_index(out)
+    themes = []
+    for p in sorted(glob.glob("themes/*/theme.js")):
+        m = re.match(r"// label: (.+)", open(p, encoding="utf-8").readline())
+        themes.append([p.split("/")[1], m.group(1).strip() if m else p.split("/")[1]])
+    dump("themes/index.json", sorted(themes, key=lambda t: t[0] != "default"))
     write_section_pages(out)
-    json.dump(sorted(os.path.basename(p)[:-3] for p in glob.glob("pages/site-*.md")), open("pages.json", "w"))
-    print(len(out), "entries,", os.path.getsize("entries.json") // 1024, "KB")
+    print(len(out), "entries,", sum(os.path.getsize(p) for p in glob.glob("idx/**/*.json", recursive=True)) // 1024, "KB in idx/")

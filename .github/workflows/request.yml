@@ -51,7 +51,7 @@ jobs:
             python3 alias.py
             grep -q "ok=true" "$GITHUB_OUTPUT" || exit 0
             python3 build.py
-            git add aliases.json entries.json pages.json site app type item
+            git add aliases.json idx themes/index.json site app type item
             git diff --cached --quiet && exit 0
             git commit -q -m "Tag alias #$N" && git push -q origin HEAD:main && exit 0
             sleep $((attempt * 10))
