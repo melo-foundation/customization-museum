@@ -184,12 +184,15 @@ ${list.map(([t, u]) => `                &raquo; ${u ? `<a href="${u}">${h.esc(t)
   </tr>
 </table><p/>`;
 
+  // seven page numbers around the current one plus the last, as the original printed them
   const pager = (h, r, l) => {
     if (l.pages < 2) return '<p/>';
-    const p = h.pager(r, l.pages);
-    const links = [p.prev ? `<a href="${p.prev}">&lt;&lt; Previous Page</a>` : '',
-      ...p.items.filter(i => !i.gap).map(i => `<a href="${i.url}">${i.current ? `[ ${i.n} ]` : i.n}</a>`),
-      p.next ? `<a href="${p.next}">Next Page &gt;&gt;</a>` : ''].filter(Boolean);
+    const at = l.page, from = Math.max(1, Math.min(at - 3, l.pages - 6)), nums = [];
+    for (let n = from; n <= Math.min(l.pages, from + 6); n++) nums.push(n);
+    if (nums[0] > 1) nums.unshift(1);
+    if (nums.at(-1) < l.pages) nums.push(l.pages);
+    const a = (n, t) => `<a href="${h.link(r, { page: n })}">${t}</a>`;
+    const links = [at > 1 ? a(at - 1, '&lt;&lt; Previous Page') : '', ...nums.map(n => a(n, n === at ? `[ ${n} ]` : n)), at < l.pages ? a(at + 1, 'Next Page &gt;&gt;') : ''].filter(Boolean);
     return `<div align="center">\n${links.join('\n')}\n</div><p/>`;
   };
 
