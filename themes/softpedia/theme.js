@@ -10,6 +10,8 @@
   const summary = n => (n || '').split(/\n\s*\n/)[0].replace(/[*_`#>\[\]]|\(https?:[^)]*\)/g, '').replace(/\s+/g, ' ').trim();
   const WB = 'https://web.archive.org/web/2006/http://', GH = 'https://github.com/melo-foundation/customization-museum';
   const HEADS = [['win', '#FFF9F9', 'wins'], ['mac', '#F4FFF4', 'macs'], ['games', '#FFFAFD', 'gamess'], ['linux', '#F5FCFF', 'linuxs'], ['drivers', '#FFFCF4', 'driverss'], ['mobile', '#F7FBFF', 'mobiles']];
+  // line two of a row, as the original: "Title - first sentence of the description"; nothing when there is no description
+  const blurb = e => { const t = summary(e.n).match(/^.*?[.!?](?=\s|$)|^.*/)[0].trim(); return t ? `${e.t} - ${t.length > 160 ? t.slice(0, 160).replace(/\s+\S*$/, '') + '...' : t}` : ''; };
   let A = '';
   const img = (name, w, h, extra = '') => `<img src="${A}${name}" width="${w}" height="${h}" border="0"${extra ? ' ' + extra : ''}>`;
   const reset = (h, r, change) => h.link(r, { app: '', type: '', site: '', tag: '', q: '', arch: '', ...change });
@@ -104,9 +106,9 @@
     const newest = [...rel].sort((a, b) => (b.d || '').localeCompare(a.d || '')).slice(0, 7);
     const oldest = [...rel].filter(x => !newest.includes(x)).sort((a, b) => (a.d || '9').localeCompare(b.d || '9')).slice(0, 7);
     const row = (x, i) => `<tr${i % 2 ? '' : ' bgcolor="EFF3FC"'}><td width="564" style="padding-bottom:5px; padding-top:5px"><table width="100%" border="0" cellspacing="0" cellpadding="1">
-        <tr><td width="32" height="26" rowspan="3" align="center" valign="top" class="celltitles" style="padding-right:2px"><a class="spx-icoa" href="${h.url.item(x)}" title="${E(x.t)}">${icon32(h, x)}</a></td><td class="celltitles spx-q"><a href="${h.url.item(x)}" title="${E(x.t)}">${E(x.t)}</a></td></tr>
-        <tr><td class="celltext_description">${x.n ? E(summary(x.n)) : `${E(x.a)} - ${E(x.y.join(', '))}`}</td></tr>
-        <tr><td class="celltext">${E(x.y[0] || '')} | ${E(h.siteName(x.s))}</td></tr></table></td>
+        <tr><td width="32" height="26" rowspan="${blurb(x) ? 3 : 2}" align="center" valign="top" class="celltitles" style="padding-right:2px"><a class="spx-icoa" href="${h.url.item(x)}" title="${E(x.t)}">${icon32(h, x)}</a></td><td class="celltitles spx-q"><a href="${h.url.item(x)}" title="${E(x.t)}">${E(x.t)}</a></td></tr>
+        ${blurb(x) ? `<tr><td class="celltext_description">${E(blurb(x))}</td></tr>` : ''}
+        <tr><td class="celltext">${E(x.y.join(', '))} | ${E(h.siteName(x.s))}</td></tr></table></td>
       <td width="170" style="padding-bottom:5px; padding-top:5px"><table width="100%" border="0" cellspacing="0" cellpadding="1">
         <tr><td align="right" class="celltext"><a href="${h.url.item(x)}">details</a></td></tr>
         <tr><td class="orizdotsbkg spx-io">${img('oriz_dots.gif', 4, 1, 'vspace="5"')}</td></tr>
@@ -177,11 +179,11 @@
       const crumbs = [r.app && [h.url.app(r.app), h.appName(r.app)], r.type && [h.link(r, { tag: '' }), l.typeName], r.site && [h.url.site(r.site), h.siteName(r.site)], r.tag && [h.link(r, {}), r.tag], r.q && [h.link(r, {}), 'Search: ' + r.q]].filter(Boolean);
       const pg = pages(h, r, l);
       const row = (e, i) => {
-        const file = h.file(e), desc = [...e.y, ...e.g.slice(0, 4)].join(', ');
+        const file = h.file(e);
         return `<tr${i % 2 ? '' : ' bgcolor="#EFF3FC"'}><td width="564" style="padding-bottom:5px; padding-top:5px"><table width="100%" border="0" cellspacing="0" cellpadding="1">
-          <tr><td width="32" height="26" rowspan="3" align="center" valign="top" class="celltitles" style="padding-right:2px"><a class="spx-icoa" href="${h.url.item(e)}" title="${E(e.t)}">${icon32(h, e)}</a></td><td class="celltitles spx-q"><a href="${h.url.item(e)}" title="${E(e.t)}">${E(e.t)}</a></td></tr>
-          <tr><td class="celltext_description">${e.n ? E(summary(e.n)) : `${E(e.a)}${desc ? ' - ' + E(desc) : ''}`}</td></tr>
-          <tr><td class="celltext">${E(e.y[0] || '')} | ${E(h.siteName(e.s))} | Archived: ${E(h.archivedLabel(e))}</td></tr></table></td>
+          <tr><td width="32" height="26" rowspan="${blurb(e) ? 3 : 2}" align="center" valign="top" class="celltitles" style="padding-right:2px"><a class="spx-icoa" href="${h.url.item(e)}" title="${E(e.t)}">${icon32(h, e)}</a></td><td class="celltitles spx-q"><a href="${h.url.item(e)}" title="${E(e.t)}">${E(e.t)}</a></td></tr>
+          ${blurb(e) ? `<tr><td class="celltext_description">${E(blurb(e))}</td></tr>` : ''}
+          <tr><td class="celltext">${E(e.a)} | ${E(e.y.join(', '))} | ${E(h.siteName(e.s))} | Archived: ${E(h.archivedLabel(e))}</td></tr></table></td>
           <td width="200" style="padding-bottom:5px; padding-top:5px"><table width="100%" border="0" cellspacing="0" cellpadding="1">
           <tr><td align="right" class="celltext">${e.z ? '<span class="celltext_pick">archived</span> | ' : ''}${file ? `<a href="${E(file)}" target="_blank" rel="noopener">download</a> | ` : ''}<a href="${h.url.item(e)}">details</a>&nbsp;</td></tr>
           <tr><td class="orizdotsbkg spx-io">${img('oriz_dots.gif', 4, 1, 'vspace="5"')}</td></tr>
