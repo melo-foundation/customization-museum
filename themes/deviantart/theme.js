@@ -88,7 +88,7 @@
     return `<div class="cm-da" data-body-id="${t.bodyId}" data-body-class="${t.bodyClass}">${doc.body.innerHTML}</div>`;
   }
 
-  // first n previews that really load, in order; only as many requests at a time as are still needed
+  // first n previews that really load (slivers such as toolbar strips excluded), in order; only as many requests at a time as are still needed
   const loadable = (h, rows, n) => new Promise(done => {
     const seen = new Set(), pool = rows.filter(e => e.v && !seen.has(e.v) && seen.add(e.v)).slice(0, n * 3), got = [];
     let next = 0, active = 0, over = false;
@@ -102,7 +102,7 @@
       let settled = false;
       const settle = src => { if (settled) return; settled = true; clearTimeout(timer); active--; if (src) got.push([e, src, i]); pump(); };
       const timer = setTimeout(() => { im.onload = im.onerror = null; im.src = ''; settle(''); }, 7000);
-      im.onload = () => settle(im.naturalWidth > 1 ? im.src : '');
+      im.onload = () => settle(im.naturalWidth >= 40 && im.naturalHeight >= 40 ? im.src : '');
       im.onerror = () => { const u = urls.shift(); if (u) im.src = u; else settle(''); };
       active++;
       im.src = urls.shift();
