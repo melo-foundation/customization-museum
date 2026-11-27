@@ -1,7 +1,9 @@
 #!/usr/bin/env bash
 # Render our LIVE pages (with ?theme=) and the original captures on the same GitHub runner, then compare.
 # usage: devtools/checktheme.sh THEME OUTDIR "our/path|REFERENCE" ...
-#   our/path is relative to the site root, e.g. "app/adium/" or "item/?id=wlm-45"
+#   our/path is relative to the site root, e.g. "app/adium/" or "item/?id=wlm-45";
+#   prefix "local:" and add data=refs/<theme>/fixture/ to render with the original page's own content:
+#   "local:app/winmedia/?data=refs/wincustomize/fixture/|repo:wincustomize/list.html"
 #   REFERENCE is a Wayback URL (.../web/<ts>if_/<url>, rendered now), a local .png of a known-good
 #   render, or "repo:<theme>/<page>.html" (a clean copy of the original page committed to the "refs" branch,
 #   served on the runner itself: no Wayback dependency, same fonts as our side, never published).
@@ -14,8 +16,10 @@ urls=()
 for pair in "$@"; do
   ours=${pair%%|*}; ref=${pair#*|}
   sep='?'; [[ $ours == *\?* ]] && sep='&'
-  urls+=("$SITE$ours${sep}theme=$theme&warned=1&fidelity=exact")
-  [[ $ref == repo:* ]] && ref="http://localhost:8000/${ref#repo:}"
+  # "local:" renders our side from the runner's checkout (needed with &data=refs/<fixture>/)
+  base=$SITE; [[ $ours == local:* ]] && { base=http://localhost:8000/; ours=${ours#local:}; }
+  urls+=("$base$ours${sep}theme=$theme&warned=1&fidelity=exact")
+  [[ $ref == repo:* ]] && ref="http://localhost:8000/refs/${ref#repo:}"
   [[ $ref == *.png ]] || urls+=("$ref")
 done
 ./wbshot.sh "$out" 1024 "${urls[@]}" >/dev/null

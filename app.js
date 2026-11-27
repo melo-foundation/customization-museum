@@ -14,10 +14,14 @@ const tally = list => Object.entries(list.reduce((m, k) => (m[k] = (m[k] || 0) +
 // ---------- data ----------
 const cache = {};
 const once = (key, fn) => cache[key] ??= fn();
+// ?data=<folder>/ swaps the archive for a fixture with the same layout as idx/ (used to render a theme
+// with an original page's own content when checking it 1:1)
+const dataParam = new URLSearchParams(location.search).get('data');
+const DATA = dataParam && /^[a-z0-9_./-]+\/$/i.test(dataParam) && !dataParam.includes('..') ? dataParam : 'idx/';
 const getJSON = p => fetch(ROOT + p).then(r => { if (!r.ok) throw new Error(p); return r.json(); });
-const manifest = () => once('manifest', () => getJSON('idx/manifest.json'));
-const shard = k => once('app:' + k, () => getJSON(`idx/app/${k}.json`));
-const index = () => once('index', () => getJSON('idx/index.json').then(rows => rows.map(([i, t, k, s, d, y, g, z]) => ({ i, t, k, s, d, y, g, z }))));
+const manifest = () => once('manifest', () => getJSON(DATA + 'manifest.json'));
+const shard = k => once('app:' + k, () => getJSON(`${DATA}app/${k}.json`));
+const index = () => once('index', () => getJSON(DATA + 'index.json').then(rows => rows.map(([i, t, k, s, d, y, g, z]) => ({ i, t, k, s, d, y, g, z }))));
 
 // ---------- routes ----------
 // Path holds at most one of app/type/site (canonical section URL); everything else is in the query string.

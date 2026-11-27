@@ -20,10 +20,12 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 90
     steps:
-      # reference copies live on the "refs" branch so they are never published by Pages
+      # the site (main) at the server root, reference pages (refs branch) under /refs/; neither is published by this job
+      - uses: actions/checkout@v4
       - uses: actions/checkout@v4
         with:
           ref: refs
+          path: refs
         continue-on-error: true
       - run: (python3 -m http.server 8000 --bind 127.0.0.1 >/dev/null 2>&1 &) && sleep 1
       # 2000s pages were designed for Windows core fonts (Verdana, Tahoma, Arial, Georgia...)
