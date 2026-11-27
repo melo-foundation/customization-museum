@@ -1,78 +1,106 @@
 // label: Messenger Plus! Gallery
 (() => {
-  const tabs = (ctx) => {
-    const { h, route: r } = ctx;
-    const home = !r.app && !r.type && !r.site && !r.q && !r.item;
-    const t = (label, href, on) => `<li${on ? ' class="on"' : ''}><a href="${href}">${label}</a></li>`;
+  const mark = `<svg class="mp-mark" viewBox="0 0 60 58"><defs><linearGradient id="mpg1" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#4fb3ee"/><stop offset="1" stop-color="#1a6fb5"/></linearGradient><linearGradient id="mpg2" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#ffb347"/><stop offset="1" stop-color="#e8641b"/></linearGradient></defs><path d="M2 8C14 0 30 4 38 20L22 34C10 30 3 20 2 8Z" fill="url(#mpg1)"/><path d="M26 4C40 6 54 20 50 40L36 52 28 30Z" fill="url(#mpg2)"/><path d="M12 34 28 24l8 14-12 14z" fill="#8bc34a" opacity=".9"/><rect x="26" y="8" width="9" height="30" rx="4" transform="rotate(28 30 22)" fill="#e9e9e9" stroke="#777"/></svg>`;
+  const T = (h, e) => h.esc(e);
+
+  const nav = (ctx) => {
+    const { h, route: r } = ctx, s = r.sort || '';
     const listing = !!ctx.list;
-    const s = r.sort || '';
-    return `<ul class="mp-tabs">${t('Browse', h.url.home(), home && !ctx.item)}${t('By Date', h.link(r, { sort: '', item: '' }), listing && s === '')}${t('By Age', h.link(r, { sort: 'old', item: '' }), listing && s === 'old')}${t('A to Z', h.link(r, { sort: 'az', item: '' }), listing && s === 'az')}${t('Featured', h.url.site('wlm'), r.site === 'wlm')}</ul>`;
+    const on = k => k === (!listing ? 'home' : s === 'old' ? 'old' : s === 'az' ? 'az' : 'new');
+    const li = (k, label, href) => `<li${on(k) ? ' class="on"' : ''}><a href="${href}">${label}</a></li>`;
+    return `<ul class="mp-nav">${li('home', 'home', h.url.home())}${li('new', 'newest', h.link(r, { sort: '', item: '' }))}${li('old', 'oldest', h.link(r, { sort: 'old', item: '' }))}${li('az', 'a-z', h.link(r, { sort: 'az', item: '' }))}<li><a href="${h.url.request()}" target="_blank" rel="noopener">request</a></li></ul>`;
   };
-  const header = (ctx) => {
-    const { h, route } = ctx;
-    return `<div class="mp-page"><div class="mp-header">
-      <a class="mp-logo" href="${h.url.home()}"><span class="mp-orb"></span><b>Customization</b> Gallery<small>skins &amp; themes</small></a>
-      <div class="mp-hr">${h.themePicker()}<a href="${h.url.request()}" target="_blank" rel="noopener">Request</a></div>
-      ${tabs(ctx)}</div>${h.warning()}
-      <div class="mp-search">${h.searchForm(route)}</div>`;
+
+  const shell = (ctx, o) => {
+    const { h, route: r } = ctx;
+    const btn = (cls, a, b, href, on) => `<a class="${on ? 'on' : ''}" href="${href}"><i></i>${a}<br>${b}</a>`;
+    const s = r.sort || '', lst = !!ctx.list;
+    const btns = `<div class="mp-btns">${btn('', 'browse by', 'date', h.link(r, { sort: '', item: '', page: 1 }), lst && s === '')}${btn('', 'browse by', 'age', h.link(r, { sort: 'old', item: '', page: 1 }), lst && s === 'old')}${btn('', 'browse by', 'name', h.link(r, { sort: 'az', item: '', page: 1 }), lst && s === 'az')}${btn('', 'browse by', 'category', h.url.home(), !lst && !ctx.item)}</div>`;
+    const bc = (o.bc || []).map(([t, u]) => ` &raquo; ${u ? `<a href="${u}">${h.esc(t)}</a>` : h.esc(t)}`).join('');
+    const sideBoxes = o.side || '';
+    return `<div class="mp-c"><div class="mp-wrap">
+      <div class="mp-hd"><a class="mp-logo" href="${h.url.home()}">${mark}<span class="mp-t">Customization <b>Museum</b></span><span class="mp-s">old skins, themes &amp; emoticons</span></a>${nav(ctx)}</div>
+      <div class="mp-band"><div class="mp-lang"><label>Theme:&nbsp;</label>${h.themePicker()}</div><h2>${h.esc(o.title)}</h2><h3>${h.esc(o.sub)}</h3><div class="mp-bbox">${o.box || ''}</div></div>
+      <div class="mp-content"><div class="mp-left">${h.warning()}${btns}<h4 class="mp-bc">${bc}</h4>${o.body}</div>
+      <div class="mp-right">${h.searchForm(r)}<p class="mp-rss"><i></i>${(o.total || 0).toLocaleString()} items</p>${sideBoxes}</div></div></div>
+      <div class="mp-ft"><div class="gf">archived<small>unofficial &middot; non-commercial</small></div><p>Customization Museum &copy; unofficial archive of user-made skins and themes<br><small>Program names and marks belong to their owners.<br>Files are archived as found and are not checked.<br>Report a bad entry with the Report link on its page.</small></p>
+      <p class="side"><small><a href="${h.url.request()}" target="_blank" rel="noopener">request an item</a></small></p>
+      <p class="links"><a href="${h.url.home()}">home </a>|<a href="${h.link(r, { sort: '', item: '' })}"> newest </a>|<a href="${h.link(r, { sort: 'old', item: '' })}"> oldest </a>|<a href="${h.link(r, { sort: 'az', item: '' })}"> a-z </a>|<a href="${h.url.request()}" target="_blank" rel="noopener"> request</a></p></div></div>`;
   };
-  const foot = '<div class="mp-foot">Customization Museum &middot; unofficial archive</div></div>';
-  const field = (k, v) => v ? `<div class="mp-f"><i>${k}:</i> ${v}</div>` : '';
-  const row = (h, e) => {
-    const f = h.file(e);
-    return `<div class="mp-row" onclick="if(!event.target.closest('a'))location.href='${h.url.item(e)}'">
-      <div class="mp-th"><a href="${h.url.item(e)}">${h.img(e) || '<span>No preview</span>'}</a></div>
-      <div class="mp-info"><a class="mp-name" href="${h.url.item(e)}">${h.esc(e.t)}</a>
-        ${field('Program', `<a href="${h.url.app(e.k)}">${h.esc(e.a)}</a>`)}${field('Added', h.esc(e.d))}${field('Type', e.y.map(t => `<a href="${h.url.type(t)}">${h.esc(t)}</a>`).join(', '))}${field('Tags', h.esc(e.g.slice(0, 6).join(', ')))}${field('Source', `<a href="${h.url.site(e.s)}">${h.esc(h.siteName(e.s))}</a>`)}${field('Archived', h.esc(h.archivedLabel(e)))}
-        <div class="mp-lk"><a href="${h.url.item(e)}">full screenshot</a>${f ? ` &middot; <a href="${h.esc(f)}" target="_blank" rel="noopener">download</a>` : ''} &middot; <a href="${h.esc(h.report(e))}" target="_blank" rel="noopener">report</a></div></div></div>`;
+
+  const box = (title, items, cls = '') => `<div class="mp-box ${cls}"><h5>${title}</h5><ul>${items}</ul></div>`;
+  const bl = (href, label, sub, on) => `<li${on ? ' class="on"' : ''}><a href="${href}">${label}${sub ? `<span>${sub}</span>` : ''}</a></li>`;
+
+  const row = (h, e, i) => {
+    const f = h.file(e), u = h.url.item(e);
+    const fld = (k, v) => v ? `<div><i>${k}:</i> <span class="mp-v">${v}</span></div>` : '';
+    return `<div class="mp-row${i % 2 ? ' alt' : ''}" onclick="if(!event.target.closest('a'))location.href='${u}'">
+      <div class="mp-th">${h.img(e) || '<span class="mp-np">no preview</span>'}<br><a href="${u}"><strong>full screenshot</strong></a></div>
+      <div class="mp-info"><div><a href="${u}"><b>${h.esc(e.t)}</b></a></div>
+      ${fld('Program', `<a href="${h.url.app(e.k)}">${h.esc(e.a)}</a>`)}${fld('Added', h.esc(e.d))}${fld('Type', e.y.map(t => `<a href="${h.url.type(t)}">${h.esc(t)}</a>`).join(', '))}${fld('Tags', h.esc(e.g.slice(0, 5).join(', ')))}${fld('Source', `<a href="${h.url.site(e.s)}">${h.esc(h.siteName(e.s))}</a>`)}${fld('Archived', h.esc(h.archivedLabel(e)))}</div></div>`;
   };
+
   const pager = (h, r, l) => {
     if (l.pages < 2) return '';
     const p = h.pager(r, l.pages);
-    return `<div class="mp-pager">Page: ${p.prev ? `<a href="${p.prev}">&laquo; previous</a>` : ''}${p.items.map(i => i.gap ? '<span>&hellip;</span>' : i.current ? `<b>${i.n}</b>` : `<a href="${i.url}">${i.n}</a>`).join('')}${p.next ? `<a href="${p.next}">next &raquo;</a>` : ''}</div>`;
+    return `<div class="mp-pg">${p.prev ? `<a href="${p.prev}">&lt;&lt; Prev Page</a> ` : ''}${p.items.map(i => i.gap ? '<span>...</span>' : i.current ? `<a href="${h.esc(i.url || '#')}">[ ${i.n} ]</a>` : `<a href="${i.url}">${i.n}</a>`).join(' ')}${p.next ? ` <a href="${p.next}">Next Page &gt;&gt;</a>` : ''}</div>`;
   };
-  const side = (h, title, items) => `<div class="mp-box"><h3>${title}</h3><ul>${items}</ul></div>`;
+
+  const sideNav = (ctx, extra = '') => {
+    const { h, route: r } = ctx;
+    return box('browsing links', bl(h.url.home(), 'Home', 'All programs and types') + bl(h.link({ ...r, app: '', type: '', site: '', tag: '', q: '' }, { sort: '' }), 'Newest', '') + bl(h.link({ ...r, app: '', type: '', site: '', tag: '', q: '' }, { sort: 'old' }), 'Oldest', '') + bl(h.link({ ...r, app: '', type: '', site: '', tag: '', q: '' }, { sort: 'az' }), 'A to Z', '')) + extra;
+  };
 
   THEMES.msgplus = {
     label: 'Messenger Plus! Gallery',
     home(ctx) {
       const { h, manifest: m } = ctx;
+      const r = ctx.route;
+      const all = { ...r, app: '', type: '', site: '', tag: '', q: '' };
+      const snaps = [['Newest', h.link(all, { sort: '' })], ['Oldest', h.link(all, { sort: 'old' })], ['A to Z', h.link(all, { sort: 'az' })]].map(([t, u]) => `<li><a href="${u}">${t}</a></li>`).join('');
+      const types = Object.entries(m.types).slice(0, 12).map(([t, n]) => `<li><a href="${h.url.type(t)}">${h.esc(t)}</a> <span>${n}</span></li>`).join('');
+      const sites = Object.entries(m.sites).sort((a, b) => b[1].count - a[1].count).slice(0, 4).map(([s, i]) => `<li><a href="${h.url.site(s)}">${h.esc(i.name)}</a></li>`).join('');
       const apps = m.apps.map(a => `<li><a href="${h.url.app(a.slug)}">${h.esc(a.name)}</a> <span>${a.count.toLocaleString()}</span></li>`).join('');
-      const types = Object.entries(m.types).map(([t, n]) => `<li><a href="${h.url.type(t)}">${h.esc(t)}</a> <span>${n}</span></li>`).join('');
-      const sites = Object.entries(m.sites).sort((a, b) => b[1].count - a[1].count).map(([s, i]) => `<li><a href="${h.url.site(s)}">${h.esc(i.name)}</a> <span>${i.count}</span></li>`).join('');
-      return `${header(ctx)}<div class="mp-body"><div class="mp-main">
-        <div class="mp-sh">Browse the gallery</div>
-        <p class="mp-lead">${m.total.toLocaleString()} items from ${m.apps.length} programs, ${m.archived.toLocaleString()} archived.</p>
-        <div class="mp-sh">Programs</div><ul class="mp-cols">${apps}</ul></div>
-        <div class="mp-side">${side(h, 'Categories', types)}${side(h, 'Sources', sites)}</div></div>${foot}`;
+      const body = `<div class="mp-hl"><b>${m.total.toLocaleString()}</b> items from ${m.apps.length} programs, ${m.archived.toLocaleString()} archived.</div>
+        <h2>Browse the Museum</h2><p>Pick a program, a type or a source.</p>
+        <div class="mp-two"><div class="a"><h3>Snapshots</h3><div class="mp-fb"><ul>${snaps}</ul></div><h3>Types</h3><div class="mp-fb"><ul>${types}</ul></div><h3>Sources</h3><div class="mp-fb"><ul>${sites}</ul></div></div>
+        <div class="b"><h3>Programs</h3><div class="mp-fb cols"><ul>${apps}</ul></div></div></div>
+        <span class="mp-big">Missing something?</span><p><a href="${h.url.request()}" target="_blank" rel="noopener">Request an item</a> and it will be added.</p>`;
+      return shell(ctx, { title: 'Customization Museum', sub: 'Old skins, themes and emoticons', total: m.total, bc: [[ 'Customization Museum', '']], body, box: `<b>${m.total.toLocaleString()}</b> items in the archive`, side: sideNav(ctx) });
     },
     list(ctx) {
       const { h, route: r, list: l, about } = ctx, f = l.facets;
-      const on = (c) => c ? ' class="on"' : '';
-      const li = (href, label, n, c) => `<li${on(c)}><a href="${href}">${h.esc(label)}</a> <span>${n}</span></li>`;
-      return `${header(ctx)}<div class="mp-body"><div class="mp-main">
-        ${about ? `<div class="mp-about"><div class="mp-tools"><a href="${h.esc(about.edit)}" target="_blank" rel="noopener">Edit</a><a href="${h.link(r, { site: '' })}">Close</a></div>${about.html}</div>` : ''}
-        <div class="mp-sh">${h.esc(l.typeName || (r.app ? h.appName(r.app) : r.q ? 'Search results' : 'All skins'))}</div>
-        <div class="mp-ctl"><span>${l.total.toLocaleString()} items</span>${h.sortSelect(r)}${h.archSelect(r)}</div>
-        ${l.rows.length ? l.rows.map(e => row(h, e)).join('') : '<p class="mp-empty">No results</p>'}
-        ${pager(h, r, l)}</div>
-        <div class="mp-side">
-          ${side(h, 'Programs', `<li${on(!r.app)}><a href="${h.link(r, { app: '', type: '', tag: '' })}">All programs</a></li>` + f.apps.map(([k, n, c]) => li(h.link(r, { app: k, type: '', tag: '' }), n, c, k === r.app)).join(''))}
-          ${side(h, 'Categories', f.types.map(([t, n]) => li(h.link(r, { type: r.type && h.slug(r.type) === h.slug(t) ? '' : t, tag: '' }), t, n, t === l.typeName)).join(''))}
-          ${f.tags.length ? side(h, 'Tags', f.tags.map(([t, n]) => li(h.link(r, { tag: r.tag === t ? '' : t }), t, n, r.tag === t)).join('')) : ''}
-        </div></div>${foot}`;
+      const sname = (r.sort === 'old' ? 'Browse by Age' : r.sort === 'az' ? 'Browse by Name' : 'Browse by Date');
+      const bc = [['Customization Museum', h.url.home()]];
+      if (r.app) bc.push([h.appName(r.app), h.url.app(r.app)]);
+      if (l.typeName) bc.push([l.typeName, '']);
+      if (r.q) bc.push(['Search: ' + r.q, '']);
+      bc.push([sname, '']);
+      const sel = `<div style="text-align:right;margin:4px 0">${h.sortSelect(r)} ${h.archSelect(r)}</div>`;
+      const li = (href, label, n, on) => `<li${on ? ' class="on"' : ''}><a href="${href}">${h.esc(label)}<span>${n}</span></a></li>`;
+      const side = sideNav(ctx)
+        + box('programs', f.apps.slice(0, 12).map(([k, n, c]) => li(h.link(r, { app: k === r.app ? '' : k, type: '', tag: '' }), n, c, k === r.app)).join(''), 'sc')
+        + box('types', f.types.slice(0, 14).map(([t, n]) => li(h.link(r, { type: r.type && h.slug(r.type) === h.slug(t) ? '' : t, tag: '' }), t, n, t === l.typeName)).join(''), 'sc')
+        + (f.tags.length ? box('tags', f.tags.slice(0, 12).map(([t, n]) => li(h.link(r, { tag: r.tag === t ? '' : t }), t, n, r.tag === t)).join(''), 'sc') : '');
+      const body = `${about ? `<div class="mp-about"><div class="mp-tools"><a href="${h.esc(about.edit)}" target="_blank" rel="noopener">Edit</a><a href="${h.link(r, { site: '' })}">Close</a></div>${about.html}</div>` : ''}
+        ${sel}${pager(h, r, l)}<div class="mp-sec"></div>
+        ${l.rows.length ? l.rows.map((e, i) => row(h, e, i)).join('') : '<p class="mp-empty">No results</p>'}
+        <div class="mp-sec"></div>${pager(h, r, l)}`;
+      return shell(ctx, { title: r.app ? h.appName(r.app) : 'Customization Museum', sub: `${l.total.toLocaleString()} items`, total: l.total, bc, body, side, box: `Showing page <b>${r.page}</b> of <b>${l.pages}</b>` });
     },
     item(ctx) {
-      const { h, item: e } = ctx;
-      if (!e) return `${header(ctx)}<div class="mp-body"><div class="mp-main"><p class="mp-empty">Item not found. <a href="${h.url.home()}">Back to the gallery</a></p></div></div>${foot}`;
-      const a = (href, text, cls = '') => href ? `<a class="mp-btn ${cls}" href="${h.esc(href)}" target="_blank" rel="noopener">${text}</a>` : '';
-      return `${header(ctx)}<div class="mp-body"><div class="mp-main">
-        <div class="mp-sh">${h.esc(e.t)}</div>
-        <div class="mp-view"><div class="mp-shot">${h.media(e)}</div>
-          <div class="mp-det"><dl>${h.details(e).map(([k, v]) => `<dt>${k}:</dt><dd>${v}</dd>`).join('')}</dl>
-          <div class="mp-acts">${a(h.file(e), 'Download', 'dl')}${a(h.page(e), 'Original page')}${a(h.edit(e), 'Edit')}${a(h.report(e), 'Report')}</div></div></div>
-        ${e.desc ? `<div class="mp-sh">Description</div><div class="mp-desc">${e.desc}</div>` : ''}
-        </div><div class="mp-side">${side(h, 'More', `<li><a href="${h.url.app(e.k)}">More ${h.esc(e.a)}</a></li>${e.y.map(t => `<li><a href="${h.url.type(t)}">More ${h.esc(t)}</a></li>`).join('')}<li><a href="${h.url.site(e.s)}">${h.esc(h.siteName(e.s))}</a></li>`)}</div></div>${foot}`;
+      const { h, item: e, route: r } = ctx;
+      if (!e) return shell(ctx, { title: 'Customization Museum', sub: 'Item not found', bc: [['Customization Museum', h.url.home()]], body: `<p class="mp-empty">Item not found. <a href="${h.url.home()}">Back to the museum</a></p>`, side: sideNav(ctx) });
+      const a = (href, text) => href ? `<a href="${h.esc(href)}" target="_blank" rel="noopener">${text}</a>` : '';
+      const file = h.file(e);
+      const dl = file ? `<a class="mp-dl" href="${h.esc(file)}" target="_blank" rel="noopener">download</a>` : '';
+      const rows = h.details(e);
+      const trs = rows.map(([k, v], i) => `<tr><td class="k">${k}:</td><td>${v}</td>${i === 0 ? `<td class="d" rowspan="${rows.length}">${dl}</td>` : ''}</tr>`).join('');
+      const body = `<table class="mp-view"><tr><th colspan="3">${h.esc(e.t)} <small>${h.esc(e.a)}</small></th></tr>${trs}</table>
+        <div class="mp-shot"><div class="in">${h.media(e)}</div>${e.desc ? `<div class="mp-desc">${e.desc}</div>` : ''}<div class="mp-lk">${a(h.page(e), 'Original page')} ${h.page(e) ? '|' : ''} ${a(h.edit(e), 'Edit')} | ${a(h.report(e), 'Report')}</div></div>
+        <div class="mp-dlb">${dl}</div>`;
+      const side = sideNav(ctx, box('more', bl(h.url.app(e.k), `More ${h.esc(e.a)}`, '') + e.y.map(t => bl(h.url.type(t), `More ${h.esc(t)}`, '')).join('') + bl(h.url.site(e.s), h.esc(h.siteName(e.s)), '')));
+      return shell(ctx, { title: 'Customization Museum', sub: h.esc(e.a), total: ctx.manifest ? ctx.manifest.total : 0, bc: [['Customization Museum', h.url.home()], [e.a, h.url.app(e.k)], [e.t, '']], body, side, box: `<b>${h.esc(e.t)}</b>` });
     },
   };
 })();
