@@ -225,9 +225,9 @@ function loadTheme(name) {
     document.head.append(s);
   });
 }
-// Readable mode layers themes/<name>/modern.css (legibility for modern displays) over the untouched
-// original stylesheet; "1:1" shows the original exactly. Themes without modern.css are unaffected.
-const readable = () => localStorage.getItem('fidelity') !== 'exact';
+// Readable mode layers themes/<name>/modern.css over the untouched original stylesheet.
+// 1:1 (the original site, exactly) is the default; Readable is opt-in
+const readable = () => localStorage.getItem('fidelity') === 'readable';
 function useCss(name) {
   const link = (id, href) => {
     let l = document.getElementById(id);
