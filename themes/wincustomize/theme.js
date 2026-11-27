@@ -76,7 +76,7 @@ ${titleCells || `<td align="center" height="1" background="${A}frame_title.gif" 
 <td align="right" width="100%" class="topbar" background="${A}topbarmid_bg.gif">&nbsp;</td>
 <td align="right" width="1" background="${A}topbarright_bg.gif"><img src="${A}topbarright_1.gif" border="0"></td>
 <td align="right" class="topbarright" background="${A}topbarright_bg.gif"><b>Theme:</b>&nbsp;</td>
-<td align="right" background="${A}topbarright_bg.gif">${h.themePicker()}</td>
+<td align="right" background="${A}topbarright_bg.gif"><nobr>${h.themePicker()}&nbsp;${h.fidelityToggle()}</nobr></td>
 <td align="right" class="topbarright" background="${A}topbarright_bg.gif">&nbsp;&nbsp;&nbsp;&nbsp;<b>Search:</b>&nbsp;</td>
 <td align="right" background="${A}topbarright_bg.gif"><input type="text" name="q" size="10" maxlength="150" form="cm-hsearch"></td>
 <td align="right" width="2" class="topbarright" background="${A}topbarright_bg.gif">&nbsp;</td>
@@ -317,7 +317,7 @@ ${sites.map(([s, i]) => `<tr><td valign="bottom" class="columns"><img src="${A}a
 </table>`);
     const f = recent[0], fx = f.x || {}, file = h.file(f);
     const field = (label, html) => `<span style="width: 70px">${label}</span>${html}<br>`;
-    const featured = frame(`<a class="frametitle" href="${h.url.item(f)}">Featured Skin</a>`, `<table width="100%" border="0" valign="top" cellpadding="0" cellspacing="5">
+    const featured = frame(`<a class="frametitle" href="${h.url.item(f)}">Featured Skin</a>`, `<table width="100%" border="0" valign="top" cellpadding="0" cellspacing="5" class="cm-feat">
 <tr>
 <td valign="top" width="50" bgcolor="#AAAAAA" rowspan="2">
 <table width="100%" height="100%" border="0" valign="top" cellpadding="5" cellspacing="1">

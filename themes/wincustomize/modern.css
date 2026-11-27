@@ -1,0 +1,47 @@
+/* Readable mode for WinCustomize 2003 (GreenApple): larger text, looser lines, wider columns and bigger screenshots.
+   UI images stay at native size; frame and title bars widen by tiling their middle slices as the original tables do. */
+html[data-fidelity="readable"][data-theme="wincustomize"] { --wc-side: 230px; }
+
+/* text: the stylesheet's 9pt/10pt become 13px/14px */
+html[data-fidelity="readable"][data-theme="wincustomize"] body,
+html[data-fidelity="readable"][data-theme="wincustomize"] td,
+html[data-fidelity="readable"][data-theme="wincustomize"] a:link:not(.cm-logo),
+html[data-fidelity="readable"][data-theme="wincustomize"] a:visited:not(.cm-logo),
+html[data-fidelity="readable"][data-theme="wincustomize"] .contents,
+html[data-fidelity="readable"][data-theme="wincustomize"] a.contents,
+html[data-fidelity="readable"][data-theme="wincustomize"] .column,
+html[data-fidelity="readable"][data-theme="wincustomize"] .columns,
+html[data-fidelity="readable"][data-theme="wincustomize"] a.columns,
+html[data-fidelity="readable"][data-theme="wincustomize"] .search,
+html[data-fidelity="readable"][data-theme="wincustomize"] a.search,
+html[data-fidelity="readable"][data-theme="wincustomize"] .topbar,
+html[data-fidelity="readable"][data-theme="wincustomize"] a.topbar,
+html[data-fidelity="readable"][data-theme="wincustomize"] .topbarright,
+html[data-fidelity="readable"][data-theme="wincustomize"] .toplinks,
+html[data-fidelity="readable"][data-theme="wincustomize"] .selected,
+html[data-fidelity="readable"][data-theme="wincustomize"] .frametitle,
+html[data-fidelity="readable"][data-theme="wincustomize"] a.frametitle { font-size: 13px; }
+html[data-fidelity="readable"][data-theme="wincustomize"] .content,
+html[data-fidelity="readable"][data-theme="wincustomize"] a.content,
+html[data-fidelity="readable"][data-theme="wincustomize"] a.column,
+html[data-fidelity="readable"][data-theme="wincustomize"] a.toplinks { font-size: 14px; }
+html[data-fidelity="readable"][data-theme="wincustomize"] .content,
+html[data-fidelity="readable"][data-theme="wincustomize"] .contents { line-height: 1.5; }
+html[data-fidelity="readable"][data-theme="wincustomize"] .columns { line-height: 1.35; }
+html[data-fidelity="readable"][data-theme="wincustomize"] input,
+html[data-fidelity="readable"][data-theme="wincustomize"] select { font-size: 13px; }
+html[data-fidelity="readable"][data-theme="wincustomize"] .cm-ad .cm-warning,
+html[data-fidelity="readable"][data-theme="wincustomize"] .cm-adstats { font-size: 13px; }
+
+/* layout: side columns 170 -> 230px, the center takes the rest up to a readable maximum */
+html[data-fidelity="readable"][data-theme="wincustomize"] td[width="170"],
+html[data-fidelity="readable"][data-theme="wincustomize"] table[width="170"] { width: var(--wc-side); }
+html[data-fidelity="readable"][data-theme="wincustomize"] #app > table[cellspacing="5"][align="CENTER"] { max-width: 2200px; margin: 0 auto; }
+html[data-fidelity="readable"][data-theme="wincustomize"] div[style*="width: 145px"] { width: calc(var(--wc-side) - 25px) !important; }
+html[data-fidelity="readable"][data-theme="wincustomize"] td[width="92"] { width: 140px; }
+
+/* screenshots: listing/featured thumbs up to 300px, Daily Shot 210px, news 160px */
+html[data-fidelity="readable"][data-theme="wincustomize"] div[style*="width: 150px"] { width: 300px !important; }
+html[data-fidelity="readable"][data-theme="wincustomize"] img.cm-thumb { max-width: 300px; max-height: 300px; }
+html[data-fidelity="readable"][data-theme="wincustomize"] img.cm-shot { max-width: 210px; max-height: 210px; }
+html[data-fidelity="readable"][data-theme="wincustomize"] img.cm-newsthumb { max-width: 160px; max-height: 160px; }
