@@ -1878,7 +1878,8 @@ a.cm-gfdd b { font-size:14px; }
 /* our full-size previews in the original thumbnail and screenshot boxes */
 img.cm-thumb { width:152px; height:114px; object-fit:contain; }
 img.cm-shot { width:495px; height:396px; object-fit:contain; }
-span.cm-nothumb { display:inline-block; width:142px; height:110px; line-height:110px; text-align:center; color:#999; font-size:10px; }
+span.cm-nothumb { display:inline-block; width:152px; height:114px; line-height:114px; text-align:center; color:#999; font-size:10px; }
+span.cm-noshot { display:inline-block; width:495px; height:396px; line-height:396px; text-align:center; color:#999; font-size:11px; }
 /* the header banner slot (white box) holds list counts and sort controls */
 .cm-banner { position:absolute; left:296px; top:141px; width:466px; height:60px; display:flex; align-items:center; gap:6px; padding:0 12px; box-sizing:border-box; font:12px "Segoe UI",Verdana,Tahoma,sans-serif; color:#666; white-space:nowrap; }
 .cm-banner b { color:#48a7db; }

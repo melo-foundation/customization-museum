@@ -318,7 +318,7 @@ ${crumbs(h, [['Customization Museum', h.url.home()], [e.a, h.url.app(e.k)], [e.t
   </tr>
   <tr>
     <td class="skindetails" colspan="3" width="100%">
-				          <p align="center">${img ? `<a href="${h.esc(img)}" class="highslide" target="_blank" rel="noopener">${h.media(e).replace('<img ', '<img class="frame cm-shot" ')}</a>` : h.media(e)}</p>
+				          <p align="center">${img && !/\.(mp3|wav|ogg|mid|midi|wma|mp4|webm)$/i.test(e.l || '') ? `<a href="${h.esc(img)}" class="highslide" target="_blank" rel="noopener"><img class="frame cm-shot" src="${h.esc(img)}" alt="Screenshot" data-alt="${h.esc(h.thumbFallback(e))}" onerror="if(!this.dataset.f){this.dataset.f=1;this.src=this.dataset.alt}else{this.replaceWith(Object.assign(document.createElement('span'),{className:'frame cm-noshot',textContent:'no preview'}))}"/></a>` : img ? h.media(e) : '<span class="frame cm-noshot">no preview</span>'}</p>
                 ${e.desc ? `<div class="cm-desc">${e.desc}</div>` : ''}
                 	<p>More Info: ${links}</p>
             </td>
