@@ -147,6 +147,8 @@ for f in sorted(glob.glob("data/*.json")):
         )
         if archived(row["tp"], row["tl"], row["l"]):
             row["z"] = 1
+        if e.get("description"):
+            row["n"] = e["description"]
         if e.get("extra"):
             row["x"] = e["extra"]
         if e["id"] in OVERRIDES:

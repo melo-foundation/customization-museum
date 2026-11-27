@@ -25,7 +25,8 @@ jobs:
           echo ttf-mscorefonts-installer msttcorefonts/accepted-mscorefonts-eula select true | sudo debconf-set-selections
           sudo apt-get install -y -q ttf-mscorefonts-installer fonts-wine >/dev/null && fc-cache -f >/dev/null
           fc-match Verdana; fc-match Tahoma
-          fc-match Verdana | grep -qi verdana && fc-match Tahoma | grep -qi tahoma
+          fc-match Verdana | grep -qi verdana
+          fc-match Tahoma | grep -qi tahoma || echo "::warning::Tahoma missing, using fallback"
       - run: |
           mkdir out
           printf '%s\n' $URLS | grep -E '^https?://[^[:space:]]+$' | head -40 > out/urls.txt

@@ -195,11 +195,15 @@ async function findItem(id) {
   const hit = (await index()).find(e => e.i === id);
   if (!hit) return null;
   const row = (await shard(hit.k)).find(e => e.i === id);
+  if (row?.n && !row.m) row.desc = h.md(row.n);
   if (row?.m) row.desc = h.md((await fetch(`${ROOT}items/${encodeURIComponent(id)}.md`).then(r => r.ok ? r.text() : '')).replace(/^---[\s\S]*?\n---\n?/, ''));
   return row;
 }
 
 // ---------- render ----------
+// ?theme=<name> selects a theme (shareable links, screenshot tooling); it is remembered like the picker
+const themeParam = new URLSearchParams(location.search).get('theme');
+if (themeParam && /^[a-z0-9-]+$/.test(themeParam)) localStorage.setItem('theme', themeParam);
 let currentTheme = localStorage.getItem('theme') || 'default', renderToken = 0;
 function loadTheme(name) {
   if (THEMES[name]?.home) return Promise.resolve(THEMES[name]);
