@@ -1,0 +1,45 @@
+name: ccscan
+
+on:
+  workflow_dispatch:
+    inputs:
+      crawls:
+        description: Common Crawl ids, space separated (e.g. CC-MAIN-2013-20 CC-MAIN-2014-10)
+        required: true
+      max_files:
+        description: Index files per crawl (0 = all)
+        default: "0"
+
+permissions:
+  contents: read
+
+jobs:
+  plan:
+    runs-on: ubuntu-latest
+    outputs:
+      crawls: ${{ steps.c.outputs.crawls }}
+    steps:
+      - id: c
+        run: echo "crawls=$(printf '%s\n' $CRAWLS | grep -E '^CC-MAIN-[0-9]{4}-[0-9]{2}$' | jq -R . | jq -sc .)" >> "$GITHUB_OUTPUT"
+        env:
+          CRAWLS: ${{ inputs.crawls }}
+  scan:
+    needs: plan
+    strategy:
+      fail-fast: false
+      matrix:
+        crawl: ${{ fromJson(needs.plan.outputs.crawls) }}
+    runs-on: ubuntu-latest
+    timeout-minutes: 340
+    steps:
+      - uses: actions/checkout@v4
+      - run: pip install -q duckdb
+      - run: timeout 19500 python3 ccscan.py "$CRAWL" "$MAX" || true
+        env:
+          CRAWL: ${{ matrix.crawl }}
+          MAX: ${{ inputs.max_files }}
+      - uses: actions/upload-artifact@v4
+        with:
+          name: ccscan-${{ matrix.crawl }}
+          path: ccscan-*.tsv
+          retention-days: 30
