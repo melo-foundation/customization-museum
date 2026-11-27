@@ -268,20 +268,25 @@ ${f.map(([k, v], j) => `   <tr>
   const browse = (ctx) => {
     const { h, manifest: m } = ctx;
     const n = v => v.toLocaleString('en-US');
-    const cols = list => { const per = Math.ceil(list.length / 2); return [0, 1].map(i => `<td width="50%" valign="top"><ul>\n${list.slice(i * per, (i + 1) * per).join('\n')}\n</ul></td>`).join('\n'); };
-    const block = (name, bg, list) => `<table width="100%" border="0" align="center" cellpadding="3" cellspacing="0" class="border">
+    const block = (name, list) => `<table width="100%" border="0" align="center" cellpadding="3" cellspacing="0" class="border">
   <tr class="sectionheader">
-    <td width="100%">${name}</td>
+    <td width="85%">${name}</td>
+    <td width="15%">Skins</td>
   </tr></table>
-<table width="100%" border="0" align="center" cellpadding="3" cellspacing="0" class="border cm-cats" style="background-color:${bg};">
+${list.map(([href, t, c], i) => { const bg = i % 2 ? '#ebf8ff' : '#f6fcff'; return `<table width="100%" border="0" align="center" cellpadding="3" cellspacing="0" class="border" onmouseover="this.style.backgroundColor='#ffffda';" onmouseout="this.style.backgroundColor='${bg}';" onclick="this.querySelector('a').click()" style="background-color:${bg}; cursor:pointer;">
   <tr>
-${cols(list.map(([href, t, c]) => `<li><a href="${href}"><b>${h.esc(t)}</b></a> (${n(c)})</li>`))}
-  </tr></table>`;
+    <td width="85%">
+      <a href="${href}" onclick="event.stopPropagation()">${h.esc(t)}</a><br/>
+    </td>
+    <td width="15%" align="center">${n(c)}</td>
+  </tr></table>`; }).join('\n')}`;
     const left = `${buttons(ctx)}
 ${crumbs(h, [['Messenger Skins', h.url.home()], ['Browse by Category', h.url.home() + '#browse']])}
-${block('Categories', '#f6fcff', Object.entries(m.types).map(([t, c]) => [h.url.type(t), t, c]))}
-${block('Programs', '#ebf8ff', m.apps.map(a => [h.url.app(a.slug), a.name, a.count]))}
-${block('Sources', '#f6fcff', Object.entries(m.sites).sort((a, b) => b[1].count - a[1].count).map(([s, i]) => [h.url.site(s), i.name, i.count]))}
+${block('Category', Object.entries(m.types).map(([t, c]) => [h.url.type(t), t, c]))}
+<p/>
+${block('Program', m.apps.map(a => [h.url.app(a.slug), a.name, a.count]))}
+<p/>
+${block('Source', Object.entries(m.sites).sort((a, b) => b[1].count - a[1].count).map(([s, i]) => [h.url.site(s), i.name, i.count]))}
 <p>&nbsp;</p>`;
     return page(ctx, { title: 'Skins Database', sub: tagline(h, ''), left });
   };

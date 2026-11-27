@@ -1880,6 +1880,3 @@ img.cm-shot { max-width:495px; max-height:396px; width:auto; height:auto; }
 .cm-tools { float:right; }
 .cm-desc p { margin:0 0 8px; }
 .cm-desc img, .skindetails video, .skindetails audio { max-width:100%; }
-table.cm-cats td { padding:8px 3px; }
-table.cm-cats ul { margin:0 0 0 30px; padding:0; }
-table.cm-cats li { line-height:18px; }
