@@ -4,7 +4,10 @@
 (() => {
   const MONTHS = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
   const ord = n => n + (n % 10 === 1 && n !== 11 ? 'st' : n % 10 === 2 && n !== 12 ? 'nd' : n % 10 === 3 && n !== 13 ? 'rd' : 'th');
-  const longDate = d => { const [y, m, day] = (d || '').split('-').map(Number); return !y ? '' : m ? `${MONTHS[m - 1]} ${day ? ord(day) + ', ' : ''}${y}` : String(y); };
+  // 'YYYY-MM-DD' or 'YYYY-MM-DD HH:MM' -> 'November 7th, 2006' / 'November 7th, 2006 13:39 GMT'
+  const longDate = d => { const [date, time] = (d || '').split(' '), [y, m, day] = date.split('-').map(Number); return !y ? '' : (m ? `${MONTHS[m - 1]} ${day ? ord(day) + ', ' : ''}${y}` : String(y)) + (time ? ` ${time} GMT` : ''); };
+  // first paragraph of an item's note as plain text
+  const summary = n => (n || '').split(/\n\s*\n/)[0].replace(/[*_`#>\[\]]|\(https?:[^)]*\)/g, '').replace(/\s+/g, ' ').trim();
   const CIRCLES = ['windows2', 'games2', 'drivers2', 'handheld', 'mac2', 'linux2', 'mobile2', 'news2'];
   const HEADS = [['win', '#FFF9F9', 'wins'], ['mac', '#F4FFF4', 'macs'], ['games', '#FFFAFD', 'gamess'], ['linux', '#F5FCFF', 'linuxs'], ['drivers', '#FFFCF4', 'driverss'], ['mobile', '#F7FBFF', 'mobiles']];
   let A = '';
@@ -18,7 +21,8 @@
     const nav = [['HOME', h.url.home()], ['SUBMIT ITEM', h.url.request()], ['ARCHIVED', reset(h, r, { arch: '1' })], ['NEWEST', reset(h, r, { sort: '' })],
       ['OLDEST', reset(h, r, { sort: 'old' })], ['A-Z', reset(h, r, { sort: 'az' })], ['SOURCE CODE', 'https://github.com/melo-foundation/customization-museum']];
     const types = Object.keys(m.types);
-    const circ = [...types.slice(0, 7).map(t => [t.split(/[ &]/)[0], h.url.type(t)]), ['Archived', reset(h, r, { arch: '1' })]];
+    const circ = [...types.slice(0, 7).map(t => [t.split(/[ &]/)[0], h.url.type(t)]), ['Newest', reset(h, r, { sort: '' })], ['Oldest', reset(h, r, { sort: 'old' })], ['A-Z', reset(h, r, { sort: 'az' })]].slice(0, 7);
+    circ.push(['Archived', reset(h, r, { arch: '1' })]);
     const c = (i, hs) => `<a class="spx-circ" href="${circ[i][1]}">${img(`um_${CIRCLES[i]}_blank.png`, 71, 71, hs ? `hspace="${hs}"` : '')}<span>${E(circ[i][0].toUpperCase())}</span></a>`;
     return `<table width="100%" border="0" cellpadding="0" cellspacing="0" bgcolor="#001F5B"><tr>
         <td rowspan="2" valign="top"><a class="spx-logo" href="${h.url.home()}">CUSTOMIZATION MUSEUM<sup>TM</sup></a><table width="214" border="0" cellspacing="0" cellpadding="0"><tr><td width="26"></td><td align="center" class="update">${m.total.toLocaleString()} files online</td></tr></table></td>
@@ -94,6 +98,8 @@
   const icon32 = (h, e) => h.img(e, 'border="0" width="32" height="32" hspace="2" class="spx-ico"') || `<span class="spx-noico">${h.esc((e.t || '?')[0].toUpperCase())}</span>`;
   const pages = (h, r, l) => {
     if (l.pages < 2) return '';
+    // up to 15 pages: every number, as the original did; beyond that the core's windowed pager
+    if (l.pages <= 15) return `Pages: ${Array.from({ length: l.pages }, (_, i) => i + 1 === l.page ? `<b>${i + 1}</b> ` : `<a href="${h.link(r, { page: i + 1 })}">${i + 1}</a> `).join('')}`;
     const p = h.pager(r, l.pages);
     return `Pages: ${p.prev ? `<a href="${p.prev}">&laquo;</a> ` : ''}${p.items.map(i => i.gap ? '... ' : i.current ? `<b>${i.n}</b> ` : `<a href="${i.url}">${i.n}</a> `).join('')}${p.next ? `<a href="${p.next}">&raquo;</a>` : ''}`;
   };
@@ -101,6 +107,7 @@
 
   THEMES.softpedia = {
     label: 'Download Portal 2006',
+    perPage: 30,
 
     home(ctx) {
       const { h, manifest: m, route: r } = ctx, E = h.esc;
@@ -119,7 +126,7 @@
             <span class="mi_subheading_l">${apps.length} programs</span>
             <span class="mi_subheading_r"><a href="${h.url.type(t)}">view all files</a></span></td></tr>
           <tr><td bgcolor="${bg}"><table width="100%" cellspacing="0" cellpadding="0" border="0">
-            ${apps.map(a => `<tr><td style="padding:5px"><table width="100%" cellpadding="0" cellspacing="0" border="0"><tr><td class="celltext"> <img src="${A}${ic}.gif" align="absmiddle" style="margin-right:7px"> <span class="celltitles"><a href="${h.link({}, { app: a.slug, type: t })}" style="font-size:12px">${E(a.name)} ${E(t)}</a></span> | ${a.types[t].toLocaleString()} ${E(t.toLowerCase())} from ${E(a.name)}, ${a.count.toLocaleString()} files in total </td></tr></table></td></tr>`).join('')}
+            ${apps.map(a => `<tr><td style="padding:5px"><table width="100%" cellpadding="0" cellspacing="0" border="0"><tr><td class="celltext"> <img src="${A}${ic}.gif" align="absmiddle" style="margin-right:7px"> <span class="celltitles"><a href="${h.link({}, { app: a.slug, type: t })}" style="font-size:12px">${E(a.name)}</a></span> | ${a.types[t].toLocaleString()} ${E(t.toLowerCase())}, ${a.count.toLocaleString()} files in total </td></tr></table></td></tr>`).join('')}
           </table></td></tr></table>`;
       };
       const center = `<table width="790" border="0" cellspacing="0" cellpadding="0"><tr valign="middle"><td style="padding-bottom:15px" valign="middle" class="celltext_bigger">
@@ -130,8 +137,8 @@
             <tr>${link(L[3])}${link(L[4])}${link(L[5])}</tr><tr>${link(L[6])}${link(L[7])}${link(L[8], 1)}</tr></table></div></td></tr></table>
         <table width="100%" border="0" cellpadding="0" cellspacing="0"><tr><td align="center">${ad728(ctx)}</td></tr></table>
         <br> &nbsp;<table width="780" border="0" cellspacing="0" cellpadding="0"><tr>
-          <td width="380" valign="top">${box(types[0], 0, 40)}</td><td width="20"></td>
-          <td width="380" valign="top">${types.slice(1, 6).map((t, i) => box(t, i + 1, 9) + '<br>').join('')}</td></tr></table><br><br>`;
+          <td width="380" valign="top">${box(types[0], 0, 52)}</td><td width="20"></td>
+          <td width="380" valign="top">${types.slice(1, 6).map((t, i) => box(t, i + 1, 14) + '<br>').join('')}</td></tr></table><br><br>`;
       const side = `<div id="first_ad_unit"></div><hr size="1" noshade style="color:#BECEEE"><div align="center" class="spx-ad120" style="margin-left: 15px; border: 1px solid #FFFFFF;width: 120px; height:90px"><b>${Math.round(100 * m.archived / m.total)}%</b><span>of the archive is<br>backed up</span></div><br>
         ${liBox(h, 'Top sources:', srcs.slice(0, 30).map(([s, i]) => [h.url.site(s), i.name]))}`;
       return page(ctx, 'width="795" style="padding-left:25px"', center, right(ctx, side));
@@ -146,8 +153,8 @@
       const row = (e, i) => {
         const file = h.file(e), desc = [...e.y, ...e.g.slice(0, 4)].join(', ');
         return `<tr${i % 2 ? '' : ' bgcolor="#EFF3FC"'}><td width="564" style="padding-bottom:5px; padding-top:5px"><table width="100%" border="0" cellspacing="0" cellpadding="1">
-          <tr><td width="32" height="26" rowspan="3" align="center" valign="top" class="celltitles" style="padding-right:2px"><a href="${h.url.item(e)}" title="${E(e.t)}">${icon32(h, e)}</a></td><td class="celltitles"><a href="${h.url.item(e)}" title="${E(e.t)}">${E(e.t)}</a></td></tr>
-          <tr><td class="celltext_description">${E(e.a)}${desc ? ' - ' + E(desc) : ''}</td></tr>
+          <tr><td width="32" height="26" rowspan="3" align="center" valign="top" class="celltitles" style="padding-right:2px"><a href="${h.url.item(e)}" title="${E(e.t)}">${icon32(h, e)}</a></td><td class="celltitles spx-q"><a href="${h.url.item(e)}" title="${E(e.t)}">${E(e.t)}</a></td></tr>
+          <tr><td class="celltext_description">${e.n ? E(summary(e.n)) : `${E(e.a)}${desc ? ' - ' + E(desc) : ''}`}</td></tr>
           <tr><td class="celltext">${E(e.y[0] || '')} | ${E(h.siteName(e.s))} | Archived: ${E(h.archivedLabel(e))}</td></tr></table></td>
           <td width="200" style="padding-bottom:5px; padding-top:5px"><table width="100%" border="0" cellspacing="0" cellpadding="1">
           <tr><td align="right" class="celltext">${e.z ? '<span class="celltext_pick">archived</span> | ' : ''}${file ? `<a href="${E(file)}" target="_blank" rel="noopener">download</a> | ` : ''}<a href="${h.url.item(e)}">details</a>&nbsp;</td></tr>
@@ -158,16 +165,16 @@
           [[h.link(r, { sort: '' }), 'Newest files'], [h.link(r, { sort: 'old' }), 'Oldest files'], [h.link(r, { arch: '1' }), 'Archived files']])}
         ${about ? `<table width="770" class="spx-about"><tr><td class="celltext_big"><div class="celltext" style="float:right"><a href="${E(about.edit)}" target="_blank" rel="noopener">Edit</a> | <a href="${h.link(r, { site: '' })}">Close</a></div>${about.html}</td></tr></table>` : ''}
         <br><table width="770" border="0" cellpadding="0" cellspacing="0" class="indexcellbkg"><tr><td valign="top" class="indexcellbkg_2" style="padding-left:15px; padding-top:15px">
-          <table width="100%" border="0" cellspacing="0" cellpadding="0"><tr><td width="70%"><span class="celltitles_categ"><a href="${h.url.home()}">C:</a>${(crumbs.length ? crumbs : [[h.link(r, {}), name]]).map(([u, t]) => ` \\ <a href="${u}">${E(t)}</a>`).join('')}</span> <span class="celltext">(${l.total.toLocaleString()} files)</span></td>
+          <table width="100%" border="0" cellspacing="0" cellpadding="0"><tr><td width="70%" class="spx-q"><span class="celltitles_categ"><a href="${h.url.home()}">C:</a>${(crumbs.length ? crumbs : [[h.link(r, {}), name]]).map(([u, t]) => ` \\ <a href="${u}">${E(t)}</a>`).join('')}</span></td>
             <td width="30%" align="right" class="celltext" style="padding-right:8px">${pg}</td></tr></table><br>
-          <table width="754" border="0" cellspacing="0" cellpadding="0">${l.rows.length ? l.rows.map(row).join('') : '<tr><td class="celltext_big" style="padding:20px">No files found.</td></tr>'}</table>
+          <table width="754" border="0" cellspacing="0" cellpadding="0">${l.rows.length ? l.rows.map((e, i) => row(e, i) + (i === 14 && l.rows.length > 15 ? '<tr><td colspan="2" align="center"><br> <br><br> </td></tr>' : '')).join('') : '<tr><td class="celltext_big" style="padding:20px">No files found.</td></tr>'}</table>
           <hr size="1"><table width="100%" border="0" cellspacing="0" cellpadding="0"><tr><td width="70%" class="celltext"><a href="#" onclick="scrollTo(0,0);return false">go to top</a></td><td width="30%" align="right" class="celltext" style="padding-right:8px">${pg}</td></tr></table>
           ${f.tags.length ? `<br><div class="celltext" style="width:740px;line-height:16px"><b>Tags:</b> ${f.tags.slice(0, 40).map(([t]) => `<a href="${h.link(r, { tag: r.tag === t ? '' : t })}">${E(t)}</a>`).join(' | ')}</div>` : ''}<br><br></td></tr></table>`;
       const opts = `<form class="spx-opts" onsubmit="location.href='${h.link(r, {})}';return false"><table width="150" border="0" cellspacing="0" cellpadding="0"><tr><td height="34" class="right_title_bkg">Category Options:</td></tr>
         <tr><td style="padding-left:6px; padding-bottom:5px" class="celltext"> Show only:<br> ${h.archSelect(r).replace('<select', '<select class="searchdrop" style="width:140px"')} <br><br> Sort By:<br> ${h.sortSelect(r).replace('<select', '<select class="searchdrop" style="width:140px"')} <br><br>
           <input type="checkbox"${r.arch === '1' ? ' checked' : ''} onchange="location.href=this.checked?'${h.link(r, { arch: '1' })}':'${h.link(r, { arch: '' })}'"> Only archived files <br><br> <input type="submit" class="general_button" value="Continue"> </td></tr></table></form>`;
-      const side = `${opts}${liBox(h, 'Programs:', [[h.link(r, { app: '', type: '', tag: '' }), 'All programs'], ...f.apps.map(([k, n, c]) => [h.link(r, { app: k, type: '', tag: '' }), `${n} (${c})`])].slice(0, 30))}<br>
-        ${liBox(h, 'File types:', f.types.map(([t, n]) => [h.link(r, { type: t, tag: '' }), `${t} (${n})`]))}`;
+      const side = `${opts}${liBox(h, 'Main categories:', ctx.manifest.apps.slice(0, 20).map(x => [h.url.app(x.slug), x.name]))}
+        ${liBox(h, 'File types:', f.types.slice(0, 30).map(([t]) => [h.link(r, { type: t, tag: "" }), t]))}`;
       return page(ctx, 'width="822" align="center"', center, right(ctx, side));
     },
 
@@ -208,7 +215,8 @@
                 <tr><td class="orizdotsbkg spx-io" colspan="2">${img('oriz_dots.gif', 2, 1, 'vspace="5"')}</td></tr>
                 <tr><td valign="top" class="celltext_big" colspan="2"><div align="justify">${e.desc || `${E(e.t)} is a ${E((e.y[0] || 'customization').toLowerCase())} item for ${E(e.a)}, recovered from ${E(h.siteName(e.s))}.`}</div></td></tr></table></td>
           </tr></table></td></tr></table>`;
-      const side = liBox(h, 'Main categories:', m.apps.slice(0, 20).map(x => [h.url.app(x.slug), x.name]));
+      const side = liBox(h, 'Main categories:', m.apps.slice(0, 20).map(x => [h.url.app(x.slug), x.name])) +
+        liBox(h, 'File types:', Object.keys(m.types).slice(0, 30).map(t => [h.url.type(t), t]));
       return page(ctx, 'width="822" align="center"', center, right(ctx, side));
     },
   };

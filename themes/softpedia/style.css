@@ -78,3 +78,5 @@ html[data-theme="softpedia"] #app td > li { list-style-position:inside; }
 html[data-theme="softpedia"] #app td[height]:not([background]) { box-sizing:border-box; }
 /* quirks: forms keep a 1em bottom margin */
 html[data-theme="softpedia"] .spx-opts { margin:0 0 1em; }
+/* quirks: a block holding only an inline element gets no strut from its own (larger) font */
+html[data-theme="softpedia"] .spx-q { font-size:0; }

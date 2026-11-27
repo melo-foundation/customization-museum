@@ -158,16 +158,16 @@ const SORTS = {
   az: (a, b) => a.t.localeCompare(b.t),
 };
 
-async function list(r) {
+async function list(r, perPage = PER_PAGE) {
   // one program needs only its own file; anything else filters the compact index
   const rows = r.app ? await shard(r.app) : await index();
   const typeName = r.type && Object.keys(cache.types).find(t => slug(t) === slug(r.type));
   const base = rows.filter(e => matches(e, { ...r, app: r.app, type: '', tag: '' }));
   const inType = base.filter(e => !r.type || e.y.some(t => slug(t) === slug(r.type)));
   const hits = inType.filter(e => !r.tag || e.g.includes(r.tag)).sort(SORTS[r.sort] || SORTS['']);
-  const pages = Math.max(1, Math.ceil(hits.length / PER_PAGE));
+  const pages = Math.max(1, Math.ceil(hits.length / perPage));
   const page = Math.min(r.page, pages);
-  const slice = hits.slice((page - 1) * PER_PAGE, page * PER_PAGE);
+  const slice = hits.slice((page - 1) * perPage, page * perPage);
   // page rows need full data: fetch the program files that appear on this page
   const full = {};
   await Promise.all([...new Set(slice.map(e => e.k))].map(async k => (await shard(k)).forEach(e => full[e.i] = e)));
@@ -260,7 +260,8 @@ async function render() {
     document.title = 'Customization Museum';
     html = theme.home(ctx);
   } else {
-    ctx.list = await list(r);
+    // themes may reproduce their original site's page size (THEMES[x].perPage)
+    ctx.list = await list(r, theme.perPage || PER_PAGE);
     if (r.site) ctx.about = await siteAbout(r.site);
     const name = r.app ? h.appName(r.app) : r.site ? h.siteName(r.site) : r.type ? ctx.list.typeName : r.tag || `“${r.q}”`;
     document.title = `${name} · Customization Museum`;
