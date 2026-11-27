@@ -1,0 +1,71 @@
+html[data-theme="deviantart"] body{margin:0;background:#a2b4a5;color:#304035;font:11px Verdana,Tahoma,sans-serif}
+html[data-theme="deviantart"] *{box-sizing:border-box}
+html[data-theme="deviantart"] a{color:#2e5a40;text-decoration:none}
+html[data-theme="deviantart"] a:hover{text-decoration:underline;color:#0d3a20}
+html[data-theme="deviantart"] input,html[data-theme="deviantart"] select{font:11px Verdana,Tahoma,sans-serif;background:#e6efe6;border:1px solid #7f9a85;color:#243;padding:2px 4px;border-radius:0}
+html[data-theme="deviantart"] input[type=search]{width:100%}
+html[data-theme="deviantart"] .da-top{background:linear-gradient(#53695a,#3a4d41);border-bottom:1px solid #26352c}
+html[data-theme="deviantart"] .da-topin,html[data-theme="deviantart"] .da-subin,html[data-theme="deviantart"] .da-page{max-width:1100px;margin:0 auto}
+html[data-theme="deviantart"] .da-topin{display:flex;align-items:center;gap:14px;padding:6px 10px;flex-wrap:wrap}
+html[data-theme="deviantart"] .da-logo{font:bold 20px Georgia,serif;color:#dfeadf;letter-spacing:-1px;text-decoration:none}
+html[data-theme="deviantart"] .da-logo span{color:#a9c9ae}
+html[data-theme="deviantart"] .da-nav{display:flex;gap:2px}
+html[data-theme="deviantart"] .da-nav a{color:#e4efe4;padding:4px 10px;border-radius:6px 6px 0 0;background:#4a6153;border:1px solid #2f4036;border-bottom:0}
+html[data-theme="deviantart"] .da-nav a:hover{background:#6f8c78;text-decoration:none}
+html[data-theme="deviantart"] .da-search{flex:1 1 180px;max-width:320px;margin-left:auto}
+html[data-theme="deviantart"] .da-sub{background:#c5d3c6;border-bottom:1px solid #7f9a85}
+html[data-theme="deviantart"] .da-subin{padding:4px 10px;color:#4b6352;font-size:10px}
+html[data-theme="deviantart"] .cm-warning{max-width:1080px;margin:8px auto 0;background:#f2eec8;border:1px solid #b5ad6a;color:#554;padding:5px 10px;font-size:11px;display:flex;gap:10px;align-items:center}
+html[data-theme="deviantart"] .cm-warning button{margin-left:auto;font:11px Verdana,sans-serif}
+html[data-theme="deviantart"] .da-page{display:flex;gap:10px;padding:10px;align-items:flex-start}
+html[data-theme="deviantart"] .da-side{flex:0 0 190px}
+html[data-theme="deviantart"] .da-main{flex:1;min-width:0}
+html[data-theme="deviantart"] .da-box{background:#dde8dd;border:1px solid #7f9a85;margin-bottom:10px}
+html[data-theme="deviantart"] .da-box h3{margin:0;padding:3px 8px;font:bold 11px Verdana,sans-serif;color:#eef6ee;background:linear-gradient(#6d8a76,#4f6a58);border-radius:6px 6px 0 0}
+html[data-theme="deviantart"] .da-boxb{padding:6px 8px}
+html[data-theme="deviantart"] .da-tree,html[data-theme="deviantart"] .da-tree ul{list-style:none;margin:0;padding:0}
+html[data-theme="deviantart"] .da-tree ul{padding-left:12px}
+html[data-theme="deviantart"] .da-tree li{padding:1px 0;line-height:1.5}
+html[data-theme="deviantart"] .da-tree li.root{font-weight:bold}
+html[data-theme="deviantart"] .da-tree li:not(.root){font-weight:normal}
+html[data-theme="deviantart"] .da-tree li.on>a{background:#7f9d88;color:#fff;padding:0 3px}
+html[data-theme="deviantart"] .da-tree i{color:#7a9080;font-style:normal;font-size:10px}
+html[data-theme="deviantart"] .da-tags a{display:inline-block;margin:0 3px 3px 0;padding:0 4px;background:#cddacd;border:1px solid #a3b8a6}
+html[data-theme="deviantart"] .da-tags a.on{background:#5f7d68;color:#fff}
+html[data-theme="deviantart"] .da-crumbs{margin-bottom:8px;color:#4b6352}
+html[data-theme="deviantart"] .da-tab{display:block;margin-top:6px;padding:4px 10px;font:bold 12px Verdana,sans-serif;color:#eef6ee;background:linear-gradient(#6d8a76,#4f6a58);border:1px solid #3f5547;border-bottom:0;border-radius:8px 8px 0 0}
+html[data-theme="deviantart"] .da-tab span{font-weight:normal;font-size:10px;margin-left:8px;color:#cfe0d2}
+html[data-theme="deviantart"] .da-panel{background:#dde8dd;border:1px solid #7f9a85;padding:10px;margin-bottom:8px;line-height:1.5}
+html[data-theme="deviantart"] .da-ctl{background:#c9d8ca;border:1px solid #7f9a85;border-bottom:0;padding:4px 10px;display:flex;gap:16px}
+html[data-theme="deviantart"] .da-cols{display:grid;grid-template-columns:repeat(auto-fill,minmax(210px,1fr));gap:6px 14px}
+html[data-theme="deviantart"] .da-app i{color:#789;font-style:normal}
+html[data-theme="deviantart"] .da-app small{color:#667c6c}
+html[data-theme="deviantart"] .da-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:10px}
+html[data-theme="deviantart"] .da-dev{text-align:center;background:#eef4ee;border:1px solid #a3b8a6;padding:6px;overflow:hidden}
+html[data-theme="deviantart"] .da-th{display:flex;align-items:center;justify-content:center;height:110px;background:#cfdccf;border:1px solid #8aa291;margin-bottom:4px;overflow:hidden}
+html[data-theme="deviantart"] .da-th img{max-width:100%;max-height:100%;object-fit:contain}
+html[data-theme="deviantart"] .da-t{font-weight:bold;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+html[data-theme="deviantart"] .da-by{color:#5a7060;font-size:10px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+html[data-theme="deviantart"] .da-by span{color:#8aa090}
+html[data-theme="deviantart"] .da-lk{font-size:10px;color:#8aa090}
+html[data-theme="deviantart"] .da-pager{margin-top:12px;text-align:center}
+html[data-theme="deviantart"] .da-pager a,html[data-theme="deviantart"] .da-pager b,html[data-theme="deviantart"] .da-pager span{display:inline-block;margin:0 2px;padding:1px 6px;border:1px solid #8aa291;background:#eef4ee}
+html[data-theme="deviantart"] .da-pager b{background:#5f7d68;color:#fff;border-color:#3f5547}
+html[data-theme="deviantart"] .da-about{position:relative;margin-bottom:10px}
+html[data-theme="deviantart"] .da-about h1{font:bold 15px Georgia,serif;margin:0 0 6px}
+html[data-theme="deviantart"] .da-tools{float:right}
+html[data-theme="deviantart"] .da-dv{display:flex;gap:10px;align-items:flex-start}
+html[data-theme="deviantart"] .da-dvmain{flex:1;min-width:0}
+html[data-theme="deviantart"] .da-dvside{flex:0 0 240px}
+html[data-theme="deviantart"] .da-dvmain .da-tab:first-child{margin-top:0}
+html[data-theme="deviantart"] .da-big{text-align:center;padding:20px;min-height:200px;background:#f1f6f1}
+html[data-theme="deviantart"] .da-big img,html[data-theme="deviantart"] .da-big video{max-width:100%;border:1px solid #8aa291;padding:3px;background:#fff}
+html[data-theme="deviantart"] .da-big audio{display:block;margin:10px auto 0}
+html[data-theme="deviantart"] .da-big .nopreview{color:#8aa090}
+html[data-theme="deviantart"] .da-dvside dl{margin:0}
+html[data-theme="deviantart"] .da-dvside dt{font-weight:bold;color:#4b6352;font-size:10px;margin-top:5px}
+html[data-theme="deviantart"] .da-dvside dd{margin:0;word-break:break-word}
+html[data-theme="deviantart"] .da-acts{line-height:1.8}
+html[data-theme="deviantart"] .da-desc img{max-width:100%}
+html[data-theme="deviantart"] .da-foot{text-align:center;color:#4b6352;padding:14px;font-size:10px}
+@media(max-width:760px){html[data-theme="deviantart"] .da-page,html[data-theme="deviantart"] .da-dv{flex-direction:column}html[data-theme="deviantart"] .da-side,html[data-theme="deviantart"] .da-dvside{flex:none;width:100%}}
