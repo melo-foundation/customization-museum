@@ -1,0 +1,734 @@
+[
+ {
+  "app": "Firefox",
+  "date": "2004-06-12",
+  "download": "https://web.archive.org/web/20041011130406/http://update.mozilla.org/themes/install.php?id=2&vid=843",
+  "id": "fxtheme-2",
+  "page": "https://web.archive.org/web/20041011130406/http://update.mozilla.org/themes/moreinfo.php?id=2&vid=843",
+  "preview": null,
+  "tags": [
+   "Themes"
+  ],
+  "title": "Doodle (Plastik) 1.5.9.1"
+ },
+ {
+  "app": "Firefox",
+  "date": "2004-06-12",
+  "download": "https://web.archive.org/web/20040822123823/http://update.mozilla.org/themes/install.php?id=4&vid=5",
+  "id": "fxtheme-4",
+  "page": "https://web.archive.org/web/20040822123823/http://update.mozilla.org/themes/moreinfo.php?id=4&vid=5",
+  "preview": null,
+  "tags": [
+   "Themes"
+  ],
+  "title": "Orbit Grey 0.2.1"
+ },
+ {
+  "app": "Firefox",
+  "date": "2004-06-12",
+  "download": "https://web.archive.org/web/20040822124054/http://update.mozilla.org/themes/install.php?id=5&vid=414",
+  "id": "fxtheme-5",
+  "page": "https://web.archive.org/web/20040822124054/http://update.mozilla.org/themes/moreinfo.php?id=5&vid=414",
+  "preview": null,
+  "tags": [
+   "Themes"
+  ],
+  "title": "Phoenity 1.2"
+ },
+ {
+  "app": "Firefox",
+  "date": "2004-06-12",
+  "download": "https://web.archive.org/web/20041028120735/http://update.mozilla.org/themes/install.php?id=6&vid=1004",
+  "id": "fxtheme-6",
+  "page": "https://web.archive.org/web/20041028120735/http://update.mozilla.org/themes/moreinfo.php?id=6&vid=1004",
+  "preview": null,
+  "tags": [
+   "Themes"
+  ],
+  "title": "Pinball 0.9.9.1"
+ },
+ {
+  "app": "Firefox",
+  "date": "2004-06-12",
+  "download": "https://web.archive.org/web/20040822123437/http://update.mozilla.org/themes/install.php?id=9&vid=10",
+  "id": "fxtheme-9",
+  "page": "https://web.archive.org/web/20040822123437/http://update.mozilla.org/themes/moreinfo.php?id=9&vid=10",
+  "preview": null,
+  "tags": [
+   "Themes"
+  ],
+  "title": "FirefoxModern 0.7.1"
+ },
+ {
+  "app": "Firefox",
+  "date": "2004-06-15",
+  "download": "https://web.archive.org/web/20040905142052/http://update.mozilla.org/themes/install.php?id=73&vid=210",
+  "id": "fxtheme-73",
+  "page": "https://web.archive.org/web/20040905142052/http://update.mozilla.org/themes/moreinfo.php?id=73&vid=210",
+  "preview": null,
+  "tags": [
+   "Themes"
+  ],
+  "title": "Noia 2.0 (lite) 2.66"
+ },
+ {
+  "app": "Firefox",
+  "date": "2004-06-15",
+  "download": "https://web.archive.org/web/20040825231657/http://update.mozilla.org/themes/install.php?id=74&vid=440",
+  "id": "fxtheme-74",
+  "page": "https://web.archive.org/web/20040825231657/http://update.mozilla.org/themes/moreinfo.php?id=74&vid=440",
+  "preview": null,
+  "tags": [
+   "Themes"
+  ],
+  "title": "Nautical 0.4.2"
+ },
+ {
+  "app": "Firefox",
+  "date": "2004-06-15",
+  "download": "https://web.archive.org/web/20041009170707/http://update.mozilla.org/themes/install.php?id=75&vid=752",
+  "id": "fxtheme-75",
+  "page": "https://web.archive.org/web/20041009170707/http://update.mozilla.org/themes/moreinfo.php?id=75&vid=752",
+  "preview": null,
+  "tags": [
+   "Themes"
+  ],
+  "title": "Lure 0.5.1"
+ },
+ {
+  "app": "Firefox",
+  "date": "2004-06-15",
+  "download": "https://web.archive.org/web/20040822124137/http://update.mozilla.org/themes/install.php?id=76&vid=81",
+  "id": "fxtheme-76",
+  "page": "https://web.archive.org/web/20040822124137/http://update.mozilla.org/themes/moreinfo.php?id=76&vid=81",
+  "preview": null,
+  "tags": [
+   "Themes"
+  ],
+  "title": "Doodle (Classic) 1.5.3"
+ },
+ {
+  "app": "Firefox",
+  "date": "2004-06-15",
+  "download": "https://web.archive.org/web/20041028131713/http://update.mozilla.org/themes/install.php?id=90&vid=102",
+  "id": "fxtheme-90",
+  "page": "https://web.archive.org/web/20041028131713/http://update.mozilla.org/themes/moreinfo.php?id=90&vid=102",
+  "preview": null,
+  "tags": [
+   "Themes"
+  ],
+  "title": "Apollo 1.5"
+ },
+ {
+  "app": "Firefox",
+  "date": "2004-06-15",
+  "download": "https://web.archive.org/web/20041028133257/http://update.mozilla.org/themes/install.php?id=92&vid=104",
+  "id": "fxtheme-92",
+  "page": "https://web.archive.org/web/20041028133257/http://update.mozilla.org/themes/moreinfo.php?id=92&vid=104",
+  "preview": null,
+  "tags": [
+   "Themes"
+  ],
+  "title": "Atlas 1.5"
+ },
+ {
+  "app": "Firefox",
+  "date": "2004-06-15",
+  "download": "https://web.archive.org/web/20041028133536/http://update.mozilla.org/themes/install.php?id=94&vid=106",
+  "id": "fxtheme-94",
+  "page": "https://web.archive.org/web/20041028133536/http://update.mozilla.org/themes/moreinfo.php?id=94&vid=106",
+  "preview": null,
+  "tags": [
+   "Themes"
+  ],
+  "title": "iCandy Junior 1.5"
+ },
+ {
+  "app": "Firefox",
+  "date": "2004-06-15",
+  "download": "https://web.archive.org/web/20041028134849/http://update.mozilla.org/themes/install.php?id=96&vid=108",
+  "id": "fxtheme-96",
+  "page": "https://web.archive.org/web/20041028134849/http://update.mozilla.org/themes/moreinfo.php?id=96&vid=108",
+  "preview": null,
+  "tags": [
+   "Themes"
+  ],
+  "title": "Neptune 1.5"
+ },
+ {
+  "app": "Firefox",
+  "date": "2004-06-15",
+  "download": "https://web.archive.org/web/20041028135424/http://update.mozilla.org/themes/install.php?id=98&vid=110",
+  "id": "fxtheme-98",
+  "page": "https://web.archive.org/web/20041028135424/http://update.mozilla.org/themes/moreinfo.php?id=98&vid=110",
+  "preview": null,
+  "tags": [
+   "Themes"
+  ],
+  "title": "Playground 1.5"
+ },
+ {
+  "app": "Firefox",
+  "date": "2004-06-15",
+  "download": "https://web.archive.org/web/20041009171729/http://update.mozilla.org/themes/install.php?id=99&vid=112",
+  "id": "fxtheme-99",
+  "page": "https://web.archive.org/web/20041009171729/http://update.mozilla.org/themes/moreinfo.php?id=99&vid=112",
+  "preview": null,
+  "tags": [
+   "Themes"
+  ],
+  "title": "Smoke 1.5"
+ },
+ {
+  "app": "Firefox",
+  "date": "2004-06-15",
+  "download": "https://web.archive.org/web/20041010190655/http://update.mozilla.org/themes/install.php?id=100&vid=779",
+  "id": "fxtheme-100",
+  "page": "https://web.archive.org/web/20041010190655/http://update.mozilla.org/themes/moreinfo.php?id=100&vid=779",
+  "preview": null,
+  "tags": [
+   "Themes"
+  ],
+  "title": "Curacao 1.12"
+ },
+ {
+  "app": "Firefox",
+  "date": "2004-06-17",
+  "download": "https://web.archive.org/web/20041010190846/http://update.mozilla.org/themes/install.php?id=103&vid=853",
+  "id": "fxtheme-103",
+  "page": "https://web.archive.org/web/20041010190846/http://update.mozilla.org/themes/moreinfo.php?id=103&vid=853",
+  "preview": null,
+  "tags": [
+   "Themes"
+  ],
+  "title": "GrayModern 0.6"
+ },
+ {
+  "app": "Firefox",
+  "date": "2004-06-17",
+  "download": "https://web.archive.org/web/20041028132851/http://update.mozilla.org/themes/install.php?id=104&vid=725",
+  "id": "fxtheme-104",
+  "page": "https://web.archive.org/web/20041028132851/http://update.mozilla.org/themes/moreinfo.php?id=104&vid=725",
+  "preview": null,
+  "tags": [
+   "Themes"
+  ],
+  "title": "Red Cats (green flavor) 1.32"
+ },
+ {
+  "app": "Firefox",
+  "date": "2004-06-25",
+  "download": "https://web.archive.org/web/20040822123410/https://addons.mozilla.org/en-US/firefox/downloads/latest/122/addon-122-latest.jar",
+  "id": "fxtheme-122",
+  "page": "https://web.archive.org/web/20040822123410/https://addons.mozilla.org/en-US/firefox/addon/122",
+  "preview": "https://web.archive.org/web/20040822123410/https://addons.mozilla.org/en-US/firefox/images/addon_icon/122/1251544665",
+  "tags": [
+   "Themes"
+  ],
+  "title": "Walnut for Firefox 0.9.20040721"
+ },
+ {
+  "app": "Firefox",
+  "date": "2004-06-25",
+  "download": "https://web.archive.org/web/20040822123809/http://update.mozilla.org/themes/install.php?id=123&vid=389",
+  "id": "fxtheme-123",
+  "page": "https://web.archive.org/web/20040822123809/http://update.mozilla.org/themes/moreinfo.php?id=123&vid=389",
+  "preview": null,
+  "tags": [
+   "Themes"
+  ],
+  "title": "Nautipolis for Firefox 0.9.20040721"
+ },
+ {
+  "app": "Firefox",
+  "date": "2004-06-30",
+  "download": "https://web.archive.org/web/20041011130100/http://update.mozilla.org/themes/install.php?id=131&vid=739",
+  "id": "fxtheme-131",
+  "page": "https://web.archive.org/web/20041011130100/http://update.mozilla.org/themes/moreinfo.php?id=131&vid=739",
+  "preview": null,
+  "tags": [
+   "Themes"
+  ],
+  "title": "708090-lite 1.48"
+ },
+ {
+  "app": "Firefox",
+  "date": "2004-07-04",
+  "download": "https://web.archive.org/web/20041028135444/http://update.mozilla.org/themes/install.php?id=136&vid=793",
+  "id": "fxtheme-136",
+  "page": "https://web.archive.org/web/20041028135444/http://update.mozilla.org/themes/moreinfo.php?id=136&vid=793",
+  "preview": null,
+  "tags": [
+   "Themes"
+  ],
+  "title": "PixelZilla 0.9.4"
+ },
+ {
+  "app": "Thunderbird",
+  "date": "2004-07-05",
+  "download": "https://web.archive.org/web/20040918071509/http://update.mozilla.org/themes/install.php?id=148&vid=242",
+  "id": "fxtheme-148",
+  "page": "https://web.archive.org/web/20040918071509/http://update.mozilla.org/themes/moreinfo.php?id=148&vid=242",
+  "preview": null,
+  "tags": [
+   "Themes"
+  ],
+  "title": "Nitpick 0.1.7.8"
+ },
+ {
+  "app": "Firefox",
+  "date": "2004-07-12",
+  "download": "https://web.archive.org/web/20040822124133/http://update.mozilla.org/themes/install.php?id=166&vid=381",
+  "id": "fxtheme-166",
+  "page": "https://web.archive.org/web/20040822124133/http://update.mozilla.org/themes/moreinfo.php?id=166&vid=381",
+  "preview": null,
+  "tags": [
+   "Themes"
+  ],
+  "title": "SphereGnome 0.9.6.1"
+ },
+ {
+  "app": "Firefox",
+  "date": "2004-07-12",
+  "download": "https://web.archive.org/web/20040825233606/http://update.mozilla.org/themes/install.php?id=167&vid=441",
+  "id": "fxtheme-167",
+  "page": "https://web.archive.org/web/20040825233606/http://update.mozilla.org/themes/moreinfo.php?id=167&vid=441",
+  "preview": null,
+  "tags": [
+   "Themes"
+  ],
+  "title": "Nautical Blue 0.1.2"
+ },
+ {
+  "app": "Firefox",
+  "date": "2004-07-23",
+  "download": "https://web.archive.org/web/20040822123504/http://update.mozilla.org/themes/install.php?id=187&vid=380",
+  "id": "fxtheme-187",
+  "page": "https://web.archive.org/web/20040822123504/http://update.mozilla.org/themes/moreinfo.php?id=187&vid=380",
+  "preview": null,
+  "tags": [
+   "Themes"
+  ],
+  "title": "Lila 1.5"
+ },
+ {
+  "app": "Firefox",
+  "date": "2004-07-31",
+  "download": "https://web.archive.org/web/20041011131336/http://update.mozilla.org/themes/install.php?id=199&vid=790",
+  "id": "fxtheme-199",
+  "page": "https://web.archive.org/web/20041011131336/http://update.mozilla.org/themes/moreinfo.php?id=199&vid=790",
+  "preview": null,
+  "tags": [
+   "Themes"
+  ],
+  "title": "Archaic 0.2.1"
+ },
+ {
+  "app": "Firefox",
+  "date": "2004-08-03",
+  "download": "https://web.archive.org/web/20040825231916/http://update.mozilla.org/themes/install.php?id=204&vid=453",
+  "id": "fxtheme-204",
+  "page": "https://web.archive.org/web/20040825231916/http://update.mozilla.org/themes/moreinfo.php?id=204&vid=453",
+  "preview": null,
+  "tags": [
+   "Themes"
+  ],
+  "title": "FireCat PalePinkPaws 1.0"
+ },
+ {
+  "app": "Firefox",
+  "date": "2004-08-03",
+  "download": "https://web.archive.org/web/20040825232953/http://update.mozilla.org/themes/install.php?id=205&vid=454",
+  "id": "fxtheme-205",
+  "page": "https://web.archive.org/web/20040825232953/http://update.mozilla.org/themes/moreinfo.php?id=205&vid=454",
+  "preview": null,
+  "tags": [
+   "Themes"
+  ],
+  "title": "FireCat PalePurplePaws 1.0"
+ },
+ {
+  "app": "Firefox",
+  "date": "2004-08-05",
+  "download": "https://web.archive.org/web/20040905171409/http://update.mozilla.org/themes/install.php?id=209&vid=471",
+  "id": "fxtheme-209",
+  "page": "https://web.archive.org/web/20040905171409/http://update.mozilla.org/themes/moreinfo.php?id=209&vid=471",
+  "preview": null,
+  "tags": [
+   "Themes"
+  ],
+  "title": "Blue 0.9.0"
+ },
+ {
+  "app": "Firefox",
+  "date": "2004-08-10",
+  "download": "https://web.archive.org/web/20040918071334/http://update.mozilla.org/themes/install.php?id=213&vid=507",
+  "id": "fxtheme-213",
+  "page": "https://web.archive.org/web/20040918071334/http://update.mozilla.org/themes/moreinfo.php?id=213&vid=507",
+  "preview": null,
+  "tags": [
+   "Themes"
+  ],
+  "title": "Plastikfox Crystal SVG 1.2.1"
+ },
+ {
+  "app": "Thunderbird",
+  "date": "2004-08-11",
+  "download": "https://web.archive.org/web/20040925131248/http://update.mozilla.org/themes/install.php?id=215&vid=509",
+  "id": "fxtheme-215",
+  "page": "https://web.archive.org/web/20040925131248/http://update.mozilla.org/themes/moreinfo.php?id=215&vid=509",
+  "preview": null,
+  "tags": [
+   "Themes"
+  ],
+  "title": "Nautical for Thunderbird 0.1.0"
+ },
+ {
+  "app": "Firefox",
+  "date": "2004-08-16",
+  "download": "https://web.archive.org/web/20041028061125/http://update.mozilla.org/themes/install.php?id=218&vid=559",
+  "id": "fxtheme-218",
+  "page": "https://web.archive.org/web/20041028061125/http://update.mozilla.org/themes/moreinfo.php?id=218&vid=559",
+  "preview": null,
+  "tags": [
+   "Themes"
+  ],
+  "title": "Noia-Cute Ver 1.4.4 1.4.4"
+ },
+ {
+  "app": "Thunderbird",
+  "date": "2004-08-18",
+  "download": "https://web.archive.org/web/20041028062507/http://update.mozilla.org/themes/install.php?id=221&vid=751",
+  "id": "fxtheme-221",
+  "page": "https://web.archive.org/web/20041028062507/http://update.mozilla.org/themes/moreinfo.php?id=221&vid=751",
+  "preview": null,
+  "tags": [
+   "Themes"
+  ],
+  "title": "Walnut for Thunderbird 0.8"
+ },
+ {
+  "app": "Thunderbird",
+  "date": "2004-08-18",
+  "download": "https://web.archive.org/web/20041028063011/http://update.mozilla.org/themes/install.php?id=222&vid=750",
+  "id": "fxtheme-222",
+  "page": "https://web.archive.org/web/20041028063011/http://update.mozilla.org/themes/moreinfo.php?id=222&vid=750",
+  "preview": null,
+  "tags": [
+   "Themes"
+  ],
+  "title": "Nautipolis for Thunderbird 0.8"
+ },
+ {
+  "app": "Firefox",
+  "date": "2004-09-28",
+  "download": "https://web.archive.org/web/20041011131107/http://update.mozilla.org/themes/install.php?id=265&vid=838",
+  "id": "fxtheme-265",
+  "page": "https://web.archive.org/web/20041011131107/http://update.mozilla.org/themes/moreinfo.php?id=265&vid=838",
+  "preview": null,
+  "tags": [
+   "Themes"
+  ],
+  "title": "Cold Command 0.3.0"
+ },
+ {
+  "app": "Firefox",
+  "date": "2004-09-28",
+  "download": "https://web.archive.org/web/20041028065602/http://update.mozilla.org/themes/install.php?id=266&vid=839",
+  "id": "fxtheme-266",
+  "page": "https://web.archive.org/web/20041028065602/http://update.mozilla.org/themes/moreinfo.php?id=266&vid=839",
+  "preview": null,
+  "tags": [
+   "Themes"
+  ],
+  "title": "Perennial 0.1.0"
+ },
+ {
+  "app": "Firefox",
+  "date": "2004-10-01",
+  "download": "https://web.archive.org/web/20041029025151/http://update.mozilla.org/themes/install.php?id=275&vid=865",
+  "id": "fxtheme-275",
+  "page": "https://web.archive.org/web/20041029025151/http://update.mozilla.org/themes/moreinfo.php?id=275&vid=865",
+  "preview": null,
+  "tags": [
+   "Themes"
+  ],
+  "title": "ScribbliesKids 0.7"
+ },
+ {
+  "app": "Firefox",
+  "date": "2004-10-01",
+  "download": "https://web.archive.org/web/20041028070817/http://update.mozilla.org/themes/install.php?id=277&vid=916",
+  "id": "fxtheme-277",
+  "page": "https://web.archive.org/web/20041028070817/http://update.mozilla.org/themes/moreinfo.php?id=277&vid=916",
+  "preview": null,
+  "tags": [
+   "Themes"
+  ],
+  "title": "FireCurveBlue 0.9.2"
+ },
+ {
+  "app": "Firefox",
+  "date": "2004-10-05",
+  "download": "https://web.archive.org/web/20041028071636/http://update.mozilla.org/themes/install.php?id=283&vid=889",
+  "id": "fxtheme-283",
+  "page": "https://web.archive.org/web/20041028071636/http://update.mozilla.org/themes/moreinfo.php?id=283&vid=889",
+  "preview": null,
+  "tags": [
+   "Themes"
+  ],
+  "title": "FireCat PalePurplePawsCB 1.0"
+ },
+ {
+  "app": "Firefox",
+  "date": "2004-10-05",
+  "download": "https://web.archive.org/web/20041028073057/http://update.mozilla.org/themes/install.php?id=284&vid=890",
+  "id": "fxtheme-284",
+  "page": "https://web.archive.org/web/20041028073057/http://update.mozilla.org/themes/moreinfo.php?id=284&vid=890",
+  "preview": null,
+  "tags": [
+   "Themes"
+  ],
+  "title": "FireCat PalePurplePawsFB 1.0"
+ },
+ {
+  "app": "Firefox",
+  "date": "2004-10-05",
+  "download": "https://web.archive.org/web/20041028073908/http://update.mozilla.org/themes/install.php?id=285&vid=891",
+  "id": "fxtheme-285",
+  "page": "https://web.archive.org/web/20041028073908/http://update.mozilla.org/themes/moreinfo.php?id=285&vid=891",
+  "preview": null,
+  "tags": [
+   "Themes"
+  ],
+  "title": "FireCat PalePinkPawsCB 1.0"
+ },
+ {
+  "app": "Firefox",
+  "date": "2004-10-05",
+  "download": "https://web.archive.org/web/20041028075633/http://update.mozilla.org/themes/install.php?id=286&vid=892",
+  "id": "fxtheme-286",
+  "page": "https://web.archive.org/web/20041028075633/http://update.mozilla.org/themes/moreinfo.php?id=286&vid=892",
+  "preview": null,
+  "tags": [
+   "Themes"
+  ],
+  "title": "FireCat PalePinkPawsFB 1.0"
+ },
+ {
+  "app": "Firefox",
+  "date": "2004-10-05",
+  "download": "https://web.archive.org/web/20041028075827/http://update.mozilla.org/themes/install.php?id=287&vid=893",
+  "id": "fxtheme-287",
+  "page": "https://web.archive.org/web/20041028075827/http://update.mozilla.org/themes/moreinfo.php?id=287&vid=893",
+  "preview": null,
+  "tags": [
+   "Themes"
+  ],
+  "title": "FireCat LagoonPaws 1.0"
+ },
+ {
+  "app": "Firefox",
+  "date": "2004-10-05",
+  "download": "https://web.archive.org/web/20041028081802/http://update.mozilla.org/themes/install.php?id=288&vid=894",
+  "id": "fxtheme-288",
+  "page": "https://web.archive.org/web/20041028081802/http://update.mozilla.org/themes/moreinfo.php?id=288&vid=894",
+  "preview": null,
+  "tags": [
+   "Themes"
+  ],
+  "title": "FireCat LagoonPawsCB 1.0"
+ },
+ {
+  "app": "Firefox",
+  "date": "2004-10-05",
+  "download": "https://web.archive.org/web/20041028082254/http://update.mozilla.org/themes/install.php?id=289&vid=895",
+  "id": "fxtheme-289",
+  "page": "https://web.archive.org/web/20041028082254/http://update.mozilla.org/themes/moreinfo.php?id=289&vid=895",
+  "preview": null,
+  "tags": [
+   "Themes"
+  ],
+  "title": "FireCat LagoonPawsFB 1.0"
+ },
+ {
+  "app": "Firefox",
+  "date": "2004-10-05",
+  "download": "https://web.archive.org/web/20041028083802/http://update.mozilla.org/themes/install.php?id=290&vid=896",
+  "id": "fxtheme-290",
+  "page": "https://web.archive.org/web/20041028083802/http://update.mozilla.org/themes/moreinfo.php?id=290&vid=896",
+  "preview": null,
+  "tags": [
+   "Themes"
+  ],
+  "title": "FireCat OceanPaws 1.0"
+ },
+ {
+  "app": "Firefox",
+  "date": "2004-10-05",
+  "download": "https://web.archive.org/web/20041028085240/http://update.mozilla.org/themes/install.php?id=291&vid=897",
+  "id": "fxtheme-291",
+  "page": "https://web.archive.org/web/20041028085240/http://update.mozilla.org/themes/moreinfo.php?id=291&vid=897",
+  "preview": null,
+  "tags": [
+   "Themes"
+  ],
+  "title": "FireCat OceanPawsCB 1.0"
+ },
+ {
+  "app": "Firefox",
+  "date": "2004-10-05",
+  "download": "https://web.archive.org/web/20041028085343/http://update.mozilla.org/themes/install.php?id=292&vid=898",
+  "id": "fxtheme-292",
+  "page": "https://web.archive.org/web/20041028085343/http://update.mozilla.org/themes/moreinfo.php?id=292&vid=898",
+  "preview": null,
+  "tags": [
+   "Themes"
+  ],
+  "title": "FireCat OceanPawsFB 1.0"
+ },
+ {
+  "app": "Firefox",
+  "date": "2004-10-05",
+  "download": "https://web.archive.org/web/20041011130334/http://update.mozilla.org/themes/install.php?id=293&vid=899",
+  "id": "fxtheme-293",
+  "page": "https://web.archive.org/web/20041011130334/http://update.mozilla.org/themes/moreinfo.php?id=293&vid=899",
+  "preview": null,
+  "tags": [
+   "Themes"
+  ],
+  "title": "FireCat AutumnGold 1.0"
+ },
+ {
+  "app": "Firefox",
+  "date": "2004-10-05",
+  "download": "https://web.archive.org/web/20041011131059/http://update.mozilla.org/themes/install.php?id=294&vid=900",
+  "id": "fxtheme-294",
+  "page": "https://web.archive.org/web/20041011131059/http://update.mozilla.org/themes/moreinfo.php?id=294&vid=900",
+  "preview": null,
+  "tags": [
+   "Themes"
+  ],
+  "title": "FireCat AutumnGoldCB 1.0"
+ },
+ {
+  "app": "Firefox",
+  "date": "2004-10-05",
+  "download": "https://web.archive.org/web/20041010193245/http://update.mozilla.org/themes/install.php?id=295&vid=901",
+  "id": "fxtheme-295",
+  "page": "https://web.archive.org/web/20041010193245/http://update.mozilla.org/themes/moreinfo.php?id=295&vid=901",
+  "preview": null,
+  "tags": [
+   "Themes"
+  ],
+  "title": "FireCat AutumnGoldFB 1.0"
+ },
+ {
+  "app": "Firefox",
+  "date": "2004-10-05",
+  "download": "https://web.archive.org/web/20041010193352/http://update.mozilla.org/themes/install.php?id=296&vid=902",
+  "id": "fxtheme-296",
+  "page": "https://web.archive.org/web/20041010193352/http://update.mozilla.org/themes/moreinfo.php?id=296&vid=902",
+  "preview": null,
+  "tags": [
+   "Themes"
+  ],
+  "title": "FireCat AutumnRed 1.0"
+ },
+ {
+  "app": "Firefox",
+  "date": "2004-10-05",
+  "download": "https://web.archive.org/web/20041010193747/http://update.mozilla.org/themes/install.php?id=297&vid=903",
+  "id": "fxtheme-297",
+  "page": "https://web.archive.org/web/20041010193747/http://update.mozilla.org/themes/moreinfo.php?id=297&vid=903",
+  "preview": null,
+  "tags": [
+   "Themes"
+  ],
+  "title": "FireCat AutumnRedCB 1.0"
+ },
+ {
+  "app": "Firefox",
+  "date": "2004-10-05",
+  "download": "https://web.archive.org/web/20041010194227/http://update.mozilla.org/themes/install.php?id=298&vid=904",
+  "id": "fxtheme-298",
+  "page": "https://web.archive.org/web/20041010194227/http://update.mozilla.org/themes/moreinfo.php?id=298&vid=904",
+  "preview": null,
+  "tags": [
+   "Themes"
+  ],
+  "title": "FireCat AutumnRedFB 1.0"
+ },
+ {
+  "app": "Firefox",
+  "date": "2004-10-05",
+  "download": "https://web.archive.org/web/20041010194718/http://update.mozilla.org/themes/install.php?id=299&vid=905",
+  "id": "fxtheme-299",
+  "page": "https://web.archive.org/web/20041010194718/http://update.mozilla.org/themes/moreinfo.php?id=299&vid=905",
+  "preview": null,
+  "tags": [
+   "Themes"
+  ],
+  "title": "FireCat GeekPawsGrey 1.0"
+ },
+ {
+  "app": "Firefox",
+  "date": "2004-10-06",
+  "download": "https://web.archive.org/web/20041028114624/http://update.mozilla.org/themes/install.php?id=307&vid=917",
+  "id": "fxtheme-307",
+  "page": "https://web.archive.org/web/20041028114624/http://update.mozilla.org/themes/moreinfo.php?id=307&vid=917",
+  "preview": null,
+  "tags": [
+   "Themes"
+  ],
+  "title": "Littlefox 0.10"
+ },
+ {
+  "app": "Firefox",
+  "date": "2004-10-06",
+  "download": "https://web.archive.org/web/20041029030025/http://update.mozilla.org/themes/install.php?id=309&vid=919",
+  "id": "fxtheme-309",
+  "page": "https://web.archive.org/web/20041029030025/http://update.mozilla.org/themes/moreinfo.php?id=309&vid=919",
+  "preview": null,
+  "tags": [
+   "Themes"
+  ],
+  "title": "Littlebeast 1.8"
+ },
+ {
+  "app": "Firefox",
+  "date": "",
+  "download": "https://web.archive.org/web/20091001213804/https://addons.mozilla.org/en-US/firefox/downloads/latest/812/addon-812-latest.jar",
+  "id": "fxtheme-812",
+  "page": "https://web.archive.org/web/20091001213804/https://addons.mozilla.org/en-US/firefox/addon/812",
+  "preview": "https://web.archive.org/web/20091001213804/https://addons.mozilla.org/en-US/firefox/images/addon_icon/812/1244310988",
+  "tags": [
+   "Themes"
+  ],
+  "title": "Red Cats (blue flavor)"
+ },
+ {
+  "app": "Firefox",
+  "date": "",
+  "download": "https://web.archive.org/web/20090630202328/https://addons.mozilla.org/en-US/firefox/downloads/latest/3248/addon-3248-latest.jar",
+  "id": "fxtheme-3248",
+  "page": "https://web.archive.org/web/20090630202328/https://addons.mozilla.org/en-US/firefox/addon/3248",
+  "preview": null,
+  "tags": [
+   "Themes"
+  ],
+  "title": "BlackJapanMAX"
+ },
+ {
+  "app": "Firefox",
+  "date": "",
+  "download": "https://web.archive.org/web/20090630202328/https://addons.mozilla.org/en-US/firefox/downloads/latest/4583/platform:5/addon-4583-latest.jar",
+  "id": "fxtheme-4583",
+  "page": "https://web.archive.org/web/20090630202328/https://addons.mozilla.org/en-US/firefox/addon/4583",
+  "preview": "https://web.archive.org/web/20090630202328/https://addons.mozilla.org/en-US/firefox/images/addon_icon/4583/1176572743",
+  "tags": [
+   "Themes"
+  ],
+  "title": "AeroFox Basic"
+ }
+]
