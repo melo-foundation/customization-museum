@@ -23,7 +23,7 @@ jobs:
       # 2000s pages were designed for Windows core fonts (Verdana, Tahoma, Arial, Georgia...)
       - run: |
           echo ttf-mscorefonts-installer msttcorefonts/accepted-mscorefonts-eula select true | sudo debconf-set-selections
-          sudo apt-get install -y -q ttf-mscorefonts-installer >/dev/null && fc-cache -f >/dev/null
+          sudo apt-get install -y -q ttf-mscorefonts-installer fonts-wine >/dev/null && fc-cache -f >/dev/null
           fc-match Verdana; fc-match Tahoma
           fc-match Verdana | grep -qi verdana && fc-match Tahoma | grep -qi tahoma
       - run: |
