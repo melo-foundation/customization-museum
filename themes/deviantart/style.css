@@ -2597,7 +2597,7 @@ body.cm-v565.deviant div.bubbleview ul.menu li.f a.active:link,body.cm-v565.devi
     color:#DDD !important;}
 body.cm-v565.deviant div.bubbleview dl.hat dt.f{background:#82938F;
     color:#111;}
-body.cm-v565 div.iconset-top i{background-image:url(assets/icons-tttop.gif);}
+body.cm-v565 div.iconset-top i{background-image:url(assets/icons-tttop-blinga.gif);}
 body.cm-v565 div.iconset-home i{background-image:url(assets/2.gif);}
 body.cm-v565 div.iconset-deviant i,body.cm-v565 div#deviant i.icon{background-image:url(assets/icons-deviant.gif);}
 body.cm-v565 div.iconset-deviant i.super{background-image:url(assets/icons-deviant.gif) !important;}
@@ -2660,7 +2660,7 @@ body.cm-v565 #top h1{position:absolute;
 	z-index:36;
     width:235px;
     overflow:hidden;
-	background:url(assets/bg-tttop-all.gif) no-repeat;}
+	background:url(assets/bg-tttop-all-bling.gif) no-repeat;}
 body.cm-v565 #top h1 a{position:absolute;
 	left:23px;
 	top:12px;
@@ -2669,7 +2669,7 @@ body.cm-v565 #top h1 a{position:absolute;
     z-index:40;
     background-image:none !important;}
 body.cm-v565 #top-middle{position:relative;
-	background:url(assets/bg-tttop-all.gif) repeat-x 0 -330px;
+	background:url(assets/bg-tttop-all-bling.gif) repeat-x 0 -330px;
     
     height:100%;
 	padding-left:250px;
@@ -2700,7 +2700,7 @@ body.cm-v565 #top i.ttr{position:absolute;
     height:100px;
     width:60px;
     z-index:33;
-	background:url(assets/bg-tttop-all.gif) no-repeat 100% -110px;}
+	background:url(assets/bg-tttop-all-bling.gif) no-repeat 100% -110px;}
 body.cm-v565 div#top-right{position:absolute;
 	padding-right:30px;
     right:0;
@@ -2709,14 +2709,14 @@ body.cm-v565 div#top-right{position:absolute;
 	z-index:38;
     text-indent:-100000px;
     width:80px;
-	background:url(assets/bg-tttop-all.gif) no-repeat 100% -110px;
+	background:url(assets/bg-tttop-all-bling.gif) no-repeat 100% -110px;
     height:89px;}
 body.cm-v565 div#top-right div.login{font-size:9pt;
     margin-bottom:4px;}
 body.cm-v565 div#top-right div.icons{height:25px;
 	white-space:nowrap;}
 body.cm-v565 div#top-right div.icons i{top:-32px;}
-body.cm-v565 #top-middle form.search,body.cm-v565 #top-middle form.search i{background-image:url(assets/bg-tttop-all.gif)}
+body.cm-v565 #top-middle form.search,body.cm-v565 #top-middle form.search i{background-image:url(assets/bg-tttop-all-bling.gif)}
 body.cm-v565 #top-middle form.search{position:relative;
     top:4px;
     padding:2px 2px 2px 4px;
@@ -2814,7 +2814,7 @@ body.cm-v565 #rockdock span.inputter{position:absolute;
     top:0;
     width:129px;
     height:29px;
-    background:url(assets/icons-tttop.gif) no-repeat -320px -64px;}
+    background:url(assets/icons-tttop-blinga.gif) no-repeat -320px -64px;}
 body.cm-v565 #exitlinker{padding-right:58px;}
 body.cm-v565 #exitlinker:not(:yespleasesafari){padding-right:61px;}
 body.cm-v565 #exitlink{overflow:hidden;
@@ -2825,7 +2825,7 @@ body.cm-v565 #exitlink{overflow:hidden;
     height:0;
     _height:29;
     -moz-outline:none;
-    background:url(assets/icons-tttop.gif) no-repeat -160px -64px;}
+    background:url(assets/icons-tttop-blinga.gif) no-repeat -160px -64px;}
 body.cm-v565 #exitlink:hover{background-position:-160px -93px;}
 body.cm-v565 #exitlink:active{background-position:-160px -122px;}
 body.cm-v565 #entrancelinker{_position:relative;
@@ -2839,7 +2839,7 @@ body.cm-v565 #entrancelink{overflow:hidden;
     height:0;
     _height:29;
     -moz-outline:none;
-    background:url(assets/icons-tttop.gif) no-repeat -240px -64px;}
+    background:url(assets/icons-tttop-blinga.gif) no-repeat -240px -64px;}
 body.cm-v565 #entrancelink:hover{background-position:-240px -93px;}
 body.cm-v565 #entrancelink:active{background-position:-240px -122px;}
 body.cm-v565 #menulink,body.cm-v565 #friendslink,body.cm-v565 #collectlink,body.cm-v565 #msglink{position:absolute;
@@ -2849,7 +2849,7 @@ body.cm-v565 #menulink,body.cm-v565 #friendslink,body.cm-v565 #collectlink,body.
 	z-index:102; 
 	display:block;
 	-moz-outline:none;
-    background:url(assets/icons-tttop.gif) no-repeat;
+    background:url(assets/icons-tttop-blinga.gif) no-repeat;
     cursor:default;}
 body.cm-v565 #friendslink{right:70px;
     background-position:-80px -64px;}
@@ -4493,30 +4493,65 @@ body.cm-v565 #pimp-preload span.i{background-image:url(assets/boogie.gif)}
 body.cm-v565 #pimp-preload>span.ii{background-image:url(assets/bg-fade.png)}
 body.cm-v565 #pimp-preload>span.iii{background-image:url(assets/shadow-alpha-000000-10.6667-0.7-450-432-null.png)}
 /* ---- Customization Museum overrides ---- */
-/* logo: original header art with the wordmark removed; our name in the same 201x49 box */
-body[class] #top h1 { background-image: url(assets/bg-tttop-nologo.png); }
-body[class] #top h1 a.cm-logo { text-indent: 0; overflow: visible; color: #fff; text-decoration: none; white-space: nowrap;
-  font: 20px/22px "Trebuchet MS", Verdana, sans-serif; letter-spacing: -.5px; padding-top: 4px;
-  text-shadow: 0 0 5px rgba(205, 225, 255, .6); }
-body[class] #top h1 a.cm-logo b { display: block; font-weight: normal; font-size: 27px; line-height: 24px; letter-spacing: -1px; }
-/* login strip: theme picker sits where the username field was */
-body[class] #rockdock select { font: 8pt Verdana, sans-serif; height: 16px; padding: 0; vertical-align: middle; }
-/* ad slots hold the unvetted-files notice */
-body[class] [data-slot="ad"] { position: absolute; left: 0; right: 0; top: 0; height: 100px; display: flex; align-items: center; justify-content: center; text-align: center; }
-body[class] [data-slot="ad"] .cm-warning { display: flex; align-items: center; gap: 12px; font: 9pt Verdana, sans-serif; color: #414d4c; }
-body[class] [data-slot="ad"] .cm-warning button { font: 8pt Verdana, sans-serif; cursor: pointer; }
-body[class] .cm-adtext { font: 9pt Verdana, sans-serif; color: #7d8b85; }
-/* thumbnails: our previews at the original 150px thumbnail size */
-body[class] img.cm-th { max-width: 150px; max-height: 150px; width: auto; height: auto; }
+/* the December 2006 nav sprite has the wider "new!" shop icon */
+body.cm-v565 #top-middle div.icons a.a2 { padding-left: 35px; }
+/* replica tag under the original wordmark */
+body[class] #cm-replica { position: absolute; left: 34px; top: 57px; z-index: 41; font: 7pt/10px Verdana, sans-serif; letter-spacing: 0; color: #a9b8b1; white-space: nowrap; pointer-events: none; }
+/* login strip: the theme and display pickers sit in the original username and password fields */
+body[class] #rockdock select.itext { width: 121px; height: 17px; padding: 0; border: 0 none; background: transparent; position: relative; left: 4px; z-index: 40; margin-right: 12px; color: #1f2929; font: 8pt Verdana, sans-serif; vertical-align: middle; -webkit-appearance: none; appearance: none; cursor: pointer; outline: 0; }
+body[class] #rockdock select.itext option { background: #e8f0ec; color: #1f2929; }
+/* 728x90 banner position */
+body[class] [data-slot="ad"] { position: absolute; left: 0; right: 0; top: 5px; height: 90px; display: flex; align-items: center; justify-content: center; text-align: center; }
+body[class] .cm-banner, body[class] [data-slot="ad"] .cm-warning { box-sizing: border-box; width: 728px; height: 90px; display: flex; align-items: center; text-align: left; text-decoration: none !important;
+  background: #47554f linear-gradient(#5b6a65, #3c4946); border: 1px solid #36423f; color: #dfe8e3 !important; font: 8.25pt Verdana, sans-serif; }
+body[class] .cm-banner b { font: 21pt "Trebuchet MS", sans-serif; letter-spacing: -1px; color: #fff; margin: 0 18px 0 22px; white-space: nowrap; }
+body[class] .cm-banner span { flex: 1; color: #b9c6c0; line-height: 14px; }
+body[class] .cm-banner em { font: bold 9.5pt "Trebuchet MS", sans-serif; color: #dbe6e0; background: #3a4744; border: 2px solid #8e9f98; border-radius: 4px; padding: 4px 12px; margin: 0 22px 0 14px; white-space: nowrap; }
+body[class] .cm-banner:hover em { color: #fff; border-color: #b4c4bd; }
+body[class] [data-slot="ad"] .cm-warning { gap: 14px; padding: 0 22px; }
+body[class] [data-slot="ad"] .cm-warning button { font: bold 9.5pt "Trebuchet MS", sans-serif; color: #dbe6e0; background: #3a4744; border: 2px solid #8e9f98; border-radius: 4px; padding: 4px 14px; cursor: pointer; margin-left: auto; }
+/* thumbnails: our previews at the original 150px thumbnail size, with the original drop shadow */
+body[class] img.cm-th { max-width: 150px; max-height: 150px; width: auto; height: auto; box-shadow: 0 1px 4px rgba(0, 0, 0, .35); }
+body[class] img.cm-th.cm-small { box-shadow: none; }
+/* deviations without a preview: the original text cell, the spine naming the kind of file */
+body[class] a.lit { display: block; position: relative !important; width: 150px; height: 125px; margin: auto; overflow: hidden; text-align: left; text-decoration: none !important; color: #222 !important; background: #abb2ab; box-shadow: 0 1px 4px rgba(0, 0, 0, .35); font: 8.25pt/1.25 Verdana, sans-serif; }
+body[class] a.lit i { display: none; }
+body[class] a.lit .cm-spine { position: absolute; left: 0; top: 0; width: 20px; height: 100%; background: url(assets/spine.png) repeat-y; box-sizing: border-box; padding-bottom: 7px;
+  writing-mode: vertical-rl; transform: rotate(180deg); text-align: right; white-space: nowrap; overflow: hidden;
+  font: bold 9px/20px Georgia, "Times New Roman", serif; letter-spacing: 1.5px; text-transform: uppercase; color: #555a55; }
+body[class] a.lit q { position: absolute; left: 26px; right: 4px; top: 0; padding-top: 4px; quotes: none; overflow-wrap: break-word; }
+body[class] a.lit q:before, body[class] a.lit q:after { content: ""; }
 /* browse: our item title above the original "in <category>" caption */
-body[class] #browse .stream .cm-t { display: block; max-width: 180px; margin: 4px auto 0; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; font-weight: bold; }
-body[class] #browse .stream-ads > .ads { font: 8pt Verdana, sans-serif; text-align: left; }
-body[class] #browse .stream-ads > .ads h4 { margin: 8px 10px 4px; font-size: 8pt; }
-body[class] #browse .stream-ads > .ads ul { list-style: none; margin: 0 10px 10px; padding: 0; }
-body[class] #browse .stream-ads > .ads li { white-space: nowrap; overflow: hidden; text-overflow: ellipsis; line-height: 15px; }
+body[class] #browse .stream .cm-t { display: block; max-width: 180px; margin: 4px auto 0; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+body[class] #browse .stream .cm-none { padding: 60px 0; }
+body[class] #browse .alink.nav .cm-page { font-size: 8.25pt; color: #7d8b85; margin: 0 2em; }
+/* browse: the 160px skyscraper column lists programs and tags */
+body[class] #browse .stream-ads > .ads { font: 8.25pt Verdana, sans-serif; text-align: left; }
+body[class] #browse .stream-ads > .ads h4 { margin: 0 0 6px; font: bold 10pt "Trebuchet MS", sans-serif; letter-spacing: -.3px; color: #2c3635; }
+body[class] #browse .stream-ads > .ads ul { list-style: none; margin: 0 0 18px; padding: 0; }
+body[class] #browse .stream-ads > .ads li { overflow-wrap: break-word; line-height: 15px; }
 body[class] #browse .stream-ads > .ads li.on a { font-weight: bold; }
+body[class] #browse .stream-ads > .ads small, body[class] #home-bar .cm-programs small { font-size: 7pt; color: #7d8b85; }
 /* site page: our summary sits above the sort bar */
 body[class] #browse .cm-about { position: relative; margin: 10px 15px; padding: 8px 12px; font: 9pt Verdana, sans-serif; background: #dee8e5; }
 body[class] #browse .cm-about h1 { font: 14pt "Trebuchet MS", Verdana, sans-serif; margin: 0 0 4px; }
 body[class] #browse .cm-about ul { margin: 4px 0; padding-left: 18px; }
 body[class] #browse .cm-tools { position: absolute; right: 12px; top: 8px; font-size: 8pt; }
+/* front page */
+body[class] #home-bar .cm-programs { line-height: 16px; }
+/* deviation page */
+body[class] #deviation img.avatar { object-fit: cover; }
+body[class] #deviation .iconleft.cm-noavatar { padding-left: 0; }
+body[class] #zoomed-out { min-height: 150px; }
+body[class] #zoomed-out img { max-width: 100%; height: auto; box-shadow: 0 3px 11px rgba(0, 0, 0, .55); vertical-align: middle; }
+body[class] #zoomed-out video { max-width: 100%; }
+body[class] #zoomed-out audio { display: block; margin: 14px auto 0; }
+body[class] #zoomed-out a.lit { width: 300px; height: 200px; margin-top: 12px; font-size: 10pt; line-height: 1.4; box-shadow: 0 3px 11px rgba(0, 0, 0, .55); }
+body[class] #zoomed-out a.lit q { left: 32px; right: 10px; padding-top: 8px; }
+body[class] #artist-comments .details input { width: 100%; box-sizing: border-box; }
+body[class] #artist-comments .cm-tags { margin-top: 12px; }
+body[class] #artist-comments .text.block > .cm-tags:first-child { margin-top: 0; }
+body[class] #deviation.cm-missing { padding: 12px 15px 60px; }
+body[class] .cm-more { margin: 0 auto 12px; }
+body[class] .cm-more h2 { margin: 0 0 4px; }
+body[class] .cm-more div.stream div span { width: 170px; }
