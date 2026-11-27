@@ -1,0 +1,73 @@
+/* Readable mode for deviantART 2006: larger text and spacing for modern displays.
+   Original images stay at native size (no fractional scaling of pixel art); only text, cells and columns grow. */
+
+/* header: nav, login strip, search */
+html[data-fidelity="readable"] body[class] #top .iconset-top a { font-size: 14px; }
+html[data-fidelity="readable"] body[class] #top form.search input.itext { font-size: 14px; }
+html[data-fidelity="readable"] body[class] #rockdock,
+html[data-fidelity="readable"] body[class] #lostlink { font-size: 13px; }
+html[data-fidelity="readable"] body[class] #rockdock select { font-size: 12px; height: 19px; }
+html[data-fidelity="readable"] body[class] [data-slot="ad"] .cm-warning,
+html[data-fidelity="readable"] body[class] .cm-adtext,
+html[data-fidelity="readable"] body[class] [data-slot="adline"] { font-size: 13px; }
+
+/* page titles and paths */
+html[data-fidelity="readable"] body[class] #browse .catbar h1,
+html[data-fidelity="readable"] body[class] #deviation .iconleft h1 { font-size: 30px; line-height: 36px; }
+html[data-fidelity="readable"] body[class] #deviation .iconleft h1 small { font-size: 18px; }
+html[data-fidelity="readable"] body[class] .catpath,
+html[data-fidelity="readable"] body[class] .catpath a,
+html[data-fidelity="readable"] body[class] #deviation-rocket { font-size: 13px; }
+html[data-fidelity="readable"] body[class] #browse form.searchle input.itext { font-size: 13px; width: 220px; }
+
+/* browse bars */
+html[data-fidelity="readable"] body[class] #browsebar1 a,
+html[data-fidelity="readable"] body[class] #browsebar1 span { font-size: 16px; }
+html[data-fidelity="readable"] body[class] #browsebar2 a,
+html[data-fidelity="readable"] body[class] #browsebar2 span { font-size: 14px; line-height: 22px; }
+
+/* browse grid: wider cells, our full-size previews up to 220px, readable captions */
+html[data-fidelity="readable"] body[class] #browse .stream > div > span { width: 290px; min-height: 0; padding-bottom: 18px; vertical-align: top; }
+html[data-fidelity="readable"] body[class] #browse .stream > div > span > span.shadow { min-height: 228px; display: flex; align-items: center; justify-content: center; }
+html[data-fidelity="readable"] body[class] img.cm-th { max-width: 220px; max-height: 220px; }
+html[data-fidelity="readable"] body[class] #browse .stream > div > span { font-size: 13px; line-height: 18px; }
+html[data-fidelity="readable"] body[class] #browse .stream .cm-t { max-width: 270px; font-size: 14px; line-height: 20px; margin-top: 8px; }
+
+/* browse sidebar (the original ads column) */
+html[data-fidelity="readable"] body[class] #browse .stream-ads { border-right-width: 270px; }
+html[data-fidelity="readable"] body[class] #browse .stream-ads > .ads { width: 240px; font-size: 13px; }
+html[data-fidelity="readable"] body[class] #browse .stream-ads > .ads h4 { font-size: 13px; margin: 12px 12px 6px; }
+html[data-fidelity="readable"] body[class] #browse .stream-ads > .ads ul { margin: 0 12px 14px; }
+html[data-fidelity="readable"] body[class] #browse .stream-ads > .ads li { line-height: 19px; padding: 1px 0 1px 10px; text-indent: -10px; white-space: normal; overflow-wrap: anywhere; }
+
+/* pager, site summary */
+html[data-fidelity="readable"] body[class] #browse .alink.nav { font-size: 15px; }
+html[data-fidelity="readable"] body[class] #browse .cm-about { font-size: 14px; line-height: 21px; }
+html[data-fidelity="readable"] body[class] #browse .cm-about h1 { font-size: 20px; }
+
+/* front page */
+html[data-fidelity="readable"] body[class] #home-art td.f > a.nav { font-size: 15px; }
+html[data-fidelity="readable"] body[class] #home-art div.stream { height: 240px; }
+html[data-fidelity="readable"] body[class] #da div.stream div span { width: 215px; }
+html[data-fidelity="readable"] body[class] #da div.stream div span span::after { width: 215px; }
+html[data-fidelity="readable"] body[class] #home-art .stream img.cm-th { max-width: 200px; max-height: 200px; }
+html[data-fidelity="readable"] body[class] #home-bar { width: 320px; font-size: 14px; line-height: 21px; }
+html[data-fidelity="readable"] body[class] #home-bar h2 { font-size: 22px; line-height: 28px; }
+html[data-fidelity="readable"] body[class] #home-bar h3,
+html[data-fidelity="readable"] body[class] #home-bar .section-head { font-size: 15px; }
+html[data-fidelity="readable"] body[class] #home-bar input.itext { font-size: 14px; height: 24px; width: 100%; }
+html[data-fidelity="readable"] body[class] #home-bar input.ibutton { font-size: 14px; height: 26px; }
+
+/* deviation page */
+html[data-fidelity="readable"] body[class] #deviation-links a,
+html[data-fidelity="readable"] body[class] #deviation-links strong,
+html[data-fidelity="readable"] body[class] #deviation-links span { font-size: 13px; line-height: 20px; }
+html[data-fidelity="readable"] body[class] #zoomed-out img,
+html[data-fidelity="readable"] body[class] #zoomed-out video { max-width: min(900px, 100%); height: auto; }
+html[data-fidelity="readable"] body[class] #deviation .copy { font-size: 13px; }
+html[data-fidelity="readable"] body[class] #artist-comments { font-size: 14px; line-height: 22px; }
+html[data-fidelity="readable"] body[class] #artist-comments h3 { font-size: 15px; }
+html[data-fidelity="readable"] body[class] #artist-comments .details { font-size: 13px; line-height: 20px; width: 300px; }
+
+/* footer */
+html[data-fidelity="readable"] body[class] #depths-in { font-size: 13px; line-height: 20px; }

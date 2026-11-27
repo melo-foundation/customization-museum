@@ -40,7 +40,7 @@
       if (q) { q.name = 'q'; q.value = r.q || ''; }
     }
     const dock = $(doc, '#rockdock form');
-    set(dock, `Theme: ${h.themePicker()} &nbsp; ${m.total.toLocaleString()} items &middot; ${m.archived.toLocaleString()} archived &nbsp;or&nbsp; <a href="${h.url.request()}" target="_blank" rel="noopener">Request an item</a>`);
+    set(dock, `Theme: ${h.themePicker()} ${h.fidelityToggle()} &nbsp; ${m.total.toLocaleString()} items &middot; ${m.archived.toLocaleString()} archived &nbsp;or&nbsp; <a href="${h.url.request()}" target="_blank" rel="noopener">Request an item</a>`);
     const lost = $(doc, '#lostlink');
     if (lost) { lost.href = `${REPO_URL}/issues`; lost.textContent = 'Reports'; lost.target = '_blank'; }
     doc.querySelectorAll('[data-slot="ad"]').forEach(el => {
