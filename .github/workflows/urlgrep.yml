@@ -1,0 +1,41 @@
+name: urlgrep
+
+on:
+  workflow_dispatch:
+    inputs:
+      url:
+        description: Compressed URL list to stream (bz2, gz, xz, zst or plain)
+        required: true
+      name:
+        description: Artifact name
+        required: true
+      insecure:
+        description: Skip TLS verification (some research hosts have broken certificates)
+        default: "false"
+
+permissions:
+  contents: read
+
+jobs:
+  grep:
+    runs-on: ubuntu-latest
+    timeout-minutes: 340
+    steps:
+      - run: sudo apt-get install -y -q lbzip2 zstd >/dev/null
+      - run: |
+          set -o pipefail
+          case "$URL" in
+            *.bz2) dec="lbzip2 -dc" ;; *.gz) dec="gzip -dc" ;; *.xz) dec="xz -dc" ;; *.zst) dec="zstd -dc" ;; *) dec="cat" ;;
+          esac
+          k=""; [ "$INSECURE" = "true" ] && k="-k"
+          EXT='\.(plsk|plsc|mct|mco|tsz|ysz|ipz|mts|wmz|wms|vlt|fth|sqinterface|qsk|qsf|msstyles|themepack|deskthemepack|wba|uis|iptheme|dxtheme|dxpack|rmskin|lsz|nth|thm|ptf|adiummessagestyle|adiumemoticonset|adiumicon|adiumsoundset|adiumstatusicons|listtheme|listlayout)([?#[:space:]]|$)'
+          timeout 19500 bash -c "curl -sL $k --retry 5 \"\$URL\" | $dec | grep -aiE '$EXT'" > hits.txt || true
+          wc -l hits.txt
+        env:
+          URL: ${{ inputs.url }}
+          INSECURE: ${{ inputs.insecure }}
+      - uses: actions/upload-artifact@v4
+        with:
+          name: ${{ inputs.name }}
+          path: hits.txt
+          retention-days: 30
