@@ -1,0 +1,103 @@
+span.largefilename {
+font-size: 16px;
+font-weight: bold;
+}
+
+TABLE.border,TABLE.border td {
+border-collapse:collapse;
+}
+
+td.questionoptions {
+background-color: #ffffff;
+color: #000000;
+font-size: 11px;
+}
+
+tr.row1 {
+background:#f6fcff;
+}
+
+tr.row2 {
+background:#ebf8ff;
+}
+
+TD.header {
+font-size: 14px;
+font-weight: bold;
+}
+
+td.lightheader{
+color: #999999;
+font-size: 14px;
+font-weight: bold;
+}
+
+td.skindetails{
+padding-left: 15px;
+padding-right: 15px;
+padding-top: 10px;
+}
+
+tr.sectionheader, td.sectionheader {
+background: #79ccf0;
+color: #555;
+text-align: center;
+font-weight: bold;
+}
+
+tr.fileheader, td.fileheader {
+color: #555;
+text-align: center;
+font-weight: bold;
+}
+
+body, table, textarea, input, span.small{
+font-family: Verdana, Tahoma, sans-serif;
+font-size:11px;
+}
+
+.forminput {
+background-color:#FFFFFF;
+border: 1px #000000 solid;
+color: #FF0000;
+font-family:verdana;
+font-size:11px;
+padding-left:2px;
+padding-right:2px;
+}
+
+.textinput {
+background-color:#FFFFFF;
+border: 1px #000000 solid;
+color: #000000;
+font-family:verdana;
+font-size:11px;
+padding:2px;
+width:95%;
+}
+
+DIV.quote {
+border: 1px solid black;
+font-size: 11px;
+width: 95%;
+}
+
+TABLE.dashed {
+border: 1px dashed #67c1e4;
+}
+
+/*
+     FILE ARCHIVED ON 19:44:03 Feb 25, 2010 AND RETRIEVED FROM THE
+     INTERNET ARCHIVE ON 07:59:27 Nov 27, 2026.
+     JAVASCRIPT APPENDED BY WAYBACK MACHINE, COPYRIGHT INTERNET ARCHIVE.
+
+     ALL OTHER CONTENT MAY ALSO BE PROTECTED BY COPYRIGHT (17 U.S.C.
+     SECTION 108(a)(3)).
+*/
+/*
+playback timings (ms):
+  capture_cache.get: 57.492
+  load_resource: 80.977
+  PetaboxLoader3.resolve: 26.807
+  PetaboxLoader3.datanode: 17.109
+*/

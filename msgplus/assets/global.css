@@ -1,0 +1,425 @@
+/*************************
+Messenger Plus! Live website
+Global.css
+
+©2007 GFDD - www.gfddgroup.com
+*************************/
+
+body{ /*has 800x600 exception*/
+background:#a6a6a6 url(bg.png) no-repeat center -22px; /*colorscheme[basecolor]*/
+font-family: Verdana, Tahoma, sans-serif;
+font-size:11px;
+color:black;
+margin:0;
+padding:0;
+text-align:center;
+}
+#bghelper{ /*is replaced with schemes' bg waves*/
+background-repeat: no-repeat;
+background-position: center -22px; /*colorscheme[basecolor]*/
+}
+
+#container{ /*has 800x600 exception*/
+width:800px;
+margin-left:auto;
+margin-right:auto;
+text-align:left;
+}
+
+#popup_container{
+width:510px;
+margin-left:auto;
+margin-right:auto;
+text-align:left;
+}
+
+a:link,a:visited{
+color:#2c87ca;
+text-decoration:none;
+}
+
+a:hover{
+color:#fdb713;
+text-decoration:underline;
+}
+
+form{
+margin:0;
+}
+
+img{
+border:0;
+}
+
+p{
+margin:0 0 7px;
+}
+
+input,textarea,select{
+font-family: Verdana, Tahoma, sans-serif;
+}
+
+/*Header*/
+
+#header{/*has 800x600 exception*/
+height:102px;
+padding:3px 12px 0;
+background: url(content_roundedbox.png) no-repeat 0 10px;
+}
+/*
+#header h1{
+float:left;
+margin:22px 0 0 18px;
+padding:0;
+width:313px;
+height:65px;
+}
+#header h1 a{
+display:block;
+width:309px;
+background:#a6a6a6; 
+}
+*/
+#header h1{
+float:left;
+margin:22px 0 0 0;
+padding:0;
+width:309px;
+height:65px;
+}
+#header h1 a{
+display:block;
+width:309px;
+background:#a6a6a6; 
+}
+
+#header #mainnav,
+#header #mainnav3 {
+list-style-type:none;
+float:right;
+padding:45px 0 41px 0;
+margin:0;
+font-family:Verdana, Tahoma, sans-serif;
+font-size:12px;
+text-transform:lowercase;
+}
+#header #mainnav li,
+#header #mainnav2 li,
+#header #mainnav3 li{
+margin:0;
+padding:0;
+float:left;
+}
+#header #mainnav li a,
+#header #mainnav2 li a,
+#header #mainnav3 li a{
+color:#666;
+padding:2px 9px 4px 9px;
+border-left:1px solid #e1dedc;
+display:block;
+}
+#header #mainnav li a:hover,
+#header #mainnav2 li a:hover,
+#header #mainnav3 li a:hover,
+#popup-download li a:hover{
+text-decoration:none;
+color:black;
+}
+#header #mainnav li#navhome a,
+#header #mainnav2 li#navhome a,
+#header #mainnav3 li#navhome a{
+border-left:0;
+}
+
+/*select active tab*/
+body.home #header #mainnav #navhome a,
+body.features #header #mainnav #navfeatures a,
+body.download #header #mainnav #navdownload a,
+body.download #header #mainnav #navdownloadplus a,
+body.scripts #header #mainnav #navdownload a,
+body.scriptsdb #header #mainnav #navdownload a,
+body.skins #header #mainnav #navdownload a,
+body.skinsdb #header #mainnav #navdownload a,
+body.scripts #header #mainnav #navscripts a,
+body.scriptsdb #header #mainnav #navscripts a,
+body.skins #header #mainnav #navskins a,
+body.skinsdb #header #mainnav #navskins a,
+body.more #header #mainnav #navmore a,
+body.news #header #mainnav #navnews a,
+body.help #header #mainnav #navhelp a,
+body.home #header #mainnav3 #navhome a,
+body.features #header #mainnav3 #navfeatures a,
+body.download #header #mainnav3 #navdownload a,
+body.scripts #header #mainnav3 #navdownload a,
+body.scriptsdb #header #mainnav3 #navdownload a,
+body.skins #header #mainnav3 #navdownload a,
+body.skinsdb #header #mainnav3 #navdownload a,
+body.scripts #header #mainnav3 #navscripts a,
+body.scriptsdb #header #mainnav3 #navscripts a,
+body.skins #header #mainnav3 #navskins a,
+body.skinsdb #header #mainnav3 #navskins a,
+body.more #header #mainnav3 #navmore a,
+body.news #header #mainnav3 #navnews a,
+body.help #header #mainnav3 #navhelp a{
+font-size:15px;
+font-weight:bold;
+padding: 0 11px 0 11px;
+color:#a6a6a6; /*colorscheme[basecolor]*/
+}
+
+/*smaller font for some languages*/
+#header #mainnav2{
+list-style-type:none;
+float:right;
+padding:42px 8px 41px 0;
+margin:0;
+font-family:Verdana, Tahoma, sans-serif;
+font-size:11px;
+text-transform:lowercase;
+}
+
+body.home #header #mainnav2 #navhome a,
+body.features #header #mainnav2 #navfeatures a,
+body.download #header #mainnav2 #navdownload a,
+body.download #header #mainnav2 #navdownloadplus a,
+body.scripts #header #mainnav2 #navdownload a,
+body.scriptsdb #header #mainnav2 #navdownload a,
+body.skins #header #mainnav2 #navdownload a,
+body.skinsdb #header #mainnav2 #navdownload a,
+body.scripts #header #mainnav2 #navscripts a,
+body.scriptsdb #header #mainnav2 #navscripts a,
+body.skins #header #mainnav2 #navskins a,
+body.skinsdb #header #mainnav2 #navskins a,
+body.more #header #mainnav2 #navmore a,
+body.news #header #mainnav2 #navnews a,
+body.help #header #mainnav2 #navhelp a{
+font-size:13px;
+font-weight:bold;
+padding: 0 11px 0 11px;
+color:#a6a6a6; /*colorscheme[basecolor]*/
+}
+body #header #mainnav #popup-download,
+body #header #mainnav2 #popup-download,
+body #header #mainnav3 #popup-download{
+list-style-type:none;
+position:absolute;
+padding:6px 0 6px 10px;
+margin:0;
+visibility:hidden;
+background:white;
+}
+body #header #mainnav #popup-download li,
+body #header #mainnav2 #popup-download li,
+body #header #mainnav3 #popup-download li{
+display:inline;
+margin:0;
+padding:0;
+}
+body #container #header #navdownload #popup-download li a{
+color:#999;
+padding:3px 5px 3px 24px;
+border:0;
+margin:0;
+font-size:11px;
+font-weight:normal;
+background-color:white;
+}
+body #container #header #navdownload #popup-download li a:hover{
+color:#666;
+}
+#popup-download #navscripts a{
+background: url(icon_scripts_small.gif) no-repeat 3px 2px;
+}
+#popup-download #navskins a{
+background: url(icon_skins.gif) no-repeat 3px 2px;
+}
+#popup-download #navdownloadplus a{
+background: url(icon_plus.gif) no-repeat 2px 2px;
+}
+#header-toolbar{
+position:absolute;
+width:100px;
+top:13px;
+left:50%;
+margin-left:293px;
+text-align:right;
+}
+#header-toolbar-changecolor{
+background:url(loading.gif) no-repeat 0 8px;
+padding:8px 15px 2px;
+padding-left:19px;
+display:block;
+width:15px;
+float:right;
+}
+#header-toolbar-changecolor img{
+}
+#popup-selectskin{
+padding:2px;
+margin:0;
+border:1px solid #979797;
+position:absolute;
+width:104px;
+z-index:1;
+background:white;
+overflow:hidden;
+}
+#popup-selectskin ul{
+list-style-type:none;
+padding:0;
+margin:0;
+}
+#popup-selectskin ul li{
+display:inline;
+margin:0;
+padding:0;
+}
+#popup-selectskin ul li a{
+display:block;
+float:left;
+width:20px;
+height:20px;
+padding:2px;
+border:1px solid white;
+cursor:pointer; /*only IE needs this*/
+}
+#popup-selectskin ul li a span{
+display:block;
+width:18px;
+height:18px;
+border:1px solid black;
+
+}
+#header #popup-selectskin ul li a:hover{
+border-color:silver;
+padding:2px;
+text-decoration:none;
+}
+
+/*Footer*/
+
+#footer{
+background: url(content_roundedbox.png) no-repeat 0 -440px;
+padding:20px 9px 12px 13px;
+clear:both;
+color:white;
+}
+#footer a:link,#footer a:visited{
+color:white;
+text-decoration:none;
+}
+#footer a:hover,#footer small, #footer .links{
+color:#e4e4e4;/*colorscheme[light]*/ 
+}
+#footer a:hover{
+text-decoration:none;
+}
+#footer p{
+margin:0 0 5px 0;
+}
+#footer small{
+font-size:9px;
+}
+#footer #gfddlogo{
+float:right;
+text-align:right;
+padding-top:3px;
+}
+#footer .side{
+padding-right:7px;
+float:right;
+text-align:right;
+}
+
+/*Langbox*/
+
+.langbox{
+font-family:"Segoe UI",Verdana, Tahoma, sans-serif;
+font-size:10px;
+text-transform:uppercase;
+text-align:right;
+color:#333;
+}
+
+.langbox select{
+font-size:11px;
+vertical-align:middle;
+color:#666;
+text-transform:none;
+width:13em;
+}
+
+.langbox input{
+font-family:"Tahoma";
+font-size:11px;
+vertical-align:middle;
+color:#333;
+width:1.6em;
+}
+
+.langstatus{
+width:774px;
+position:absolute;
+top:205px;
+left:50%;
+margin-left:-389px;
+color:#210;
+height:20px;
+text-align:left;
+padding:17px 5px 0 8px;
+background:url(langstatus.png) no-repeat 0 0;
+z-index:999;
+}
+
+#dfield{
+display:none;
+}
+
+
+
+/*FIX FOR CSS FLOATS*/
+.clearfix:after,.content:after {
+content:".";
+display:block;
+height:0;
+clear:both;
+visibility:hidden;
+}
+.clearfix,.content {display:inline-block;}
+/* Hide from IE Mac \*/
+.clearfix,.content {display:block;}
+/* End hide from IE Mac */
+
+/*fixes for 800x600 and below*/
+
+body#under800 #header-toolbar,
+body#under800 .langstatus,
+body#under800 .langstatuspara,
+
+body#under800 #home1-tagline,
+body#under800 #home1-help,
+body#under800 #home2 .screenshots,
+
+body#under800 #contentheaderright,
+body#under800 #bannerbox,
+body#under800 .content a#bigdownloadbutton:link,
+body#under800 .content a#bigdownloadbutton:visited
+{
+left:400px;/*instead of left:50%*/
+}/*fixes for 800x600 and below*/
+
+/*
+     FILE ARCHIVED ON 19:46:29 Feb 25, 2010 AND RETRIEVED FROM THE
+     INTERNET ARCHIVE ON 08:00:43 Nov 27, 2026.
+     JAVASCRIPT APPENDED BY WAYBACK MACHINE, COPYRIGHT INTERNET ARCHIVE.
+
+     ALL OTHER CONTENT MAY ALSO BE PROTECTED BY COPYRIGHT (17 U.S.C.
+     SECTION 108(a)(3)).
+*/
+/*
+playback timings (ms):
+  capture_cache.get: 0.327
+  load_resource: 67.927
+  PetaboxLoader3.resolve: 38.147
+  PetaboxLoader3.datanode: 28.203
+*/

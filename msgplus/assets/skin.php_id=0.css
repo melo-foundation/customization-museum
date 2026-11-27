@@ -1,0 +1,221 @@
+/*************************
+Messenger Plus! Live website
+Color Schemes
+
+�2007 GFDD - www.gfdd.net
+*************************/
+
+/*disable loading animation*/
+#header-toolbar-changecolor{
+background-image:none;
+padding-left:5px;
+}
+
+/*All color schemes:*/
+#popup-selectskin li#selectskin0 a,
+#popup-selectskin li#selectskin1 a,
+#popup-selectskin li#selectskin2 a,
+#popup-selectskin li#selectskin3 a,
+#popup-selectskin li#selectskin4 a,
+#popup-selectskin li#selectskin5 a,
+#popup-selectskin li#selectskin6 a,
+#popup-selectskin li#selectskin7 a,
+#popup-selectskin li#selectskin8 a,
+#popup-selectskin li#selectskin9 a,
+#popup-selectskin li#selectskin10 a,
+#popup-selectskin li#selectskin11 a,
+#popup-selectskin li#selectskin12 a{
+border-color: white;
+background-color: white
+}
+
+#popup-selectskin li#selectskin0 span{background-color: #48a7db}
+#popup-selectskin li#selectskin1 span{background-color: #a6a6a6}
+#popup-selectskin li#selectskin2 span{background-color: #000000}
+#popup-selectskin li#selectskin3 span{background-color: #70d9eb}
+#popup-selectskin li#selectskin4 span{background-color: #f24040}
+#popup-selectskin li#selectskin5 span{background-color: #ff9329}
+#popup-selectskin li#selectskin6 span{background-color: #ff9bde}
+#popup-selectskin li#selectskin7 span{background-color: #6dd349}
+#popup-selectskin li#selectskin8 span{background-color: #66758c}
+#popup-selectskin li#selectskin9 span{background-color: #8475d9}
+#popup-selectskin li#selectskin10 span{background-color: #c9c6b8}
+#popup-selectskin li#selectskin11 span{background-color: #f43e83}
+
+/*Specific colors for color scheme #0*/
+
+#popup-selectskin li#selectskin0 a{ /*colorscheme[number]*/
+border-color: #48a7db; /*colorscheme[basecolor]*/
+background-color: #C8E4F4;/*colorscheme[light1]*/ 
+} 
+
+body,
+#header h1 a{
+background-color:#48a7db; /*colorscheme[basecolor]*/
+}
+#bghelper{
+background-image:url(bg_48a7db.png); /*colorscheme[basecolor]*/
+}
+body #contentheader{
+background-image:url(content_header_48a7db.png); /*colorscheme[basecolor]*/
+}
+body #contentheader h2{
+color:#3A87B1; /*colorscheme[accent]*/ 
+}
+.content a#bigdownloadbutton:link,.content a#bigdownloadbutton:visited{
+background-image:url(button_big_48a7db.png); /*colorscheme[basecolor]*/
+}
+
+.content a#bigdownloadbutton:link,.content a#bigdownloadbutton:visited{
+color: #C8E4F4;/*colorscheme[light1]*/ 
+}
+.content a#bigdownloadbutton:hover{
+color: #DAEDF7;/*colorscheme[verylight]*/ 
+}
+
+body.home #header #mainnav #navhome a,
+body.features #header #mainnav #navfeatures a,
+body.download #header #mainnav #navdownload a,
+body.scripts #header #mainnav #navdownload a,
+body.scriptsdb #header #mainnav #navdownload a,
+body.skins #header #mainnav #navdownload a,
+body.skinsdb #header #mainnav #navdownload a,
+body.scripts #header #mainnav #navscripts a,
+body.scriptsdb #header #mainnav #navscripts a,
+body.skins #header #mainnav #navskins a,
+body.skinsdb #header #mainnav #navskins a,
+body.more #header #mainnav #navmore a,
+body.news #header #mainnav #navnews a,
+body.help #header #mainnav #navhelp a,
+body.home #header #mainnav3 #navhome a,
+body.features #header #mainnav3 #navfeatures a,
+body.download #header #mainnav3 #navdownload a,
+body.scripts #header #mainnav3 #navdownload a,
+body.scriptsdb #header #mainnav3 #navdownload a,
+body.skins #header #mainnav3 #navdownload a,
+body.skinsdb #header #mainnav3 #navdownload a,
+body.scripts #header #mainnav3 #navscripts a,
+body.scriptsdb #header #mainnav3 #navscripts a,
+body.skins #header #mainnav3 #navskins a,
+body.skinsdb #header #mainnav3 #navskins a,
+body.more #header #mainnav3 #navmore a,
+body.news #header #mainnav3 #navnews a,
+body.help #header #mainnav3 #navhelp a,
+
+body.home #header #mainnav2 #navhome a,
+body.features #header #mainnav2 #navfeatures a,
+body.download #header #mainnav2 #navdownload a,
+body.scripts #header #mainnav2 #navdownload a,
+body.scriptsdb #header #mainnav2 #navdownload a,
+body.skins #header #mainnav2 #navdownload a,
+body.skinsdb #header #mainnav2 #navdownload a,
+body.scripts #header #mainnav2 #navscripts a,
+body.scriptsdb #header #mainnav2 #navscripts a,
+body.skins #header #mainnav2 #navskins a,
+body.skinsdb #header #mainnav2 #navskins a,
+body.more #header #mainnav2 #navmore a,
+body.news #header #mainnav2 #navnews a,
+body.help #header #mainnav2 #navhelp a,
+
+.bottombox h3,.content .featuredbox h3{
+color:#48a7db; /*colorscheme[basecolor]*/
+}
+
+#footer a:hover,#footer small, #footer .links{
+color:#C8E4F4;/*colorscheme[light1]*/ 
+}
+
+.bottombox ul li,.featuredbox .subhighlight ul li{
+color:#48a7db; /*colorscheme[basecolor]*/
+}
+
+.bottombox .highlight,#crossfade,.fader,.content .subhighlight{
+background-color:#C8E4F4;/*colorscheme[light1]*/ 
+}
+.fader div,
+.content .featuredbox a:hover{
+border-color:#3A87B1; /*colorscheme[accent]*/ 
+}
+/*interior*/
+
+blockquote {
+border-color:#DAEDF7;/*colorscheme[verylight]*/ 
+}
+
+.content .highlight{
+border:1px solid #DAEDF7;/*colorscheme[verylight]*/ 
+}
+.content .highlight h2,
+.content h2,
+.content h2 a:link, .content h2 a:visited,
+.content h4{
+color:#48a7db; /*colorscheme[basecolor]*/
+}
+.content h3,.content h3 a:link,.content h3 a:visited,.content .faqsubtitle h4,.featuredbox .subhighlight ul li .date{
+color:#3A87B1; /*colorscheme[accent]*/ 
+}
+.content h2 a:link,.content h2 a:visited,
+.content h3 a:link,.content h3 a:visited{
+border-bottom-color:#C8E4F4;/*colorscheme[light1]*/ 
+}
+.left a.frame:link,.left a.frame:visited,.left img.frame{
+background:#DAEDF7;/*colorscheme[verylight]*/
+border-color:#48a7db; /*colorscheme[basecolor]*/
+}
+
+tr.fileheader, td.fileheader,
+tr.sectionheader td,tr.sectionheader,body.help table th{
+background-color:#48a7db; /*colorscheme[basecolor]*/
+color:#C8E4F4; /*colorscheme[light1]*/ 
+}
+
+TABLE.border,TABLE.border td,body.help table,html body.help table * {
+border-color:#48a7db; /*colorscheme[basecolor]*/
+}
+
+body.help table tr{
+background:white;
+}
+body.help table tr.alt{
+background:#DAEDF7;/*colorscheme[verylight]*/
+}
+
+body.help table th{
+border-top:1px solid #3A87B1; /*colorscheme[accent]*/
+}
+
+
+
+body.scriptsdb a.downdbbycategory,body.skinsdb a.downdbbycategory,
+body.scriptsdb a.downdbbydate,body.skinsdb a.downdbbydate,
+body.scriptsdb a.downdbbyrating,body.skinsdb a.downdbbyrating,
+body.scriptsdb a.downdbbydownloads,body.skinsdb a.downdbbydownloads,
+body.scriptsdb a.downdbdownload,body.skinsdb a.downdbdownload
+{
+background-color:#48a7db;/*colorscheme[basecolor]*/ 
+color:#DAEDF7;/*colorscheme[verylight]*/ 
+background-image:url(downdb_buttons_48a7db.png);
+}
+
+
+.langbox{
+color:#333;
+}
+body .langstatus{
+background-image:url(langstatus_48a7db.png);
+}
+/*
+     FILE ARCHIVED ON 18:22:57 Dec 23, 2009 AND RETRIEVED FROM THE
+     INTERNET ARCHIVE ON 07:59:43 Nov 27, 2026.
+     JAVASCRIPT APPENDED BY WAYBACK MACHINE, COPYRIGHT INTERNET ARCHIVE.
+
+     ALL OTHER CONTENT MAY ALSO BE PROTECTED BY COPYRIGHT (17 U.S.C.
+     SECTION 108(a)(3)).
+*/
+/*
+playback timings (ms):
+  capture_cache.get: 0.43
+  load_resource: 157.321
+  PetaboxLoader3.resolve: 95.096
+  PetaboxLoader3.datanode: 33.837
+*/
