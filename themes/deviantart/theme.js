@@ -71,9 +71,10 @@
     const lost = $(doc, '#lostlink');
     if (lost) { lost.href = `${REPO_URL}/issues`; lost.textContent = 'Reports'; lost.target = '_blank'; }
     // the 728x90 banner position: a strip of previews from the same listing or program
-    const pool = (ctx.list ? ctx.list.rows.slice().reverse() : ctx.related || []).filter(e => e.v && e.i !== ctx.item?.i);
-    const at = ctx.item ? Math.max(0, pool.length >> 1) : 0;
-    const strip = [...pool.slice(at), ...pool.slice(0, at)].slice(0, 10).map(e => `<a href="${h.url.item(e)}" title="${esc(e.t)}">${h.img(e)}</a>`).join('');
+    // (item page: the item's neighbours after the six shown under "More from")
+    const all = ctx.related || [], pos = Math.max(0, all.findIndex(e => e.i === ctx.item?.i) - 3);
+    const pool = (ctx.list ? ctx.list.rows.slice().reverse() : [...all.slice(pos), ...all.slice(0, pos)].filter(e => e.v && e.i !== ctx.item?.i).slice(6)).filter(e => e.v);
+    const strip = pool.slice(0, 10).map(e => `<a href="${h.url.item(e)}" title="${esc(e.t)}">${h.img(e)}</a>`).join('');
     doc.querySelectorAll('[data-slot="ad"]').forEach(el => {
       el.innerHTML = h.warning() || `<div class="cm-banner">${strip}</div>`;
     });
