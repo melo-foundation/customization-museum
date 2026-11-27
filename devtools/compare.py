@@ -1,6 +1,7 @@
 """Compare a theme against a reference capture of the original site.
 
   python3 devtools/compare.py THEME PATH REFERENCE.png OUT_PREFIX [WIDTH] [HEIGHT]
+  python3 devtools/compare.py THEME OURS.png REFERENCE.png OUT_PREFIX     (compare two screenshots)
 
 Renders http://localhost:<port>/<PATH> in THEME with headless Chromium, then writes
 OUT_PREFIX-side.png (reference | ours), OUT_PREFIX-diff.png (red = differs) and prints a
@@ -64,6 +65,10 @@ if __name__ == "__main__":
     theme, path, ref, prefix = sys.argv[1:5]
     width = int(sys.argv[5]) if len(sys.argv) > 5 else 1024
     height = int(sys.argv[6]) if len(sys.argv) > 6 else Image.open(ref).height
-    ours = prefix + "-ours.png"
-    render(theme, path, width, height, ours)
+    # PATH may be a screenshot of our page already (e.g. our live site rendered by ./wbshot.sh with ?theme=)
+    if path.endswith(".png"):
+        ours = path
+    else:
+        ours = prefix + "-ours.png"
+        render(theme, path, width, height, ours)
     print(f"mismatch {compare(ref, ours, prefix)}%  ->  {prefix}-side.png  {prefix}-diff.png")
