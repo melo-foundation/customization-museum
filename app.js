@@ -260,6 +260,8 @@ async function render() {
     html = theme.item(ctx);
   } else if (!['app', 'type', 'site', 'tag', 'q', 'arch'].some(k => r[k])) {
     document.title = 'Customization Museum';
+    // themes whose original front page listed items set `recent: N` to get the newest N full rows
+    if (theme.recent) ctx.recent = (await list({ ...r, sort: '', page: 1 }, theme.recent)).rows;
     html = theme.home(ctx);
   } else {
     // themes may reproduce their original site's page size (THEMES[x].perPage)
