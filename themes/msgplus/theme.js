@@ -34,13 +34,19 @@
   const isPic = e => !!e.v && !MEDIA.test(e.v);
   // a screenshot that cannot be loaded leaves its cell as it would be without one
   window.cmMsgplusShot = img => {
-    if (!img.dataset.f && img.dataset.alt) { img.dataset.f = 1; img.src = img.dataset.alt; return; }
+    const next = (img.dataset.alt || '').split(' ').filter(Boolean);
+    if (next.length) { img.dataset.alt = next.slice(1).join(' '); img.src = next[0]; return; }
     const cell = img.closest('td, p');
     cell?.querySelectorAll('br, a.highslide').forEach(n => n.remove());
     img.remove();
   };
-  const shot = (h, e, cls, altText) => `<img class="frame ${cls}" src="${h.esc(h.thumb(e))}" alt="${h.esc(altText)}" data-alt="${h.esc(h.thumbFallback(e))}" onerror="cmMsgplusShot(this)"/>`;
-  const thumbCell = (h, e, name) => isPic(e) ? `${shot(h, e, 'cm-thumb', `${name} screenshot`)}
+  // the original showed <name>_thumb.jpg in lists and <name>_small.jpg on the skin's page; both were archived with it
+  const sized = (h, e, size) => e.s === WLM && /\/uploads\/[^/]+\.jpg$/i.test(e.v) ? [`https://web.archive.org/web/2im_/${e.v.replace(/\.jpg$/i, `_${size}.jpg`)}`] : [];
+  const shot = (h, e, cls, altText, size) => {
+    const [src, ...rest] = [...new Set([...sized(h, e, size), h.thumb(e), h.thumbFallback(e)])];
+    return `<img class="frame ${cls}" src="${h.esc(src)}" alt="${h.esc(altText)}" data-alt="${h.esc(rest.join(' '))}" onerror="cmMsgplusShot(this)"/>`;
+  };
+  const thumbCell = (h, e, name) => isPic(e) ? `${shot(h, e, 'cm-thumb', `${name} screenshot`, 'thumb')}
         <br/><a href="${h.esc(h.thumb(e))}" class="highslide" target="_blank" rel="noopener"><strong>full screenshot</strong></a>` : '';
 
   // labelled fields of a listing row, the original's five first, then what we have for items from elsewhere
@@ -412,7 +418,7 @@ ${Array.from({ length: 5 }, (_, i) => `              <img src="${A}star_${i < fu
       info.push(['Archived', h.esc(h.archivedLabel(e))]);
       while (info.length < 3) info.push(['', '&nbsp;']);
       const links = [h.page(e) && `<a href="${h.esc(h.page(e))}" rel="external noopener" target="_blank">original page</a>`, `<a href="${h.esc(h.edit(e))}" target="_blank" rel="noopener">edit</a>`, `<a href="${h.esc(h.report(e))}" target="_blank" rel="noopener">report</a>`].filter(Boolean).join(' | ');
-      const pic = isPic(e) ? `<a href="${h.esc(h.thumb(e))}" class="highslide" target="_blank" rel="noopener">${shot(h, e, 'cm-shot', 'Screenshot')}</a>` : e.v || MEDIA.test(e.l || '') ? h.media(e) : '';
+      const pic = isPic(e) ? `<a href="${h.esc(h.thumb(e))}" class="highslide" target="_blank" rel="noopener">${shot(h, e, 'cm-shot', 'Screenshot', 'small')}</a>` : e.v || MEDIA.test(e.l || '') ? h.media(e) : '';
       const left = `${important(h)}${buttons(ctx)}
 ${crumbs(h, [['Messenger Skins', h.url.home()], [e.a, h.url.app(e.k)], ...(e.y[0] ? [[e.y[0], h.url.type(e.y[0])]] : []), [name, h.url.item(e)]])}
 <table width="100%" border="1" align="center" cellpadding="3" cellspacing="0" class="border">
