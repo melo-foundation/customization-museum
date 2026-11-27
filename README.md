@@ -2,7 +2,7 @@
 
 An initiative to archive all themes, skins and add-ons for old customizable programs in an easily searchable way and backed up on the Wayback Machine.
 
-Files are archived automatically and not checked; scan anything you download. Report a bad item with the Report link on its card.
+Files are archived automatically and not checked; scan anything you download. Report a bad item or issues with an item using the Report link on its card.
 
 Browse: https://melo-foundation.github.io/customization-museum/
 
