@@ -10,6 +10,12 @@ ALIAS = {k.lower(): v for k, v in A["aliases"].items()}
 DROP = {t.lower() for t in A["drop"]}
 APP_TAGS = A.get("app_tags", {})
 HIDDEN = set(json.load(open("hidden.json", encoding="utf-8")))
+# titles that are a site's own page/system name, picked up when a capture redirected to it
+JUNK_TITLES = {"pafiledb", "home", "index", "404", "not found", "error", "page not found"}
+
+
+def junk(title):
+    return title.strip().lower() in JUNK_TITLES
 
 
 def archived(page_ts, download_ts, download):
@@ -128,7 +134,7 @@ for f in sorted(glob.glob("data/*.json")):
     src = os.path.basename(f)[:-5]
     dead = src in DEAD
     for e in json.load(open(f, encoding="utf-8")):
-        if HIDDEN & {e.get("page"), e.get("download")}:
+        if HIDDEN & {e.get("page"), e.get("download")} or junk(e["title"]):
             continue
         def ts(k):
             s = state.get(e.get(k) or "") or {}
@@ -159,6 +165,7 @@ if __name__ == "__main__":
     assert classify("x", ["Smileys", "varios", "Customise", "anime"]) == (["Emoticons"], ["Misc", "Anime"])
     assert classify("Windows Desktop Themes", ["music"]) == (["Skins & Themes"], ["Windows 9x Classic", "Music"])
     assert classify("x", []) == (["Other"], [])
+    assert junk("paFileDB") and junk(" Home ") and not junk("Home Sweet Home") and not junk(":)")
     assert archived("20090101000000", None, None) and archived(None, "20100101000000|http://x/y.zip", "http://x/y.zip")
     assert archived("2", None, None) and archived(None, None, "https://archive.org/download/item/f.wal")
     assert not archived(None, None, "http://example.com/f.zip") and not archived("", "", None)
