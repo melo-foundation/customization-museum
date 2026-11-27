@@ -110,4 +110,5 @@ if __name__ == "__main__":
     assert front_matter("---\ntitle: A: B\ntags: x, y\n---\nbody") == ({"title": "A: B", "tags": "x, y"}, "body")
     json.dump(out, open("entries.json", "w", encoding="utf-8"), separators=(",", ":"), ensure_ascii=False)
     write_section_pages(out)
+    json.dump(sorted(os.path.basename(p)[:-3] for p in glob.glob("pages/site-*.md")), open("pages.json", "w"))
     print(len(out), "entries,", os.path.getsize("entries.json") // 1024, "KB")

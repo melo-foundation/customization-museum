@@ -41,7 +41,7 @@ jobs:
           for attempt in 1 2 3 4 5; do
             git fetch -q origin main && git reset -q --hard origin/main
             python3 archive.py merge /tmp/state.json && python3 build.py
-            git add data/archive_state.json entries.json site app type item
+            git add data/archive_state.json entries.json pages.json site app type item
             git diff --cached --quiet && exit 0
             git commit -q -m "Archive progress" && git push -q origin HEAD:main && exit 0
             sleep $((attempt * 10))
