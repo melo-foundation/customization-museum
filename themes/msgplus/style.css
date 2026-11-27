@@ -1,0 +1,67 @@
+html[data-theme="msgplus"] body { margin:0; font:12px/1.45 Tahoma,Verdana,"Segoe UI",sans-serif; color:#1a3350; background:#cfe6f7 linear-gradient(#8fc3ec 0,#d6ecfa 220px,#eef7fd 100%) fixed; }
+html[data-theme="msgplus"] a { color:#0a62b8; text-decoration:none; }
+html[data-theme="msgplus"] a:hover { text-decoration:underline; }
+html[data-theme="msgplus"] .mp-page { max-width:980px; margin:0 auto; padding:10px 10px 30px; }
+html[data-theme="msgplus"] .mp-header { position:relative; height:96px; background:linear-gradient(#fff 0,#e9f5fd 45%,#c4e1f6 100%); border:1px solid #8dbbdd; border-radius:10px 10px 0 0; box-shadow:inset 0 1px 0 #fff; }
+html[data-theme="msgplus"] .mp-logo { position:absolute; left:16px; top:12px; display:flex; align-items:center; gap:8px; font-size:24px; color:#1c5d9c; text-shadow:0 1px 0 #fff; }
+html[data-theme="msgplus"] .mp-logo:hover { text-decoration:none; }
+html[data-theme="msgplus"] .mp-logo small { font-size:11px; color:#6a8fb0; margin-left:6px; align-self:flex-end; margin-bottom:4px; }
+html[data-theme="msgplus"] .mp-orb { width:34px; height:34px; border-radius:50%; background:radial-gradient(circle at 35% 30%,#fff 0,#9fd4f7 30%,#2a86d4 70%,#17599b); box-shadow:0 1px 3px #0006; }
+html[data-theme="msgplus"] .mp-hr { position:absolute; right:14px; top:12px; display:flex; gap:10px; align-items:center; }
+html[data-theme="msgplus"] .mp-tabs { position:absolute; left:12px; bottom:0; margin:0; padding:0; list-style:none; display:flex; gap:3px; }
+html[data-theme="msgplus"] .mp-tabs li a { display:block; padding:6px 16px; border:1px solid #8dbbdd; border-bottom:0; border-radius:6px 6px 0 0; background:linear-gradient(#f4fbff,#bcdcf3); color:#1c5d9c; font-weight:bold; }
+html[data-theme="msgplus"] .mp-tabs li a:hover { text-decoration:none; background:linear-gradient(#fff,#d8eefc); }
+html[data-theme="msgplus"] .mp-tabs li.on a { background:#fff; color:#0a4d94; padding-bottom:8px; margin-bottom:-1px; }
+html[data-theme="msgplus"] .mp-search { background:linear-gradient(#dff0fb,#c9e4f6); border:1px solid #8dbbdd; border-top:0; padding:6px 12px; }
+html[data-theme="msgplus"] .mp-search form { display:flex; gap:6px; margin:0; }
+html[data-theme="msgplus"] input, html[data-theme="msgplus"] select { font:12px Tahoma,Verdana,sans-serif; border:1px solid #7fb0d6; border-radius:3px; padding:3px 6px; background:#fff; color:#1a3350; }
+html[data-theme="msgplus"] input[type=search], html[data-theme="msgplus"] input[type=text] { flex:1; }
+html[data-theme="msgplus"] button { font:12px Tahoma,sans-serif; border:1px solid #5f9ccc; border-radius:3px; padding:3px 12px; background:linear-gradient(#fff,#cfe7f8); color:#0a4d94; cursor:pointer; }
+html[data-theme="msgplus"] .cm-warning { margin:0; padding:6px 12px; background:#fff8d6; border:1px solid #e3d48a; border-top:0; color:#6b5a10; display:flex; gap:10px; align-items:center; }
+html[data-theme="msgplus"] .cm-warning button { margin-left:auto; }
+html[data-theme="msgplus"] .mp-body { display:flex; gap:14px; align-items:flex-start; background:#fff; border:1px solid #8dbbdd; border-top:0; padding:14px; }
+html[data-theme="msgplus"] .mp-main { flex:1; min-width:0; }
+html[data-theme="msgplus"] .mp-side { width:200px; flex:none; }
+html[data-theme="msgplus"] .mp-sh { font-size:15px; font-weight:bold; color:#1c5d9c; border-bottom:2px solid #9ccbeb; margin:4px 0 10px; padding-bottom:3px; }
+html[data-theme="msgplus"] .mp-lead { margin:0 0 14px; }
+html[data-theme="msgplus"] .mp-cols { list-style:none; margin:0; padding:0; columns:2; }
+html[data-theme="msgplus"] .mp-cols li { padding:2px 0; }
+html[data-theme="msgplus"] .mp-cols span, html[data-theme="msgplus"] .mp-box li span { color:#7a93ab; font-size:11px; }
+html[data-theme="msgplus"] .mp-box { border:1px solid #a9cfea; border-radius:6px; margin-bottom:12px; overflow:hidden; background:#f6fbff; }
+html[data-theme="msgplus"] .mp-box h3 { margin:0; padding:4px 8px; font-size:12px; color:#fff; background:linear-gradient(#6fb4e8,#2f84cc); text-shadow:0 1px 0 #1b5d9a; }
+html[data-theme="msgplus"] .mp-box ul { list-style:none; margin:0; padding:4px 0; max-height:260px; overflow-y:auto; overflow-x:hidden; }
+html[data-theme="msgplus"] .mp-box li { padding:2px 8px; display:flex; justify-content:space-between; gap:6px; }
+html[data-theme="msgplus"] .mp-box li.on { background:#ffffda; font-weight:bold; }
+html[data-theme="msgplus"] .mp-ctl { display:flex; gap:8px; align-items:center; margin-bottom:10px; }
+html[data-theme="msgplus"] .mp-ctl span { margin-right:auto; color:#58728c; }
+html[data-theme="msgplus"] .mp-row { display:flex; gap:14px; background:#ebf8ff; border:1px solid #b6dcf2; border-radius:6px; padding:10px; margin-bottom:8px; cursor:pointer; }
+html[data-theme="msgplus"] .mp-row:hover { background:#ffffda; border-color:#e0d78a; }
+html[data-theme="msgplus"] .mp-th { width:160px; height:120px; flex:none; display:flex; align-items:center; justify-content:center; background:#fff; border:1px solid #9ccbeb; padding:3px; overflow:hidden; }
+html[data-theme="msgplus"] .mp-th img { max-width:100%; max-height:100%; }
+html[data-theme="msgplus"] .mp-th span { color:#9ab; font-size:11px; }
+html[data-theme="msgplus"] .mp-info { min-width:0; flex:1; }
+html[data-theme="msgplus"] .mp-name { font-size:14px; font-weight:bold; display:block; margin-bottom:3px; }
+html[data-theme="msgplus"] .mp-f { overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
+html[data-theme="msgplus"] .mp-f i { color:#58728c; font-style:italic; }
+html[data-theme="msgplus"] .mp-lk { margin-top:4px; font-size:11px; }
+html[data-theme="msgplus"] .mp-pager { text-align:center; margin:14px 0 4px; }
+html[data-theme="msgplus"] .mp-pager a, html[data-theme="msgplus"] .mp-pager b, html[data-theme="msgplus"] .mp-pager span { display:inline-block; margin:0 2px; padding:2px 7px; border:1px solid #b6dcf2; border-radius:3px; background:#f6fbff; }
+html[data-theme="msgplus"] .mp-pager b { background:linear-gradient(#6fb4e8,#2f84cc); color:#fff; border-color:#2f84cc; }
+html[data-theme="msgplus"] .mp-about { position:relative; background:#f1f9ff; border:1px solid #b6dcf2; border-radius:6px; padding:10px 14px; margin-bottom:14px; line-height:1.55; }
+html[data-theme="msgplus"] .mp-about h1 { font-size:17px; margin:0 0 6px; color:#1c5d9c; }
+html[data-theme="msgplus"] .mp-tools { float:right; display:flex; gap:8px; margin-left:10px; }
+html[data-theme="msgplus"] .mp-view { display:flex; gap:16px; background:#ebf8ff; border:1px solid #b6dcf2; border-radius:6px; padding:12px; }
+html[data-theme="msgplus"] .mp-shot { flex:1; min-width:0; text-align:center; background:#fff; border:1px solid #9ccbeb; padding:8px; }
+html[data-theme="msgplus"] .mp-shot img, html[data-theme="msgplus"] .mp-shot video { max-width:100%; }
+html[data-theme="msgplus"] .mp-det { width:270px; flex:none; }
+html[data-theme="msgplus"] .mp-det dl { margin:0; display:grid; grid-template-columns:max-content 1fr; gap:4px 10px; }
+html[data-theme="msgplus"] .mp-det dt { font-style:italic; color:#58728c; }
+html[data-theme="msgplus"] .mp-det dd { margin:0; word-break:break-word; }
+html[data-theme="msgplus"] .mp-acts { display:flex; flex-wrap:wrap; gap:6px; margin-top:12px; }
+html[data-theme="msgplus"] .mp-btn { padding:4px 12px; border:1px solid #5f9ccc; border-radius:3px; background:linear-gradient(#fff,#cfe7f8); font-weight:bold; }
+html[data-theme="msgplus"] .mp-btn.dl { background:linear-gradient(#7cc0f0,#2f84cc); color:#fff; border-color:#2370b4; }
+html[data-theme="msgplus"] .mp-btn:hover { text-decoration:none; background:#ffffda; color:#0a4d94; }
+html[data-theme="msgplus"] .mp-desc { line-height:1.6; }
+html[data-theme="msgplus"] .mp-empty { padding:20px; text-align:center; color:#58728c; }
+html[data-theme="msgplus"] .mp-foot { text-align:center; color:#58728c; font-size:11px; padding:10px; background:linear-gradient(#e4f2fc,#c4e1f6); border:1px solid #8dbbdd; border-top:0; border-radius:0 0 10px 10px; }
+@media (max-width:760px) { html[data-theme="msgplus"] .mp-body, html[data-theme="msgplus"] .mp-view { flex-direction:column; } html[data-theme="msgplus"] .mp-side, html[data-theme="msgplus"] .mp-det { width:auto; } html[data-theme="msgplus"] .mp-row { flex-direction:column; } html[data-theme="msgplus"] .mp-tabs { flex-wrap:wrap; } html[data-theme="msgplus"] .mp-header { height:auto; padding-top:60px; } }

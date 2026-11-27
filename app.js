@@ -70,6 +70,8 @@ const h = {
   file: e => e.l ? (real(e.tl) ? wb(e.tl, e.l, 'id_') : e.l) : '',
   page: e => e.p ? (real(e.tp) ? wb(e.tp, e.p) : e.p) : '',
   archivedOn: f => real(f) ? `${f.slice(0, 4)}-${f.slice(4, 6)}-${f.slice(6, 8)}` : '',
+  // one-line archive status for list views, consistent with the tested build flag (e.z)
+  archivedLabel: e => !e.z ? 'Not yet' : h.archivedOn(e.tl) || h.archivedOn(e.tp) || (e.tp === '2' || e.tl === '2' ? 'Recovered from the Wayback Machine' : 'Hosted on archive.org'),
   report: e => `https://github.com/${REPO}/issues/new?template=report.yml&title=${encodeURIComponent('Report: ' + e.t)}&item=${encodeURIComponent(e.t + ' (' + e.a + ')')}&link=${encodeURIComponent(e.l || e.p || '')}`,
   edit: e => {
     const key = encodeURIComponent(e.i);
