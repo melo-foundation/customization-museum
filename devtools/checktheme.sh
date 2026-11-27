@@ -3,8 +3,8 @@
 # usage: devtools/checktheme.sh THEME OUTDIR "our/path|REFERENCE" ...
 #   our/path is relative to the site root, e.g. "app/adium/" or "item/?id=wlm-45"
 #   REFERENCE is a Wayback URL (.../web/<ts>if_/<url>, rendered now), a local .png of a known-good
-#   render, or "repo:devtools/refs/<theme>/<page>.html" (a committed clean copy of the original page,
-#   served on the runner itself: no Wayback dependency, same fonts as our side).
+#   render, or "repo:<theme>/<page>.html" (a clean copy of the original page committed to the "refs" branch,
+#   served on the runner itself: no Wayback dependency, same fonts as our side, never published).
 # Push theme changes first: our side is rendered from the live GitHub Pages site.
 set -euo pipefail
 cd "$(dirname "$0")/.."
