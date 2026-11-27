@@ -31,3 +31,10 @@ html[data-theme="wincustomize"] select[data-theme] { width:98px; box-sizing:bord
 html[data-theme="wincustomize"] .cm-about h1, html[data-theme="wincustomize"] .cm-about h2 { font-size:10pt; font-weight:bold; margin:0 0 6px; color:#22457E; }
 html[data-theme="wincustomize"] .cm-about p, html[data-theme="wincustomize"] .cm-about ul { margin:0 0 6px; }
 html[data-theme="wincustomize"] .cm-about ul { padding-left:18px; }
+
+/* quirks mode again: the search bar end caps and the <font size="1"><br></font> spacer after each frame
+   take their own height, not the enclosing 10pt line's */
+html[data-theme="wincustomize"] img[src$="bg_searchbarl.gif"], html[data-theme="wincustomize"] img[src$="bg_searchbarr.gif"] { display:block; }
+html[data-theme="wincustomize"] font[size="1"] { display:block; }
+/* an icon alone in its cell sizes the row by its own height (16-wfx-icon.gif is 14px tall) */
+html[data-theme="wincustomize"] td.columns[valign="bottom"] > img:only-child { display:block; }

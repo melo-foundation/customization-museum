@@ -254,6 +254,8 @@ async function render() {
   let html;
   if (r.item) {
     ctx.item = await findItem(r.item);
+    // the item's program, so item pages can show related files (themes filter out the item itself)
+    ctx.related = ctx.item ? await shard(ctx.item.k) : [];
     document.title = `${ctx.item?.t || 'Not found'} · Customization Museum`;
     html = theme.item(ctx);
   } else if (!['app', 'type', 'site', 'tag', 'q', 'arch'].some(k => r[k])) {

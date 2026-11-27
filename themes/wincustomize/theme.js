@@ -16,10 +16,17 @@
     'Cursors': 'cursorxp', 'Splash Screens': 'logon', 'Message Styles': 'conv', 'Winks': 'objectdock', 'Other': 'nextstart',
   };
   const APP_ICON = { 'Windows Media Player': 'winmedia', 'Winamp': 'winamp', 'CursorXP': 'cursorxp', 'Windows Desktop Themes': 'wallpapers', 'Windows XP': 'windowblinds' };
+  // original library slugs -> their icon
+  const SLUG_ICON = {
+    coolplayer: 'coolplayer', cursorxp: 'cursorxp', dashboard: 'dashboard', desktopx: 'desktopx', 'desktopx-objects': 'desktopx',
+    'desktopx-themes': 'desktopx', iconpackager: 'iconpackager', litestep: 'litestep', logons: 'logon', nextstart: 'nextstart',
+    objectbar: 'objectbar', objectdock: 'objectdock', sysmetrix: 'metrix', wallpapers: 'wallpapers', 'skinstudio-widgets': 'skinstudio',
+    winamp: 'winamp', windowblinds: 'windowblinds', windowfx: 'wfx', winmedia: 'winmedia', winstyles: 'conv',
+  };
   const icon = (key) => `${A}16-${key}-icon.gif`;
   const typeIcon = t => icon(TYPE_ICON[t] || 'nextstart');
-  const appIcon = a => icon(APP_ICON[a.name] || TYPE_ICON[Object.keys(a.types || {})[0]] || 'nextstart');
-  const rowIcon = e => icon(APP_ICON[e.a] || TYPE_ICON[e.y[0]] || 'nextstart');
+  const appIcon = a => icon(APP_ICON[a.name] || SLUG_ICON[a.slug] || TYPE_ICON[Object.keys(a.types || {})[0]] || 'nextstart');
+  const rowIcon = e => icon(APP_ICON[e.a] || SLUG_ICON[e.k] || TYPE_ICON[e.y[0]] || 'nextstart');
 
   // frame_*.gif box exactly as the original (width "170" for side columns, "100%" in the center)
   const frame = (title, body, { width = '170', bg = '#ffffff', titleCells = null } = {}) => `<table width="${width}" border="0" align="center" cellpadding="0" cellspacing="0">
@@ -53,7 +60,7 @@ ${titleCells || `<td align="center" height="1" background="${A}frame_title.gif" 
 
   const header = (ctx) => {
     const { h, manifest: m } = ctx;
-    const ad = h.warning() || `<div class="cm-adstats"><b>${m.total.toLocaleString()}</b> skins, themes and add-ons &nbsp;-&nbsp; <b>${m.archived.toLocaleString()}</b> on the Wayback Machine</div>`;
+    const ad = h.warning() || `<div class="cm-adstats"><span><b>${m.total.toLocaleString()}</b> skins, themes and add-ons &nbsp;-&nbsp; <b>${m.archived.toLocaleString()}</b> on the Wayback Machine</span></div>`;
     return `<table width="100%" align="center" border="0" cellpadding="0" cellspacing="0">
 <tr>
 <td height="1" bgcolor="#007236" align="left" valign="top"><a href="${h.url.home()}" class="cm-logo"><span>Customization</span><span>Museum</span></a></td>
@@ -106,7 +113,7 @@ ${titleCells || `<td align="center" height="1" background="${A}frame_title.gif" 
     const { h, manifest: m } = ctx;
     const rows = m.apps.slice(0, 22).map(a => `<tr>
 <td class="columns" valign="bottom"><img src="${appIcon(a)}" border="0" align="absmiddle"></td>
-<td class="columns" valign="bottom" width="100%"><a class="columns" href="${h.url.app(a.slug)}">${a.slug === r.app ? `<u>${h.esc(a.name)}</u>` : h.esc(a.name)}</a></td>
+<td class="columns" valign="bottom" width="100%"><a class="columns" href="${h.url.app(a.slug)}">${h.esc(a.name)}</a></td>
 <td class="columns" valign="bottom" align="right">[${a.count}]</td>
 </tr>`).join('');
     return frame(`<a class="frametitle" href="${h.url.home()}">Library</a>`, `<table width="100%" border="0" valign="top" cellpadding="0" cellspacing="3">${rows}
@@ -288,12 +295,23 @@ ${[['', `All ${h.esc(r.app ? h.appName(r.app) : 'Items')}`, !typeName], ...types
 ${links} &nbsp;
 </td></tr></table>`, { width: '100%', bg: '#F6F6F6' });
 
+  // field labels exactly as the original listing printed them
+  const LABEL = { 'File size': 'File&nbsp;size:&nbsp;<b> ', 'Downloads today': 'Downloads today:<b> ', Created: 'Created: <b>', Updated: 'Updated: <b>' };
   // one skin as in the original listing (thumbnail uses our full-size preview, scaled into the 150px box)
   const entry = (h, e) => {
     const file = h.file(e);
     const thumb = h.img(e, 'border="0" class="cm-thumb"') || '';
+    // original site records (e.x with Created) show their own fields; others show source and archive state
+    const x = e.x || {}, author = x.Author || x.Creator;
+    const info = Object.entries(x).filter(([k]) => !['Author', 'Creator', 'Compatibility'].includes(k));
+    if (!x.Created) info.unshift(['Source', h.siteName(e.s)], ['Archived', h.archivedLabel(e)], ...(e.d ? [['Created', e.d]] : []));
+    // description as the original printed it: plain text, line breaks kept, each URL as globe icon + "Link"
+    const link = u => `<a target="_blank" rel="noopener" href="${u}"><img src="${A}url.gif" border="0" alt="${u}" align="absmiddle"></a>&nbsp;<a target="_blank" rel="noopener" href="${u}">Link</a>`;
+    const desc = e.m && e.desc ? e.desc.replace(/^<p>|<\/p>$/g, '').replace(/<\/p><p>/g, '<br><br>')
+      : e.n ? h.esc(e.n).replace(/https?:\/\/[^\s<]+/g, link).replace(/\n/g, '<br>') : e.g.map(t => h.esc(t)).join(', ');
+    const xp = /xp/i.test(x.Compatibility || '');
     const titleCells = `<td align="center" height="1" background="${A}frame_title.gif" class="frametitle">
-<div align="left"><img src="${rowIcon(e)}" border="0" align="absmiddle">&nbsp;<a class="frametitle" href="${h.url.item(e)}">${h.esc(e.t)}</a>
+<div align="left"><img src="${xp ? `${A}16-winxp-icon.gif` : rowIcon(e)}" border="0" align="absmiddle">&nbsp;<a class="frametitle" href="${h.url.item(e)}">${h.esc(e.t)}</a>
 </div></td>
 <td align="right" height="1" background="${A}frame_title.gif" class="frametitle">&nbsp;&nbsp;Category: <b>${h.esc(e.y.join(', '))}</b>
 </td>`;
@@ -306,15 +324,15 @@ ${links} &nbsp;
 </td><td valign="TOP" width="100%" bgcolor="#AAAAAA">
 <table width="100%" height="100%" border="0" valign="TOP" cellpadding="5" cellspacing="1"><tr><td valign="TOP" width="100%" height="100%" bgcolor="#ffffff" class="content">
 <table border="0" width="100%" height="100%" align="CENTER" cellpadding="1" cellspacing="0"><tr><td valign="TOP" class="contents">
-Program:&nbsp;<a class="contents" href="${h.url.app(e.k)}">${h.esc(e.a)}</a><br><br>
+${author ? `Author:&nbsp;<a class="contents" href="${h.url.site(e.s)}">${h.esc(author)}</a>` : `Program:&nbsp;<a class="contents" href="${h.url.app(e.k)}">${h.esc(e.a)}</a>`}<br><br>
 </td></tr><tr><td valign="TOP" align="LEFT" class="contents">
-Source:&nbsp;<b>${h.esc(h.siteName(e.s))}</b><br>
-Archived:&nbsp;<b>${h.esc(h.archivedLabel(e))}</b><br>${e.d ? `<br>Created:&nbsp;<b>${h.esc(e.d)}</b><br>` : ''}
+${info.map(([k, v]) => `${k === 'Created' ? '<br>' : ''}${LABEL[k] || `${h.esc(k)}:&nbsp;<b>`}${h.esc(v)}</b><br>`).join('')}
 <br>
 </td></tr>
+${x.Compatibility ? `<tr><td valign="bottom" class="contents">${xp ? `<img src="${A}16-winxp-icon.gif" border="0" align="absmiddle">&nbsp;` : ''}<b>${h.esc(x.Compatibility).replace(/ /g, '&nbsp;')}</b></td></tr>` : ''}
 <tr><td valign="TOP" height="100%" class="contents">
 <br>
-${e.g.length ? `<b>Description:&nbsp;<br></b>${e.g.map(t => h.esc(t)).join(', ')}` : ''}
+${desc ? `<b>Description:&nbsp;<br></b>${desc}` : ''}
 </td>
 </tr>
 </table>
@@ -416,7 +434,9 @@ ${Object.entries(a.types).map(([t, n]) => `<a class="content" href="${h.link({},
     list(ctx) {
       const { h, route: r, list: l, about } = ctx;
       const title = l.typeName || (r.app ? h.appName(r.app) : r.site ? h.siteName(r.site) : r.tag || (r.q ? `Search: ${r.q}` : 'All items'));
-      const search = searchBar(h, r, l.facets.apps, l.facets.types.map(([t]) => t), l.typeName);
+      // a library's checkbox row lists all of its categories, as the original did
+      const lib = r.app && ctx.manifest.apps.find(a => a.slug === r.app);
+      const search = searchBar(h, r, ctx.manifest.apps.map(a => [a.slug, a.name]), lib ? Object.keys(lib.types) : l.facets.types.map(([t]) => t), l.typeName);
       const box = about
         ? frame(`About ${h.esc(title)}`, `<table width="100%" border="0" valign="TOP" cellpadding="0" cellspacing="5"><tr><td valign="TOP" width="100%" class="content"><div class="cm-about">${about.html}</div></td></tr><tr><td align="right" width="100%" class="content"><a class="content" href="${h.esc(about.edit)}" target="_blank" rel="noopener">Edit</a>&nbsp;&nbsp;-&nbsp;&nbsp;<a class="content" href="${h.link(r, { site: '' })}">Close</a> &nbsp;</td></tr></table>`, { width: '100%', bg: '#F6F6F6' })
         : aboutBox(`About ${h.esc(title)}`, `${h.esc(title)}: ${l.total} items`,
@@ -438,7 +458,6 @@ ${Object.entries(a.types).map(([t, n]) => `<a class="content" href="${h.link({},
       // "Comments" box: details, description and the full-size preview as comment panels
       const comments = frame('Details',
         panel(`${h.details(e).map(([k, v]) => `<b>${k}:</b> ${v}`).join('<br>\n')}${by(`${a(h.edit(e), 'Edit')}&nbsp;-&nbsp;${a(h.report(e), 'Report')}${h.page(e) ? `&nbsp;-&nbsp;${a(h.page(e), 'Original page')}` : ''}`)}`)
-        + (e.desc ? panel(e.desc) : '')
         + panel(`<div align="center" class="cm-media">${h.media(e)}</div>`),
         { width: '100%', bg: '#F6F6F6' });
       return page(ctx, left(ctx, r), search + box + entry(h, e) + comments, right(ctx));

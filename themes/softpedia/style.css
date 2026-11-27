@@ -80,3 +80,14 @@ html[data-theme="softpedia"] #app td[height]:not([background]) { box-sizing:bord
 html[data-theme="softpedia"] .spx-opts { margin:0 0 1em; }
 /* quirks: a block holding only an inline element gets no strut from its own (larger) font */
 html[data-theme="softpedia"] .spx-q { font-size:0; }
+/* item page: the original's 170x116 award slot holds our archive status */
+html[data-theme="softpedia"] .spx-badge { display:flex; flex-direction:column; align-items:center; justify-content:center; gap:4px; width:170px; height:116px; box-sizing:border-box; border:2px solid #2C4886; border-radius:8px; background:linear-gradient(#3B5DA6, #001F5B); color:#fff !important; text-decoration:none; text-align:center; }
+html[data-theme="softpedia"] .spx-badge b { font:bold 16px Arial,sans-serif; }
+html[data-theme="softpedia"] .spx-badge span { font:bold 11px Verdana,sans-serif; color:#C9D9FF; }
+html[data-theme="softpedia"] .spx-badge i { font:italic 10px Georgia,serif; color:#9FB2DC; }
+html[data-theme="softpedia"] .spx-badge-no { background:linear-gradient(#8A93A8, #4A5470); border-color:#5C6985; }
+/* home: the original's 150x136 "This week's pick" picture slot */
+html[data-theme="softpedia"] .spx-pick { display:flex; flex-direction:column; align-items:center; justify-content:center; width:150px; height:136px; box-sizing:border-box; border:1px solid #9CB5E5; background:linear-gradient(#fff, #E3EBFB); text-decoration:none; color:#34538C; }
+html[data-theme="softpedia"] .spx-pick b { font:bold 26px Arial,sans-serif; }
+html[data-theme="softpedia"] .spx-pick span { font:bold 11px Arial,sans-serif; margin-bottom:6px; }
+html[data-theme="softpedia"] .spx-pick i { font:9px Verdana,sans-serif; font-style:normal; color:#5C6985; white-space:nowrap; overflow:hidden; max-width:140px; text-overflow:ellipsis; }

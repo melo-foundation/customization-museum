@@ -1,4 +1,4 @@
-import glob, json, os, re, shutil, urllib.parse
+import glob, html, json, os, re, shutil, urllib.parse
 from lib import load
 
 state = load("archive_state.json")
@@ -141,6 +141,10 @@ for f in sorted(glob.glob("data/*.json")):
             if s.get("ts"):
                 return s["ts"] + ("|" + s["u"] if s.get("u") else "")
             return "2" if dead and e.get(k) else None
+        # some scrapers keep HTML entities ("&amp;"); themes escape on output, so store plain text
+        e["title"] = html.unescape(e["title"])
+        if e.get("extra"):
+            e["extra"] = {html.unescape(k): html.unescape(str(v)) for k, v in e["extra"].items()}
         y, g = classify(e["app"], e.get("tags") or [])
         if (e.get("date") or "")[:4] < "1990":
             e["date"] = ""  # epoch placeholders (1969/1970) from broken source dates

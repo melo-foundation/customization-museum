@@ -79,8 +79,8 @@
         <tr><td style="padding-left:6px" class="celltext"> Hello, visitor<br><br> <a href="${h.url.request()}"${ext(h.url.request())}>Request</a> a site if you know a lost one.<br> <br> Otherwise, <a href="${h.url.home()}">browse</a> them all. </td></tr></table>
       <br>${boxes}`;
   }
-  const liBox = (h, title, items) => `<table width="150" border="0" cellspacing="0" cellpadding="0"><tr><td height="34" class="right_title_bkg">${h.esc(title)} </td></tr>
-    <tr><td style="padding-left:6px; padding-bottom:15px">${items.map(([u, t]) => `<li><a href="${u}" title="${h.esc(t)}">${h.esc(t.length > 20 ? t.slice(0, 20) + '...' : t)}</a></li>`).join('')}</td></tr></table>`;
+  const liBox = (h, title, items, pb = 15) => `<table width="150" border="0" cellspacing="0" cellpadding="0"><tr><td height="34" class="right_title_bkg">${h.esc(title)} </td></tr>
+    <tr><td style="padding-left:6px; padding-bottom:${pb}px">${items.map(([u, t]) => `<li><a href="${u}" title="${h.esc(t)}">${h.esc(t.length > 20 ? t.slice(0, 20) + '...' : t)}</a></li>`).join('')}</td></tr></table>`;
 
   function page(ctx, centerAttrs, center, rightCol) {
     const { h } = ctx;
@@ -103,6 +103,25 @@
     const p = h.pager(r, l.pages);
     return `Pages: ${p.prev ? `<a href="${p.prev}">&laquo;</a> ` : ''}${p.items.map(i => i.gap ? '... ' : i.current ? `<b>${i.n}</b> ` : `<a href="${i.url}">${i.n}</a> `).join('')}${p.next ? `<a href="${p.next}">&raquo;</a>` : ''}`;
   };
+  function related(ctx, e) {
+    const { h } = ctx, E = h.esc, rel = (ctx.related || []).filter(x => x.i !== e.i);
+    if (!rel.length) return '';
+    const newest = [...rel].sort((a, b) => (b.d || '').localeCompare(a.d || '')).slice(0, 7);
+    const oldest = [...rel].filter(x => !newest.includes(x)).sort((a, b) => (a.d || '9').localeCompare(b.d || '9')).slice(0, 7);
+    const row = (x, i) => `<tr${i % 2 ? '' : ' bgcolor="EFF3FC"'}><td width="564" style="padding-bottom:5px; padding-top:5px"><table width="100%" border="0" cellspacing="0" cellpadding="1">
+        <tr><td width="32" height="26" rowspan="3" align="center" valign="top" class="celltitles" style="padding-right:2px"><a href="${h.url.item(x)}" title="${E(x.t)}">${icon32(h, x)}</a></td><td class="celltitles spx-q"><a href="${h.url.item(x)}" title="${E(x.t)}">${E(x.t)}</a></td></tr>
+        <tr><td class="celltext_description">${x.n ? E(summary(x.n)) : `${E(x.a)} - ${E(x.y.join(', '))}`}</td></tr>
+        <tr><td class="celltext">${E(x.y[0] || '')} | ${E(h.siteName(x.s))}</td></tr></table></td>
+      <td width="170" style="padding-bottom:5px; padding-top:5px"><table width="100%" border="0" cellspacing="0" cellpadding="1">
+        <tr><td align="right" class="celltext"><a href="${h.url.item(x)}">details</a></td></tr>
+        <tr><td class="orizdotsbkg spx-io">${img('oriz_dots.gif', 4, 1, 'vspace="5"')}</td></tr>
+        <tr><td align="right" class="celltext">${x.z ? '<span class="celltext_pick">archived</span>' : '<span class="celltext_update">not archived</span>'}</td></tr></table></td></tr>`;
+    const box = (title, rows, last) => `<table width="770" border="0" cellpadding="0" cellspacing="0" class="indexcellbkg_2"><tr><td valign="top" style="padding-left:15px; padding-top:15px">
+        <table width="100%" border="0" cellspacing="0" cellpadding="0"><tr><td width="70%" class="spx-q"><span class="celltitles_categ">${title} ( <a href="${h.url.app(e.k)}">${E(e.a)}</a> ) </span> </td><td width="30%" align="right" class="celltext" style="padding-right:8px">&nbsp;</td></tr></table>
+        <span class="celltitles"><br></span><table width="754" border="0" cellspacing="0" cellpadding="5">${rows.map(row).join('')}
+        ${last ? `<tr><td colspan="2"><hr size="1"><table width="100%" border="0" cellspacing="0" cellpadding="0"><tr class="celltext"><td width="30%" style="padding-left:40px"><a href="#" onclick="scrollTo(0,0);return false">go to top</a> </td><td width="70%" align="right" style="padding-right:3px">&nbsp;</td></tr></table></td></tr>` : ''}</table></td></tr></table>`;
+    return box('NEWEST DOWNLOADS FROM THIS PROGRAM', newest, !oldest.length) + (oldest.length ? '<br><br>' + box('OLDEST DOWNLOADS FROM THIS PROGRAM', oldest, true) : '') + '<br><br><br>';
+  }
   const setBase = h => { A = h.url.home() + 'themes/softpedia/assets/'; };
 
   THEMES.softpedia = {
@@ -140,6 +159,10 @@
           <td width="380" valign="top">${box(types[0], 0, 52)}</td><td width="20"></td>
           <td width="380" valign="top">${types.slice(1, 6).map((t, i) => box(t, i + 1, 14) + '<br>').join('')}</td></tr></table><br><br>`;
       const side = `<div id="first_ad_unit"></div><hr size="1" noshade style="color:#BECEEE"><div align="center" class="spx-ad120" style="margin-left: 15px; border: 1px solid #FFFFFF;width: 120px; height:90px"><b>${Math.round(100 * m.archived / m.total)}%</b><span>of the archive is<br>backed up</span></div><br>
+        <table width="150" border="0" cellspacing="0" cellpadding="0"><tr><td height="34" class="right_title_bkg">Largest collection: </td></tr>
+          <tr><td class="rightcellcontent" style="padding-bottom:5px"><a href="${h.url.app(m.apps[0].slug)}">${E(m.apps[0].name)}</a><br><br>
+            <a class="spx-pick" href="${h.url.app(m.apps[0].slug)}"><b>${m.apps[0].count.toLocaleString()}</b><span>files</span>${Object.entries(m.apps[0].types).slice(0, 4).map(([t, n]) => `<i>${E(t)}: ${n.toLocaleString()}</i>`).join('')}</a><br>
+            ${E(m.apps[0].name)} has the most files in the archive, across ${Object.keys(m.apps[0].types).length} file types.</td></tr></table><br>
         ${liBox(h, 'Top sources:', srcs.slice(0, 30).map(([s, i]) => [h.url.site(s), i.name]))}`;
       return page(ctx, 'width="795" style="padding-left:25px"', center, right(ctx, side));
     },
@@ -173,7 +196,7 @@
       const opts = `<form class="spx-opts" onsubmit="location.href='${h.link(r, {})}';return false"><table width="150" border="0" cellspacing="0" cellpadding="0"><tr><td height="34" class="right_title_bkg">Category Options:</td></tr>
         <tr><td style="padding-left:6px; padding-bottom:5px" class="celltext"> Show only:<br> ${h.archSelect(r).replace('<select', '<select class="searchdrop" style="width:140px"')} <br><br> Sort By:<br> ${h.sortSelect(r).replace('<select', '<select class="searchdrop" style="width:140px"')} <br><br>
           <input type="checkbox"${r.arch === '1' ? ' checked' : ''} onchange="location.href=this.checked?'${h.link(r, { arch: '1' })}':'${h.link(r, { arch: '' })}'"> Only archived files <br><br> <input type="submit" class="general_button" value="Continue"> </td></tr></table></form>`;
-      const side = `${opts}${liBox(h, 'Main categories:', ctx.manifest.apps.slice(0, 20).map(x => [h.url.app(x.slug), x.name]))}
+      const side = `${opts}${liBox(h, 'Main categories:', ctx.manifest.apps.slice(0, 20).map(x => [h.url.app(x.slug), x.name]), 5)}<br>
         ${liBox(h, 'File types:', f.types.slice(0, 30).map(([t]) => [h.link(r, { type: t, tag: "" }), t]))}`;
       return page(ctx, 'width="822" align="center"', center, right(ctx, side));
     },
@@ -201,6 +224,10 @@
                 <tr><td colspan="2" class="dotsdwld spx-io">${img('dots_dwld.gif', 3, 3, 'vspace="5"')}</td></tr>
                 <tr><td colspan="2" height="20" class="celltext"><b>Archived:</b> ${E(h.archivedLabel(e))}<br><b>Source:</b> ${E(h.siteName(e.s))}</td></tr>
                 <tr><td colspan="2" class="dotsdwld spx-io">${img('dots_dwld.gif', 3, 3, 'vspace="5"')}</td></tr>
+                <tr><td colspan="2" height="21" class="celltext" valign="top"><b>Type:</b> ${e.y.map(t => `<a href="${h.url.type(t)}">${E(t)}</a>`).join(', ')}</td></tr>
+                <tr><td colspan="2" class="dotsdwld spx-io">${img('dots_dwld.gif', 3, 3, 'vspace="5"')}</td></tr>
+                <tr><td colspan="2"><a class="spx-badge${e.z ? '' : ' spx-badge-no'}" href="${E(file || pg || h.url.app(e.k))}"${ext(file || pg)}><b>${e.z ? 'ARCHIVED' : 'NOT YET ARCHIVED'}</b><span>${E(h.archivedLabel(e))}</span><i>Wayback Machine</i></a></td></tr>
+                <tr><td style="padding-bottom:10px" colspan="2" width="100%" valign="top"></td></tr>
                 <tr><td colspan="2" width="100%" valign="top"><table width="100%" border="0" cellspacing="0" cellpadding="0"><tr><td height="20" bgcolor="#EFF3FC" class="celltitles" style="padding-left:5px"><img src="${A}news.gif" align="absmiddle"> <a style="text-decoration:none" href="${h.url.app(e.k)}">More ${E(e.a)}</a></td><td height="20" bgcolor="#EFF3FC" class="celltitles"></td></tr>
                   <tr><td colspan="2" class="orizdotsbkg spx-io">${img('oriz_dots.gif', 2, 1, 'vspace="5"')}</td></tr>
                   ${e.y.concat(more ? Object.keys(more.types).filter(t => !e.y.includes(t)) : []).slice(0, 7).map(t => `<tr><td colspan="2" height="20" class="celltext" style="padding-left:5px">- <a href="${h.link({}, { app: e.k, type: t })}">${E(e.a + ' ' + t)}</a></td></tr>`).join('')}</table><br></td></tr></table></td>
@@ -213,9 +240,15 @@
               <br><table width="100%" border="0" cellspacing="0" cellpadding="0"><tr><td height="20" valign="top" class="celltitles" align="left">${E(e.t)} description</td>
                 <td class="celltext" align="right"><img src="${A}download_small.gif" align="top" hspace="2">${a(file, 'Download')}</td></tr>
                 <tr><td class="orizdotsbkg spx-io" colspan="2">${img('oriz_dots.gif', 2, 1, 'vspace="5"')}</td></tr>
-                <tr><td valign="top" class="celltext_big" colspan="2"><div align="justify">${e.desc || `${E(e.t)} is a ${E((e.y[0] || 'customization').toLowerCase())} item for ${E(e.a)}, recovered from ${E(h.siteName(e.s))}.`}</div></td></tr></table></td>
-          </tr></table></td></tr></table>`;
-      const side = liBox(h, 'Main categories:', m.apps.slice(0, 20).map(x => [h.url.app(x.slug), x.name])) +
+                <tr><td valign="top" class="celltext_big" colspan="2"><span id="intelliTxt"><div align="justify"><div style="margin:0px 0px 5px 5px; float:right; width:100px;border:1px solid #CCCCCC;">${a(e.v ? h.thumb(e) : '', h.img(e, 'width="100" height="54" border="0" class="spx-ico"') || '<span class="spx-noshot" style="display:block;width:100px;height:54px;line-height:54px"></span>')}<br><div class="ed_box">${a(pg, 'Click to view the original page for ' + E(e.t))}</div></div>${(e.desc || '').replace(/<p>(<b>[^<]*<\/b>)<\/p>\s*<p>(?!<b>[^<]*<\/b><\/p>)/g, '<p>$1<br>').replace(/<\/p>\s*<p>/g, '<br><br>').replace(/<\/?p>/g, '') || `${E(e.t)} is a ${E((e.y[0] || 'customization').toLowerCase())} item for ${E(e.a)}, recovered from ${E(h.siteName(e.s))}.`}</div></span></td></tr></table>
+              <br><table style="border:1px solid #D8E2FA" width="100%" border="0" cellspacing="0" cellpadding="5"><tr><td class="celltext">${E(e.t)} was archived automatically and has <b style="color:blue">NOT been checked</b>, which means it may contain malware, including but not limited to: spyware, viruses, trojans and backdoors.<br><br>Scan anything you download from this archive before opening it. If this file is broken, wrong or harmful, report it with the link below and it will be reviewed and removed from the listing if needed.</td></tr></table><br>
+              <div class="celltext_big"></div><table bgcolor="#EFF3FC" width="100%" border="0" cellspacing="0" cellpadding="5">
+                <tr><td valign="center" align="left" class="celltext"><img src="${A}download2.gif" align="top" hspace="2">${a(file, `<b style="font-size:11px">${E(e.t)} Download</b>`)}</td></tr>
+                <tr><td valign="center" align="left" class="celltext"><img src="${A}screenshot2.gif" align="top" hspace="2">${a(pg, `<b style="font-size:11px">${E(e.t)} Original Page</b>`)}</td></tr>
+                <tr><td valign="center" align="left" class="celltext"><img src="${A}find.gif" align="top" hspace="2">${a(h.url.app(e.k), '<b style="font-size:11px">Find Related Downloads</b>')}</td></tr>
+                <tr><td valign="center" align="left" class="celltext"><img src="${A}version_update.gif" width="24" height="24" align="top" hspace="2">${a(h.report(e), '<b style="font-size:11px">Report this file</b>')}</td></tr></table></td>
+          </tr></table><br><br></td></tr></table>${related(ctx, e)}`;
+      const side = liBox(h, 'Main categories:', m.apps.slice(0, 20).map(x => [h.url.app(x.slug), x.name]), 5) + '<br>' +
         liBox(h, 'File types:', Object.keys(m.types).slice(0, 30).map(t => [h.url.type(t), t]));
       return page(ctx, 'width="822" align="center"', center, right(ctx, side));
     },
