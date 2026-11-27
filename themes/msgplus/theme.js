@@ -1,44 +1,88 @@
 // label: Messenger Plus! Gallery
 // Markup follows msgpluslive.net/skins (2009-2010) element for element; only content regions are filled from ctx.
 (() => {
-  const mark = (w, h) => `<svg width="${w}" height="${h}" viewBox="0 0 60 58" aria-hidden="true"><path d="M2 8C14 0 30 4 38 20L22 34C10 30 3 20 2 8Z" fill="#2a91d8"/><path d="M26 4C40 6 54 20 50 40L36 52 28 30Z" fill="#f7941d"/><path d="M12 34 28 24l8 14-12 14z" fill="#8bc34a"/></svg>`;
+  const A = 'themes/msgplus/assets/';
+  const WLM = 'wlm', MSN = 'msn-wlm';
+  // pages of the original site that have no counterpart here open as their archived copies
+  const orig = p => `https://web.archive.org/web/2009/http://www.msgpluslive.net/${p}`;
+  const ext = 'rel="external noopener" target="_blank"';
+  const FEED = 'https://github.com/melo-foundation/customization-museum/commits/main.atom';
+  const dataDir = () => { const d = new URLSearchParams(location.search).get('data'); return d && /^[a-z0-9_./-]+\/$/i.test(d) && !d.includes('..') ? d : 'idx/'; };
+
   const fmtDate = d => {
     if (!d) return '';
     const [y, m, day] = d.split('-');
     const mon = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'][+m - 1];
     return mon && day ? `${mon} ${day}&#44; ${y}` : y;
   };
+  const num = v => parseFloat(String(v || '').replace(/,/g, '')) || 0;
+  const count = v => /^\d+$/.test(String(v)) ? (+v).toLocaleString('en-US') : v;
+  const flat = s => String(s).toLowerCase().replace(/[^a-z0-9]/g, '');
 
-  // five labelled fields per listing row, like the original: real scraped ones first, then ours to keep the geometry
+  // "Life of Vista 2d" -> name + version, the way the original printed them (the name is in the original page address)
+  const title = e => {
+    const t = String(e.t).replace(/\\n/g, '').replace(/\s+-\s+Windows Live Messenger Skin$/, '').replace(/\s+/g, ' ').trim();
+    const m = e.s === WLM && (e.p || '').match(/view\/\d+-(.+?)\/?$/);
+    if (m) {
+      const words = t.split(' '), want = flat(m[1]);
+      for (let i = 1; i < words.length; i++) if (flat(words.slice(0, i).join(' ')) === want) return [words.slice(0, i).join(' '), words.slice(i).join(' ')];
+    }
+    return [t, ''];
+  };
+
+  const MEDIA = /\.(mp3|wav|ogg|mid|midi|wma|mp4|webm)$/i;
+  const isPic = e => !!e.v && !MEDIA.test(e.v);
+  // a screenshot that cannot be loaded leaves its cell as it would be without one
+  window.cmMsgplusShot = img => {
+    if (!img.dataset.f && img.dataset.alt) { img.dataset.f = 1; img.src = img.dataset.alt; return; }
+    const cell = img.closest('td, p');
+    cell?.querySelectorAll('br, a.highslide').forEach(n => n.remove());
+    img.remove();
+  };
+  const shot = (h, e, cls, altText) => `<img class="frame ${cls}" src="${h.esc(h.thumb(e))}" alt="${h.esc(altText)}" data-alt="${h.esc(h.thumbFallback(e))}" onerror="cmMsgplusShot(this)"/>`;
+  const thumbCell = (h, e, name) => isPic(e) ? `${shot(h, e, 'cm-thumb', `${name} screenshot`)}
+        <br/><a href="${h.esc(h.thumb(e))}" class="highslide" target="_blank" rel="noopener"><strong>full screenshot</strong></a>` : '';
+
+  // labelled fields of a listing row, the original's five first, then what we have for items from elsewhere
   const fields = (h, e) => {
     const x = e.x || {}, out = [];
     if (x.Creator) out.push(['Creator', h.esc(x.Creator)]);
-    out.push(['Added', fmtDate(e.d) || 'Unknown']);
-    if (x.Downloads) out.push(['Downloads', h.esc(x.Downloads)]);
+    if (e.d) out.push(['Added', fmtDate(e.d)]);
+    if (x.Downloads) out.push(['Downloads', h.esc(count(x.Downloads))]);
     if (x.Rating) out.push(['Rating', h.esc(x.Rating)]);
     if (x.Compatibility) out.push(['Compatibility', h.esc(x.Compatibility)]);
-    for (const f of [['Program', `<a href="${h.url.app(e.k)}">${h.esc(e.a)}</a>`], ['Type', e.y.map(t => `<a href="${h.url.type(t)}">${h.esc(t)}</a>`).join(', ')],
+    for (const f of [['Category', e.y.map(t => `<a href="${h.url.type(t)}">${h.esc(t)}</a>`).join(', ')], ['Program', `<a href="${h.url.app(e.k)}">${h.esc(e.a)}</a>`],
       ['Source', `<a href="${h.url.site(e.s)}">${h.esc(h.siteName(e.s))}</a>`], ['Archived', h.esc(h.archivedLabel(e))]]) {
       if (out.length >= 5) break;
       out.push(f);
     }
-    return out.slice(0, 5);
+    return out;
   };
 
+  const clear = r => ({ ...r, app: '', type: '', site: '', tag: '', q: '', arch: '', sort: '', item: '', page: 1 });
+  const browsing = () => location.hash === '#browse';
+  const urls = ctx => {
+    const { h, route: r } = ctx, all = clear(r);
+    return {
+      home: h.url.home(), browse: h.url.home() + '#browse', newest: h.link(all, {}), request: h.url.request(),
+      skins: h.link(all, { site: WLM }), rating: h.link(all, { site: WLM, sort: 'rating' }), downloads: h.link(all, { site: WLM, sort: 'downloads' }),
+    };
+  };
+  const tagline = (h, k) => `Give ${k === MSN ? 'Messenger' : k ? h.appName(k) : 'your programs'} a fresh new look`;
+
+  const nav = u => [['home', u.home], ['news', orig('news/'), ext], ['download', u.newest], ['features', orig('features/'), ext], ['help', orig('help/'), ext], ['more', orig('more/'), ext]];
+
   const header = (ctx, title, sub) => {
-    const { h, route: r } = ctx;
-    const all = { ...r, app: '', type: '', site: '', tag: '', q: '', item: '' };
+    const { h } = ctx, u = urls(ctx);
     return `<div id="header">
-	<h1><a href="${h.url.home()}" class="cm-logo"><span class="cm-logo-mark">${mark(62, 60)}</span><span class="cm-logo-t">Customization <b>Museum</b></span><span class="cm-logo-s">old skins, themes &amp; emoticons</span></a></h1>
+	<h1><a href="${u.home}"><img src="${A}msgpluslive-logo.png" width="309" height="65" alt="Messenger Plus! Live - The Windows Live Messenger Extension"/></a></h1>
+	<span class="cm-replica">Customization Museum replica</span>
 	<ul id="mainnav">
-		<li id="navhome"><a href="${h.url.home()}">home</a></li>
-		<li id="navnews"><a href="${h.link(all, { sort: '' })}">newest</a></li>
-		<li id="navdownload"><a href="${h.link(all, { sort: '' })}" id="mainnav-link-download">browse</a></li>
-		<li id="navfeatures"><a href="${h.link(all, { sort: 'old' })}">oldest</a></li>
-		<li id="navhelp"><a href="${h.link(all, { sort: 'az' })}">a-z</a></li>
-		<li id="navmore"><a href="${h.url.request()}" target="_blank" rel="noopener">request</a></li>
+${nav(u).map(([t, href, a]) => `		<li id="nav${t}"><a href="${href}"${t === 'download' ? ' id="mainnav-link-download"' : ''}${a ? ' ' + a : ''}>${t}</a></li>`).join('\n')}
 	</ul>
-	<div id="header-toolbar"><a id="header-toolbar-changecolor" href="#theme"><img src="themes/msgplus/assets/colorize.png" alt="Change theme"/></a></div>
+	<div id="header-toolbar">
+	    <a id="header-toolbar-changecolor" href="#" onclick="document.querySelector('.langbox select').focus();return false"><img src="${A}colorize.png" alt="Change color scheme"/></a>
+	 </div>
 </div>
 <div id="contentheaderhelper">
 <div id="contentheader">
@@ -47,56 +91,65 @@
 </div>
 </div>
 <div id="contentheaderright">
-	<div class="langbox"><label>Theme:&nbsp;</label>${h.themePicker()} ${h.fidelityToggle()}</div>
-</div>`;
+	<div class="langbox">
+	<label>Viewing site in:&nbsp;</label>
+	${h.themePicker()}${h.fidelityToggle()}
+</div></div>`;
   };
 
   const sidebar = (ctx) => {
-    const { h, route: r, manifest: m } = ctx;
-    const all = { ...r, app: '', type: '', site: '', tag: '', q: '', item: '' };
-    const box = (title, items) => `<div class="box">
-			<h5>${title}</h5>
-			<ul>
-${items.map(([href, label, sub]) => `				<li><a href="${href}">${h.esc(label)}${sub ? `					<span>${h.esc(sub)}</span>` : ''}</a></li>`).join('\n')}
-			</ul>
-		</div>`;
+    const { h, route: r } = ctx, u = urls(ctx);
+    const li = (href, label, sub, a) => `				<li><a href="${href}"${a ? ' ' + a : ''}>${label}${sub ? `					<span>${sub}</span>` : ''}</a></li>`;
     return `	<div class="right">
 		<form method="get" id="searchform" data-search>
 			<div>
 				<input type="text" value="${h.esc(r.q)}" name="q" id="q" style="width:130px;"/><br/>
-				<input type="submit" id="searchsubmit" value="Search Items"/>
+				<input type="submit" id="searchsubmit" value="Search Skins"/>
 			</div>
 		</form>
 		<p align="center">
-		<a href="${h.url.request()}" target="_blank" rel="noopener"><img src="themes/msgplus/assets/feedicon.gif" width="14" height="14" alt=""/> Request an item</a><br/><br/>
-		<a class="cm-badge" href="${h.link(all, { arch: '1' })}">${m.archived.toLocaleString()} archived</a>
+		<a href="${FEED}" ${ext}><img src="${A}feedicon.gif" width="14" height="14" alt="RSS Feed"/> Skin updates via RSS</a><br/><br/>
+		<span class="cm-pick">${h.sortSelect(r)}${h.archSelect(r)}</span>
 		</p>
-		${box('browsing links', [[h.link(all, { sort: '' }), 'Newest Items', 'Everything, latest first'], [h.link(all, { sort: 'old' }), 'Oldest Items', 'From the very beginning'], [h.link(all, { sort: 'az' }), 'A to Z'], [h.link(all, { arch: '1' }), 'Archived Only'], [h.url.home(), 'All Programs']])}
-		${box('more things you can do', [[h.url.home(), 'Browse by Program'], [h.url.request(), 'Request an Item']])}
+		<div class="box">
+			<h5>skinning links</h5>
+			<ul>
+${li(u.skins, 'Featured Skins', 'Awesome skins you shouldn&#039;t miss')}
+${li(orig('skins/resources/'), 'Create a Skin', 'Everything you need to know to get started', ext)}
+${li(u.request, 'Submit a Skin', '', ext)}
+${li(orig('skins/help/'), 'Skins Help', '', ext)}
+${li(orig('skins/stats/'), 'Statistics', '', ext)}
+			</ul>
+		</div>
+		<div class="box">
+			<h5>more things you can do</h5>
+			<ul>
+${li(orig('download/'), 'Download Plus!', '', ext)}
+${li(orig('help/'), 'Help &amp; Forums', '', ext)}
+			</ul>
+		</div>
 	</div>`;
   };
 
   const footer = (ctx) => {
-    const { h, route: r } = ctx;
-    const all = { ...r, app: '', type: '', site: '', tag: '', q: '', item: '' };
+    const u = urls(ctx);
     return `<div id="footer">
-	<div id="gfddlogo"><a href="${h.url.request()}" class="cm-gfdd" target="_blank" rel="noopener">customization<br/><b>museum</b></a></div>
-	<p>Customization Museum &copy; an unofficial archive of user-made customization<br/>
-	<small>Program names and marks belong to their respective owners.<br/>
-	Files are archived automatically and are not checked.<br/>
-	Report a bad entry with the <em>Report</em> link on its page.</small>
+	<div id="gfddlogo"><a href="https://web.archive.org/web/2009/http://www.gfddgroup.com/" ${ext}><img src="${A}gfdd.png" alt="Design and Web Development by GFDD Group" width="137" height="35"/></a></div>
+	<p>Messenger Plus!&#8482; &amp; MsgPlus &copy;2001-2010 by Yuna Software<br/>
+	<small>MSN and Windows Live are registered trademarks of Microsoft Corporation.<br/>
+	Other products' names may be trademarked by their respective owners.<br/>
+	This replica by Customization Museum is not affiliated in <em>any</em> way with Yuna Software or Microsoft Corporation.</small>
 	</p>
-	<p class="side"><small><a href="${h.url.request()}" target="_blank" rel="noopener"> request </a>&amp;<a href="${h.url.request()}" target="_blank" rel="noopener"> report </a></small></p>
-	<p class="links"><a href="${h.url.home()}">home </a>|<a href="${h.link(all, { sort: '' })}"> newest </a>|<a href="${h.link(all, { sort: '' })}"> browse </a>|<a href="${h.link(all, { sort: 'old' })}"> oldest </a>|<a href="${h.link(all, { sort: 'az' })}"> a-z </a>|<a href="${h.url.request()}" target="_blank" rel="noopener"> request</a></p>
+	<p class="side"><small><a href="${u.request}" ${ext}> request </a>&amp;<a href="${u.request}" ${ext}> report </a></small></p>
+	<p class="links">${nav(u).map(([t, href, a], i, l) => `<a href="${href}"${a ? ' ' + a : ''}>${i ? ' ' : ''}${t}${i < l.length - 1 ? ' ' : ''}</a>`).join('|')}</p>
 </div>`;
   };
 
   const page = (ctx, o) => `<div id="bghelper">
 <div id="container">
 ${header(ctx, o.title, o.sub)}
-${o.banner ? `<div class="cm-banner">${o.banner}</div>` : ''}
 <div class="content">
-<div class="left">
+	<div class="left">
 ${o.left}
 </div>
 ${sidebar(ctx)}
@@ -105,21 +158,22 @@ ${footer(ctx)}
 </div>
 </div>`;
 
-  const warning = h => h.warning() ? `<div class="highlight important cm-warning"><strong>Important:</strong> Files are archived automatically and are not checked. They may contain malware: scan anything you download. <button data-dismiss-warning>OK</button></div>` : '';
+  const important = h => h.warning()
+    ? `<div class="highlight important cm-warning"><strong>Important:</strong> Files are archived automatically and are not checked. They may contain malware: scan anything you download. <button data-dismiss-warning>OK</button></div>`
+    : '';
 
   const buttons = (ctx) => {
-    const { h, route: r } = ctx;
-    const base = { ...r, item: '', page: 1 };
+    const { h, route: r } = ctx, u = urls(ctx);
     return ` <table width="100%" align="center" cellpadding="3" cellspacing="0" border="0">
   <tr>
     <td align="right">
     </td>
   </tr>
 </table>
-<div class="downdbbuttons"><a href="${h.link(base, { sort: '' })}" class="downdbbydate">browse by date</a>
-<a href="${h.link(base, { sort: 'old' })}" class="downdbbyrating">browse by age</a>
-<a href="${h.link(base, { sort: 'az' })}" class="downdbbydownloads">browse by name</a>
-<a href="${h.url.home()}" class="downdbbycategory">browse by category</a></div>`;
+<div class="downdbbuttons"><a href="${r.item || browsing() ? u.newest : h.link(r, { sort: '' })}" class="downdbbydate">browse by date</a>
+<a href="${u.rating}" class="downdbbyrating">browse by rating</a>
+<a href="${u.downloads}" class="downdbbydownloads">browse by downloads</a>
+<a href="${u.browse}" class="downdbbycategory">browse by category</a></div>`;
   };
 
   const crumbs = (h, list) => `<table class="afterdowndbbuttons" width="100%" border="0" align="center" cellpadding="3" cellspacing="0">
@@ -140,66 +194,110 @@ ${list.map(([t, u]) => `                &raquo; ${u ? `<a href="${u}">${h.esc(t)
   };
 
   const row = (h, e, i) => {
-    const bg = i % 2 ? '#ebf8ff' : '#f6fcff', u = h.url.item(e), img = h.thumb(e);
+    const bg = i % 2 ? '#ebf8ff' : '#f6fcff', u = h.url.item(e), [name, ver] = title(e);
     const f = fields(h, e);
     return `<table onclick="if(!event.target.closest('a'))location.href='${u}'" width="100%" border="0" align="center" cellpadding="3" cellspacing="0" class="border" onmouseover="this.style.backgroundColor='#ffffda';" onmouseout="this.style.backgroundColor='${bg}';" style="background-color:${bg}; cursor:pointer;">
    <tr>
-    <td width="35%" rowspan="6" align="center">
-        ${img ? `<img class="frame cm-thumb" src="${h.esc(img)}" alt="${h.esc(e.t)} screenshot" data-alt="${h.esc(h.thumbFallback(e))}" onerror="if(!this.dataset.f){this.dataset.f=1;this.src=this.dataset.alt}else{this.replaceWith(Object.assign(document.createElement('span'),{className:'frame cm-nothumb',textContent:'no preview'}))}"/>` : '<span class="frame cm-nothumb">no preview</span>'}
-        <br/><a href="${u}" class="highslide"><strong>full screenshot</strong></a>
+    <td width="35%" rowspan="${f.length + 1}" align="center">
+        ${thumbCell(h, e, name)}
             </td>
     <td width="88%" colspan="2">
-      <a href="${u}"><b>${h.esc(e.t)}</b></a>
+      <a href="${u}"><b>${h.esc(name)}</b></a> ${h.esc(ver)}
     </td>
   </tr>
 ${f.map(([k, v], j) => `   <tr>
     <td width="65%" align="left" colspan="2">
-    <i>${k}:</i> ${v}${j === 4 ? '        <br/>&nbsp;' : ''}
+    <i>${k}:</i> ${v}${j === f.length - 1 ? '        <br/>&nbsp;' : ''}
     </td>
   </tr>`).join('\n')}
 </table>`;
+  };
+  const rows = (h, list) => list.length ? list.map((e, i) => row(h, e, i)).join('\n') : '<p align="center">No skins found.</p>';
+
+  // ----- the Messenger Plus! skins themselves: rating and download order, front page boxes -----
+  let skins;
+  const loadSkins = h => skins ??= fetch(`${h.url.home()}${dataDir()}app/${MSN}.json`).then(r => r.json()).then(l => l.filter(e => e.s === WLM));
+  const ORDER = {
+    rating: (a, b) => num(b.x?.Rating) - num(a.x?.Rating) || num(b.x?.Downloads) - num(a.x?.Downloads),
+    downloads: (a, b) => num(b.x?.Downloads) - num(a.x?.Downloads),
+  };
+  const ownOrder = r => r.site === WLM && !r.app && ORDER[r.sort];
+
+  const fillRows = async (ctx, el) => {
+    const box = el.querySelector('[data-cm-rows]');
+    if (!box) return;
+    const { h, route: r } = ctx, per = THEMES.msgplus.perPage, words = r.q.toLowerCase().split(/\s+/).filter(Boolean);
+    const hits = (await loadSkins(h)).filter(e => (!r.type || e.y.some(t => h.slug(t) === h.slug(r.type))) && (!r.tag || e.g.includes(r.tag)) && (!r.arch || (r.arch === '1') === !!e.z)
+      && words.every(w => (e.t + ' ' + e.g.join(' ') + ' ' + e.y.join(' ')).toLowerCase().includes(w))).sort(ownOrder(r));
+    box.innerHTML = rows(h, hits.slice((ctx.list.page - 1) * per, ctx.list.page * per));
   };
 
   const fillFeatured = async (ctx, el) => {
     const boxes = el.querySelectorAll('table[data-feat]');
     if (!boxes.length) return;
-    const { h } = ctx;
-    const rows = (await fetch(h.url.home() + 'idx/app/msn-wlm.json').then(r => r.json())).filter(e => e.s === 'wlm' && e.v);
-    const num = v => parseFloat(String(v || '').replace(/,/g, '')) || 0;
-    const used = new Set(), first = list => { const e = list.find(e => !used.has(e.i)); if (e) used.add(e.i); return e; };
+    const { h } = ctx, list = (await loadSkins(h)).filter(isPic);
+    if (!list.length) return;
+    const used = new Set(), first = l => { const e = l.find(e => !used.has(e.i)); if (e) used.add(e.i); return e; };
     const pick = {};
-    pick.new = first([...rows].sort((a, b) => b.d.localeCompare(a.d)));
-    pick.top = first([...rows].sort((a, b) => num(b.x?.Downloads) - num(a.x?.Downloads) || a.d.localeCompare(b.d)));
-    pick.featured = first([...rows].sort((a, b) => num(b.x?.Rating) - num(a.x?.Rating) || b.d.localeCompare(a.d)));
+    pick.new = first([...list].sort((a, b) => b.d.localeCompare(a.d)));
+    pick.rating = first([...list].sort(ORDER.rating));
+    // a different well-liked skin every day
+    const liked = [...list].sort(ORDER.downloads).slice(0, 40).filter(e => !used.has(e.i));
+    pick.featured = liked[Math.floor(Date.now() / 864e5) % liked.length];
     for (const t of boxes) {
       const e = pick[t.dataset.feat];
       if (!e) continue;
-      const u = h.url.item(e), f = fields(h, e).slice(0, 4), tds = t.querySelectorAll('td');
-      tds[0].innerHTML = `<img class="frame cm-thumb" src="${h.esc(h.thumb(e))}" alt="${h.esc(e.t)} screenshot" data-alt="${h.esc(h.thumbFallback(e))}" onerror="if(!this.dataset.f){this.dataset.f=1;this.src=this.dataset.alt}else{this.replaceWith(Object.assign(document.createElement('span'),{className:'frame cm-nothumb',textContent:'no preview'}))}"/>\n    	<br/><a href="${u}" class="highslide"><strong>full screenshot</strong></a>`;
-      tds[1].innerHTML = `<strong><a href="${u}">${h.esc(e.t)}</a></strong>`;
-      f.forEach(([k, v], i) => { tds[2 + i].innerHTML = `<em>${k}:</em> ${v}`; });
+      const u = h.url.item(e), [name] = title(e), tds = t.querySelectorAll('td');
+      t.onclick = ev => { if (!ev.target.closest('a')) location.href = u; };
+      t.style.cursor = 'pointer';
+      tds[0].innerHTML = thumbCell(h, e, name);
+      tds[1].innerHTML = `<strong><a href="${u}">${h.esc(name)}</a></strong>`;
+      fields(h, e).filter(([k]) => k !== 'Rating').slice(0, 4).forEach(([k, v], i) => { tds[2 + i].innerHTML = `<em>${k}:</em> ${v}`; });
     }
+  };
+
+  const browse = (ctx) => {
+    const { h, manifest: m } = ctx;
+    const n = v => v.toLocaleString('en-US');
+    const cols = list => { const per = Math.ceil(list.length / 2); return [0, 1].map(i => `<td width="50%" valign="top"><ul>\n${list.slice(i * per, (i + 1) * per).join('\n')}\n</ul></td>`).join('\n'); };
+    const block = (name, bg, list) => `<table width="100%" border="0" align="center" cellpadding="3" cellspacing="0" class="border">
+  <tr class="sectionheader">
+    <td width="100%">${name}</td>
+  </tr></table>
+<table width="100%" border="0" align="center" cellpadding="3" cellspacing="0" class="border cm-cats" style="background-color:${bg};">
+  <tr>
+${cols(list.map(([href, t, c]) => `<li><a href="${href}"><b>${h.esc(t)}</b></a> (${n(c)})</li>`))}
+  </tr></table>`;
+    const left = `${buttons(ctx)}
+${crumbs(h, [['Messenger Skins', h.url.home()], ['Browse by Category', h.url.home() + '#browse']])}
+${block('Categories', '#f6fcff', Object.entries(m.types).map(([t, c]) => [h.url.type(t), t, c]))}
+${block('Programs', '#ebf8ff', m.apps.map(a => [h.url.app(a.slug), a.name, a.count]))}
+${block('Sources', '#f6fcff', Object.entries(m.sites).sort((a, b) => b[1].count - a[1].count).map(([s, i]) => [h.url.site(s), i.name, i.count]))}
+<p>&nbsp;</p>`;
+    return page(ctx, { title: 'Skins Database', sub: tagline(h, ''), left });
   };
 
   THEMES.msgplus = {
     label: 'Messenger Plus! Gallery',
-    after(ctx, el) { document.body.className = 'skinsdb'; return fillFeatured(ctx, el); },
+    perPage: 10,
+    after(ctx, el) {
+      document.body.className = 'skinsdb';
+      return Promise.all([fillFeatured(ctx, el), fillRows(ctx, el)]);
+    },
 
     home(ctx) {
-      const { h, manifest: m, route: r } = ctx;
-      const all = { ...r, app: '', type: '', site: '', tag: '', q: '', item: '' };
-      const li = list => list.map(([href, t]) => `<li><a href="${href}">${h.esc(t)}</a></li>`).join('\n');
-      const snaps = li([[h.link(all, { sort: '' }), 'Newest Items'], [h.link(all, { sort: 'old' }), 'Oldest Items'], [h.link(all, { sort: 'az' }), 'A to Z'], [h.link(all, { arch: '1' }), 'Archived Items']]);
+      if (browsing()) return browse(ctx);
+      const { h, manifest: m } = ctx, u = urls(ctx);
       const cats = Object.keys(m.types).slice(0, 9).map(t => `<li><a href="${h.url.type(t)}">${h.esc(t)}</a></li>`).join('');
-      const ext = Object.entries(m.sites).sort((a, b) => b[1].count - a[1].count).slice(0, 3).map(([s, i]) => `	<li><a href="${h.url.site(s)}">${h.esc(i.name)}</a></li>`).join('\n');
-      const feat = (title, key, more, moreUrl) => `<h3>${title}</h3>
+      const sources = Object.entries(m.sites).sort((a, b) => b[1].count - a[1].count).slice(0, 3).map(([s, i]) => `	<li><a href="${h.url.site(s)}">${h.esc(i.name)}</a></li>`).join('\n');
+      const feat = (heading, key, more, moreUrl) => `<h3>${heading}</h3>
 <div class="highlightwidthfix3 subhighlight"><div class="r1"><div class="r2"><div class="r5">
+
 <table width="100%" data-feat="${key}">
 	<tr>
-    <td rowspan="7" align="center" width="50%"><span class="frame cm-nothumb">&nbsp;</span>
-    	<br/><a class="highslide"><strong>full screenshot</strong></a>
+    <td rowspan="7" align="center" width="50%">
     </td>
-  <td width="50%"><strong><a>&nbsp;</a></strong></td></tr>
+  <td width="50%">&nbsp;</td></tr>
   <tr><td width="50%">&nbsp;</td></tr>
   <tr><td width="50%">&nbsp;</td></tr>
   <tr><td width="50%">&nbsp;</td></tr>
@@ -207,53 +305,66 @@ ${f.map(([k, v], j) => `   <tr>
   <tr><td width="50%" align="right"><strong><a href="${moreUrl}">${more} &gt;</a></strong></td></tr>
 </table>
 </div></div></div></div>`;
-      const left = `${warning(h) || `<div class="highlight important"><strong>Important:</strong> Files are archived automatically and are not checked: scan anything you download.</div>`}
-	<span class="cm-bigicon" style="float:left;margin:0 15px 0px -15px">${mark(138, 126)}</span>
-	<h3>What is this?</h3>
-  <p>An index of old skins, themes, emoticons and other customization files for messengers, media players and desktops: ${m.total.toLocaleString()} items from ${m.apps.length} programs, ${m.archived.toLocaleString()} of them archived. Each entry links to its original page and to an archived copy when one exists. Browse by program, type or source, or search for a name.</p>
-  <h2 style="clear:both"><a href="${h.link(all, { sort: '' })}">Browse the Museum</a></h2>
-  <p>View and download items made by users over the years. </p>
+      const left = `${important(h) || `<div class="highlight important"><strong>Important:</strong> You need to have <a href="${orig('download/')}" ${ext}>Messenger Plus! Live</a> installed before being able to install Skins.</div>`}
+
+	<img src="${A}skins-bigicon.png" width="138" height="126" alt="Messenger Plus! Live Skins" title="" style="float:left;margin:0 15px 0px -15px"/>
+	<h3>What are Skins?</h3>
+
+  <p>Skins change the way your Messenger windows look. We have some awesome designs available for download which will greatly improve the old Live Messenger look, and this museum keeps them next to ${m.total.toLocaleString('en-US')} skins, themes, emoticons and other add-ons made for ${m.apps.length} programs. Just browse the database and download a skin you like: every entry links to its original page and to an archived copy of its file when one exists. Enjoy!</p>
+
+  <h2 style="clear:both"><a href="${u.browse}">Browse the Skins Database</a></h2>
+  <p>View and download many skins created by users like you. </p>
+
 <div class="featuredbox clearfix" style="margin-bottom:15px">
 		<div class="left2 clearfix">
-<h3>Snapshots</h3><div class="subhighlight clearfix"><div class="r1"><div class="r2"><div class="r4">
+
+<h3>Skin Snapshots</h3><div class="subhighlight clearfix"><div class="r1"><div class="r2"><div class="r4">
 <ul>
-${snaps}
+<li><a href="${u.skins}">Featured Skins</a></li>
+<li><a href="${u.newest}">New Skins</a></li>
+<li><a href="${u.rating}">Top Rated Skins</a></li>
+<li><a href="${u.downloads}">Most Downloaded Skins</a></li>
 </ul>
 </div></div></div></div>
 <h3>Categories</h3><div class="subhighlight clearfix"><div class="r1"><div class="r2"><div class="r6"><ul>
 ${cats}</ul>
 </div></div></div></div>
+
 <h3 style="margin-top:10px;">External Resources</h3>
-<p>Items in the museum come from these sites, among others:</p>
+<p>Additional help and skins may be found at these addresses:</p>
 <ul>
-${ext}
+${sources}
 	</ul>
+
 	</div>
 		<div class="right2 clearfix">
-${feat('Featured Item', 'featured', 'More Messenger Plus! Skins', h.url.site('wlm'))}
-${feat('Just Added', 'new', 'More New Items', h.link(all, { sort: '' }))}
-${feat('Most Downloaded', 'top', 'More Skins', h.url.site('wlm'))}
+
+${feat('Featured Skin', 'featured', 'More Featured Skins', u.skins)}
+${feat('Just Added', 'new', 'More New Skins', u.skins)}
+${feat('Top Rated', 'rating', 'More Top Rated Skins', u.rating)}
+
 		</div>
 </div>
-<h2>Missing something... how can I add it?!</h2>
-<p>Anything we have not found yet can be suggested with a <a href="${h.url.request()}" target="_blank" rel="noopener">request</a>: a single page or file, or a whole site. Requests are archived on the Wayback Machine first and then indexed here, so nothing has to be uploaded by hand.</p>`;
-      return page(ctx, { title: 'Customization Museum', sub: 'Old skins, themes and emoticons', left });
+
+<h2>These are nice and all... but how can I add mine?!</h2>
+<p>To add a skin, a whole pack or a forgotten site, all you need to do is fill in a <a href="${u.request}" ${ext}>request</a>. Requested pages are saved on the <a rel="external noopener" target="_blank" href="https://web.archive.org/">Wayback Machine</a> first and then listed here, so nothing has to be uploaded by hand. A wrong or broken entry can be reported from its own page.</p>
+`;
+      return page(ctx, { title: 'Messenger Skins', sub: tagline(h, MSN), left });
     },
 
     list(ctx) {
       const { h, route: r, list: l, about } = ctx;
-      const sname = r.sort === 'old' ? 'Browse by Age' : r.sort === 'az' ? 'Browse by Name' : 'Browse by Date';
-      const bc = [['Customization Museum', h.url.home()]];
+      const own = ownOrder(r);
+      const sname = own ? (r.sort === 'rating' ? 'Browse by Rating' : 'Browse by Downloads') : r.sort === 'old' ? 'Oldest First' : r.sort === 'az' ? 'Browse by Name' : 'Browse by Date';
+      const bc = [['Messenger Skins', h.url.home()]];
       if (r.app) bc.push([h.appName(r.app), h.url.app(r.app)]);
-      if (r.site) bc.push([h.siteName(r.site), h.url.site(r.site)]);
+      if (r.site && r.site !== WLM) bc.push([h.siteName(r.site), h.url.site(r.site)]);
       if (l.typeName) bc.push([l.typeName, h.url.type(l.typeName)]);
-      if (r.tag) bc.push([r.tag, '']);
-      if (r.q) bc.push([`Search: ${r.q}`, '']);
-      bc.push([sname, '']);
-      const title = r.app ? h.appName(r.app) : r.site ? h.siteName(r.site) : l.typeName || (r.q ? 'Search Results' : 'All Items');
-      const left = `${warning(h)}${buttons(ctx)}
+      if (r.tag) bc.push([r.tag, h.link(r, {})]);
+      if (r.q) bc.push([`Search: ${r.q}`, h.link(r, {})]);
+      bc.push([sname, h.link(r, {})]);
+      const left = `${important(h)}${buttons(ctx)}
 ${crumbs(h, bc)}
-${about ? `<div class="highlight cm-about"><span class="cm-tools"><a href="${h.esc(about.edit)}" target="_blank" rel="noopener">Edit</a> | <a href="${h.link(r, { site: '' })}">Close</a></span>${about.html}</div>` : ''}
 <p/>
 ${pager(h, r, l)}
 <table width="100%" border="0" align="center" cellpadding="3" cellspacing="0" class="border">
@@ -264,66 +375,74 @@ ${pager(h, r, l)}
     <td width="22%">&nbsp;</td>
     <td width="22%">&nbsp;</td>
   </tr></table>
-${l.rows.length ? l.rows.map((e, i) => row(h, e, i)).join('\n') : '<p align="center">No items match.</p>'}
+${own ? '<div data-cm-rows></div>' : rows(h, l.rows)}
 <table width="100%" border="0" align="center" cellpadding="3" cellspacing="0" class="border">
   <tr class="sectionheader">
     <td width="100%">&nbsp;</td>
   </tr></table>
 <p/>
-${pager(h, r, l)}`;
-      const banner = `<b>${l.total.toLocaleString()}</b> items &middot; page <b>${Math.min(r.page, l.pages)}</b> of <b>${l.pages}</b> <span>${h.sortSelect(r)} ${h.archSelect(r)}</span>`;
-      return page(ctx, { title, sub: `${l.total.toLocaleString()} items`, left, banner });
+${pager(h, r, l)}
+${about && r.site !== WLM ? `<div class="highlight cm-about"><span class="cm-tools"><a href="${h.esc(about.edit)}" target="_blank" rel="noopener">Edit</a></span>${about.html}</div>` : ''}`;
+      return page(ctx, { title: 'Skins Database', sub: tagline(h, r.app || (r.site === WLM ? MSN : '')), left });
     },
 
     item(ctx) {
       const { h, item: e } = ctx;
-      if (!e) return page(ctx, { title: 'Customization Museum', sub: 'Item not found', left: `${buttons(ctx)}<p>Item not found. <a href="${h.url.home()}">Back to the museum</a></p>` });
-      const x = e.x || {}, file = h.file(e), img = h.thumb(e);
-      const dl = file ? `<a href="${h.esc(file)}" class="downdbdownload" target="_blank" rel="noopener">download</a>` : '<span class="downdbdownload cm-nodl">no file</span>';
-      const top = [['Last Update', fmtDate(e.d) || 'Unknown'], x.Creator ? ['Creator', h.esc(x.Creator)] : ['Program', `<a href="${h.url.app(e.k)}">${h.esc(e.a)}</a>`],
-        x.Downloads ? ['Downloads', h.esc(x.Downloads)] : ['Type', e.y.map(t => `<a href="${h.url.type(t)}">${h.esc(t)}</a>`).join(', ')]];
-      const rating = x.Rating ? `<span class="small">${h.esc(x.Rating)}</span>` : `<a href="${h.url.site(e.s)}">${h.esc(h.siteName(e.s))}</a> &middot; ${h.esc(h.archivedLabel(e))}`;
-      const compat = x.Compatibility ? `This skin works with Messenger versions <strong>${h.esc(x.Compatibility)}</strong>` : h.esc(e.g.join(', ') || e.y.join(', '));
-      const links = [h.page(e) && `<a href="${h.esc(h.page(e))}" rel="external" target="_blank">Original page</a>`, `<a href="${h.esc(h.edit(e))}" target="_blank" rel="noopener">Edit</a>`, `<a href="${h.esc(h.report(e))}" target="_blank" rel="noopener">Report</a>`].filter(Boolean).join(' | ');
-      const left = `${warning(h)}${buttons(ctx)}
-${crumbs(h, [['Customization Museum', h.url.home()], [e.a, h.url.app(e.k)], [e.t, h.url.item(e)]])}
+      if (!e) return page(ctx, { title: 'Skins Database', sub: tagline(h, ''), left: `${buttons(ctx)}
+${crumbs(h, [['Messenger Skins', h.url.home()]])}
+<p>This skin could not be found.</p>` });
+      const x = e.x || {}, file = h.file(e), [name, ver] = title(e);
+      const dl = file ? `<a href="${h.esc(file)}" class="downdbdownload" target="_blank" rel="noopener">download</a>` : '';
+      const full = Math.max(0, Math.min(5, Math.round(num(x.Rating))));
+      const info = e.d ? [['Last Update', fmtDate(e.d)]] : [];
+      if (x.Creator) info.push(['Creator', h.esc(x.Creator)]);
+      if (x.Downloads) info.push(['Downloads', h.esc(count(x.Downloads))]);
+      if (x.Rating) info.push(['Rating', `
+${Array.from({ length: 5 }, (_, i) => `              <img src="${A}star_${i < full ? 'full' : 'grey'}.gif" alt="*"/>`).join('\n')}
+       <span class="small">(${h.esc(x.Rating)})</span>&nbsp;`]);
+      if (x.Compatibility) info.push(['Compatibility', `This skin works with Messenger versions <strong>${h.esc(x.Compatibility)}</strong> (<a href="${orig('skins/help/#compatibility')}" ${ext}>why?</a>)`]);
+      if (e.s !== WLM) {
+        info.push(['Category', e.y.map(t => `<a href="${h.url.type(t)}">${h.esc(t)}</a>`).join(', ')], ['Program', `<a href="${h.url.app(e.k)}">${h.esc(e.a)}</a>`], ['Source', `<a href="${h.url.site(e.s)}">${h.esc(h.siteName(e.s))}</a>`]);
+        for (const [k, v] of Object.entries(x)) if (!['Creator', 'Downloads', 'Rating', 'Compatibility'].includes(k)) info.push([h.esc(k), h.esc(v)]);
+      }
+      if (e.g.length) info.push(['Tags', e.g.map(t => `<a href="${h.link(clear(ctx.route), { tag: t })}">${h.esc(t)}</a>`).join(', ')]);
+      info.push(['Archived', h.esc(h.archivedLabel(e))]);
+      while (info.length < 3) info.push(['', '&nbsp;']);
+      const links = [h.page(e) && `<a href="${h.esc(h.page(e))}" rel="external noopener" target="_blank">original page</a>`, `<a href="${h.esc(h.edit(e))}" target="_blank" rel="noopener">edit</a>`, `<a href="${h.esc(h.report(e))}" target="_blank" rel="noopener">report</a>`].filter(Boolean).join(' | ');
+      const pic = isPic(e) ? `<a href="${h.esc(h.thumb(e))}" class="highslide" target="_blank" rel="noopener">${shot(h, e, 'cm-shot', 'Screenshot')}</a>` : e.v || MEDIA.test(e.l || '') ? h.media(e) : '';
+      const left = `${important(h)}${buttons(ctx)}
+${crumbs(h, [['Messenger Skins', h.url.home()], [e.a, h.url.app(e.k)], ...(e.y[0] ? [[e.y[0], h.url.type(e.y[0])]] : []), [name, h.url.item(e)]])}
 <table width="100%" border="1" align="center" cellpadding="3" cellspacing="0" class="border">
   <tr>
     <td width="75%" class="fileheader" valign="top" height="100%" colspan="3">
-      <span class="largefilename">${h.esc(e.t)}</span> ${h.esc(e.a)}<br/>
+      <span class="largefilename">${h.esc(name)}</span> ${h.esc(ver)}<br/>
     </td>
   </tr>
   <tr>
-    <td width="15%">${top[0][0]}:</td>
-    <td width="58%">${top[0][1]}</td>
+    <td width="15%">${info[0][0]}:</td>
+    <td width="58%">${info[0][1]}</td>
     <td rowspan="3" width="27%" align="center">
         ${dl}
     </td>
   </tr>
-      <tr>
-      <td width="15%">${top[1][0]}:</td>
-      <td width="55%">${top[1][1]}</td>
-    </tr>
-    <tr>
-    <td width="15%">${top[2][0]}:</td>
-    <td width="55%">${top[2][1]}</td>
-  </tr>
-  <tr>
-    <td width="15%">${x.Rating ? 'Rating' : 'Source'}:</td>
-    <td valign="top" width="85%" colspan="2">${rating}</td>
-  </tr>
-   <tr>
-    <td width="15%">${x.Compatibility ? 'Compatibility' : 'Tags'}:</td>
-    <td valign="top" width="85%" colspan="2">${compat}</td>
-  </tr>
+${info.slice(1, 3).map(([k, v]) => `    <tr>
+      <td width="15%">${k ? k + ':' : '&nbsp;'}</td>
+      <td width="55%">${v}</td>
+    </tr>`).join('\n')}
+${info.slice(3).map(([k, v]) => `  <tr>
+    <td width="15%">${k}:</td>
+    <td valign="top" width="85%" colspan="2">${v}</td>
+  </tr>`).join('\n')}
   <tr>
     <td class="skindetails" colspan="3" width="100%">
-				          <p align="center">${img && !/\.(mp3|wav|ogg|mid|midi|wma|mp4|webm)$/i.test(e.l || '') ? `<a href="${h.esc(img)}" class="highslide" target="_blank" rel="noopener"><img class="frame cm-shot" src="${h.esc(img)}" alt="Screenshot" data-alt="${h.esc(h.thumbFallback(e))}" onerror="if(!this.dataset.f){this.dataset.f=1;this.src=this.dataset.alt}else{this.replaceWith(Object.assign(document.createElement('span'),{className:'frame cm-noshot',textContent:'no preview'}))}"/></a>` : img ? h.media(e) : '<span class="frame cm-noshot">no preview</span>'}</p>
+				          ${pic ? `<p align="center">${pic}</p>` : ''}
                 ${e.desc ? `<div class="cm-desc">${e.desc}</div>` : ''}
-                	<p>More Info: ${links}</p>
+                	<p>This entry: ${links}</p>
             </td>
   </tr>
 </table>
+
+
 <table width="100%" border="0" align="center" cellpadding="3" cellspacing="0">
   <tr>
     <td width="100%" align="center">
@@ -332,7 +451,7 @@ ${crumbs(h, [['Customization Museum', h.url.home()], [e.a, h.url.app(e.k)], [e.t
   </tr>
 </table>
 <p>&nbsp;</p>`;
-      return page(ctx, { title: 'Customization Museum', sub: e.a, left });
+      return page(ctx, { title: 'Skins Database', sub: tagline(h, e.k), left });
     },
   };
 })();

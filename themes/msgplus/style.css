@@ -1860,35 +1860,26 @@ playback timings (ms):
   PetaboxLoader3.resolve: 95.096
   PetaboxLoader3.datanode: 33.837
 */
-/* ===== Customization Museum additions (content regions and replaced brand images) ===== */
+/* ===== Customization Museum additions ===== */
 #app { display:block; }
 #container { position:relative; }
-/* logo image (309x65) -> text in the same box */
-#header h1 a.cm-logo { display:block; position:relative; width:309px; height:65px; color:#000; text-decoration:none; background:#fff; }
-.cm-logo-mark { position:absolute; left:0; top:2px; }
-.cm-logo-t { position:absolute; left:70px; top:8px; font:normal 29px/30px "Segoe UI",Tahoma,Verdana,sans-serif; letter-spacing:-1.5px; white-space:nowrap; }
-.cm-logo-t b { color:#f7941d; font-weight:normal; }
-.cm-logo-s { position:absolute; left:72px; top:42px; font:10px Verdana,Tahoma,sans-serif; color:#555; letter-spacing:.3px; white-space:nowrap; }
-/* Windows Live Alerts badge (123x17) -> our link in the same box */
-a.cm-badge { display:inline-block; width:121px; height:15px; line-height:15px; border:1px solid #8cc152; background:#fff; color:#3a7d14; font-size:10px; text-align:center; vertical-align:top; }
-/* design-credit image (137x35) -> our text in the same box */
-a.cm-gfdd { display:block; width:137px; height:35px; color:#fff; font:italic 11px/14px Verdana,Tahoma,sans-serif; text-align:right; padding-top:3px; box-sizing:border-box; }
-a.cm-gfdd b { font-size:14px; }
-.cm-bigicon { display:block; width:138px; height:126px; }
-/* our full-size previews in the original thumbnail and screenshot boxes */
-img.cm-thumb { width:152px; height:114px; object-fit:contain; }
-img.cm-shot { width:495px; height:396px; object-fit:contain; }
-span.cm-nothumb { display:inline-block; width:152px; height:114px; line-height:114px; text-align:center; color:#999; font-size:10px; }
-span.cm-noshot { display:inline-block; width:495px; height:396px; line-height:396px; text-align:center; color:#999; font-size:11px; }
-/* the header banner slot (white box) holds list counts and sort controls */
-.cm-banner { position:absolute; left:296px; top:141px; width:466px; height:60px; display:flex; align-items:center; gap:6px; padding:0 12px; box-sizing:border-box; font:12px "Segoe UI",Verdana,Tahoma,sans-serif; color:#666; white-space:nowrap; }
-.cm-banner b { color:#48a7db; }
-.cm-banner span { margin-left:auto; display:flex; gap:4px; }
-.cm-banner select { font:11px Verdana,Tahoma,sans-serif; width:auto; max-width:120px; }
+/* marks the page as a replica, under the original logo */
+.cm-replica { position:absolute; left:98px; top:81px; font:9px Verdana,Tahoma,sans-serif; letter-spacing:.5px; text-transform:uppercase; color:#999; white-space:nowrap; }
+/* the original was laid out in almost-standards mode: no text descender gap under the logo */
+#header h1 img { display:block; }
+/* our full-size screenshots inside the original thumbnail (152x114) and screenshot (495x396) bounds */
+img.cm-thumb { max-width:152px; max-height:114px; width:auto; height:auto; }
+img.cm-shot { max-width:495px; max-height:396px; width:auto; height:auto; }
+/* theme picker in the language box, order and archive filters in the sidebar */
+.langbox select + select { width:5.5em; margin-left:3px; }
+.cm-pick select { width:60px; height:17px; margin:0 1px; padding:0; font:10px Verdana,Tahoma,sans-serif; color:#666; vertical-align:top; }
 .highlight.cm-warning button { float:right; font:11px Verdana,Tahoma,sans-serif; cursor:pointer; }
-.cm-about { margin:6px 0 10px; }
+.cm-about { margin-top:20px; }
 .cm-about h1 { font:bold 21px "Segoe UI",Tahoma,Verdana,sans-serif; color:#48a7db; margin:0 0 4px; }
 .cm-about ul { margin:4px 0 0 18px; padding:0; }
 .cm-tools { float:right; }
 .cm-desc p { margin:0 0 8px; }
-.cm-nodl { opacity:.6; }
+.cm-desc img, .skindetails video, .skindetails audio { max-width:100%; }
+table.cm-cats td { padding:8px 3px; }
+table.cm-cats ul { margin:0 0 0 30px; padding:0; }
+table.cm-cats li { line-height:18px; }
