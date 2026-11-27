@@ -321,7 +321,7 @@ ${sites.map(([s, i]) => `<tr><td valign="bottom" class="columns"><img src="${A}a
 <tr>
 <td valign="top" width="50" bgcolor="#AAAAAA" rowspan="2">
 <table width="100%" height="100%" border="0" valign="top" cellpadding="5" cellspacing="1">
-<tr><td valign="top" width="100%" height="100%" bgcolor="#DDDDDD" class="content"><a href="${h.url.item(f)}">${h.img(f, 'border="0" class="cm-thumb"')}</a></td></tr>
+<tr><td valign="top" width="100%" height="100%" bgcolor="#DDDDDD" class="content"><a href="${h.url.item(f)}">${h.img(f, 'border="0" class="cm-thumb"') || `<img border="0" src="${A}blank.gif">`}</a></td></tr>
 </table>
 </td>
 <td valign="top" width="100%" height="100%" bgcolor="#AAAAAA">
@@ -377,7 +377,7 @@ ${e.v ? `<td bgcolor="#ffffff" valign="top"><table border="0" cellpadding="1" ce
 <td${e.v ? ' colspan="2"' : ''} bgcolor="#ffffff" valign="top" width="100%">
 <table width="100%" border="0" align="center" cellpadding="1" cellspacing="0" summary="">
 <tr>
-<td align="left">${page ? `<br><br>&nbsp;&nbsp;&nbsp;<img src="${A}visit-now.gif" border="0">&nbsp;<a class="contents" target="_blank" rel="noopener" href="${h.esc(page)}">Visit Now!</a><br><br>` : ''}</td>
+<td align="left">${page ? `<br><br>&nbsp;&nbsp;&nbsp;<img src="${A}visit-now.gif" border="0">&nbsp;<a class="contents" target="_blank" rel="noopener" href="${h.esc(page)}">Visit Now!</a><br><br>` : '<br><br>'}</td>
 <td align="right">&nbsp;</td>
 </tr>
 <tr>
