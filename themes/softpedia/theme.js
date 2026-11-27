@@ -8,7 +8,7 @@
   const longDate = d => { const [date, time] = (d || '').split(' '), [y, m, day] = date.split('-').map(Number); return !y ? '' : (m ? `${MONTHS[m - 1]} ${day ? ord(day) + ', ' : ''}${y}` : String(y)) + (time ? ` ${time} GMT` : ''); };
   // first paragraph of an item's note as plain text
   const summary = n => (n || '').split(/\n\s*\n/)[0].replace(/[*_`#>\[\]]|\(https?:[^)]*\)/g, '').replace(/\s+/g, ' ').trim();
-  const CIRCLES = ['windows2', 'games2', 'drivers2', 'handheld', 'mac2', 'linux2', 'mobile2', 'news2'];
+  const WB = 'https://web.archive.org/web/2006/http://', GH = 'https://github.com/melo-foundation/customization-museum';
   const HEADS = [['win', '#FFF9F9', 'wins'], ['mac', '#F4FFF4', 'macs'], ['games', '#FFFAFD', 'gamess'], ['linux', '#F5FCFF', 'linuxs'], ['drivers', '#FFFCF4', 'driverss'], ['mobile', '#F7FBFF', 'mobiles']];
   let A = '';
   const img = (name, w, h, extra = '') => `<img src="${A}${name}" width="${w}" height="${h}" border="0"${extra ? ' ' + extra : ''}>`;
@@ -18,23 +18,29 @@
   // ---------- header: two navy tables, exactly as in the original ----------
   function header(ctx) {
     const { h, manifest: m, route: r } = ctx, E = h.esc;
-    const nav = [['HOME', h.url.home()], ['SUBMIT ITEM', h.url.request()], ['ARCHIVED', reset(h, r, { arch: '1' })], ['NEWEST', reset(h, r, { sort: '' })],
-      ['OLDEST', reset(h, r, { sort: 'old' })], ['A-Z', reset(h, r, { sort: 'az' })], ['SOURCE CODE', 'https://github.com/melo-foundation/customization-museum']];
-    const types = Object.keys(m.types);
-    const circ = [...types.slice(0, 7).map(t => [t.split(/[ &]/)[0], h.url.type(t)]), ['Newest', reset(h, r, { sort: '' })], ['Oldest', reset(h, r, { sort: 'old' })], ['A-Z', reset(h, r, { sort: 'az' })]].slice(0, 7);
-    circ.push(['Archived', reset(h, r, { arch: '1' })]);
-    const c = (i, hs) => `<a class="spx-circ" href="${circ[i][1]}">${img(`um_${CIRCLES[i]}_blank.png`, 71, 71, hs ? `hspace="${hs}"` : '')}<span>${E(circ[i][0].toUpperCase())}</span></a>`;
+    const has = k => m.apps.some(a => a.slug === k);
+    const app = (...ks) => { const k = ks.find(has); return k && h.url.app(k); };
+    const newest = reset(h, r, { sort: '' });
+    // the original top_m_*.gif captions; sections we have no counterpart for open the archived original
+    const nav = [['01', 49, 'Home', h.url.home()], ['02', 104, 'Submit a file', h.url.request()], ['10', 49, 'Softpedia store, archived', WB + 'store.softpedia.com/'],
+      ['03', 70, 'Softpedia advertising, archived', WB + 'www.softpedia.com/advertise/'], ['04', 47, 'Help', GH + '#readme'], ['05', 67, 'Feedback', h.url.request()],
+      ['07', 65, 'Source code and data', GH], ['08', 90, 'Newest files', newest], ['09_eng_board', 79, 'Softpedia board, archived', WB + 'board.softpedia.com/'], ['09', 59, 'Softpedia forum, archived', WB + 'forum.softpedia.com/']];
+    // the original circles with their own lettering, each pointed at the closest thing we hold
+    const circ = [['windows2', app('windows-desktop-themes', 'windows-xp'), 'Windows Desktop Themes'], ['games2', WB + 'games.softpedia.com/', 'Softpedia Games, archived'], ['drivers2', WB + 'drivers.softpedia.com/', 'Softpedia Drivers, archived'],
+      ['handheld', app('psp'), 'PSP'], ['mac2', app('adium'), 'Adium'], ['linux2', app('kopete', 'pidgin'), 'Linux messengers'], ['mobile2', app('jimm', 'mobile'), 'Mobile'], ['news2', newest, 'Newest files']]
+      .map(([n, u, t]) => [n, u || WB + 'www.softpedia.com/', t]);
+    const c = (i, hs) => `<a href="${circ[i][1]}"${ext(circ[i][1])} title="${E(circ[i][2])}">${img(`um_${circ[i][0]}.gif`, 71, 71, (hs ? `hspace="${hs}" ` : '') + `alt="${E(circ[i][2])}"`)}</a>`;
     return `<table width="100%" border="0" cellpadding="0" cellspacing="0" bgcolor="#001F5B"><tr>
-        <td rowspan="2" valign="top"><a class="spx-logo" href="${h.url.home()}">CUSTOMIZATION MUSEUM<sup>TM</sup></a><table width="214" border="0" cellspacing="0" cellpadding="0"><tr><td width="26"></td><td align="center" class="update">${m.total.toLocaleString()} files online</td></tr></table></td>
-        <td width="700" align="right" height="26">${nav.map(([t, u]) => `<a class="spx-nav" href="${u}"${ext(u)}>${t}</a>`).join('')}</td></tr>
-        <tr><td align="right" style="padding-right:14px"><div class="spx-ad468"><div class="spx-pickers">${h.themePicker()}${h.fidelityToggle()}</div><span>Old skins, themes and emoticons, backed up on the Wayback Machine</span></div></td></tr></table>
+        <td rowspan="2" valign="top" class="spx-logo"><a href="${h.url.home()}">${img('softpedia_logo.gif', 239, 62, 'alt="SOFTPEDIA"')}</a><br><table width="214" border="0" cellspacing="0" cellpadding="0"><tr><td width="26"></td><td align="center" class="update">Customization Museum replica</td></tr></table></td>
+        <td width="700" align="right" height="26" class="spx-io">${nav.map(([n, w, t, u]) => `<a href="${u}"${ext(u)} title="${t}">${img(`top_m_${n}.gif`, w, 26, `alt="${t}"`)}</a>`).join('')}</td></tr>
+        <tr><td align="right" style="padding-right:14px"><div class="spx-ad468">${h.themePicker()}${h.fidelityToggle()}</div></td></tr></table>
       <table width="100%" border="0" cellpadding="0" cellspacing="0" bgcolor="#001F5B"><tr>
         <td><table width="100%" border="0" cellpadding="0" cellspacing="0"><tr>
           <td width="74" height="85" align="center" valign="top" background="${A}um_l_bkg2.jpg" class="spx-io" style="padding-left:18px; padding-top:19px">${c(0)}</td>
           <td width="447" align="center" valign="top" background="${A}um_bkg2.jpg" class="spx-io" style="padding-left:0px; padding-top:19px"><span class="spx-mid">${c(1, 1)}${c(2, 2)}${c(3, 2)}${c(4, 1)}${c(5, 1)}${c(6, 1)}</span></td>
           <td width="195" height="85" align="left" valign="top" background="${A}um_r_bkg3.jpg" class="spx-io" style="padding-left:2px; padding-top:19px">${c(7, 1)}</td></tr></table></td>
         <td width="86" valign="top" background="${A}menu_08_3.jpg" style="padding-top:55px"><form id="spx-search" data-search role="search" style="margin:0"><input name="q" type="text" class="searchfield" size="11" value="${E(r.q)}"></form></td>
-        <td width="157"><table width="100%" border="0" cellpadding="0" cellspacing="0"><tr><td class="spx-io"><a class="spx-lbl spx-bm" href="${h.url.home()}">${img('menu_009_2_blank.png', 157, 40)}<span>BOOKMARK THIS SITE</span></a></td></tr>
+        <td width="157"><table width="100%" border="0" cellpadding="0" cellspacing="0"><tr><td class="spx-io"><a href="${h.url.home()}">${img('menu_009_2.jpg', 157, 40)}</a></td></tr>
           <tr><td width="162" class="spx-io"><input type="image" form="spx-search" src="${A}menu_09_2.jpg" width="37" height="64" border="0" alt="Go"><a href="${reset(h, r, {})}">${img('menu_10_2.jpg', 120, 64)}</a></td></tr></table></td>
       </tr></table>`;
   }
@@ -42,13 +48,13 @@
   // ---------- section title row, "On this page" row, dotted spacer, 728x90 slot ----------
   function sectionBar(ctx, title, titleUrl, cats, links) {
     const { h, route: r } = ctx, E = h.esc;
-    const disc = (v, letter, caption, n, w) => `<a class="spx-dm" href="${h.link(r, { arch: v })}">${img(`d_m_0${n}_blank.png`, w, 35)}<b>${letter}</b><i>${caption}</i></a>`;
+    const disc = (v, name, n, w) => `<a href="${h.link(r, { arch: v })}" title="${name}">${img(`d_m_0${n}_${name}.png`, w, 35, `alt="${name}"`)}</a>`;
     return `<table width="780" border="0" cellspacing="0" cellpadding="0"><tr>
         <td width="190"><div class="sect_title_win" style="width:180px"><a href="${titleUrl}">${E(title).replace(/ downloads:$/, '<br>downloads:')}</a></div></td>
         <td width="108" class="spx-io"><a href="${h.url.home()}">${img('programfinder.gif', 108, 35, 'alt="Program Finder"')}</a></td>
         <td align="right" width="152" class="spx-io">${img('under_nav_separator.gif', 21, 35)}${img('sectcat.gif', 131, 35)}</td>
         <td align="right" width="120"><select class="spx-cat" onchange="if(this.value)location.href=this.value"><option value="">Choose...</option>${cats.map(([u, t]) => `<option value="${E(u)}">${E(t)}</option>`).join('')}</select></td>
-        <td align="right" width="205" class="spx-io">${img('under_nav_separator.gif', 21, 35)}${img('d_m_01.gif', 78, 35)}${disc('', 'A', 'all', 2, 31)}${disc('1', 'Y', 'archived', 3, 34)}${disc('0', 'N', 'missing', 4, 36)}</td>
+        <td align="right" width="205" class="spx-io">${img('under_nav_separator.gif', 21, 35)}${img('d_m_01.gif', 78, 35)}${disc('', 'all', 2, 31)}${disc('1', 'archived', 3, 34)}${disc('0', 'missing', 4, 36)}</td>
       </tr><tr><td colspan="5"><div class="onthispage" style="clear:both;float:left;width:770px;"><table border="0" width="100%"><tr>
         <td width="153" class="celltext_bigger" valign="top"><img src="${A}ugames_onthispage.gif"></td>
         ${links.map(([u, t], i) => `<td class="celltext_bigger"><img src="${A}${['ugames_news.gif', 'ugames_reviews.gif', 'ugames_latest_additions.gif'][i]}" align="absmiddle"> <a href="${u}"${ext(u)}>${E(t)}</a>&nbsp;&nbsp;</td>`).join('')}
@@ -57,26 +63,15 @@
       <table width="100%" border="0" cellpadding="0" cellspacing="0"><tr><td align="center">${ad728(ctx)}</td></tr></table>`;
   }
 
-  // 728x90 ad unit geometry (Google text unit colours), filled with our notice or archive links
-  function ad728(ctx) {
-    const { h, manifest: m } = ctx;
-    const warn = h.warning();
-    if (warn) return `<div class="spx-ad728 spx-adwarn">${warn}</div>`;
-    const cell = (u, t, d) => `<td><a class="spx-adt" href="${u}"${ext(u)}>${t}</a><div>${d}</div></td>`;
-    return `<table class="spx-ad728" cellspacing="0" cellpadding="0"><tr>
-      ${cell(h.link({}, { arch: '1' }), 'Archived files', `${m.archived.toLocaleString()} of ${m.total.toLocaleString()} files are backed up on the Wayback Machine.`)}
-      ${cell(h.url.request(), 'Request a site', 'Know an old skin or theme site? Ask for it to be archived.')}
-      ${cell(h.url.request(), 'Report a file', 'Files are archived automatically and not checked.')}
-      ${cell('https://github.com/melo-foundation/customization-museum', 'Source code', 'Scrapers, archive tools and this site are open source.')}
-      </tr><tr><td colspan="4" class="spx-adfoot">Customization Museum notes</td></tr></table>`;
-  }
+  // 728x90 ad slot: empty, as the original looked without its ad; holds the unchecked-files notice until dismissed
+  const ad728 = ctx => `<div class="spx-ad728">${ctx.h.warning()}</div>`;
 
   // ---------- right column ----------
   function right(ctx, boxes) {
     const { h } = ctx;
-    return `<div class="spx-io"><a class="spx-lbl spx-rbtn" href="${h.url.request()}"${ext(h.url.request())}>${img('download_basket_blank.png', 150, 40)}<span>Submit a file</span></a>${img('download_basket_bottom.jpg', 150, 9)}<a class="spx-lbl spx-rbtn" href="${h.link({}, { arch: '1' })}">${img('softpedia_reviews_blank.png', 150, 40)}<span>Archived files</span></a></div>
+    return `<div class="spx-io"><a href="${h.link({}, { arch: '1' })}" title="Archived files">${img('download_basket.jpg', 150, 40)}</a>${img('download_basket_bottom.jpg', 150, 9)}<a href="${WB}www.softpedia.com/reviews/" target="_blank" rel="noopener" title="Softpedia Reviews, archived">${img('softpedia_reviews.jpg', 150, 40)}</a></div>
       <table width="150" border="0" cellspacing="0" cellpadding="0"><tr><td height="34" class="right_title_bkg">Welcome! </td></tr>
-        <tr><td style="padding-left:6px" class="celltext"> Hello, visitor<br><br> <a href="${h.url.request()}"${ext(h.url.request())}>Request</a> a site if you know a lost one.<br> <br> Otherwise, <a href="${h.url.home()}">browse</a> them all. </td></tr></table>
+        <tr><td style="padding-left:6px" class="celltext"> Hello, Guest<br><br> <a href="${h.url.request()}"${ext(h.url.request())}>Request</a> a site if you know a lost one.<br> <br> Otherwise, <a href="${h.url.home()}">browse</a> them all. </td></tr></table>
       <br>${boxes}`;
   }
   const liBox = (h, title, items, pb = 15) => `<table width="150" border="0" cellspacing="0" cellpadding="0"><tr><td height="34" class="right_title_bkg">${h.esc(title)} </td></tr>
@@ -89,13 +84,13 @@
       <table width="100%" border="0" cellpadding="0" cellspacing="0" class="mainbkg"><tr valign="top"><td ${centerAttrs}>${center}</td>
         <td width="1" bgcolor="#CEDEFE" class="dotbkg"></td><td width="150" class="right_col_back">${rightCol}</td></tr></table>
       <table width="100%" border="0" cellpadding="5" cellspacing="0" class="copyrights"><tr bgcolor="#7A87A1"><td height="2" colspan="2"></td></tr>
-        <tr><td width="787" bgcolor="#D7E0F1" style="padding-left:31px"> &copy; Customization Museum. Files are archived automatically and not checked.<br> Names and trademarks belong to their respective owners. </td><td rowspan="2" align="center" bgcolor="#CCD8ED"> </td></tr>
+        <tr><td width="787" bgcolor="#D7E0F1" style="padding-left:31px"> Customization Museum replica of Softpedia as it looked in 2006. Not affiliated with Softpedia.<br> Softpedia&trade; and Softpedia&trade; logo are registered trademarks of SoftNews NET SRL. </td><td rowspan="2" align="center" bgcolor="#CCD8ED"> </td></tr>
         <tr><td bgcolor="#B3C3E1" style="padding-left:31px"> <a href="${h.url.request()}" target="_blank" rel="noopener" style="color:#AA4545">Report a problem</a> | <a href="${h.url.request()}" target="_blank" rel="noopener">Request a site</a> | <a href="https://github.com/melo-foundation/customization-museum" target="_blank" rel="noopener">Source code</a> | <a href="${h.url.home()}">Archive</a> </td></tr>
         <tr bgcolor="#001F5B"><td height="10" colspan="2"></td></tr></table>
     </td><td width="5" bgcolor="#C1CCE1">&nbsp;</td></tr></table></div>`;
   }
 
-  const icon32 = (h, e) => h.img(e, 'border="0" width="32" height="32" hspace="2" class="spx-ico"') || `<span class="spx-noico">${h.esc((e.t || '?')[0].toUpperCase())}</span>`;
+  const icon32 = (h, e) => h.img(e, 'border="0" width="32" height="32" hspace="2" class="spx-ico"') || img('win-soft.gif', 32, 32, 'hspace="2"');
   const pages = (h, r, l) => {
     if (l.pages < 2) return '';
     // up to 15 pages: every number, as the original did; beyond that the core's windowed pager
@@ -109,7 +104,7 @@
     const newest = [...rel].sort((a, b) => (b.d || '').localeCompare(a.d || '')).slice(0, 7);
     const oldest = [...rel].filter(x => !newest.includes(x)).sort((a, b) => (a.d || '9').localeCompare(b.d || '9')).slice(0, 7);
     const row = (x, i) => `<tr${i % 2 ? '' : ' bgcolor="EFF3FC"'}><td width="564" style="padding-bottom:5px; padding-top:5px"><table width="100%" border="0" cellspacing="0" cellpadding="1">
-        <tr><td width="32" height="26" rowspan="3" align="center" valign="top" class="celltitles" style="padding-right:2px"><a href="${h.url.item(x)}" title="${E(x.t)}">${icon32(h, x)}</a></td><td class="celltitles spx-q"><a href="${h.url.item(x)}" title="${E(x.t)}">${E(x.t)}</a></td></tr>
+        <tr><td width="32" height="26" rowspan="3" align="center" valign="top" class="celltitles" style="padding-right:2px"><a class="spx-icoa" href="${h.url.item(x)}" title="${E(x.t)}">${icon32(h, x)}</a></td><td class="celltitles spx-q"><a href="${h.url.item(x)}" title="${E(x.t)}">${E(x.t)}</a></td></tr>
         <tr><td class="celltext_description">${x.n ? E(summary(x.n)) : `${E(x.a)} - ${E(x.y.join(', '))}`}</td></tr>
         <tr><td class="celltext">${E(x.y[0] || '')} | ${E(h.siteName(x.s))}</td></tr></table></td>
       <td width="170" style="padding-bottom:5px; padding-top:5px"><table width="100%" border="0" cellspacing="0" cellpadding="1">
@@ -127,27 +122,35 @@
   THEMES.softpedia = {
     label: 'Download Portal 2006',
     perPage: 30,
+    recent: 44,
 
     home(ctx) {
       const { h, manifest: m, route: r } = ctx, E = h.esc;
       setBase(h);
+      const newest = reset(h, r, { sort: '' });
       const types = Object.entries(m.types), srcs = Object.entries(m.sites).sort((a, b) => b[1].count - a[1].count);
       const L = [[h.url.app(m.apps[0].slug), m.apps[0].name + ' Files', 'wins.gif'], [h.url.type(types[0][0]), types[0][0], 'gamess.gif'], [h.url.site(srcs[0][0]), srcs[0][1].name, 'macs.gif'],
         [reset(h, r, { arch: '1' }), 'Archived Files', 'linuxs.gif'], [h.url.type(types[1][0]), types[1][0], 'driverss.gif'], [reset(h, r, { sort: 'old' }), 'Oldest Files', 'mobiles.gif'],
         [h.url.request(), 'Submit a File', 'newss.gif'], [h.url.type(types[2][0]), types[2][0], 'cats.gif'], [reset(h, r, { sort: 'az' }), 'All Files A-Z', 'tops.gif']];
       const link = ([u, t, ic], last) => `<td class="celltext_bigger"><img src="${A}${ic}" align="absmiddle"> <a href="${u}"${ext(u)}>${E(t)}</a>${last ? '' : '&nbsp;&nbsp;'}</td>`;
+      const head = (i, title, url, sub, more, rss) => `<tr><td class="${HEADS[i][0]}_heading" style="padding-bottom:5px">
+            <div class="mi_heading"><a href="${url}">${E(title)}</a></div>
+            <span class="rssklipbtn">${rss ? `<a target="_blank" rel="noopener" href="${GH}/commits/main.atom"><img src="${A}urss.gif" border="0"></a>` : `<img src="${A}urss.gif" border="0" style="visibility:hidden">`}</span>
+            <span class="mi_subheading_l">${sub}</span>
+            <span class="mi_subheading_r"><a href="${url}">${more}</a></span></td></tr>`;
+      const line = (i, url, title, text) => `<tr><td style="padding:5px"><table width="100%" cellpadding="0" cellspacing="0" border="0"><tr><td class="celltext"> <img src="${A}${HEADS[i][2]}.gif" align="absmiddle" style="margin-right:7px"> <span class="celltitles"><a href="${url}" style="font-size:12px">${E(title)}</a></span> | ${E(text)} </td></tr></table></td></tr>`;
+      const wrap = (i, hd, rows) => `<table height="100%" width="100%" cellspacing="0" cellpadding="0" border="0">${hd}<tr><td bgcolor="${HEADS[i][1]}"><table width="100%" cellspacing="0" cellpadding="0" border="0">${rows}</table></td></tr></table>`;
+      const cut = (t, n) => t.length > n ? t.slice(0, n).replace(/\s+\S*$/, '') + '...' : t;
+      const recent = ctx.recent || [];
+      // left column: the newest files, as the original's "Latest Windows Software" ran down the page
+      const latest = wrap(0, head(0, 'Latest Additions', newest, recent[0] ? 'updated ' + E(longDate(recent[0].d.split(' ')[0])) : '', 'view more releases', 1),
+        recent.map(e => line(0, h.url.item(e), e.t, cut((e.n && summary(e.n)) || `${e.a} - ${e.y.join(', ')}`, 70))).join(''));
       const box = ([t, n], i, limit) => {
-        const [cls, bg, ic] = HEADS[i % HEADS.length];
         const apps = m.apps.filter(a => a.types[t]).sort((a, b) => b.types[t] - a.types[t]).slice(0, limit);
-        return `<table height="100%" width="100%" cellspacing="0" cellpadding="0" border="0"><tr><td class="${cls}_heading" style="padding-bottom:5px">
-            <div class="mi_heading"><a href="${h.url.type(t)}">${E(t)}</a></div>
-            <span class="rssklipbtn"><span class="spx-count">${n.toLocaleString()}</span></span>
-            <span class="mi_subheading_l">${apps.length} programs</span>
-            <span class="mi_subheading_r"><a href="${h.url.type(t)}">view all files</a></span></td></tr>
-          <tr><td bgcolor="${bg}"><table width="100%" cellspacing="0" cellpadding="0" border="0">
-            ${apps.map(a => `<tr><td style="padding:5px"><table width="100%" cellpadding="0" cellspacing="0" border="0"><tr><td class="celltext"> <img src="${A}${ic}.gif" align="absmiddle" style="margin-right:7px"> <span class="celltitles"><a href="${h.link({}, { app: a.slug, type: t })}" style="font-size:12px">${E(a.name)}</a></span> | ${a.types[t].toLocaleString()} ${E(t.toLowerCase())}, ${a.count.toLocaleString()} files in total </td></tr></table></td></tr>`).join('')}
-          </table></td></tr></table>`;
+        return wrap(i, head(i, t, h.url.type(t), `${n.toLocaleString()} files`, 'view all files'),
+          apps.map(a => line(i, h.link({}, { app: a.slug, type: t }), a.name, `${a.types[t].toLocaleString()} ${t.toLowerCase()}`)).join(''));
       };
+      const pick = recent.find(e => e.v);
       const center = `<table width="790" border="0" cellspacing="0" cellpadding="0"><tr valign="middle"><td style="padding-bottom:15px" valign="middle" class="celltext_bigger">
           <h1 class="welcome_hdr" style="float:left;width:450px;">Dear visitor, welcome to the archive of customization downloads!</h1>
           <h2 class="dwlc_hdr" style="float:right;width:190px;">${m.total.toLocaleString()} Items / ${m.archived.toLocaleString()} Archived</h2>
@@ -156,13 +159,13 @@
             <tr>${link(L[3])}${link(L[4])}${link(L[5])}</tr><tr>${link(L[6])}${link(L[7])}${link(L[8], 1)}</tr></table></div></td></tr></table>
         <table width="100%" border="0" cellpadding="0" cellspacing="0"><tr><td align="center">${ad728(ctx)}</td></tr></table>
         <br> &nbsp;<table width="780" border="0" cellspacing="0" cellpadding="0"><tr>
-          <td width="380" valign="top">${box(types[0], 0, 52)}</td><td width="20"></td>
-          <td width="380" valign="top">${types.slice(1, 6).map((t, i) => box(t, i + 1, 14) + '<br>').join('')}</td></tr></table><br><br>`;
-      const side = `<div id="first_ad_unit"></div><hr size="1" noshade style="color:#BECEEE"><div align="center" class="spx-ad120" style="margin-left: 15px; border: 1px solid #FFFFFF;width: 120px; height:90px"><b>${Math.round(100 * m.archived / m.total)}%</b><span>of the archive is<br>backed up</span></div><br>
-        <table width="150" border="0" cellspacing="0" cellpadding="0"><tr><td height="34" class="right_title_bkg">Largest collection: </td></tr>
-          <tr><td class="rightcellcontent" style="padding-bottom:5px"><a href="${h.url.app(m.apps[0].slug)}">${E(m.apps[0].name)}</a><br><br>
-            <a class="spx-pick" href="${h.url.app(m.apps[0].slug)}"><b>${m.apps[0].count.toLocaleString()}</b><span>files</span>${Object.entries(m.apps[0].types).slice(0, 4).map(([t, n]) => `<i>${E(t)}: ${n.toLocaleString()}</i>`).join('')}</a><br>
-            ${E(m.apps[0].name)} has the most files in the archive, across ${Object.keys(m.apps[0].types).length} file types.</td></tr></table><br>
+          <td width="380" valign="top">${latest}</td><td width="20"></td>
+          <td width="380" valign="top">${types.slice(0, 5).map((t, i) => box(t, i + 1, 14) + '<br>').join('')}</td></tr></table><br><br>`;
+      const side = `<div id="first_ad_unit"></div><hr size="1" noshade style="color:#BECEEE"><div align="center" style="margin-left: 15px; border: 1px solid #FFFFFF;width: 120px; height:90px"></div><br>
+        ${pick ? `<table width="150" border="0" cellspacing="0" cellpadding="0"><tr><td height="34" class="right_title_bkg">Latest pick: </td></tr>
+          <tr><td class="rightcellcontent" style="padding-bottom:5px"><a href="${h.url.item(pick)}">${E(pick.t)}</a><br><br>
+            <a href="${h.url.item(pick)}">${h.img(pick, 'border="0" class="spx-pickimg"')}</a><br>
+            ${E(cut((pick.n && summary(pick.n)) || `${pick.a} - ${pick.y.join(', ')}`, 120))}</td></tr></table><br>` : ''}
         ${liBox(h, 'Top sources:', srcs.slice(0, 30).map(([s, i]) => [h.url.site(s), i.name]))}`;
       return page(ctx, 'width="795" style="padding-left:25px"', center, right(ctx, side));
     },
@@ -176,7 +179,7 @@
       const row = (e, i) => {
         const file = h.file(e), desc = [...e.y, ...e.g.slice(0, 4)].join(', ');
         return `<tr${i % 2 ? '' : ' bgcolor="#EFF3FC"'}><td width="564" style="padding-bottom:5px; padding-top:5px"><table width="100%" border="0" cellspacing="0" cellpadding="1">
-          <tr><td width="32" height="26" rowspan="3" align="center" valign="top" class="celltitles" style="padding-right:2px"><a href="${h.url.item(e)}" title="${E(e.t)}">${icon32(h, e)}</a></td><td class="celltitles spx-q"><a href="${h.url.item(e)}" title="${E(e.t)}">${E(e.t)}</a></td></tr>
+          <tr><td width="32" height="26" rowspan="3" align="center" valign="top" class="celltitles" style="padding-right:2px"><a class="spx-icoa" href="${h.url.item(e)}" title="${E(e.t)}">${icon32(h, e)}</a></td><td class="celltitles spx-q"><a href="${h.url.item(e)}" title="${E(e.t)}">${E(e.t)}</a></td></tr>
           <tr><td class="celltext_description">${e.n ? E(summary(e.n)) : `${E(e.a)}${desc ? ' - ' + E(desc) : ''}`}</td></tr>
           <tr><td class="celltext">${E(e.y[0] || '')} | ${E(h.siteName(e.s))} | Archived: ${E(h.archivedLabel(e))}</td></tr></table></td>
           <td width="200" style="padding-bottom:5px; padding-top:5px"><table width="100%" border="0" cellspacing="0" cellpadding="1">
@@ -206,7 +209,7 @@
       setBase(h);
       if (!e) return page(ctx, 'width="822" align="center"', `<p class="celltext_big" style="padding:40px">Item not found. <a href="${h.url.home()}">Back to the archive</a></p>`, right(ctx, ''));
       const file = h.file(e), pg = h.page(e), a = (u, t) => u ? `<a href="${E(u)}"${ext(u)}>${t}</a>` : t;
-      const shot = h.img(e, 'width="160" height="110" border="0" style="border:1px solid #9AACD1;object-fit:contain;background:#EFF3FC;box-sizing:border-box"') || '<div class="spx-noshot">No preview</div>';
+      const shot = h.img(e, 'width="160" height="110" border="0" style="border:1px solid #9AACD1;object-fit:contain;background:#EFF3FC;box-sizing:border-box"') ;
       const more = m.apps.find(x => x.slug === e.k);
       const center = `${sectionBar(ctx, e.a + ' downloads:', h.url.app(e.k), m.apps.map(x => [h.url.app(x.slug), x.name]),
           [[h.url.app(e.k), 'More from ' + e.a], [h.url.site(e.s), 'More from ' + h.siteName(e.s)], [h.report(e), 'Report this file']])}
@@ -219,14 +222,13 @@
                 <tr><td colspan="2" class="celltext"><img src="${A}add_to_dwld_basket.gif" width="22" height="21" hspace="2" align="absmiddle"> ${a(h.edit(e), 'Edit this entry')}<br>
                   <img src="${A}version_update.gif" width="21" height="22" hspace="2" align="absmiddle"> ${a(h.report(e), 'Report this file')}<br></td></tr>
                 <tr><td colspan="2" class="dotsdwld spx-io">${img('dots_dwld.gif', 3, 3, 'vspace="5"')}</td></tr>
-                <tr><td colspan="2" align="center"><table width="160" border="0" cellspacing="0" cellpadding="0"><tr><td height="110" bgcolor="EFF3FC">${a(e.v ? h.thumb(e) : '', shot)}</td></tr><tr><td height="1"></td></tr>
+                <tr><td colspan="2" align="center"><table width="160" border="0" cellspacing="0" cellpadding="0">${shot ? `<tr><td height="110" bgcolor="EFF3FC">${a(h.thumb(e), shot)}</td></tr><tr><td height="1"></td></tr>` : ''}
                   <tr><td height="23" align="center" bgcolor="EFF3FC" class="celltext"><table border="0" cellspacing="0" cellpadding="0"><tr><td>${img('tb_scope.gif', 20, 19)}</td><td>${a(pg, 'View original page')}</td></tr></table></td></tr><tr><td height="1" bgcolor="CCD5E8"></td></tr></table></td></tr>
                 <tr><td colspan="2" class="dotsdwld spx-io">${img('dots_dwld.gif', 3, 3, 'vspace="5"')}</td></tr>
                 <tr><td colspan="2" height="20" class="celltext"><b>Archived:</b> ${E(h.archivedLabel(e))}<br><b>Source:</b> ${E(h.siteName(e.s))}</td></tr>
                 <tr><td colspan="2" class="dotsdwld spx-io">${img('dots_dwld.gif', 3, 3, 'vspace="5"')}</td></tr>
                 <tr><td colspan="2" height="21" class="celltext" valign="top"><b>Type:</b> ${e.y.map(t => `<a href="${h.url.type(t)}">${E(t)}</a>`).join(', ')}</td></tr>
                 <tr><td colspan="2" class="dotsdwld spx-io">${img('dots_dwld.gif', 3, 3, 'vspace="5"')}</td></tr>
-                <tr><td colspan="2"><a class="spx-badge${e.z ? '' : ' spx-badge-no'}" href="${E(file || pg || h.url.app(e.k))}"${ext(file || pg)}><b>${e.z ? 'ARCHIVED' : 'NOT YET ARCHIVED'}</b><span>${E(h.archivedLabel(e))}</span><i>Wayback Machine</i></a></td></tr>
                 <tr><td style="padding-bottom:10px" colspan="2" width="100%" valign="top"></td></tr>
                 <tr><td colspan="2" width="100%" valign="top"><table width="100%" border="0" cellspacing="0" cellpadding="0"><tr><td height="20" bgcolor="#EFF3FC" class="celltitles" style="padding-left:5px"><img src="${A}news.gif" align="absmiddle"> <a style="text-decoration:none" href="${h.url.app(e.k)}">More ${E(e.a)}</a></td><td height="20" bgcolor="#EFF3FC" class="celltitles"></td></tr>
                   <tr><td colspan="2" class="orizdotsbkg spx-io">${img('oriz_dots.gif', 2, 1, 'vspace="5"')}</td></tr>
@@ -240,7 +242,7 @@
               <br><table width="100%" border="0" cellspacing="0" cellpadding="0"><tr><td height="20" valign="top" class="celltitles" align="left">${E(e.t)} description</td>
                 <td class="celltext" align="right"><img src="${A}download_small.gif" align="top" hspace="2">${a(file, 'Download')}</td></tr>
                 <tr><td class="orizdotsbkg spx-io" colspan="2">${img('oriz_dots.gif', 2, 1, 'vspace="5"')}</td></tr>
-                <tr><td valign="top" class="celltext_big" colspan="2"><span id="intelliTxt"><div align="justify"><div style="margin:0px 0px 5px 5px; float:right; width:100px;border:1px solid #CCCCCC;">${a(e.v ? h.thumb(e) : '', h.img(e, 'width="100" height="54" border="0" class="spx-ico"') || '<span class="spx-noshot" style="display:block;width:100px;height:54px;line-height:54px"></span>')}<br><div class="ed_box">${a(pg, 'Click to view the original page for ' + E(e.t))}</div></div>${(e.desc || '').replace(/<p>(<b>[^<]*<\/b>)<\/p>\s*<p>(?!<b>[^<]*<\/b><\/p>)/g, '<p>$1<br>').replace(/<\/p>\s*<p>/g, '<br><br>').replace(/<\/?p>/g, '') || `${E(e.t)} is a ${E((e.y[0] || 'customization').toLowerCase())} item for ${E(e.a)}, recovered from ${E(h.siteName(e.s))}.`}</div></span></td></tr></table>
+                <tr><td valign="top" class="celltext_big" colspan="2"><span id="intelliTxt"><div align="justify">${(e.desc || '').replace(/<p>(<b>[^<]*<\/b>)<\/p>\s*<p>(?!<b>[^<]*<\/b><\/p>)/g, '<p>$1<br>').replace(/<\/p>\s*<p>/g, '<br><br>').replace(/<\/?p>/g, '') || `${E(e.t)} is a ${E((e.y[0] || 'customization').toLowerCase())} item for ${E(e.a)}, recovered from ${E(h.siteName(e.s))}.`}</div></span></td></tr></table>
               <br><table style="border:1px solid #D8E2FA" width="100%" border="0" cellspacing="0" cellpadding="5"><tr><td class="celltext">${E(e.t)} was archived automatically and has <b style="color:blue">NOT been checked</b>, which means it may contain malware, including but not limited to: spyware, viruses, trojans and backdoors.<br><br>Scan anything you download from this archive before opening it. If this file is broken, wrong or harmful, report it with the link below and it will be reviewed and removed from the listing if needed.</td></tr></table><br>
               <div class="celltext_big"></div><table bgcolor="#EFF3FC" width="100%" border="0" cellspacing="0" cellpadding="5">
                 <tr><td valign="center" align="left" class="celltext"><img src="${A}download2.gif" align="top" hspace="2">${a(file, `<b style="font-size:11px">${E(e.t)} Download</b>`)}</td></tr>
