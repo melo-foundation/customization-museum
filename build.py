@@ -88,6 +88,8 @@ for f in sorted(glob.glob("data/*.json")):
                 return s["ts"] + ("|" + s["u"] if s.get("u") else "")
             return "2" if dead and e.get(k) else None
         y, g = classify(e["app"], e.get("tags") or [])
+        if (e.get("date") or "")[:4] < "1990":
+            e["date"] = ""  # epoch placeholders (1969/1970) from broken source dates
         o = OVERRIDES.get(e["id"], {})
         row = dict(
             i=e["id"], s=src, a=e["app"], t=o.get("title", e["title"]), d=o.get("date", e.get("date") or ""),
@@ -107,7 +109,5 @@ if __name__ == "__main__":
     assert classify("x", []) == (["Other"], [])
     assert front_matter("---\ntitle: A: B\ntags: x, y\n---\nbody") == ({"title": "A: B", "tags": "x, y"}, "body")
     json.dump(out, open("entries.json", "w", encoding="utf-8"), separators=(",", ":"), ensure_ascii=False)
-    pages = sorted(os.path.basename(p)[:-3] for p in glob.glob("pages/*.md"))
     write_section_pages(out)
-    json.dump(pages, open("pages.json", "w", encoding="utf-8"))
     print(len(out), "entries,", os.path.getsize("entries.json") // 1024, "KB")

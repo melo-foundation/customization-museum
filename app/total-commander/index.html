@@ -24,17 +24,6 @@
   #types button.chip { background:#2c3140; color:var(--text); font-size:13px; }
   #types button.chip.on { background:var(--accent); color:#0c1420; }
   button.chip i { font-style:normal; opacity:.6; margin-left:4px; }
-  #about { max-width:1700px; margin:14px auto 0; padding:0 20px; }
-  #about:empty { display:none; }
-  #about .box { position:relative; background:var(--panel); border:1px solid var(--border); border-radius:10px; padding:14px 20px; line-height:1.55; }
-  #about h1 { font-size:20px; margin:0 0 6px; white-space:normal; }
-  #about h2 { font-size:16px; margin:14px 0 4px; }
-  #about h3 { font-size:14px; margin:12px 0 4px; }
-  #about p, #about ul { margin:6px 0; }
-  #about a { color:var(--accent); }
-  #about code { background:#0c0d10; padding:1px 5px; border-radius:4px; }
-  #about .tools { position:absolute; top:12px; right:14px; display:flex; gap:8px; }
-  #about .tools a, #about .tools button { color:var(--accent); background:none; border:1px solid var(--border); border-radius:6px; padding:3px 10px; font:12px inherit; cursor:pointer; text-decoration:none; }
   main { padding:16px 20px 40px; max-width:1700px; margin:0 auto; }
   .grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(200px,1fr)); gap:14px; }
   .card { background:var(--panel); border:1px solid var(--border); border-radius:10px; overflow:hidden; display:flex; flex-direction:column; }
@@ -89,7 +78,6 @@
 <div class="bar" id="apps"></div>
 <div class="bar" id="types"></div>
 <div class="bar" id="tags"></div>
-<div id="about"></div>
 <div id="itemview" hidden></div>
 <main><div class="grid" id="grid"></div><div id="empty">No results</div><div id="more"></div></main>
 <script>
@@ -101,8 +89,8 @@ const esc = s => String(s).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>'
 const real = f => !!f && /^\d{14}/.test(f);
 const saved = e => real(e.tp) || real(e.tl) || /^https?:\/\/(\w+\.)?archive\.org\//.test(e.l || '');
 const slug = s => s.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');
-let DATA = [], PAGES = new Set(), SITE = {}, view = [], shown = 0, site = '', app = '', typ = '', tag = '';
-const PAGE = 120, mdCache = {};
+let DATA = [], SITE = {}, view = [], shown = 0, site = '', app = '', typ = '', tag = '';
+const PAGE = 120;
 
 const chips = (el, list, cur, fn) => {
   el.innerHTML = list.map(([k, n]) => `<button class="chip${k === cur ? ' on' : ''}" data-k="${esc(k)}">${esc(k)}<i>${n}</i></button>`).join('');
@@ -130,34 +118,6 @@ function md(src) {
   return html;
 }
 
-function summary(items) {
-  const dates = items.map(e => e.d).filter(Boolean).sort();
-  const archived = items.filter(saved).length;
-  const list = arr => tally(arr).slice(0, 12).map(([k, n]) => `${k} (${n})`).join(', ');
-  return { dates: dates.length ? `${dates[0].slice(0, 4)} to ${dates[dates.length - 1].slice(0, 4)}` : '', archived, list };
-}
-
-function autoPage() {
-  if (site) {
-    const items = DATA.filter(e => e.s === site), s = summary(items), name = SITE[site];
-    return `# ${name}\n\n${items.length} items${s.dates ? `, ${s.dates}` : ''}.\n\n- Programs: ${s.list(items.map(e => e.a))}\n- Types: ${s.list(items.flatMap(e => e.y))}\n- Archived: ${s.archived} of ${items.length}\n- Site: https://${name}\n`;
-  }
-  const items = DATA.filter(e => e.y.includes(typ)), s = summary(items);
-  return `# ${typ}\n\n${items.length} items${s.dates ? `, ${s.dates}` : ''}.\n\n- Programs: ${s.list(items.map(e => e.a))}\n- Sites: ${s.list(items.map(e => SITE[e.s]))}\n- Archived: ${s.archived} of ${items.length}\n`;
-}
-
-let aboutToken = 0;
-async function about() {
-  if (!site && !typ) { $('about').innerHTML = ''; return; }
-  const key = site ? `site-${site}` : `type-${slug(typ)}`, mine = ++aboutToken;
-  const exists = PAGES.has(key), auto = autoPage();
-  const text = exists ? (mdCache[key] ??= await fetch(`pages/${key}.md`).then(r => r.ok ? r.text() : auto)) : auto;
-  if (mine !== aboutToken) return;
-  const edit = exists ? `https://github.com/${REPO}/edit/main/pages/${key}.md`
-    : `https://github.com/${REPO}/new/main?filename=pages/${key}.md&value=${encodeURIComponent(auto)}`;
-  $('about').innerHTML = `<div class="box"><div class="tools"><a href="${esc(edit)}" target="_blank" rel="noopener">Edit</a>${site ? '<button id="unsite">Close</button>' : ''}</div>${md(text)}</div>`;
-  if (site) $('unsite').onclick = () => { site = ''; render(); };
-}
 
 const itemUrl = e => `${ROOT}item/?id=${encodeURIComponent(e.i)}`;
 const fmtTs = f => real(f) ? `${f.slice(0, 4)}-${f.slice(4, 6)}-${f.slice(6, 8)}` : '';
@@ -176,7 +136,7 @@ function media(e) {
 
 async function showItem(id) {
   const e = DATA.find(d => d.i === id);
-  ['apps', 'types', 'tags', 'about', 'sort', 'arch', 'count'].forEach(k => $(k).hidden = true);
+  ['apps', 'types', 'tags', 'sort', 'arch', 'count'].forEach(k => $(k).hidden = true);
   $('q').onkeydown = ev => { if (ev.key === 'Enter') location.href = ROOT + '#q=' + encodeURIComponent($('q').value.trim()); };
   document.querySelector('main').hidden = true;
   const v = $('itemview'); v.hidden = false;
@@ -245,7 +205,6 @@ function render() {
   const path = only.length === 1 && !['tag', 'q'].includes(only[0][0]) ? `${only[0][0]}/${only[0][0] === 'site' ? only[0][1] : slug(only[0][1])}/` : '';
   const hash = path ? '' : new URLSearchParams(only).toString();
   history.replaceState(null, '', ROOT + path + (hash ? '#' + hash : ''));
-  about();
 }
 
 function fromHash() {
@@ -270,8 +229,8 @@ addEventListener('hashchange', () => { fromHash(); render(); });
 new IntersectionObserver(es => es[0].isIntersecting && more(), { rootMargin: '600px' }).observe($('more'));
 if (!localStorage.getItem('warned')) $('warn').hidden = false;
 $('warnok').onclick = () => { localStorage.setItem('warned', '1'); $('warn').hidden = true; };
-Promise.all([fetch('entries.json').then(r => r.json()), fetch('pages.json').then(r => r.ok ? r.json() : []).catch(() => [])]).then(([d, p]) => {
-  DATA = d; PAGES = new Set(p);
+fetch('entries.json').then(r => r.json()).then(d => {
+  DATA = d;
   for (const e of d) if (!(e.s in SITE)) { try { SITE[e.s] = new URL(e.p || e.l).hostname.replace(/^www\./, ''); } catch { SITE[e.s] = e.s; } }
   if (location.href.slice(ROOT.length).startsWith('item/')) return showItem(new URLSearchParams(location.search).get('id'));
   fromHash(); render();
