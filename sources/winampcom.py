@@ -6,7 +6,7 @@ under download.nullsoft.com/customize/component/3/..., classic ones under .../co
 import html, re, urllib.parse
 from sources.wayback import Blocked, capture, cdx
 
-APP = "Winamp"
+APP = "Winamp 3/5 (Modern Skins)"
 SITE = "http://www.winamp.com"
 SKIN = re.compile(r"/skin/([^/?#]+)/(\d+)/?$")
 MONTHS = {m: i for i, m in enumerate("jan feb mar apr may jun jul aug sep oct nov dec".split(), 1)}

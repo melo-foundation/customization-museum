@@ -2,7 +2,7 @@
 import json, urllib.parse
 from lib import get, pmap
 
-APP = "Winamp"
+APP = "Winamp 3/5 (Modern Skins)"
 TAGS = ["Skins", "Winamp 3/5 Modern"]
 EXTS = (".wal", ".zip", ".wa3", ".wsz")
 IMG = (".jpg", ".jpeg", ".png", ".gif")
