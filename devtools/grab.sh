@@ -12,6 +12,7 @@ for _ in $(seq 1 360); do
   for id in $(gh run list --repo $R --workflow grab.yml --limit 15 --json databaseId,status --jq '.[] | select(.status=="completed") | .databaseId'); do
     if gh api "repos/$R/actions/runs/$id/artifacts" --jq '.artifacts[].name' | grep -qx "$tag"; then
       mkdir -p "$out" && gh run download "$id" --repo $R -n "$tag" -D "$out"
+      tar -xzf "$out/grab.tgz" -C "$out" && rm "$out/grab.tgz"
       cat "$out/index.tsv"
       exit 0
     fi
