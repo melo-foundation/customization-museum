@@ -16,7 +16,7 @@ ITEMS = [
     ("i-station-portable-v-5.0", "PSP", "Themes", (".ptf",)),
     ("collection-of-psp-themes", "PSP", "Themes", (".ptf",)),
     ("windows-xp-ms-signed-themes", "Windows XP", "Themes", (".zip",)),
-    ("stargate-sg-1with-media-library", "Quintessential Player", "Skins", (".qsk",)),
+    ("stargate-sg-1with-media-library", "Quintessential Player", "Skins", (".qsk", ".qsf")),
     ("cursor-xpfree-130", "CursorXP", "Cursors", (".exe",)),
 ]
 GH = "PSPmodx/psp-theme-archive"

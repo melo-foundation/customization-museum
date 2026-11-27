@@ -71,6 +71,7 @@ def write_section_pages(entries):
 
 
 OVERRIDES = item_overrides()
+PREVIEWS = {os.path.basename(p)[:-4] for p in glob.glob("previews/*.png")}
 split = lambda v: [x.strip() for x in v.split(",") if x.strip()]
 out = []
 for f in sorted(glob.glob("data/*.json")):
@@ -91,8 +92,8 @@ for f in sorted(glob.glob("data/*.json")):
         row = dict(
             i=e["id"], s=src, a=e["app"], t=o.get("title", e["title"]), d=o.get("date", e.get("date") or ""),
             y=split(o["type"]) if "type" in o else y, g=split(o["tags"]) if "tags" in o else g,
-            p=e.get("page"), v=e.get("preview"), l=e.get("download"),
-            tp=ts("page"), tv=ts("preview"), tl=ts("download"),
+            p=e.get("page"), v=f"previews/{e['id']}.png" if e["id"] in PREVIEWS else e.get("preview"), l=e.get("download"),
+            tp=ts("page"), tv=None if e["id"] in PREVIEWS else ts("preview"), tl=ts("download"),
         )
         if e.get("extra"):
             row["x"] = e["extra"]
