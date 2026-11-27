@@ -34,8 +34,30 @@
         <td class="sp-m7"><span class="sp-lens"></span><b>Search:</b></td>
         <td class="sp-m8">${h.searchForm(r, '')}</td>
         <td class="sp-m9"><a class="sp-bm" href="${h.url.home()}"><i>+</i>BOOKMARK THIS SITE</a><span class="sp-go">GO</span><a class="sp-adv" href="${resetLink(h, r, {})}">ADVANCED SEARCH &raquo;</a></td>
-      </tr></table>${h.warning()}`;
+      </tr></table>`;
   }
+
+  // ---------- ad slots: same geometry as the original's ad units, filled with our own content ----------
+  function ad728(ctx) {
+    const { h, manifest: m } = ctx;
+    const warn = h.warning();
+    if (warn) return `<div class="sp-ad728 sp-adwarn">${warn}</div>`;
+    const cell = (u, t, d, ext) => `<td><a class="sp-adt" href="${u}"${ext ? ' target="_blank" rel="noopener"' : ''}>${t}</a><div>${d}</div></td>`;
+    return `<table class="sp-ad728" cellspacing="0" cellpadding="0"><tr>
+      ${cell(h.link({}, { arch: '1' }), 'Archived files', `${m.archived.toLocaleString()} of ${m.total.toLocaleString()} files are backed up on the Wayback Machine.`)}
+      ${cell(h.url.request(), 'Request a site', 'Know an old skin or theme site? Ask for it to be archived.', 1)}
+      ${cell(h.url.request(), 'Report a file', 'Broken, wrong or harmful? Files are not checked, report them.', 1)}
+      ${cell('https://github.com/melo-foundation/customization-museum', 'Source code', 'Scrapers, archive tools and this site are open source.', 1)}
+    </tr><tr><td colspan="4" class="sp-adfoot">Customization Museum notes</td></tr></table>`;
+  }
+  // "Special Deal" slot of the list pages' right column: header, three text lines, a 140x150 picture area
+  const dealBox = ctx => {
+    const { h, manifest: m } = ctx;
+    const pct = Math.round(100 * m.archived / m.total);
+    return `<div class="right_title_bkg">Archive status</div>
+      <div class="rightcellcontent sp-rbox sp-deal"><a href="${h.link({}, { arch: '1' })}">Browse archived files</a><br><a href="${h.link({}, { arch: '0' })}">Files waiting for backup</a><br><a href="${h.url.request()}" target="_blank" rel="noopener">Request a site</a>
+        <div class="sp-dealpic"><b>${pct}%</b><span>archived</span><i style="width:${pct}%"></i><em>${m.archived.toLocaleString()} / ${m.total.toLocaleString()}</em></div></div>`;
+  };
 
   // ---------- right column ----------
   function right(ctx, boxes) {
@@ -44,7 +66,7 @@
       <a class="sp-rbtn sp-basket" href="${h.url.request()}" target="_blank" rel="noopener"><i></i>Submit a file</a>
       <a class="sp-rbtn sp-reviews" href="${resetLink(h, ctx.route, { arch: '1' })}"><i></i>Archived files</a>
       <div class="right_title_bkg">Welcome!</div>
-      <div class="rightcellcontent sp-rbox sp-welcomebox">Hello, visitor<br><br><a href="${h.url.request()}" target="_blank" rel="noopener">Submit</a> a file or<br>request a site.<br><br>Otherwise, <a href="${h.url.home()}">browse</a> the archive.</div>
+      <div class="rightcellcontent sp-rbox sp-welcomebox">Hello, visitor<br><br><a href="${h.url.request()}" target="_blank" rel="noopener">Request</a> a site if you know a lost one.<br><br>Otherwise, <a href="${h.url.home()}">browse</a>.</div>
       ${boxes}</td>`;
   }
   const bulletBox = (h, title, items) => `<div class="right_title_bkg">${h.esc(title)}</div>
@@ -119,7 +141,7 @@
         <table class="sp-hotp" cellspacing="0" cellpadding="0"><tr><td class="sp-hotb" rowspan="3"><span>On this page<i>&#8680;&#8680;&#8680;&#8680;</i></span></td>
           ${[0, 1, 2].map(row => `${row ? '<tr>' : ''}${[0, 1, 2].map(col => { const [u, txt] = links[row + col * 3]; return `<td class="celltext_bigger"><i class="sp-li l${col}"></i><a href="${u}"${u.startsWith('https://github') ? ' target="_blank" rel="noopener"' : ''}>${E(txt)}</a></td>`; }).join('')}</tr>`).join('')}
         </table>
-        <div class="sp-hgap"></div>
+        <div class="sp-hgap">${ad728(ctx)}</div>
         <table class="sp-hcols" cellspacing="0" cellpadding="0"><tr valign="top">
           <td class="sp-hcol">${box(types[0], 0, 40)}</td>
           <td class="sp-hcol">${types.slice(1, 5).map((t, i) => box(t, i + 1, 9)).join('')}</td></tr></table>`;
@@ -135,6 +157,7 @@
       const pg = pages(h, r, l);
       const center = `${sectionBar(ctx, name + ' downloads:', h.link(r, { tag: '', page: 1 }), f.apps.map(([k, n, c]) => [h.link(r, { app: k, type: '', tag: '' }), `${n} (${c})`]),
           [[h.link(r, { sort: '' }), 'Newest files'], [h.link(r, { sort: 'old' }), 'Oldest files'], [h.link(r, { arch: '1' }), 'Archived files']])}
+        ${ad728(ctx)}
         ${about ? `<div class="sp-about celltext_big"><div class="sp-tools celltext"><a href="${E(about.edit)}" target="_blank" rel="noopener">Edit</a> | <a href="${h.link(r, { site: '' })}">Close</a></div>${about.html}</div>` : ''}
         <table class="indexcellbkg_2 sp-box" cellspacing="0" cellpadding="0"><tr><td class="sp-boxin">
           <table width="100%" cellspacing="0" cellpadding="0"><tr><td width="70%"><span class="celltitles_categ"><a href="${h.url.home()}">C:</a>${(crumbs.length ? crumbs : [[h.link(r, {}), name]]).map(([u, t]) => ` \\ <a href="${u}">${E(t)}</a>`).join('')}</span> <span class="celltext">(${l.total.toLocaleString()} files)</span></td>
@@ -143,7 +166,7 @@
           <table class="sp-bottom" cellspacing="0" cellpadding="0"><tr><td class="celltext"><a href="#" onclick="scrollTo(0,0);return false">go to top</a></td><td class="celltext" align="right">${pg}</td></tr></table>
           ${f.tags.length ? `<div class="celltext sp-tags"><b>Tags:</b> ${f.tags.slice(0, 40).map(([t]) => `<a href="${h.link(r, { tag: r.tag === t ? '' : t })}">${E(t)}</a>`).join(' | ')}</div>` : ''}
         </td></tr></table>`;
-      const side = `<div class="right_title_bkg">Category Options:</div>
+      const side = `${dealBox(ctx)}<div class="right_title_bkg">Category Options:</div>
         <div class="rightcellcontent sp-rbox sp-opts">Show only:<br>${h.archSelect(r)}<br><br>Sort By:<br>${h.sortSelect(r)}</div>
         ${bulletBox(h, 'Programs:', [[h.link(r, { app: '', type: '', tag: '' }), 'All programs'], ...f.apps.map(([k, n, c]) => [h.link(r, { app: k, type: '', tag: '' }), `${n} (${c})`])].slice(0, 30))}
         ${bulletBox(h, 'File types:', f.types.map(([t, n]) => [h.link(r, { type: t, tag: '' }), `${t} (${n})`]))}`;
@@ -156,6 +179,7 @@
       const file = h.file(e), a = (u, t) => u ? `<a href="${E(u)}" target="_blank" rel="noopener">${t}</a>` : '';
       const center = `${sectionBar(ctx, e.a + ' downloads:', h.url.app(e.k), m.apps.map(x => [h.url.app(x.slug), x.name]),
           [[h.url.app(e.k), 'More from ' + e.a], [h.url.site(e.s), 'More from ' + h.siteName(e.s)], [h.report(e), 'Report this file']])}
+        ${ad728(ctx)}
         <table class="dwldbkg sp-box" cellspacing="0" cellpadding="0"><tr><td class="sp-boxin">
           <table width="100%" cellspacing="0" cellpadding="0"><tr><td class="celltitles_categ_ptitle">${E(e.t)}</td><td align="right" class="celltext">${a(h.report(e), 'Report')}&nbsp;</td></tr></table>
           <table class="sp-itm" cellspacing="0" cellpadding="0"><tr valign="top">
@@ -167,7 +191,7 @@
                 <td class="celltext_big"><i class="sp-li l0"></i>${a(file, 'Download') || 'No file'}</td><td class="celltext_big"><i class="sp-li l1"></i>${a(h.page(e), 'Original page') || 'No page'}</td><td class="celltext_big"><i class="sp-li l2"></i>${a(h.edit(e), 'Edit this entry')}</td><td class="celltext_big"><i class="sp-li l3"></i>${a(h.report(e), 'Report')}</td></tr></table>
               ${e.desc ? `<div class="subtitles sp-dh">${E(e.t)} description</div><div class="celltext_big sp-desc">${e.desc}</div>` : ''}</td></tr></table>
         </td></tr></table>`;
-      const side = bulletBox(h, `More ${e.a}:`, e.y.map(t => [h.link({}, { app: e.k, type: t }), `${e.a} ${t}`]).concat([[h.url.app(e.k), 'All ' + e.a]]));
+      const side = `<div class="sp-itemside">${bulletBox(h, `More ${e.a}:`, e.y.map(t => [h.link({}, { app: e.k, type: t }), `${e.a} ${t}`]).concat([[h.url.app(e.k), 'All ' + e.a]]))}</div>`;
       return page(ctx, center, right(ctx, side));
     },
   };

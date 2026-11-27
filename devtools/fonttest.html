@@ -1,0 +1,5 @@
+<!doctype html><meta charset="utf-8"><body style="font:16px sans-serif"><pre id="o"></pre><script>
+const c=document.createElement('canvas').getContext('2d'), s='The quick brown fox jumps over the lazy dog 0123456789';
+const fams=['Verdana','Tahoma','Arial','"Trebuchet MS"','Georgia','"Times New Roman"','"Courier New"','sans-serif','"NoSuchFont",serif'];
+document.getElementById('o').textContent=fams.map(f=>{c.font='16px '+f;return f.padEnd(20)+c.measureText(s).width.toFixed(1)}).join('\n');
+</script></body>
