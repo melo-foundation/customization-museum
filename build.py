@@ -168,7 +168,8 @@ if __name__ == "__main__":
     themes = []
     for p in sorted(glob.glob("themes/*/theme.js")):
         m = re.match(r"// label: (.+)", open(p, encoding="utf-8").readline())
-        themes.append([p.split("/")[1], m.group(1).strip() if m else p.split("/")[1]])
+        name = p.split("/")[1]
+        themes.append([name, m.group(1).strip() if m else name, os.path.exists(f"themes/{name}/modern.css")])
     dump("themes/index.json", sorted(themes, key=lambda t: t[0] != "default"))
     write_section_pages(out)
     print(len(out), "entries,", sum(os.path.getsize(p) for p in glob.glob("idx/**/*.json", recursive=True)) // 1024, "KB in idx/")

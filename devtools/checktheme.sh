@@ -14,7 +14,7 @@ urls=()
 for pair in "$@"; do
   ours=${pair%%|*}; ref=${pair#*|}
   sep='?'; [[ $ours == *\?* ]] && sep='&'
-  urls+=("$SITE$ours${sep}theme=$theme&warned=1")
+  urls+=("$SITE$ours${sep}theme=$theme&warned=1&fidelity=exact")
   [[ $ref == repo:* ]] && ref="http://localhost:8000/${ref#repo:}"
   [[ $ref == *.png ]] || urls+=("$ref")
 done

@@ -117,6 +117,8 @@ const h = {
   },
   // shared bits every theme should place somewhere
   warning: () => localStorage.getItem('warned') ? '' : `<div class="cm-warning">Files are archived automatically and not checked. They may contain malware: scan anything you download. <button data-dismiss-warning>OK</button></div>`,
+  // shown only for themes that ship a modern.css
+  fidelityToggle: () => THEMES[currentTheme]?.modern ? `<select data-fidelity aria-label="Fidelity"><option value="readable"${readable() ? ' selected' : ''}>Readable</option><option value="exact"${readable() ? '' : ' selected'}>1:1</option></select>` : '',
   themePicker: () => `<select data-theme aria-label="Theme">${Object.entries(THEMES).map(([k, t]) => `<option value="${k}"${k === currentTheme ? ' selected' : ''}>${esc(t.label)}</option>`).join('')}</select>`,
   searchForm: (r, placeholder = 'Search') => `<form data-search role="search"><input type="search" name="q" value="${esc(r.q)}" placeholder="${esc(placeholder)}"></form>`,
   sortSelect: r => `<select data-sort aria-label="Sort">${[['', 'Newest'], ['old', 'Oldest'], ['az', 'A–Z']].map(([v, l]) => `<option value="${v}"${r.sort === v ? ' selected' : ''}>${l}</option>`).join('')}</select>`,
@@ -205,22 +207,34 @@ async function findItem(id) {
 const themeParam = new URLSearchParams(location.search).get('theme');
 if (themeParam && /^[a-z0-9-]+$/.test(themeParam)) localStorage.setItem('theme', themeParam);
 if (new URLSearchParams(location.search).get('warned') === '1') localStorage.setItem('warned', '1');
+const fidelityParam = new URLSearchParams(location.search).get('fidelity');
+if (['exact', 'readable'].includes(fidelityParam)) localStorage.setItem('fidelity', fidelityParam);
 let currentTheme = localStorage.getItem('theme') || 'default', renderToken = 0;
 function loadTheme(name) {
   if (THEMES[name]?.home) return Promise.resolve(THEMES[name]);
   return new Promise((ok, fail) => {
     const s = document.createElement('script');
     s.src = `${ROOT}themes/${name}/theme.js`;
-    s.onload = () => THEMES[name]?.home ? ok(THEMES[name]) : fail(new Error('theme did not register: ' + name));
+    const modern = THEMES[name]?.modern;
+    s.onload = () => THEMES[name]?.home ? (THEMES[name].modern ??= modern, ok(THEMES[name])) : fail(new Error('theme did not register: ' + name));
     s.onerror = fail;
     document.head.append(s);
   });
 }
+// Readable mode layers themes/<name>/modern.css (legibility for modern displays) over the untouched
+// original stylesheet; "1:1" shows the original exactly. Themes without modern.css are unaffected.
+const readable = () => localStorage.getItem('fidelity') !== 'exact';
 function useCss(name) {
-  let l = document.getElementById('theme-css');
-  if (!l) { l = document.createElement('link'); l.id = 'theme-css'; l.rel = 'stylesheet'; document.head.append(l); }
-  l.href = `${ROOT}themes/${name}/style.css`;
+  const link = (id, href) => {
+    let l = document.getElementById(id);
+    if (!href) { l?.remove(); return; }
+    if (!l) { l = document.createElement('link'); l.id = id; l.rel = 'stylesheet'; document.head.append(l); }
+    if (l.getAttribute('href') !== href) l.href = href;
+  };
+  link('theme-css', `${ROOT}themes/${name}/style.css`);
+  link('theme-modern', readable() && THEMES[name]?.modern ? `${ROOT}themes/${name}/modern.css` : '');
   document.documentElement.dataset.theme = name;
+  document.documentElement.dataset.fidelity = readable() ? 'readable' : 'exact';
 }
 
 async function render() {
@@ -274,10 +288,11 @@ document.addEventListener('submit', ev => {
 document.addEventListener('change', ev => {
   const t = ev.target, r = parseRoute();
   if (t.matches('[data-theme]')) { currentTheme = t.value; localStorage.setItem('theme', t.value); render(); }
+  else if (t.matches('[data-fidelity]')) { localStorage.setItem('fidelity', t.value); render(); }
   else if (t.matches('[data-sort]')) go(withRoute(r, { sort: t.value }));
   else if (t.matches('[data-arch]')) go(withRoute(r, { arch: t.value }));
 });
 addEventListener('popstate', () => render());
 
 // themes are listed in themes/index.json (written by build.py); register them lazily on first picker render
-fetch(ROOT + 'themes/index.json').then(r => r.json()).then(list => list.forEach(([k, label]) => THEMES[k] ??= { label, lazy: true })).catch(() => {}).finally(render);
+fetch(ROOT + 'themes/index.json').then(r => r.json()).then(list => list.forEach(([k, label, modern]) => { THEMES[k] ??= { label, lazy: true }; THEMES[k].modern = !!modern; })).catch(() => {}).finally(render);
