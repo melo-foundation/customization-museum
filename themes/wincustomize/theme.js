@@ -14,7 +14,7 @@
 
   const header = (ctx) => {
     const { h } = ctx;
-    return `<table class="hd" cellpadding="0" cellspacing="0"><tr><td class="logo"><a href="${h.url.home()}"><span>Customization</span><span>Museum</span></a></td><td class="ad"></td></tr></table>
+    return `<table class="hd" cellpadding="0" cellspacing="0"><tr><td class="logo"><a href="${h.url.home()}"><span>Customization</span><span>Museum</span></a></td><td class="ad"><div class="adslot">${h.warning() || `<div class="adstats"><b>${ctx.manifest.total.toLocaleString()}</b> skins, themes and add-ons &nbsp;-&nbsp; <b>${ctx.manifest.archived.toLocaleString()}</b> on the Wayback Machine</div>`}</div></td></tr></table>
       <table class="tb" cellpadding="0" cellspacing="0"><tr>
         <td class="tbl"><div></div></td>
         <td class="tbtext"><nobr><a href="${h.url.home()}">Customization Museum</a>&nbsp;&nbsp;&nbsp;${today()}</nobr></td>
@@ -23,7 +23,7 @@
         <td class="tbr">&nbsp;&nbsp;&nbsp;&nbsp;<b><a href="${h.url.request()}" target="_blank" rel="noopener">Request</a></b>&nbsp;</td>
       </tr></table>
       <table class="tl" cellpadding="0" cellspacing="5"><tr><td><b>&nbsp;<a href="${h.url.home()}">Home</a> &nbsp;-&nbsp;<a href="${h.link({}, { arch: '1' })}">Archived</a> &nbsp;-&nbsp;<a href="${h.url.request()}" target="_blank" rel="noopener">Request</a> &nbsp;-&nbsp;<a href="${h.link({}, { q: '' })}">Search</a></b></td></tr></table>
-      ${h.warning()}`;
+`;
   };
 
   const libraryList = (rows) => `<table class="lib" cellpadding="0" cellspacing="3">${rows.map(([href, label, n, on]) =>
@@ -33,6 +33,22 @@
     `<tr><td class="w">${i + 1}. <a href="${href}">${label}</a></td><td class="n">[${n}]</td></tr>`).join('')}</table>`;
   const plainLinks = (rows) => `<div class="plain">${rows.map(([href, label]) => `<a href="${href}">${label}</a>`).join('<br>')}</div>`;
 
+  const poll = (ctx) => {
+    const { h, manifest: m } = ctx;
+    const types = Object.entries(m.types).slice(0, 4), total = m.total;
+    const box = (inner, bold) => `<table class="pb" cellpadding="1" cellspacing="0"><tr><td><table cellpadding="1" cellspacing="0"><tr><td><div class="pq${bold ? ' b' : ''}">${inner}</div></td></tr></table></td></tr></table>`;
+    const bar = n => `<table class="pbar" cellpadding="1" cellspacing="0"><tr><td><div style="width:${(100 * n / total).toFixed(1)}%"></div></td></tr></table>`;
+    return frame('Poll', `<table class="poll" cellpadding="0" cellspacing="5"><tr><td><table cellpadding="2" cellspacing="0">
+      <tr><td>${box('What is in the museum?', true)}</td></tr>
+      <tr><td class="votes">${total.toLocaleString()} items</td></tr>
+      ${types.map(([t, n], i) => `<tr><td>${box(`${i + 1}- <a href="${h.url.type(t)}">${h.esc(t)}</a>`)}</td></tr><tr><td>${bar(n)}</td></tr>`).join('')}
+    </table></td></tr></table>`);
+  };
+  const dailyShot = (ctx) => {
+    const { h, manifest: m } = ctx;
+    return frame('Daily Shot', `<table class="ds" cellpadding="0" cellspacing="3"><tr><td>${ic}<br><a href="${h.link({}, { arch: '1' })}">${m.archived.toLocaleString()} of ${m.total.toLocaleString()} items archived</a></td></tr></table>`);
+  };
+
   const page = (ctx, left, center, right) => `${header(ctx)}
     <table class="main" cellpadding="0" cellspacing="5"><tr>
       <td class="side" valign="top">${left}</td>
@@ -40,12 +56,15 @@
       <td class="side" valign="top">${right}</td>
     </tr></table>`;
 
-  const leftCommon = (ctx, r = {}) => {
+  const leftCommon = (ctx, r = {}, home = false) => {
     const { h, manifest: m } = ctx;
-    return frame('Library', libraryList([...m.apps.slice(0, 22).map(a => [h.url.app(a.slug), h.esc(a.name), a.count.toLocaleString(), a.slug === r.app]),
-      ...(m.apps.length > 22 ? [[h.url.home(), '[more...]', null]] : [])]))
-      + gap + frame('Types', libraryList(Object.entries(m.types).map(([t, n]) => [h.url.type(t), h.esc(t), n.toLocaleString(), r.type && h.slug(r.type) === h.slug(t)])))
-      + gap + frame('Options', linkList([[h.url.request(), 'Request an item'], [h.link({}, { arch: '1' }), 'Archived items'], [h.link({}, { sort: 'old' }), 'Oldest first'], [h.link({}, { sort: 'az' }), 'A to Z']]));
+    const sites = Object.entries(m.sites).sort((a, b) => b[1].count - a[1].count);
+    return (home ? dailyShot(ctx) + gap : '')
+      + frame('Library', libraryList([...m.apps.slice(0, 22).map(a => [h.url.app(a.slug), h.esc(a.name), a.count.toLocaleString(), a.slug === r.app]),
+        ...(m.apps.length > 22 ? [[h.url.home(), '[more...]', null]] : [])]))
+      + gap + frame('Resources', plainLinks(sites.slice(0, 4).map(([s, i]) => [h.url.site(s), h.esc(i.name)])))
+      + gap + frame('Options', linkList([[h.url.request(), 'Request an item'], [h.link({}, { arch: '1' }), 'Archived items'], [h.link({}, { sort: 'old' }), 'Oldest first'], [h.link({}, { sort: 'az' }), 'A to Z']]))
+      + gap + poll(ctx);
   };
 
   const rightCommon = (ctx) => {
@@ -108,7 +127,7 @@
       const news = m.apps.slice(0, 8).map(a => `<div class="news"><div class="nt">${h.esc(a.name)} - ${a.count.toLocaleString()} items</div>
           <p>${Object.entries(a.types).map(([t, n]) => `<a href="${h.link({}, { app: a.slug, type: t })}">${h.esc(t)}</a> (${n.toLocaleString()})`).join('<br>')}</p>
           <table class="nf" cellpadding="0" cellspacing="0"><tr><td><b><a href="${h.url.app(a.slug)}">[Browse ${h.esc(a.name)}]</a></b></td><td class="r">Library: <b>${h.esc(a.slug)}</b></td></tr></table></div>`).join('');
-      return page(ctx, leftCommon(ctx), featured + gap + about + gap + frame('Museum Directory', news, { bg: '#ffffff' }), rightCommon(ctx));
+      return page(ctx, leftCommon(ctx, {}, true), featured + gap + about + gap + frame('Museum Directory', news, { bg: '#ffffff' }), rightCommon(ctx));
     },
 
     list(ctx) {
