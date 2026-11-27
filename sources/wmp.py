@@ -1,5 +1,5 @@
-import html, json, re, urllib.parse
-from lib import get, pmap
+import html, io, json, os, re, urllib.parse, urllib.request
+from lib import ROOT, UA, get, pmap
 
 APP = "Windows Media Player"
 SITE = "https://sites.google.com/view/wmpgoodies/"
@@ -29,6 +29,23 @@ def site_pages(section):
     return found
 
 
+def keep_image(img_url, item_id):
+    """Google Sites image URLs expire within minutes: save the image as previews/<id>.png right away."""
+    out = os.path.join(ROOT, "previews", f"{item_id}.png")
+    if os.path.exists(out):
+        return
+    from PIL import Image
+    try:
+        data = urllib.request.urlopen(urllib.request.Request(img_url, headers={"User-Agent": UA}), timeout=60).read()
+        im = Image.open(io.BytesIO(data))
+        im = im.convert("RGBA") if im.mode in ("P", "LA", "RGBA") else im.convert("RGB")
+        im.thumbnail((480, 480))
+        os.makedirs(os.path.dirname(out), exist_ok=True)
+        im.save(out, optimize=True)
+    except Exception as e:
+        print("preview not saved:", item_id, type(e).__name__, flush=True)
+
+
 def parse_site_page(url, tag):
     t = re.sub(r"<style.*?</style>|<script.*?</script>", "", get(url, cache=False) or "", flags=re.S)
     # each item is a content image (=w1280) followed by "N. Title", "Created By: X", "Size: Y"
@@ -44,6 +61,7 @@ def parse_site_page(url, tag):
         by = next((l[11:].strip() for l in lines[:5] if l.startswith("Created By:")), "")
         link = re.search(r'href="(https?://(?:drive\.google\.com|www\.mediafire\.com)[^"]+)"', chunk)
         slug = re.sub(r"[^a-z0-9]+", "-", title.lower()).strip("-")
+        keep_image(img, f"wmp-{tag.lower()}-{slug}")
         out.append(dict(
             app=APP, id=f"wmp-{tag.lower()}-{slug}", title=title, date="",
             page=url, preview=img, download=html.unescape(link.group(1)) if link else None,
