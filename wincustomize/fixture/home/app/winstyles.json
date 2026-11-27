@@ -1,1 +1,226 @@
-[]
+[
+{
+"i": "wc-home-2",
+"s": "software",
+"a": "WinStyles",
+"k": "winstyles",
+"t": "The Definite Desktop Environment Comparison",
+"d": "2003-03-18",
+"y": [
+"News"
+],
+"g": [],
+"p": "#",
+"v": "",
+"l": "",
+"tp": null,
+"tv": null,
+"tl": null,
+"x": {
+"Author": "Never.Mind"
+},
+"n": "From /.\n\n\"OSNews posted a very long and interesting comparison between the most popular desktop environments today: Windows XP Luna, Mac OS X Aqua, BeOS/Zeta and Unix's KDE and Gnome. Some of the points in the article can be thought to be 'subjective', but overall many good points are made and it seems that there is room for improvement for all DEs.\"",
+"z": 0
+},
+{
+"i": "wc-home-3",
+"s": "software",
+"a": "WinStyles",
+"k": "winstyles",
+"t": "ObjectBar 1.6 released!",
+"d": "2003-03-17",
+"y": [
+"News"
+],
+"g": [],
+"p": "#",
+"v": "/refs/wincustomize/assets/t3172003125947.jpg",
+"l": "",
+"tp": null,
+"tv": null,
+"tl": null,
+"x": {
+"Author": "Stardock Central"
+},
+"n": "Stardock has released a new version of ObjectBar. ObjectBar is a program that lets users create or download their own bars. The Windows Start bar, Mac''s Finder, Linux Wharfs, etc. are all examples of the kinds of things ObjectBar can do. It essentially integrates the best OS interface features into a single program.\n\nThe new version allows users to add hot-keys to any item on any part. These hotkeys not only can launch programs but access Windows system commands, URLs, and more. ObjectBar also can make use of plugins developed by third parties.\n\nHere are some screenshots of ObjectBar in action:\nhttp://www.stardock.com/products/objectbar/ob-mar03.jpg\nhttp://www.stardock.com/products/objectbar/ob-mar03a.jpg\nhttp://www.stardock.com/products/objectbar/ob-mar03b.jpg\n\nObjectBar is also fully skinnable and can autuomatically make use of WindowBlinds visual styles on the fly. It is a free download. Try it for yourself. It works on any version of Windows (one popular use of it is for non XP users to have a fully functional Windows XP Start bar).\n\nWhat makes ObjectBar really special is that it''s been designed with functionality as its top priority. It doesn''t just look good, it can greatly increase your productivity.",
+"z": 0
+},
+{
+"i": "wc-home-4",
+"s": "software",
+"a": "WinStyles",
+"k": "winstyles",
+"t": "Galactic Civilizations Trailer available!",
+"d": "2003-03-17",
+"y": [
+"News"
+],
+"g": [],
+"p": "#",
+"v": "",
+"l": "",
+"tp": null,
+"tv": null,
+"tl": null,
+"x": {
+"Author": "Stardock Central"
+},
+"n": "Check out the Galactic Civilizations trailer. It presents some of the back story on the game and is just plain cool. GalCiv will be released on March 26th.",
+"z": 0
+},
+{
+"i": "wc-home-5",
+"s": "software",
+"a": "WinStyles",
+"k": "winstyles",
+"t": "Indie Games Festival 2003",
+"d": "2003-03-14",
+"y": [
+"News"
+],
+"g": [],
+"p": "#",
+"v": "",
+"l": "",
+"tp": null,
+"tv": null,
+"tl": null,
+"x": {
+"Author": "Stardock Central"
+},
+"n": "Each year the Game Developer''s Conference hosts the Independent Games Festival. A contest in which small developers try to create new and innovative games. These games are usually done on a tight budget and in a short amount of time. But the games are often excellent in quality and truly original.\n\nStardock''s Brad Wardell was one of the judges this year and has written his thoughts on the games over at Quarter To Three. Check it out.",
+"z": 0
+},
+{
+"i": "wc-home-6",
+"s": "software",
+"a": "WinStyles",
+"k": "winstyles",
+"t": "From OSNews: Looking beyond WIMPs",
+"d": "2003-03-13",
+"y": [
+"News"
+],
+"g": [],
+"p": "#",
+"v": "",
+"l": "",
+"tp": null,
+"tv": null,
+"tl": null,
+"x": {
+"Author": "Admin Frogboy"
+},
+"n": "Check out http://www.osnews.com/story.php?news_id=3015 over at OSNews.com for an interesting article on other ways of working with the computer other than with windows and menus.",
+"z": 0
+},
+{
+"i": "wc-home-7",
+"s": "software",
+"a": "WinStyles",
+"k": "winstyles",
+"t": "Geoshell updated",
+"d": "2003-03-13",
+"y": [
+"News"
+],
+"g": [],
+"p": "",
+"v": "",
+"l": "",
+"tp": null,
+"tv": null,
+"tl": null,
+"x": {
+"Author": "Admin Frogboy"
+},
+"n": "A new version of Geoshell is now available. Geoshell is a replacement to your standard Windows explorer. What makes Geoshell special is that it has been designe from scratch to be customized and modified by third parties. Read the full story for details.",
+"z": 0
+},
+{
+"i": "wc-home-8",
+"s": "software",
+"a": "WinStyles",
+"k": "winstyles",
+"t": "WindowBlinds 4 release date set to March 25th",
+"d": "2003-03-12",
+"y": [
+"News"
+],
+"g": [],
+"p": "#",
+"v": "/refs/wincustomize/assets/t312200311650.jpg",
+"l": "",
+"tp": null,
+"tv": null,
+"tl": null,
+"x": {
+"Author": "Stardock Central"
+},
+"n": "Stardock has set the release date for WindowBlinds version 4. Tuesday, March 25th. WindowBlinds 4 will initially only be available for Windows XP. Version 4 for Windows 98, ME, and 2000 users is expected out not too long after.\n\nThe main new features of WindowBlinds 4 include:\n1) Vastly increased performance. WB 4 makes heavy use of new internal Windows XP technologies that allow much faster GUI drawing. One particular new technology is called \"Smart Painting\" which greatly decreases the number of excess redraws programs perform. The result is that on some skins, WindowBlinds 4 will seem about as fast as \"classic\" Windows.\n\n2) Full skinning of virtually every part of the Windows XP GUI. WindowBlinds 3 skins most elements of the Windows GUI, version 4, skins essentially all of them. This includes \"shell styles\" (the task panel on the left of explorer folders).\n\n3) Skinning of new elements of the Windows GUI such as the logon/logoff dialogs, the \"please wait dialogs\", Control panel backgrounds, and more.\n\n4) Command prompt skinning. If you want Windows XP to really be truly \"native\", WindowBlinds 4 is the first and only way to skin the Windows command prompt.\n\n5) A new, easier to use, and more functional config dialog. WindowBlinds will continue to allow users to change their settings via the Windows display properties. But power users will now be able to make use of a new, greatly enhanced config dialog.\n\n6) A rewrite of the underlying skinning engine for vastly greater compatibility. Even non-standard programs that add their own buttons to the title bar will work fine.\n\n7) Tons of other tweaks and enhancements.\n\nWindowBlinds 4 beta is currently available on Object Desktop. You can learn more about Object Desktop at www.objectdesktop.com. It is a suite of desktop enhancements that allows users to turbo-charge their Windows systems.",
+"z": 0
+},
+{
+"i": "wc-home-9",
+"s": "software",
+"a": "WinStyles",
+"k": "winstyles",
+"t": "Make this my desktop using WinStyles!",
+"d": "2003-03-11",
+"y": [
+"Skins & Themes"
+],
+"g": [],
+"p": "",
+"v": "/refs/wincustomize/assets/thumb_ss_overall_CDII.jpg",
+"l": "",
+"tp": null,
+"tv": null,
+"tl": null,
+"x": {},
+"n": "",
+"z": 0
+},
+{
+"i": "wc-home-21",
+"s": "software",
+"a": "WinStyles",
+"k": "winstyles",
+"t": "Texture Pack 2",
+"d": "2003-03-07",
+"y": [
+"Skins & Themes"
+],
+"g": [],
+"p": "",
+"v": "",
+"l": "",
+"tp": null,
+"tv": null,
+"tl": null,
+"x": {},
+"n": "",
+"z": 0
+},
+{
+"i": "wc-home-23",
+"s": "software",
+"a": "WinStyles",
+"k": "winstyles",
+"t": "XP Prime II",
+"d": "2003-03-06",
+"y": [
+"Skins & Themes"
+],
+"g": [],
+"p": "",
+"v": "",
+"l": "",
+"tp": null,
+"tv": null,
+"tl": null,
+"x": {},
+"n": "",
+"z": 0
+}
+]

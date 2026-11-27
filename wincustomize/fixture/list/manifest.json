@@ -110,10 +110,10 @@
 "count": 224,
 "types": {
 "All WinMedia Players": 5,
-"Sports": 0,
-"Music": 0,
-"Nature": 0,
-"Sci Fi": 0
+"Sports": 53,
+"Music": 53,
+"Nature": 52,
+"Sci Fi": 52
 }
 },
 {
@@ -125,10 +125,10 @@
 ],
 "types": {
 "All WinMedia Players": 5,
-"Sports": 0,
-"Music": 0,
-"Nature": 0,
-"Sci Fi": 0
+"Sports": 53,
+"Music": 53,
+"Nature": 52,
+"Sci Fi": 52
 },
 "sites": {
 "software": {
@@ -155,6 +155,13 @@
 "site3": {
 "name": "Subscription Info",
 "count": 397,
+"apps": [
+"winmedia"
+]
+},
+"site4": {
+"name": "deviantART Up close",
+"count": 396,
 "apps": [
 "winmedia"
 ]
