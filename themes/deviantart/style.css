@@ -4502,7 +4502,7 @@ body[class] #top h1 a.cm-logo b { display: block; font-weight: normal; font-size
 /* login strip: theme picker sits where the username field was */
 body[class] #rockdock select { font: 8pt Verdana, sans-serif; height: 16px; padding: 0; vertical-align: middle; }
 /* ad slots hold the unvetted-files notice */
-body[class] [data-slot="ad"] { display: flex; align-items: center; justify-content: center; text-align: center; }
+body[class] [data-slot="ad"] { position: absolute; left: 0; right: 0; top: 0; height: 100px; display: flex; align-items: center; justify-content: center; text-align: center; }
 body[class] [data-slot="ad"] .cm-warning { display: flex; align-items: center; gap: 12px; font: 9pt Verdana, sans-serif; color: #414d4c; }
 body[class] [data-slot="ad"] .cm-warning button { font: 8pt Verdana, sans-serif; cursor: pointer; }
 body[class] .cm-adtext { font: 9pt Verdana, sans-serif; color: #7d8b85; }
