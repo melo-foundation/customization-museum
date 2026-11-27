@@ -21196,6 +21196,8 @@
   "ts": "20230120221147"
  },
  "https://www.adiumxtras.com/download/1": {
+  "err": "URLError timed out",
+  "fails": 0,
   "ts": null
  },
  "https://www.adiumxtras.com/download/10": {
@@ -21488,6 +21490,8 @@
   "ts": null
  },
  "https://www.adiumxtras.com/download/1128": {
+  "err": "URLError timed out",
+  "fails": 0,
   "ts": null
  },
  "https://www.adiumxtras.com/download/113": {
@@ -21533,7 +21537,7 @@
   "ts": null
  },
  "https://www.adiumxtras.com/download/1149": {
-  "err": "URLError _ssl.c:1063: The handshake operation timed out",
+  "err": "URLError timed out",
   "fails": 0,
   "ts": null
  },
@@ -21574,12 +21578,12 @@
   "ts": null
  },
  "https://www.adiumxtras.com/download/1168": {
-  "err": "URLError [Errno 111] Connection refused",
+  "err": "URLError timed out",
   "fails": 0,
   "ts": null
  },
  "https://www.adiumxtras.com/download/1169": {
-  "err": "URLError [Errno 111] Connection refused",
+  "err": "URLError timed out",
   "fails": 0,
   "ts": null
  },
@@ -21598,7 +21602,7 @@
   "ts": null
  },
  "https://www.adiumxtras.com/download/1176": {
-  "err": "URLError _ssl.c:1063: The handshake operation timed out",
+  "err": "URLError timed out",
   "fails": 0,
   "ts": null
  },
@@ -21609,6 +21613,8 @@
   "ts": null
  },
  "https://www.adiumxtras.com/download/1180": {
+  "err": "URLError timed out",
+  "fails": 0,
   "ts": null
  },
  "https://www.adiumxtras.com/download/1181": {
@@ -21618,7 +21624,7 @@
   "ts": null
  },
  "https://www.adiumxtras.com/download/1188": {
-  "err": "URLError [Errno 111] Connection refused",
+  "err": "URLError timed out",
   "fails": 0,
   "ts": null
  },
@@ -21707,7 +21713,7 @@
   "ts": null
  },
  "https://www.adiumxtras.com/download/1239": {
-  "err": "http 429",
+  "err": "URLError _ssl.c:1063: The handshake operation timed out",
   "fails": 0,
   "ts": null
  },
@@ -21715,7 +21721,7 @@
   "ts": null
  },
  "https://www.adiumxtras.com/download/1240": {
-  "err": "URLError [Errno 111] Connection refused",
+  "err": "URLError _ssl.c:1063: The handshake operation timed out",
   "fails": 0,
   "ts": null
  },
@@ -21756,9 +21762,9 @@
   "ts": null
  },
  "https://www.adiumxtras.com/download/1265": {
-  "err": "URLError [Errno 111] Connection refused",
   "fails": 0,
-  "ts": null
+  "saved": 1795789906,
+  "ts": "20261127025906"
  },
  "https://www.adiumxtras.com/download/1266": {
   "ts": null
@@ -21800,6 +21806,8 @@
   "ts": null
  },
  "https://www.adiumxtras.com/download/1287": {
+  "err": "URLError timed out",
+  "fails": 0,
   "ts": null
  },
  "https://www.adiumxtras.com/download/1288": {
@@ -21902,7 +21910,7 @@
   "ts": null
  },
  "https://www.adiumxtras.com/download/1344": {
-  "err": "URLError [Errno 111] Connection refused",
+  "err": "URLError timed out",
   "fails": 0,
   "ts": null
  },
@@ -22068,7 +22076,7 @@
   "ts": null
  },
  "https://www.adiumxtras.com/download/1436": {
-  "err": "URLError _ssl.c:1063: The handshake operation timed out",
+  "err": "URLError timed out",
   "fails": 0,
   "ts": null
  },
@@ -22121,6 +22129,8 @@
   "ts": null
  },
  "https://www.adiumxtras.com/download/1462": {
+  "err": "URLError timed out",
+  "fails": 0,
   "ts": null
  },
  "https://www.adiumxtras.com/download/1463": {
@@ -22154,9 +22164,9 @@
   "ts": null
  },
  "https://www.adiumxtras.com/download/1473": {
-  "err": "URLError [Errno 111] Connection refused",
   "fails": 0,
-  "ts": null
+  "saved": 1795789906,
+  "ts": "20261127121802"
  },
  "https://www.adiumxtras.com/download/148": {
   "ts": null
@@ -22174,7 +22184,7 @@
   "ts": null
  },
  "https://www.adiumxtras.com/download/1487": {
-  "err": "http 429",
+  "err": "URLError timed out",
   "fails": 0,
   "ts": null
  },
@@ -22182,9 +22192,9 @@
   "ts": null
  },
  "https://www.adiumxtras.com/download/1489": {
-  "err": "URLError [Errno 111] Connection refused",
   "fails": 0,
-  "ts": null
+  "saved": 1795785999,
+  "ts": "20261127062721"
  },
  "https://www.adiumxtras.com/download/149": {
   "ts": null
@@ -22224,9 +22234,9 @@
   "ts": null
  },
  "https://www.adiumxtras.com/download/1509": {
-  "err": "http 429",
   "fails": 0,
-  "ts": null
+  "saved": 1795781817,
+  "ts": "20261127035135"
  },
  "https://www.adiumxtras.com/download/1510": {
   "ts": null
@@ -22280,6 +22290,8 @@
   "ts": null
  },
  "https://www.adiumxtras.com/download/1546": {
+  "err": "URLError timed out",
+  "fails": 0,
   "ts": null
  },
  "https://www.adiumxtras.com/download/1547": {
@@ -22300,7 +22312,7 @@
   "ts": null
  },
  "https://www.adiumxtras.com/download/1555": {
-  "err": "http 429",
+  "err": "URLError timed out",
   "fails": 0,
   "ts": null
  },
@@ -22308,7 +22320,7 @@
   "ts": null
  },
  "https://www.adiumxtras.com/download/156": {
-  "err": "URLError _ssl.c:1063: The handshake operation timed out",
+  "err": "http 429",
   "fails": 0,
   "ts": null
  },
@@ -22351,7 +22363,7 @@
   "ts": null
  },
  "https://www.adiumxtras.com/download/1586": {
-  "err": "URLError _ssl.c:1063: The handshake operation timed out",
+  "err": "URLError timed out",
   "fails": 0,
   "ts": null
  },
@@ -22375,6 +22387,8 @@
   "ts": "20261126233402"
  },
  "https://www.adiumxtras.com/download/1599": {
+  "err": "URLError timed out",
+  "fails": 0,
   "ts": null
  },
  "https://www.adiumxtras.com/download/16": {
@@ -22521,6 +22535,8 @@
   "ts": null
  },
  "https://www.adiumxtras.com/download/1716": {
+  "err": "URLError timed out",
+  "fails": 0,
   "ts": null
  },
  "https://www.adiumxtras.com/download/1718": {
@@ -22560,7 +22576,7 @@
   "ts": null
  },
  "https://www.adiumxtras.com/download/1739": {
-  "err": "URLError [Errno 111] Connection refused",
+  "err": "URLError timed out",
   "fails": 0,
   "ts": null
  },
@@ -22601,7 +22617,7 @@
   "ts": null
  },
  "https://www.adiumxtras.com/download/1755": {
-  "err": "URLError [Errno 111] Connection refused",
+  "err": "URLError timed out",
   "fails": 0,
   "ts": null
  },
@@ -22618,7 +22634,7 @@
   "ts": null
  },
  "https://www.adiumxtras.com/download/1760": {
-  "err": "URLError _ssl.c:1063: The handshake operation timed out",
+  "err": "URLError timed out",
   "fails": 0,
   "ts": null
  },
@@ -22643,6 +22659,8 @@
   "ts": null
  },
  "https://www.adiumxtras.com/download/1769": {
+  "err": "URLError timed out",
+  "fails": 0,
   "ts": null
  },
  "https://www.adiumxtras.com/download/1771": {
@@ -22660,7 +22678,7 @@
   "ts": null
  },
  "https://www.adiumxtras.com/download/1779": {
-  "err": "URLError [Errno 111] Connection refused",
+  "err": "URLError timed out",
   "fails": 0,
   "ts": null
  },
@@ -22707,12 +22725,12 @@
   "ts": null
  },
  "https://www.adiumxtras.com/download/1807": {
-  "err": "URLError [Errno 111] Connection refused",
+  "err": "http 429",
   "fails": 0,
   "ts": null
  },
  "https://www.adiumxtras.com/download/1809": {
-  "err": "URLError [Errno 111] Connection refused",
+  "err": "URLError timed out",
   "fails": 0,
   "ts": null
  },
@@ -22747,6 +22765,8 @@
   "ts": null
  },
  "https://www.adiumxtras.com/download/1827": {
+  "err": "URLError timed out",
+  "fails": 0,
   "ts": null
  },
  "https://www.adiumxtras.com/download/1828": {
@@ -22771,7 +22791,7 @@
   "ts": null
  },
  "https://www.adiumxtras.com/download/1840": {
-  "err": "URLError [Errno 111] Connection refused",
+  "err": "http 429",
   "fails": 0,
   "ts": null
  },
@@ -22842,6 +22862,8 @@
   "ts": null
  },
  "https://www.adiumxtras.com/download/189": {
+  "err": "URLError timed out",
+  "fails": 0,
   "ts": null
  },
  "https://www.adiumxtras.com/download/1890": {
@@ -22888,7 +22910,7 @@
   "ts": null
  },
  "https://www.adiumxtras.com/download/1911": {
-  "err": "http 429",
+  "err": "URLError timed out",
   "fails": 0,
   "ts": null
  },
@@ -22963,9 +22985,9 @@
   "ts": null
  },
  "https://www.adiumxtras.com/download/1957": {
-  "err": "URLError [Errno 111] Connection refused",
   "fails": 0,
-  "ts": null
+  "saved": 1795783043,
+  "ts": "20261127045044"
  },
  "https://www.adiumxtras.com/download/1959": {
   "ts": null
@@ -23002,7 +23024,7 @@
   "ts": null
  },
  "https://www.adiumxtras.com/download/1977": {
-  "err": "http 429",
+  "err": "URLError timed out",
   "fails": 0,
   "ts": null
  },
@@ -23090,9 +23112,9 @@
   "ts": null
  },
  "https://www.adiumxtras.com/download/2042": {
-  "err": "URLError [Errno 111] Connection refused",
   "fails": 0,
-  "ts": null
+  "saved": 1795783491,
+  "ts": "20261127045458"
  },
  "https://www.adiumxtras.com/download/2044": {
   "ts": null
@@ -23177,12 +23199,12 @@
   "ts": null
  },
  "https://www.adiumxtras.com/download/2089": {
-  "err": "URLError [Errno 111] Connection refused",
+  "err": "URLError timed out",
   "fails": 0,
   "ts": null
  },
  "https://www.adiumxtras.com/download/2090": {
-  "err": "URLError _ssl.c:1063: The handshake operation timed out",
+  "err": "http 429",
   "fails": 0,
   "ts": null
  },
@@ -23217,11 +23239,13 @@
   "ts": null
  },
  "https://www.adiumxtras.com/download/2116": {
-  "err": "URLError [Errno 111] Connection refused",
+  "err": "http 429",
   "fails": 0,
   "ts": null
  },
  "https://www.adiumxtras.com/download/2117": {
+  "err": "URLError timed out",
+  "fails": 0,
   "ts": null
  },
  "https://www.adiumxtras.com/download/212": {
@@ -23244,7 +23268,7 @@
   "ts": null
  },
  "https://www.adiumxtras.com/download/2141": {
-  "err": "URLError [Errno 111] Connection refused",
+  "err": "URLError timed out",
   "fails": 0,
   "ts": null
  },
@@ -23360,12 +23384,16 @@
   "ts": null
  },
  "https://www.adiumxtras.com/download/2208": {
+  "err": "URLError timed out",
+  "fails": 0,
   "ts": null
  },
  "https://www.adiumxtras.com/download/2210": {
   "ts": null
  },
  "https://www.adiumxtras.com/download/2211": {
+  "err": "URLError timed out",
+  "fails": 0,
   "ts": null
  },
  "https://www.adiumxtras.com/download/2212": {
@@ -23378,9 +23406,9 @@
   "ts": null
  },
  "https://www.adiumxtras.com/download/2222": {
-  "err": "URLError [Errno 111] Connection refused",
   "fails": 0,
-  "ts": null
+  "saved": 1795784380,
+  "ts": "20261127104937"
  },
  "https://www.adiumxtras.com/download/2223": {
   "ts": null
@@ -23390,6 +23418,8 @@
   "ts": "20261126190151"
  },
  "https://www.adiumxtras.com/download/2225": {
+  "err": "URLError timed out",
+  "fails": 0,
   "ts": null
  },
  "https://www.adiumxtras.com/download/2227": {
@@ -23402,11 +23432,13 @@
   "ts": null
  },
  "https://www.adiumxtras.com/download/2233": {
-  "err": "URLError [Errno 111] Connection refused",
+  "err": "URLError timed out",
   "fails": 0,
   "ts": null
  },
  "https://www.adiumxtras.com/download/2235": {
+  "err": "URLError timed out",
+  "fails": 0,
   "ts": null
  },
  "https://www.adiumxtras.com/download/224": {
@@ -23424,6 +23456,8 @@
   "u": "http://adiumxtras.com/download/2247"
  },
  "https://www.adiumxtras.com/download/2251": {
+  "err": "URLError timed out",
+  "fails": 0,
   "ts": null
  },
  "https://www.adiumxtras.com/download/2252": {
@@ -23446,7 +23480,7 @@
   "ts": null
  },
  "https://www.adiumxtras.com/download/2264": {
-  "err": "URLError [Errno 111] Connection refused",
+  "err": "URLError _ssl.c:1063: The handshake operation timed out",
   "fails": 0,
   "ts": null
  },
@@ -23499,7 +23533,7 @@
   "ts": null
  },
  "https://www.adiumxtras.com/download/2297": {
-  "err": "URLError _ssl.c:1063: The handshake operation timed out",
+  "err": "URLError timed out",
   "fails": 0,
   "ts": null
  },
@@ -23513,7 +23547,7 @@
   "ts": null
  },
  "https://www.adiumxtras.com/download/2305": {
-  "err": "http 429",
+  "err": "URLError timed out",
   "fails": 0,
   "ts": null
  },
@@ -23590,9 +23624,9 @@
   "ts": null
  },
  "https://www.adiumxtras.com/download/2345": {
-  "err": "URLError [Errno 111] Connection refused",
   "fails": 0,
-  "ts": null
+  "saved": 1795785491,
+  "ts": "20261127061957"
  },
  "https://www.adiumxtras.com/download/2346": {
   "ts": null
@@ -23628,15 +23662,17 @@
   "ts": null
  },
  "https://www.adiumxtras.com/download/2367": {
-  "err": "URLError [Errno 111] Connection refused",
+  "err": "http 429",
   "fails": 0,
   "ts": null
  },
  "https://www.adiumxtras.com/download/2369": {
+  "err": "URLError timed out",
+  "fails": 0,
   "ts": null
  },
  "https://www.adiumxtras.com/download/237": {
-  "err": "URLError _ssl.c:1063: The handshake operation timed out",
+  "err": "URLError timed out",
   "fails": 0,
   "ts": null
  },
@@ -23680,6 +23716,8 @@
   "ts": null
  },
  "https://www.adiumxtras.com/download/2396": {
+  "err": "URLError timed out",
+  "fails": 0,
   "ts": null
  },
  "https://www.adiumxtras.com/download/2398": {
@@ -23692,10 +23730,12 @@
   "ts": null
  },
  "https://www.adiumxtras.com/download/2401": {
+  "err": "URLError timed out",
+  "fails": 0,
   "ts": null
  },
  "https://www.adiumxtras.com/download/2404": {
-  "err": "URLError [Errno 111] Connection refused",
+  "err": "URLError _ssl.c:1063: The handshake operation timed out",
   "fails": 0,
   "ts": null
  },
@@ -23794,12 +23834,12 @@
   "ts": null
  },
  "https://www.adiumxtras.com/download/2461": {
-  "err": "URLError [Errno 111] Connection refused",
+  "err": "URLError timed out",
   "fails": 0,
   "ts": null
  },
  "https://www.adiumxtras.com/download/2463": {
-  "err": "URLError [Errno 111] Connection refused",
+  "err": "URLError timed out",
   "fails": 0,
   "ts": null
  },
@@ -23819,7 +23859,7 @@
   "ts": null
  },
  "https://www.adiumxtras.com/download/2474": {
-  "err": "URLError [Errno 111] Connection refused",
+  "err": "URLError timed out",
   "fails": 0,
   "ts": null
  },
@@ -23914,14 +23954,16 @@
   "ts": null
  },
  "https://www.adiumxtras.com/download/2541": {
-  "err": "URLError _ssl.c:1063: The handshake operation timed out",
   "fails": 0,
-  "ts": null
+  "saved": 1795787841,
+  "ts": "20261127073201"
  },
  "https://www.adiumxtras.com/download/2542": {
   "ts": null
  },
  "https://www.adiumxtras.com/download/2544": {
+  "err": "URLError timed out",
+  "fails": 0,
   "ts": null
  },
  "https://www.adiumxtras.com/download/2545": {
@@ -23947,7 +23989,7 @@
   "ts": null
  },
  "https://www.adiumxtras.com/download/2564": {
-  "err": "http 429",
+  "err": "URLError timed out",
   "fails": 0,
   "ts": null
  },
@@ -24091,7 +24133,7 @@
   "ts": null
  },
  "https://www.adiumxtras.com/download/263": {
-  "err": "URLError [Errno 111] Connection refused",
+  "err": "http 429",
   "fails": 0,
   "ts": null
  },
@@ -24102,6 +24144,8 @@
   "ts": null
  },
  "https://www.adiumxtras.com/download/2633": {
+  "err": "URLError timed out",
+  "fails": 0,
   "ts": null
  },
  "https://www.adiumxtras.com/download/2634": {
@@ -24159,7 +24203,7 @@
   "ts": null
  },
  "https://www.adiumxtras.com/download/2661": {
-  "err": "URLError [Errno 111] Connection refused",
+  "err": "URLError _ssl.c:1063: The handshake operation timed out",
   "fails": 0,
   "ts": null
  },
@@ -24214,7 +24258,7 @@
   "ts": null
  },
  "https://www.adiumxtras.com/download/2695": {
-  "err": "URLError [Errno 111] Connection refused",
+  "err": "URLError timed out",
   "fails": 0,
   "ts": null
  },
@@ -24237,10 +24281,12 @@
   "ts": null
  },
  "https://www.adiumxtras.com/download/2710": {
+  "err": "URLError timed out",
+  "fails": 0,
   "ts": null
  },
  "https://www.adiumxtras.com/download/2711": {
-  "err": "URLError _ssl.c:1063: The handshake operation timed out",
+  "err": "URLError timed out",
   "fails": 0,
   "ts": null
  },
@@ -24282,7 +24328,7 @@
   "ts": null
  },
  "https://www.adiumxtras.com/download/2734": {
-  "err": "http 429",
+  "err": "URLError timed out",
   "fails": 0,
   "ts": null
  },
@@ -24308,7 +24354,7 @@
   "ts": null
  },
  "https://www.adiumxtras.com/download/2744": {
-  "err": "URLError [Errno 111] Connection refused",
+  "err": "URLError timed out",
   "fails": 0,
   "ts": null
  },
@@ -24322,6 +24368,8 @@
   "ts": null
  },
  "https://www.adiumxtras.com/download/2750": {
+  "err": "URLError timed out",
+  "fails": 0,
   "ts": null
  },
  "https://www.adiumxtras.com/download/2753": {
@@ -24343,6 +24391,8 @@
   "ts": null
  },
  "https://www.adiumxtras.com/download/2762": {
+  "err": "URLError timed out",
+  "fails": 0,
   "ts": null
  },
  "https://www.adiumxtras.com/download/277": {
@@ -24373,6 +24423,8 @@
   "ts": null
  },
  "https://www.adiumxtras.com/download/2786": {
+  "err": "URLError timed out",
+  "fails": 0,
   "ts": null
  },
  "https://www.adiumxtras.com/download/2787": {
@@ -24388,9 +24440,13 @@
   "ts": null
  },
  "https://www.adiumxtras.com/download/2798": {
+  "err": "URLError timed out",
+  "fails": 0,
   "ts": null
  },
  "https://www.adiumxtras.com/download/2799": {
+  "err": "URLError timed out",
+  "fails": 0,
   "ts": null
  },
  "https://www.adiumxtras.com/download/28": {
@@ -24420,6 +24476,8 @@
   "ts": null
  },
  "https://www.adiumxtras.com/download/2816": {
+  "err": "URLError timed out",
+  "fails": 0,
   "ts": null
  },
  "https://www.adiumxtras.com/download/2818": {
@@ -24432,7 +24490,7 @@
   "ts": null
  },
  "https://www.adiumxtras.com/download/2820": {
-  "err": "URLError [Errno 111] Connection refused",
+  "err": "URLError timed out",
   "fails": 0,
   "ts": null
  },
@@ -24482,7 +24540,7 @@
   "ts": null
  },
  "https://www.adiumxtras.com/download/2858": {
-  "err": "URLError [Errno 111] Connection refused",
+  "err": "URLError timed out",
   "fails": 0,
   "ts": null
  },
@@ -24535,6 +24593,8 @@
   "ts": null
  },
  "https://www.adiumxtras.com/download/2889": {
+  "err": "URLError timed out",
+  "fails": 0,
   "ts": null
  },
  "https://www.adiumxtras.com/download/2891": {
@@ -24561,6 +24621,8 @@
   "ts": null
  },
  "https://www.adiumxtras.com/download/2902": {
+  "err": "URLError timed out",
+  "fails": 0,
   "ts": null
  },
  "https://www.adiumxtras.com/download/2903": {
@@ -24647,7 +24709,7 @@
   "ts": null
  },
  "https://www.adiumxtras.com/download/2965": {
-  "err": "URLError [Errno 111] Connection refused",
+  "err": "http 429",
   "fails": 0,
   "ts": null
  },
@@ -24672,6 +24734,8 @@
   "ts": null
  },
  "https://www.adiumxtras.com/download/2989": {
+  "err": "URLError timed out",
+  "fails": 0,
   "ts": null
  },
  "https://www.adiumxtras.com/download/2991": {
@@ -24684,6 +24748,8 @@
   "ts": null
  },
  "https://www.adiumxtras.com/download/2995": {
+  "err": "URLError timed out",
+  "fails": 0,
   "ts": null
  },
  "https://www.adiumxtras.com/download/2996": {
@@ -24696,7 +24762,7 @@
   "ts": null
  },
  "https://www.adiumxtras.com/download/3000": {
-  "err": "URLError [Errno 111] Connection refused",
+  "err": "URLError timed out",
   "fails": 0,
   "ts": null
  },
@@ -24730,7 +24796,7 @@
   "ts": null
  },
  "https://www.adiumxtras.com/download/3012": {
-  "err": "URLError [Errno 111] Connection refused",
+  "err": "URLError timed out",
   "fails": 0,
   "ts": null
  },
@@ -24754,7 +24820,7 @@
   "ts": null
  },
  "https://www.adiumxtras.com/download/3025": {
-  "err": "http 429",
+  "err": "URLError timed out",
   "fails": 0,
   "ts": null
  },
@@ -24771,9 +24837,9 @@
   "ts": null
  },
  "https://www.adiumxtras.com/download/3036": {
-  "err": "URLError [Errno 111] Connection refused",
   "fails": 0,
-  "ts": null
+  "saved": 1795784008,
+  "ts": "20261127050819"
  },
  "https://www.adiumxtras.com/download/3037": {
   "ts": null
@@ -24782,7 +24848,7 @@
   "ts": null
  },
  "https://www.adiumxtras.com/download/3042": {
-  "err": "URLError [Errno 111] Connection refused",
+  "err": "URLError timed out",
   "fails": 0,
   "ts": null
  },
@@ -24793,20 +24859,20 @@
   "ts": null
  },
  "https://www.adiumxtras.com/download/305": {
-  "err": "URLError _ssl.c:1063: The handshake operation timed out",
+  "err": "URLError timed out",
   "fails": 0,
   "ts": null
  },
  "https://www.adiumxtras.com/download/3050": {
-  "err": "URLError [Errno 111] Connection refused",
   "fails": 0,
-  "ts": null
+  "saved": 1795786881,
+  "ts": "20261127071424"
  },
  "https://www.adiumxtras.com/download/3054": {
   "ts": null
  },
  "https://www.adiumxtras.com/download/3058": {
-  "err": "URLError [Errno 111] Connection refused",
+  "err": "http 429",
   "fails": 0,
   "ts": null
  },
@@ -24829,7 +24895,7 @@
   "ts": null
  },
  "https://www.adiumxtras.com/download/3082": {
-  "err": "http 429",
+  "err": "URLError timed out",
   "fails": 0,
   "ts": null
  },
@@ -24864,6 +24930,8 @@
   "ts": null
  },
  "https://www.adiumxtras.com/download/3103": {
+  "err": "URLError timed out",
+  "fails": 0,
   "ts": null
  },
  "https://www.adiumxtras.com/download/3104": {
@@ -24900,6 +24968,8 @@
   "ts": null
  },
  "https://www.adiumxtras.com/download/313": {
+  "err": "URLError timed out",
+  "fails": 0,
   "ts": null
  },
  "https://www.adiumxtras.com/download/3132": {
@@ -24931,7 +25001,7 @@
   "ts": null
  },
  "https://www.adiumxtras.com/download/3147": {
-  "err": "URLError [Errno 111] Connection refused",
+  "err": "URLError timed out",
   "fails": 0,
   "ts": null
  },
@@ -25004,9 +25074,9 @@
   "ts": null
  },
  "https://www.adiumxtras.com/download/3196": {
-  "err": "URLError _ssl.c:1063: The handshake operation timed out",
   "fails": 0,
-  "ts": null
+  "saved": 1795784953,
+  "ts": "20261127055220"
  },
  "https://www.adiumxtras.com/download/3197": {
   "ts": null
@@ -25030,7 +25100,7 @@
   "ts": null
  },
  "https://www.adiumxtras.com/download/3203": {
-  "err": "URLError _ssl.c:1063: The handshake operation timed out",
+  "err": "URLError timed out",
   "fails": 0,
   "ts": null
  },
@@ -25044,11 +25114,13 @@
   "ts": null
  },
  "https://www.adiumxtras.com/download/3211": {
-  "err": "URLError _ssl.c:1063: The handshake operation timed out",
+  "err": "URLError timed out",
   "fails": 0,
   "ts": null
  },
  "https://www.adiumxtras.com/download/3212": {
+  "err": "URLError timed out",
+  "fails": 0,
   "ts": null
  },
  "https://www.adiumxtras.com/download/3213": {
@@ -25063,6 +25135,8 @@
   "ts": null
  },
  "https://www.adiumxtras.com/download/3226": {
+  "err": "URLError timed out",
+  "fails": 0,
   "ts": null
  },
  "https://www.adiumxtras.com/download/3230": {
@@ -25126,7 +25200,7 @@
   "ts": null
  },
  "https://www.adiumxtras.com/download/3288": {
-  "err": "URLError _ssl.c:1063: The handshake operation timed out",
+  "err": "URLError timed out",
   "fails": 0,
   "ts": null
  },
@@ -25144,7 +25218,7 @@
   "ts": null
  },
  "https://www.adiumxtras.com/download/3296": {
-  "err": "URLError [Errno 111] Connection refused",
+  "err": "URLError timed out",
   "fails": 0,
   "ts": null
  },
@@ -25155,15 +25229,17 @@
   "ts": null
  },
  "https://www.adiumxtras.com/download/3300": {
+  "err": "URLError timed out",
+  "fails": 0,
   "ts": null
  },
  "https://www.adiumxtras.com/download/3302": {
   "ts": null
  },
  "https://www.adiumxtras.com/download/3306": {
-  "err": "URLError [Errno 111] Connection refused",
   "fails": 0,
-  "ts": null
+  "saved": 1795787415,
+  "ts": "20261127072950"
  },
  "https://www.adiumxtras.com/download/3307": {
   "ts": null
@@ -25175,6 +25251,8 @@
   "ts": null
  },
  "https://www.adiumxtras.com/download/3318": {
+  "err": "URLError timed out",
+  "fails": 0,
   "ts": null
  },
  "https://www.adiumxtras.com/download/3319": {
@@ -25208,7 +25286,7 @@
   "ts": null
  },
  "https://www.adiumxtras.com/download/3332": {
-  "err": "URLError [Errno 111] Connection refused",
+  "err": "URLError timed out",
   "fails": 0,
   "ts": null
  },
@@ -25234,7 +25312,7 @@
   "ts": null
  },
  "https://www.adiumxtras.com/download/3349": {
-  "err": "URLError [Errno 111] Connection refused",
+  "err": "URLError timed out",
   "fails": 0,
   "ts": null
  },
@@ -25251,7 +25329,7 @@
   "ts": null
  },
  "https://www.adiumxtras.com/download/3353": {
-  "err": "http 429",
+  "err": "URLError timed out",
   "fails": 0,
   "ts": null
  },
@@ -25277,7 +25355,7 @@
   "ts": null
  },
  "https://www.adiumxtras.com/download/3366": {
-  "err": "URLError _ssl.c:1063: The handshake operation timed out",
+  "err": "http 429",
   "fails": 0,
   "ts": null
  },
@@ -25297,6 +25375,8 @@
   "ts": null
  },
  "https://www.adiumxtras.com/download/3378": {
+  "err": "URLError timed out",
+  "fails": 0,
   "ts": null
  },
  "https://www.adiumxtras.com/download/3379": {
@@ -25306,20 +25386,22 @@
   "ts": null
  },
  "https://www.adiumxtras.com/download/3380": {
+  "err": "URLError timed out",
+  "fails": 0,
   "ts": null
  },
  "https://www.adiumxtras.com/download/3383": {
   "ts": null
  },
  "https://www.adiumxtras.com/download/3385": {
-  "err": "URLError [Errno 111] Connection refused",
+  "err": "URLError timed out",
   "fails": 0,
   "ts": null
  },
  "https://www.adiumxtras.com/download/3386": {
-  "err": "http 429",
   "fails": 0,
-  "ts": null
+  "saved": 1795784380,
+  "ts": "20261127052928"
  },
  "https://www.adiumxtras.com/download/3387": {
   "ts": null
@@ -25373,6 +25455,8 @@
   "ts": null
  },
  "https://www.adiumxtras.com/download/3413": {
+  "err": "URLError timed out",
+  "fails": 0,
   "ts": null
  },
  "https://www.adiumxtras.com/download/3414": {
@@ -25391,7 +25475,7 @@
   "ts": null
  },
  "https://www.adiumxtras.com/download/3426": {
-  "err": "URLError [Errno 111] Connection refused",
+  "err": "URLError timed out",
   "fails": 0,
   "ts": null
  },
@@ -25405,9 +25489,9 @@
   "ts": null
  },
  "https://www.adiumxtras.com/download/3430": {
-  "err": "URLError [Errno 111] Connection refused",
   "fails": 0,
-  "ts": null
+  "saved": 1795789906,
+  "ts": "20261127121900"
  },
  "https://www.adiumxtras.com/download/3434": {
   "ts": null
@@ -25431,7 +25515,7 @@
   "ts": null
  },
  "https://www.adiumxtras.com/download/345": {
-  "err": "URLError _ssl.c:1063: The handshake operation timed out",
+  "err": "URLError timed out",
   "fails": 0,
   "ts": null
  },
@@ -25518,9 +25602,9 @@
   "ts": null
  },
  "https://www.adiumxtras.com/download/3510": {
-  "err": "URLError [Errno 111] Connection refused",
   "fails": 0,
-  "ts": null
+  "saved": 1795785491,
+  "ts": "20261127061943"
  },
  "https://www.adiumxtras.com/download/3511": {
   "ts": null
@@ -25547,6 +25631,8 @@
   "ts": null
  },
  "https://www.adiumxtras.com/download/3528": {
+  "err": "URLError timed out",
+  "fails": 0,
   "ts": null
  },
  "https://www.adiumxtras.com/download/353": {
@@ -25565,6 +25651,8 @@
   "ts": null
  },
  "https://www.adiumxtras.com/download/3537": {
+  "err": "URLError timed out",
+  "fails": 0,
   "ts": null
  },
  "https://www.adiumxtras.com/download/3538": {
@@ -25598,6 +25686,8 @@
   "ts": null
  },
  "https://www.adiumxtras.com/download/3561": {
+  "err": "URLError timed out",
+  "fails": 0,
   "ts": null
  },
  "https://www.adiumxtras.com/download/3562": {
@@ -25640,7 +25730,7 @@
   "ts": null
  },
  "https://www.adiumxtras.com/download/3599": {
-  "err": "URLError [Errno 111] Connection refused",
+  "err": "URLError timed out",
   "fails": 0,
   "ts": null
  },
@@ -25678,9 +25768,9 @@
   "ts": null
  },
  "https://www.adiumxtras.com/download/3624": {
-  "err": "URLError _ssl.c:1063: The handshake operation timed out",
   "fails": 0,
-  "ts": null
+  "saved": 1795790434,
+  "ts": "20261127031629"
  },
  "https://www.adiumxtras.com/download/3627": {
   "ts": null
@@ -25712,9 +25802,9 @@
   "ts": null
  },
  "https://www.adiumxtras.com/download/3655": {
-  "err": "URLError [Errno 111] Connection refused",
   "fails": 0,
-  "ts": null
+  "saved": 1795789077,
+  "ts": "20261127082633"
  },
  "https://www.adiumxtras.com/download/3659": {
   "ts": null
@@ -25753,9 +25843,9 @@
   "ts": null
  },
  "https://www.adiumxtras.com/download/3689": {
-  "err": "URLError [Errno 111] Connection refused",
   "fails": 0,
-  "ts": null
+  "saved": 1795786547,
+  "ts": "20261127065149"
  },
  "https://www.adiumxtras.com/download/369": {
   "ts": null
@@ -25794,9 +25884,9 @@
   "ts": null
  },
  "https://www.adiumxtras.com/download/3704": {
-  "err": "URLError [Errno 111] Connection refused",
   "fails": 0,
-  "ts": null
+  "saved": 1795787841,
+  "ts": "20261127020624"
  },
  "https://www.adiumxtras.com/download/3705": {
   "ts": null
@@ -25814,7 +25904,7 @@
   "ts": null
  },
  "https://www.adiumxtras.com/download/3715": {
-  "err": "http 429",
+  "err": "URLError timed out",
   "fails": 0,
   "ts": null
  },
@@ -25875,9 +25965,9 @@
   "ts": null
  },
  "https://www.adiumxtras.com/download/375": {
-  "err": "URLError [Errno 111] Connection refused",
   "fails": 0,
-  "ts": null
+  "saved": 1795789906,
+  "ts": "20261127030403"
  },
  "https://www.adiumxtras.com/download/3754": {
   "ts": null
@@ -25907,9 +25997,9 @@
   "ts": null
  },
  "https://www.adiumxtras.com/download/3771": {
-  "err": "http 429",
   "fails": 0,
-  "ts": null
+  "saved": 1795786881,
+  "ts": "20261127070001"
  },
  "https://www.adiumxtras.com/download/3772": {
   "fails": 0,
@@ -25935,7 +26025,7 @@
   "ts": null
  },
  "https://www.adiumxtras.com/download/379": {
-  "err": "URLError [Errno 111] Connection refused",
+  "err": "URLError timed out",
   "fails": 0,
   "ts": null
  },
@@ -25986,15 +26076,17 @@
   "ts": null
  },
  "https://www.adiumxtras.com/download/3814": {
+  "err": "URLError timed out",
+  "fails": 0,
   "ts": null
  },
  "https://www.adiumxtras.com/download/3815": {
   "ts": null
  },
  "https://www.adiumxtras.com/download/3816": {
-  "err": "URLError _ssl.c:1063: The handshake operation timed out",
   "fails": 0,
-  "ts": null
+  "saved": 1795789077,
+  "ts": "20261127082634"
  },
  "https://www.adiumxtras.com/download/382": {
   "ts": null
@@ -26029,6 +26121,8 @@
   "ts": null
  },
  "https://www.adiumxtras.com/download/3832": {
+  "err": "URLError timed out",
+  "fails": 0,
   "ts": null
  },
  "https://www.adiumxtras.com/download/3834": {
@@ -26056,6 +26150,8 @@
   "ts": null
  },
  "https://www.adiumxtras.com/download/3845": {
+  "err": "URLError timed out",
+  "fails": 0,
   "ts": null
  },
  "https://www.adiumxtras.com/download/3846": {
@@ -26120,13 +26216,17 @@
   "ts": null
  },
  "https://www.adiumxtras.com/download/3899": {
+  "err": "URLError timed out",
+  "fails": 0,
   "ts": null
  },
  "https://www.adiumxtras.com/download/3901": {
+  "err": "URLError timed out",
+  "fails": 0,
   "ts": null
  },
  "https://www.adiumxtras.com/download/3902": {
-  "err": "URLError [Errno 111] Connection refused",
+  "err": "URLError timed out",
   "fails": 0,
   "ts": null
  },
@@ -26181,7 +26281,7 @@
   "ts": null
  },
  "https://www.adiumxtras.com/download/3930": {
-  "err": "http 429",
+  "err": "URLError timed out",
   "fails": 0,
   "ts": null
  },
@@ -26195,7 +26295,7 @@
   "ts": null
  },
  "https://www.adiumxtras.com/download/3935": {
-  "err": "http 429",
+  "err": "URLError timed out",
   "fails": 0,
   "ts": null
  },
@@ -26206,7 +26306,7 @@
   "ts": null
  },
  "https://www.adiumxtras.com/download/3941": {
-  "err": "URLError [Errno 111] Connection refused",
+  "err": "URLError timed out",
   "fails": 0,
   "ts": null
  },
@@ -26239,9 +26339,9 @@
   "ts": "20261126190028"
  },
  "https://www.adiumxtras.com/download/3970": {
-  "err": "URLError [Errno 111] Connection refused",
   "fails": 0,
-  "ts": null
+  "saved": 1795783491,
+  "ts": "20261127050615"
  },
  "https://www.adiumxtras.com/download/3971": {
   "fails": 0,
@@ -26258,12 +26358,12 @@
   "ts": null
  },
  "https://www.adiumxtras.com/download/3980": {
-  "err": "URLError _ssl.c:1063: The handshake operation timed out",
   "fails": 0,
-  "ts": null
+  "saved": 1795787415,
+  "ts": "20261127071638"
  },
  "https://www.adiumxtras.com/download/3982": {
-  "err": "http 429",
+  "err": "URLError _ssl.c:1063: The handshake operation timed out",
   "fails": 0,
   "ts": null
  },
@@ -26298,9 +26398,9 @@
   "ts": null
  },
  "https://www.adiumxtras.com/download/4011": {
-  "err": "URLError [Errno 111] Connection refused",
   "fails": 0,
-  "ts": null
+  "saved": 1795789906,
+  "ts": "20261127025639"
  },
  "https://www.adiumxtras.com/download/4012": {
   "ts": null
@@ -26312,16 +26412,20 @@
   "ts": null
  },
  "https://www.adiumxtras.com/download/4018": {
+  "err": "URLError timed out",
+  "fails": 0,
   "ts": null
  },
  "https://www.adiumxtras.com/download/4021": {
   "ts": null
  },
  "https://www.adiumxtras.com/download/4025": {
+  "err": "URLError timed out",
+  "fails": 0,
   "ts": null
  },
  "https://www.adiumxtras.com/download/4026": {
-  "err": "URLError [Errno 111] Connection refused",
+  "err": "URLError timed out",
   "fails": 0,
   "ts": null
  },
@@ -26367,15 +26471,17 @@
   "u": "http://adiumxtras.com/download/4049"
  },
  "https://www.adiumxtras.com/download/4055": {
+  "err": "URLError timed out",
+  "fails": 0,
   "ts": null
  },
  "https://www.adiumxtras.com/download/4057": {
   "ts": null
  },
  "https://www.adiumxtras.com/download/4058": {
-  "err": "URLError [Errno 111] Connection refused",
   "fails": 0,
-  "ts": null
+  "saved": 1795784953,
+  "ts": "20261127055004"
  },
  "https://www.adiumxtras.com/download/4059": {
   "ts": null
@@ -26450,15 +26556,15 @@
   "ts": null
  },
  "https://www.adiumxtras.com/download/4104": {
-  "err": "URLError _ssl.c:1063: The handshake operation timed out",
   "fails": 0,
-  "ts": null
+  "saved": 1795789906,
+  "ts": "20261127030717"
  },
  "https://www.adiumxtras.com/download/4105": {
   "ts": null
  },
  "https://www.adiumxtras.com/download/4106": {
-  "err": "URLError [Errno 111] Connection refused",
+  "err": "URLError timed out",
   "fails": 0,
   "ts": null
  },
@@ -26472,6 +26578,8 @@
   "ts": null
  },
  "https://www.adiumxtras.com/download/4113": {
+  "err": "URLError timed out",
+  "fails": 0,
   "ts": null
  },
  "https://www.adiumxtras.com/download/4114": {
@@ -26492,7 +26600,7 @@
   "ts": null
  },
  "https://www.adiumxtras.com/download/4122": {
-  "err": "http 429",
+  "err": "URLError timed out",
   "fails": 0,
   "ts": null
  },
@@ -26572,7 +26680,7 @@
   "ts": null
  },
  "https://www.adiumxtras.com/download/4170": {
-  "err": "URLError [Errno 111] Connection refused",
+  "err": "URLError timed out",
   "fails": 0,
   "ts": null
  },
@@ -26620,24 +26728,26 @@
   "ts": null
  },
  "https://www.adiumxtras.com/download/4195": {
+  "err": "URLError timed out",
+  "fails": 0,
   "ts": null
  },
  "https://www.adiumxtras.com/download/4196": {
-  "err": "URLError [Errno 111] Connection refused",
+  "err": "http 429",
   "fails": 0,
   "ts": null
  },
  "https://www.adiumxtras.com/download/420": {
-  "err": "URLError [Errno 111] Connection refused",
   "fails": 0,
-  "ts": null
+  "saved": 1795790434,
+  "ts": "20261127122156"
  },
  "https://www.adiumxtras.com/download/4207": {
   "ts": "20151010105202",
   "u": "http://adiumxtras.com/download/4207"
  },
  "https://www.adiumxtras.com/download/4208": {
-  "err": "URLError _ssl.c:1063: The handshake operation timed out",
+  "err": "URLError timed out",
   "fails": 0,
   "ts": null
  },
@@ -26691,7 +26801,7 @@
   "ts": "20261127015040"
  },
  "https://www.adiumxtras.com/download/4237": {
-  "err": "http 429",
+  "err": "URLError _ssl.c:1063: The handshake operation timed out",
   "fails": 0,
   "ts": null
  },
@@ -26702,7 +26812,7 @@
   "ts": null
  },
  "https://www.adiumxtras.com/download/4244": {
-  "err": "URLError [Errno 111] Connection refused",
+  "err": "URLError timed out",
   "fails": 0,
   "ts": null
  },
@@ -26713,9 +26823,13 @@
   "ts": null
  },
  "https://www.adiumxtras.com/download/4253": {
+  "err": "URLError timed out",
+  "fails": 0,
   "ts": null
  },
  "https://www.adiumxtras.com/download/4254": {
+  "err": "URLError timed out",
+  "fails": 0,
   "ts": null
  },
  "https://www.adiumxtras.com/download/4255": {
@@ -26831,9 +26945,9 @@
   "ts": null
  },
  "https://www.adiumxtras.com/download/4323": {
-  "err": "URLError [Errno 111] Connection refused",
   "fails": 0,
-  "ts": null
+  "saved": 1795782354,
+  "ts": "20261127041948"
  },
  "https://www.adiumxtras.com/download/4326": {
   "fails": 0,
@@ -26991,14 +27105,16 @@
   "ts": null
  },
  "https://www.adiumxtras.com/download/4418": {
-  "err": "URLError _ssl.c:1063: The handshake operation timed out",
   "fails": 0,
-  "ts": null
+  "saved": 1795791107,
+  "ts": "20261127123424"
  },
  "https://www.adiumxtras.com/download/4419": {
   "ts": null
  },
  "https://www.adiumxtras.com/download/4423": {
+  "err": "URLError timed out",
+  "fails": 0,
   "ts": null
  },
  "https://www.adiumxtras.com/download/4425": {
@@ -27014,9 +27130,9 @@
   "ts": null
  },
  "https://www.adiumxtras.com/download/4430": {
-  "err": "URLError [Errno 111] Connection refused",
   "fails": 0,
-  "ts": null
+  "saved": 1795784008,
+  "ts": "20261127052706"
  },
  "https://www.adiumxtras.com/download/4432": {
   "ts": null
@@ -27213,7 +27329,7 @@
   "ts": null
  },
  "https://www.adiumxtras.com/download/4552": {
-  "err": "http 429",
+  "err": "URLError timed out",
   "fails": 0,
   "ts": null
  },
@@ -27305,9 +27421,9 @@
   "ts": null
  },
  "https://www.adiumxtras.com/download/4604": {
-  "err": "http 429",
   "fails": 0,
-  "ts": null
+  "saved": 1795788273,
+  "ts": "20261127021544"
  },
  "https://www.adiumxtras.com/download/4605": {
   "ts": null
@@ -27322,17 +27438,17 @@
   "ts": null
  },
  "https://www.adiumxtras.com/download/4615": {
-  "err": "URLError [Errno 111] Connection refused",
+  "err": "URLError _ssl.c:1063: The handshake operation timed out",
   "fails": 0,
   "ts": null
  },
  "https://www.adiumxtras.com/download/4617": {
-  "err": "URLError [Errno 111] Connection refused",
+  "err": "URLError timed out",
   "fails": 0,
   "ts": null
  },
  "https://www.adiumxtras.com/download/4619": {
-  "err": "URLError [Errno 111] Connection refused",
+  "err": "URLError _ssl.c:1063: The handshake operation timed out",
   "fails": 0,
   "ts": null
  },
@@ -27370,6 +27486,8 @@
   "ts": null
  },
  "https://www.adiumxtras.com/download/465": {
+  "err": "URLError timed out",
+  "fails": 0,
   "ts": null
  },
  "https://www.adiumxtras.com/download/4650": {
@@ -27385,9 +27503,9 @@
   "ts": null
  },
  "https://www.adiumxtras.com/download/4673": {
-  "err": "URLError [Errno 111] Connection refused",
   "fails": 0,
-  "ts": null
+  "saved": 1795787841,
+  "ts": "20261127114429"
  },
  "https://www.adiumxtras.com/download/4675": {
   "ts": "20150910065821",
@@ -27413,7 +27531,7 @@
   "ts": null
  },
  "https://www.adiumxtras.com/download/4696": {
-  "err": "http 429",
+  "err": "URLError timed out",
   "fails": 0,
   "ts": null
  },
@@ -27439,7 +27557,7 @@
   "ts": null
  },
  "https://www.adiumxtras.com/download/4707": {
-  "err": "URLError [Errno 111] Connection refused",
+  "err": "URLError timed out",
   "fails": 0,
   "ts": null
  },
@@ -27449,6 +27567,8 @@
   "ts": "20261127023420"
  },
  "https://www.adiumxtras.com/download/4709": {
+  "err": "URLError timed out",
+  "fails": 0,
   "ts": null
  },
  "https://www.adiumxtras.com/download/4710": {
@@ -27490,6 +27610,8 @@
   "ts": "20261127054102"
  },
  "https://www.adiumxtras.com/download/473": {
+  "err": "URLError timed out",
+  "fails": 0,
   "ts": null
  },
  "https://www.adiumxtras.com/download/4733": {
@@ -27534,7 +27656,7 @@
   "ts": null
  },
  "https://www.adiumxtras.com/download/4753": {
-  "err": "URLError _ssl.c:1063: The handshake operation timed out",
+  "err": "URLError timed out",
   "fails": 0,
   "ts": null
  },
@@ -27557,10 +27679,12 @@
   "ts": null
  },
  "https://www.adiumxtras.com/download/4763": {
+  "err": "URLError timed out",
+  "fails": 0,
   "ts": null
  },
  "https://www.adiumxtras.com/download/4766": {
-  "err": "URLError [Errno 111] Connection refused",
+  "err": "http 429",
   "fails": 0,
   "ts": null
  },
@@ -27583,11 +27707,13 @@
   "ts": null
  },
  "https://www.adiumxtras.com/download/4777": {
-  "err": "URLError [Errno 111] Connection refused",
+  "err": "URLError timed out",
   "fails": 0,
   "ts": null
  },
  "https://www.adiumxtras.com/download/4778": {
+  "err": "URLError timed out",
+  "fails": 0,
   "ts": null
  },
  "https://www.adiumxtras.com/download/4779": {
@@ -27609,9 +27735,9 @@
   "ts": null
  },
  "https://www.adiumxtras.com/download/4789": {
-  "err": "URLError [Errno 111] Connection refused",
   "fails": 0,
-  "ts": null
+  "saved": 1795789906,
+  "ts": "20261127121623"
  },
  "https://www.adiumxtras.com/download/4793": {
   "ts": null
@@ -27664,15 +27790,15 @@
   "ts": null
  },
  "https://www.adiumxtras.com/download/4821": {
-  "err": "URLError _ssl.c:1063: The handshake operation timed out",
   "fails": 0,
-  "ts": null
+  "saved": 1795788699,
+  "ts": "20261127080431"
  },
  "https://www.adiumxtras.com/download/4823": {
   "ts": null
  },
  "https://www.adiumxtras.com/download/4825": {
-  "err": "URLError [Errno 111] Connection refused",
+  "err": "URLError timed out",
   "fails": 0,
   "ts": null
  },
@@ -27704,9 +27830,9 @@
   "ts": null
  },
  "https://www.adiumxtras.com/download/4851": {
-  "err": "URLError [Errno 111] Connection refused",
   "fails": 0,
-  "ts": null
+  "saved": 1795786881,
+  "ts": "20261127080240"
  },
  "https://www.adiumxtras.com/download/4856": {
   "ts": null
@@ -27721,7 +27847,7 @@
   "ts": null
  },
  "https://www.adiumxtras.com/download/4864": {
-  "err": "http 429",
+  "err": "URLError timed out",
   "fails": 0,
   "ts": null
  },
@@ -27729,9 +27855,9 @@
   "ts": null
  },
  "https://www.adiumxtras.com/download/4877": {
-  "err": "URLError _ssl.c:1063: The handshake operation timed out",
   "fails": 0,
-  "ts": null
+  "saved": 1795789530,
+  "ts": "20261127024615"
  },
  "https://www.adiumxtras.com/download/4878": {
   "fails": 0,
@@ -27748,7 +27874,7 @@
   "ts": null
  },
  "https://www.adiumxtras.com/download/4884": {
-  "err": "http 429",
+  "err": "URLError timed out",
   "fails": 0,
   "ts": null
  },
@@ -27780,6 +27906,8 @@
   "ts": null
  },
  "https://www.adiumxtras.com/download/4907": {
+  "err": "URLError timed out",
+  "fails": 0,
   "ts": null
  },
  "https://www.adiumxtras.com/download/4908": {
@@ -27883,12 +28011,18 @@
   "ts": null
  },
  "https://www.adiumxtras.com/download/4994": {
+  "err": "URLError timed out",
+  "fails": 0,
   "ts": null
  },
  "https://www.adiumxtras.com/download/4995": {
+  "err": "URLError timed out",
+  "fails": 0,
   "ts": null
  },
  "https://www.adiumxtras.com/download/4996": {
+  "err": "URLError timed out",
+  "fails": 0,
   "ts": null
  },
  "https://www.adiumxtras.com/download/4998": {
@@ -27942,9 +28076,9 @@
   "ts": null
  },
  "https://www.adiumxtras.com/download/503": {
-  "err": "URLError [Errno 111] Connection refused",
   "fails": 0,
-  "ts": null
+  "saved": 1795786881,
+  "ts": "20261127070251"
  },
  "https://www.adiumxtras.com/download/5039": {
   "ts": null
@@ -27953,7 +28087,7 @@
   "ts": null
  },
  "https://www.adiumxtras.com/download/5048": {
-  "err": "URLError [Errno 111] Connection refused",
+  "err": "URLError timed out",
   "fails": 0,
   "ts": null
  },
@@ -27973,7 +28107,7 @@
   "ts": null
  },
  "https://www.adiumxtras.com/download/5063": {
-  "err": "URLError _ssl.c:1063: The handshake operation timed out",
+  "err": "URLError timed out",
   "fails": 0,
   "ts": null
  },
@@ -28003,7 +28137,7 @@
   "ts": "20261127001925"
  },
  "https://www.adiumxtras.com/download/5076": {
-  "err": "URLError [Errno 111] Connection refused",
+  "err": "URLError timed out",
   "fails": 0,
   "ts": null
  },
@@ -28020,9 +28154,9 @@
   "ts": null
  },
  "https://www.adiumxtras.com/download/5093": {
-  "err": "URLError [Errno 111] Connection refused",
   "fails": 0,
-  "ts": null
+  "saved": 1795790434,
+  "ts": "20261127122414"
  },
  "https://www.adiumxtras.com/download/5095": {
   "ts": null
@@ -28046,12 +28180,12 @@
   "ts": null
  },
  "https://www.adiumxtras.com/download/5104": {
-  "err": "URLError [Errno 111] Connection refused",
+  "err": "http 429",
   "fails": 0,
   "ts": null
  },
  "https://www.adiumxtras.com/download/5105": {
-  "err": "http 429",
+  "err": "URLError timed out",
   "fails": 0,
   "ts": null
  },
@@ -28103,12 +28237,12 @@
   "ts": null
  },
  "https://www.adiumxtras.com/download/5144": {
-  "err": "http 429",
+  "err": "URLError timed out",
   "fails": 0,
   "ts": null
  },
  "https://www.adiumxtras.com/download/5145": {
-  "err": "URLError [Errno 111] Connection refused",
+  "err": "http 429",
   "fails": 0,
   "ts": null
  },
@@ -28128,6 +28262,8 @@
   "ts": null
  },
  "https://www.adiumxtras.com/download/5157": {
+  "err": "URLError timed out",
+  "fails": 0,
   "ts": null
  },
  "https://www.adiumxtras.com/download/5158": {
@@ -28152,15 +28288,15 @@
   "ts": null
  },
  "https://www.adiumxtras.com/download/5166": {
-  "err": "URLError [Errno 111] Connection refused",
   "fails": 0,
-  "ts": null
+  "saved": 1795788699,
+  "ts": "20261127081430"
  },
  "https://www.adiumxtras.com/download/5167": {
   "ts": null
  },
  "https://www.adiumxtras.com/download/5168": {
-  "err": "URLError [Errno 111] Connection refused",
+  "err": "URLError timed out",
   "fails": 0,
   "ts": null
  },
@@ -28264,6 +28400,8 @@
   "ts": null
  },
  "https://www.adiumxtras.com/download/5235": {
+  "err": "URLError timed out",
+  "fails": 0,
   "ts": null
  },
  "https://www.adiumxtras.com/download/5238": {
@@ -28286,6 +28424,8 @@
   "ts": null
  },
  "https://www.adiumxtras.com/download/5243": {
+  "err": "URLError timed out",
+  "fails": 0,
   "ts": null
  },
  "https://www.adiumxtras.com/download/5250": {
@@ -28301,6 +28441,8 @@
   "ts": null
  },
  "https://www.adiumxtras.com/download/5254": {
+  "err": "URLError timed out",
+  "fails": 0,
   "ts": null
  },
  "https://www.adiumxtras.com/download/5255": {
@@ -28319,9 +28461,9 @@
   "ts": null
  },
  "https://www.adiumxtras.com/download/5264": {
-  "err": "URLError _ssl.c:1063: The handshake operation timed out",
   "fails": 0,
-  "ts": null
+  "saved": 1795789077,
+  "ts": "20261127023425"
  },
  "https://www.adiumxtras.com/download/527": {
   "ts": null
@@ -28342,7 +28484,7 @@
   "ts": null
  },
  "https://www.adiumxtras.com/download/5288": {
-  "err": "URLError [Errno 111] Connection refused",
+  "err": "URLError timed out",
   "fails": 0,
   "ts": null
  },
@@ -28353,9 +28495,9 @@
   "ts": null
  },
  "https://www.adiumxtras.com/download/5292": {
-  "err": "URLError [Errno 111] Connection refused",
   "fails": 0,
-  "ts": null
+  "saved": 1795791107,
+  "ts": "20261127122828"
  },
  "https://www.adiumxtras.com/download/5298": {
   "ts": null
@@ -28370,7 +28512,7 @@
   "ts": null
  },
  "https://www.adiumxtras.com/download/5308": {
-  "err": "URLError [Errno 111] Connection refused",
+  "err": "http 429",
   "fails": 0,
   "ts": null
  },
@@ -28411,6 +28553,8 @@
   "ts": null
  },
  "https://www.adiumxtras.com/download/5323": {
+  "err": "URLError timed out",
+  "fails": 0,
   "ts": null
  },
  "https://www.adiumxtras.com/download/5324": {
@@ -28465,7 +28609,7 @@
   "ts": null
  },
  "https://www.adiumxtras.com/download/5356": {
-  "err": "http 429",
+  "err": "URLError timed out",
   "fails": 0,
   "ts": null
  },
@@ -28479,7 +28623,7 @@
   "ts": null
  },
  "https://www.adiumxtras.com/download/5367": {
-  "err": "URLError [Errno 111] Connection refused",
+  "err": "URLError timed out",
   "fails": 0,
   "ts": null
  },
@@ -28487,7 +28631,7 @@
   "ts": null
  },
  "https://www.adiumxtras.com/download/5369": {
-  "err": "URLError [Errno 111] Connection refused",
+  "err": "http 429",
   "fails": 0,
   "ts": null
  },
@@ -28596,7 +28740,7 @@
   "ts": null
  },
  "https://www.adiumxtras.com/download/5446": {
-  "err": "URLError [Errno 111] Connection refused",
+  "err": "URLError timed out",
   "fails": 0,
   "ts": null
  },
@@ -28664,7 +28808,7 @@
   "ts": null
  },
  "https://www.adiumxtras.com/download/5474": {
-  "err": "http 429",
+  "err": "URLError timed out",
   "fails": 0,
   "ts": null
  },
@@ -28741,7 +28885,7 @@
   "ts": null
  },
  "https://www.adiumxtras.com/download/5522": {
-  "err": "URLError [Errno 111] Connection refused",
+  "err": "URLError timed out",
   "fails": 0,
   "ts": null
  },
@@ -28757,9 +28901,9 @@
   "ts": null
  },
  "https://www.adiumxtras.com/download/5532": {
-  "err": "http 429",
   "fails": 0,
-  "ts": null
+  "saved": 1795786881,
+  "ts": "20261127071411"
  },
  "https://www.adiumxtras.com/download/5533": {
   "ts": null
@@ -28810,7 +28954,7 @@
   "ts": null
  },
  "https://www.adiumxtras.com/download/5570": {
-  "err": "URLError [Errno 111] Connection refused",
+  "err": "URLError timed out",
   "fails": 0,
   "ts": null
  },
@@ -28833,12 +28977,12 @@
   "ts": null
  },
  "https://www.adiumxtras.com/download/5579": {
-  "err": "URLError [Errno 111] Connection refused",
+  "err": "URLError timed out",
   "fails": 0,
   "ts": null
  },
  "https://www.adiumxtras.com/download/558": {
-  "err": "URLError [Errno 111] Connection refused",
+  "err": "URLError _ssl.c:1063: The handshake operation timed out",
   "fails": 0,
   "ts": null
  },
@@ -28846,9 +28990,9 @@
   "ts": null
  },
  "https://www.adiumxtras.com/download/5584": {
-  "err": "URLError [Errno 111] Connection refused",
   "fails": 0,
-  "ts": null
+  "saved": 1795786881,
+  "ts": "20261127071637"
  },
  "https://www.adiumxtras.com/download/5585": {
   "ts": null
@@ -28874,6 +29018,8 @@
   "ts": null
  },
  "https://www.adiumxtras.com/download/5598": {
+  "err": "URLError timed out",
+  "fails": 0,
   "ts": null
  },
  "https://www.adiumxtras.com/download/5604": {
@@ -28892,7 +29038,7 @@
   "u": "http://www.adiumxtras.com/download/561"
  },
  "https://www.adiumxtras.com/download/5611": {
-  "err": "http 429",
+  "err": "URLError timed out",
   "fails": 0,
   "ts": null
  },
@@ -28900,7 +29046,7 @@
   "ts": null
  },
  "https://www.adiumxtras.com/download/5619": {
-  "err": "URLError [Errno 111] Connection refused",
+  "err": "URLError timed out",
   "fails": 0,
   "ts": null
  },
@@ -28935,7 +29081,7 @@
   "ts": null
  },
  "https://www.adiumxtras.com/download/5652": {
-  "err": "URLError [Errno 111] Connection refused",
+  "err": "URLError timed out",
   "fails": 0,
   "ts": null
  },
@@ -28943,7 +29089,7 @@
   "ts": null
  },
  "https://www.adiumxtras.com/download/5654": {
-  "err": "URLError [Errno 111] Connection refused",
+  "err": "URLError timed out",
   "fails": 0,
   "ts": null
  },
@@ -28983,7 +29129,7 @@
   "ts": null
  },
  "https://www.adiumxtras.com/download/5680": {
-  "err": "URLError [Errno 111] Connection refused",
+  "err": "URLError timed out",
   "fails": 0,
   "ts": null
  },
@@ -29044,7 +29190,7 @@
   "ts": null
  },
  "https://www.adiumxtras.com/download/5714": {
-  "err": "URLError _ssl.c:1063: The handshake operation timed out",
+  "err": "URLError timed out",
   "fails": 0,
   "ts": null
  },
@@ -29056,6 +29202,8 @@
   "u": "http://www.adiumxtras.com/download/5729"
  },
  "https://www.adiumxtras.com/download/573": {
+  "err": "URLError timed out",
+  "fails": 0,
   "ts": null
  },
  "https://www.adiumxtras.com/download/5732": {
@@ -29171,7 +29319,7 @@
   "ts": "20261127015044"
  },
  "https://www.adiumxtras.com/download/5794": {
-  "err": "URLError _ssl.c:1063: The handshake operation timed out",
+  "err": "http 429",
   "fails": 0,
   "ts": null
  },
@@ -29233,7 +29381,7 @@
   "ts": null
  },
  "https://www.adiumxtras.com/download/5829": {
-  "err": "URLError [Errno 111] Connection refused",
+  "err": "URLError timed out",
   "fails": 0,
   "ts": null
  },
@@ -29241,6 +29389,8 @@
   "ts": null
  },
  "https://www.adiumxtras.com/download/5832": {
+  "err": "URLError timed out",
+  "fails": 0,
   "ts": null
  },
  "https://www.adiumxtras.com/download/5837": {
@@ -29284,7 +29434,7 @@
   "ts": null
  },
  "https://www.adiumxtras.com/download/5871": {
-  "err": "URLError [Errno 111] Connection refused",
+  "err": "URLError timed out",
   "fails": 0,
   "ts": null
  },
@@ -29295,15 +29445,15 @@
   "ts": null
  },
  "https://www.adiumxtras.com/download/5881": {
-  "err": "http 429",
   "fails": 0,
-  "ts": null
+  "saved": 1795788699,
+  "ts": "20261127081246"
  },
  "https://www.adiumxtras.com/download/5884": {
   "ts": null
  },
  "https://www.adiumxtras.com/download/5885": {
-  "err": "URLError _ssl.c:1063: The handshake operation timed out",
+  "err": "URLError timed out",
   "fails": 0,
   "ts": null
  },
@@ -29326,7 +29476,7 @@
   "ts": null
  },
  "https://www.adiumxtras.com/download/5892": {
-  "err": "URLError [Errno 111] Connection refused",
+  "err": "URLError timed out",
   "fails": 0,
   "ts": null
  },
@@ -29475,9 +29625,9 @@
   "ts": null
  },
  "https://www.adiumxtras.com/download/5955": {
-  "err": "http 429",
   "fails": 0,
-  "ts": null
+  "saved": 1795784380,
+  "ts": "20261127054325"
  },
  "https://www.adiumxtras.com/download/5956": {
   "ts": null
@@ -29543,7 +29693,7 @@
   "ts": null
  },
  "https://www.adiumxtras.com/download/5995": {
-  "err": "http 429",
+  "err": "URLError _ssl.c:1063: The handshake operation timed out",
   "fails": 0,
   "ts": null
  },
@@ -29551,7 +29701,7 @@
   "ts": null
  },
  "https://www.adiumxtras.com/download/6000": {
-  "err": "URLError [Errno 111] Connection refused",
+  "err": "URLError _ssl.c:1063: The handshake operation timed out",
   "fails": 0,
   "ts": null
  },
@@ -29574,9 +29724,9 @@
   "ts": null
  },
  "https://www.adiumxtras.com/download/6018": {
-  "err": "URLError [Errno 111] Connection refused",
   "fails": 0,
-  "ts": null
+  "saved": 1795785999,
+  "ts": "20261127063131"
  },
  "https://www.adiumxtras.com/download/6019": {
   "ts": null
@@ -29613,7 +29763,7 @@
   "ts": null
  },
  "https://www.adiumxtras.com/download/6035": {
-  "err": "URLError _ssl.c:1063: The handshake operation timed out",
+  "err": "URLError timed out",
   "fails": 0,
   "ts": null
  },
@@ -29656,18 +29806,18 @@
   "ts": null
  },
  "https://www.adiumxtras.com/download/6058": {
-  "err": "URLError [Errno 111] Connection refused",
   "fails": 0,
-  "ts": null
+  "saved": 1795782354,
+  "ts": "20261127041951"
  },
  "https://www.adiumxtras.com/download/6059": {
   "ts": "20150511054356",
   "u": "http://www.adiumxtras.com/download/6059"
  },
  "https://www.adiumxtras.com/download/6061": {
-  "err": "http 429",
   "fails": 0,
-  "ts": null
+  "saved": 1795787841,
+  "ts": "20261127015732"
  },
  "https://www.adiumxtras.com/download/6063": {
   "ts": null
@@ -29767,6 +29917,8 @@
   "ts": null
  },
  "https://www.adiumxtras.com/download/6117": {
+  "err": "URLError timed out",
+  "fails": 0,
   "ts": null
  },
  "https://www.adiumxtras.com/download/6118": {
@@ -29782,9 +29934,9 @@
   "ts": null
  },
  "https://www.adiumxtras.com/download/6124": {
-  "err": "URLError [Errno 111] Connection refused",
   "fails": 0,
-  "ts": null
+  "saved": 1795789530,
+  "ts": "20261127024632"
  },
  "https://www.adiumxtras.com/download/6125": {
   "ts": null
@@ -29815,12 +29967,12 @@
   "u": "http://www.adiumxtras.com/download/6138"
  },
  "https://www.adiumxtras.com/download/6140": {
-  "err": "URLError [Errno 111] Connection refused",
+  "err": "URLError _ssl.c:1063: The handshake operation timed out",
   "fails": 0,
   "ts": null
  },
  "https://www.adiumxtras.com/download/6141": {
-  "err": "URLError [Errno 111] Connection refused",
+  "err": "URLError timed out",
   "fails": 0,
   "ts": null
  },
@@ -29849,9 +30001,9 @@
   "ts": null
  },
  "https://www.adiumxtras.com/download/6168": {
-  "err": "http 429",
   "fails": 0,
-  "ts": null
+  "saved": 1795786547,
+  "ts": "20261127065427"
  },
  "https://www.adiumxtras.com/download/6169": {
   "fails": 0,
@@ -29865,6 +30017,8 @@
   "ts": null
  },
  "https://www.adiumxtras.com/download/6176": {
+  "err": "URLError timed out",
+  "fails": 0,
   "ts": null
  },
  "https://www.adiumxtras.com/download/6177": {
@@ -29891,6 +30045,8 @@
   "ts": "20261127015729"
  },
  "https://www.adiumxtras.com/download/6188": {
+  "err": "URLError timed out",
+  "fails": 0,
   "ts": null
  },
  "https://www.adiumxtras.com/download/6189": {
@@ -29912,12 +30068,12 @@
   "ts": null
  },
  "https://www.adiumxtras.com/download/6194": {
-  "err": "URLError _ssl.c:1063: The handshake operation timed out",
+  "err": "URLError timed out",
   "fails": 0,
   "ts": null
  },
  "https://www.adiumxtras.com/download/6195": {
-  "err": "URLError [Errno 111] Connection refused",
+  "err": "URLError timed out",
   "fails": 0,
   "ts": null
  },
@@ -29937,7 +30093,7 @@
   "ts": null
  },
  "https://www.adiumxtras.com/download/6210": {
-  "err": "URLError [Errno 111] Connection refused",
+  "err": "http 429",
   "fails": 0,
   "ts": null
  },
@@ -29961,7 +30117,7 @@
   "ts": null
  },
  "https://www.adiumxtras.com/download/6225": {
-  "err": "URLError [Errno 111] Connection refused",
+  "err": "URLError timed out",
   "fails": 0,
   "ts": null
  },
@@ -29972,7 +30128,7 @@
   "ts": null
  },
  "https://www.adiumxtras.com/download/6234": {
-  "err": "URLError _ssl.c:1063: The handshake operation timed out",
+  "err": "URLError timed out",
   "fails": 0,
   "ts": null
  },
@@ -30000,7 +30156,7 @@
   "ts": null
  },
  "https://www.adiumxtras.com/download/6248": {
-  "err": "URLError [Errno 111] Connection refused",
+  "err": "URLError timed out",
   "fails": 0,
   "ts": null
  },
@@ -30008,12 +30164,12 @@
   "ts": null
  },
  "https://www.adiumxtras.com/download/6255": {
-  "err": "URLError _ssl.c:1063: The handshake operation timed out",
+  "err": "URLError timed out",
   "fails": 0,
   "ts": null
  },
  "https://www.adiumxtras.com/download/6256": {
-  "err": "http 429",
+  "err": "URLError timed out",
   "fails": 0,
   "ts": null
  },
@@ -30021,7 +30177,7 @@
   "ts": null
  },
  "https://www.adiumxtras.com/download/6265": {
-  "err": "URLError [Errno 111] Connection refused",
+  "err": "URLError timed out",
   "fails": 0,
   "ts": null
  },
@@ -30038,11 +30194,13 @@
   "ts": null
  },
  "https://www.adiumxtras.com/download/6281": {
-  "err": "URLError [Errno 111] Connection refused",
   "fails": 0,
-  "ts": null
+  "saved": 1795788273,
+  "ts": "20261127075924"
  },
  "https://www.adiumxtras.com/download/6282": {
+  "err": "URLError timed out",
+  "fails": 0,
   "ts": null
  },
  "https://www.adiumxtras.com/download/6283": {
@@ -30075,14 +30233,14 @@
   "ts": null
  },
  "https://www.adiumxtras.com/download/6300": {
-  "err": "URLError [Errno 111] Connection refused",
+  "err": "http 429",
   "fails": 0,
   "ts": null
  },
  "https://www.adiumxtras.com/download/6305": {
-  "err": "http 429",
   "fails": 0,
-  "ts": null
+  "saved": 1795788699,
+  "ts": "20261127022719"
  },
  "https://www.adiumxtras.com/download/6307": {
   "ts": null
@@ -30148,7 +30306,7 @@
   "ts": null
  },
  "https://www.adiumxtras.com/download/6340": {
-  "err": "URLError [Errno 111] Connection refused",
+  "err": "URLError timed out",
   "fails": 0,
   "ts": null
  },
@@ -30180,7 +30338,7 @@
   "ts": null
  },
  "https://www.adiumxtras.com/download/6366": {
-  "err": "URLError _ssl.c:1063: The handshake operation timed out",
+  "err": "http 429",
   "fails": 0,
   "ts": null
  },
@@ -30233,12 +30391,12 @@
   "ts": null
  },
  "https://www.adiumxtras.com/download/6392": {
-  "err": "http 429",
+  "err": "URLError timed out",
   "fails": 0,
   "ts": null
  },
  "https://www.adiumxtras.com/download/6393": {
-  "err": "URLError [Errno 111] Connection refused",
+  "err": "URLError timed out",
   "fails": 0,
   "ts": null
  },
@@ -30319,14 +30477,14 @@
   "ts": null
  },
  "https://www.adiumxtras.com/download/6443": {
-  "err": "URLError [Errno 111] Connection refused",
   "fails": 0,
-  "ts": null
+  "saved": 1795788273,
+  "ts": "20261127020923"
  },
  "https://www.adiumxtras.com/download/6444": {
-  "err": "URLError [Errno 111] Connection refused",
   "fails": 0,
-  "ts": null
+  "saved": 1795784380,
+  "ts": "20261127053421"
  },
  "https://www.adiumxtras.com/download/6445": {
   "ts": null
@@ -30337,9 +30495,9 @@
   "ts": "20261127044204"
  },
  "https://www.adiumxtras.com/download/6449": {
-  "err": "URLError [Errno 111] Connection refused",
   "fails": 0,
-  "ts": null
+  "saved": 1795785999,
+  "ts": "20261127064211"
  },
  "https://www.adiumxtras.com/download/645": {
   "ts": null
@@ -30354,7 +30512,7 @@
   "ts": null
  },
  "https://www.adiumxtras.com/download/6458": {
-  "err": "URLError [Errno 111] Connection refused",
+  "err": "URLError timed out",
   "fails": 0,
   "ts": null
  },
@@ -30368,10 +30526,12 @@
   "ts": null
  },
  "https://www.adiumxtras.com/download/6463": {
+  "err": "URLError timed out",
+  "fails": 0,
   "ts": null
  },
  "https://www.adiumxtras.com/download/6466": {
-  "err": "URLError [Errno 111] Connection refused",
+  "err": "URLError _ssl.c:1063: The handshake operation timed out",
   "fails": 0,
   "ts": null
  },
@@ -30418,7 +30578,7 @@
   "ts": null
  },
  "https://www.adiumxtras.com/download/6501": {
-  "err": "URLError [Errno 111] Connection refused",
+  "err": "http 429",
   "fails": 0,
   "ts": null
  },
@@ -30426,12 +30586,12 @@
   "ts": null
  },
  "https://www.adiumxtras.com/download/6506": {
-  "err": "URLError _ssl.c:1063: The handshake operation timed out",
+  "err": "http 429",
   "fails": 0,
   "ts": null
  },
  "https://www.adiumxtras.com/download/6507": {
-  "err": "URLError [Errno 111] Connection refused",
+  "err": "URLError timed out",
   "fails": 0,
   "ts": null
  },
@@ -30464,7 +30624,7 @@
   "ts": null
  },
  "https://www.adiumxtras.com/download/6531": {
-  "err": "URLError [Errno 111] Connection refused",
+  "err": "URLError timed out",
   "fails": 0,
   "ts": null
  },
@@ -30479,9 +30639,9 @@
   "ts": null
  },
  "https://www.adiumxtras.com/download/6542": {
-  "err": "URLError _ssl.c:1063: The handshake operation timed out",
   "fails": 0,
-  "ts": null
+  "saved": 1795785491,
+  "ts": "20261127061138"
  },
  "https://www.adiumxtras.com/download/6545": {
   "ts": null
@@ -30493,12 +30653,16 @@
   "ts": null
  },
  "https://www.adiumxtras.com/download/6551": {
+  "err": "URLError timed out",
+  "fails": 0,
   "ts": null
  },
  "https://www.adiumxtras.com/download/6555": {
   "ts": null
  },
  "https://www.adiumxtras.com/download/6557": {
+  "err": "URLError timed out",
+  "fails": 0,
   "ts": null
  },
  "https://www.adiumxtras.com/download/6558": {
@@ -30585,7 +30749,7 @@
   "ts": null
  },
  "https://www.adiumxtras.com/download/6619": {
-  "err": "URLError [Errno 111] Connection refused",
+  "err": "URLError timed out",
   "fails": 0,
   "ts": null
  },
@@ -30596,7 +30760,7 @@
   "ts": null
  },
  "https://www.adiumxtras.com/download/6628": {
-  "err": "URLError [Errno 111] Connection refused",
+  "err": "URLError timed out",
   "fails": 0,
   "ts": null
  },
@@ -30613,7 +30777,7 @@
   "ts": null
  },
  "https://www.adiumxtras.com/download/6638": {
-  "err": "URLError [Errno 111] Connection refused",
+  "err": "URLError timed out",
   "fails": 0,
   "ts": null
  },
@@ -30663,15 +30827,17 @@
   "ts": null
  },
  "https://www.adiumxtras.com/download/6668": {
+  "err": "URLError timed out",
+  "fails": 0,
   "ts": null
  },
  "https://www.adiumxtras.com/download/6670": {
   "ts": null
  },
  "https://www.adiumxtras.com/download/6672": {
-  "err": "URLError [Errno 111] Connection refused",
   "fails": 0,
-  "ts": null
+  "saved": 1795784380,
+  "ts": "20261127053415"
  },
  "https://www.adiumxtras.com/download/6673": {
   "ts": null
@@ -30683,13 +30849,15 @@
   "ts": null
  },
  "https://www.adiumxtras.com/download/6685": {
+  "err": "URLError timed out",
+  "fails": 0,
   "ts": null
  },
  "https://www.adiumxtras.com/download/6687": {
   "ts": null
  },
  "https://www.adiumxtras.com/download/6688": {
-  "err": "URLError _ssl.c:1063: The handshake operation timed out",
+  "err": "http 429",
   "fails": 0,
   "ts": null
  },
@@ -30700,7 +30868,7 @@
   "ts": null
  },
  "https://www.adiumxtras.com/download/6692": {
-  "err": "URLError [Errno 111] Connection refused",
+  "err": "URLError timed out",
   "fails": 0,
   "ts": null
  },
@@ -30735,7 +30903,7 @@
   "ts": null
  },
  "https://www.adiumxtras.com/download/6712": {
-  "err": "URLError _ssl.c:1063: The handshake operation timed out",
+  "err": "URLError timed out",
   "fails": 0,
   "ts": null
  },
@@ -30801,7 +30969,7 @@
   "ts": null
  },
  "https://www.adiumxtras.com/download/6748": {
-  "err": "URLError [Errno 111] Connection refused",
+  "err": "URLError timed out",
   "fails": 0,
   "ts": null
  },
@@ -30812,10 +30980,12 @@
   "ts": null
  },
  "https://www.adiumxtras.com/download/6751": {
+  "err": "URLError timed out",
+  "fails": 0,
   "ts": null
  },
  "https://www.adiumxtras.com/download/6752": {
-  "err": "URLError [Errno 111] Connection refused",
+  "err": "URLError timed out",
   "fails": 0,
   "ts": null
  },
@@ -30823,7 +30993,7 @@
   "ts": null
  },
  "https://www.adiumxtras.com/download/6759": {
-  "err": "URLError _ssl.c:1063: The handshake operation timed out",
+  "err": "URLError timed out",
   "fails": 0,
   "ts": null
  },
@@ -30840,10 +31010,12 @@
   "ts": null
  },
  "https://www.adiumxtras.com/download/6764": {
+  "err": "URLError timed out",
+  "fails": 0,
   "ts": null
  },
  "https://www.adiumxtras.com/download/6765": {
-  "err": "URLError [Errno 111] Connection refused",
+  "err": "URLError timed out",
   "fails": 0,
   "ts": null
  },
@@ -30894,7 +31066,7 @@
   "u": "http://adiumxtras.com/download/6787"
  },
  "https://www.adiumxtras.com/download/6788": {
-  "err": "URLError [Errno 111] Connection refused",
+  "err": "URLError timed out",
   "fails": 0,
   "ts": null
  },
@@ -30902,7 +31074,7 @@
   "ts": null
  },
  "https://www.adiumxtras.com/download/6794": {
-  "err": "URLError [Errno 111] Connection refused",
+  "err": "URLError timed out",
   "fails": 0,
   "ts": null
  },
@@ -30917,7 +31089,7 @@
   "ts": null
  },
  "https://www.adiumxtras.com/download/6798": {
-  "err": "URLError [Errno 111] Connection refused",
+  "err": "URLError timed out",
   "fails": 0,
   "ts": null
  },
@@ -30947,7 +31119,7 @@
   "ts": null
  },
  "https://www.adiumxtras.com/download/6825": {
-  "err": "URLError [Errno 111] Connection refused",
+  "err": "URLError timed out",
   "fails": 0,
   "ts": null
  },
@@ -30955,11 +31127,13 @@
   "ts": null
  },
  "https://www.adiumxtras.com/download/6828": {
-  "err": "URLError [Errno 111] Connection refused",
+  "err": "URLError timed out",
   "fails": 0,
   "ts": null
  },
  "https://www.adiumxtras.com/download/683": {
+  "err": "URLError timed out",
+  "fails": 0,
   "ts": null
  },
  "https://www.adiumxtras.com/download/6831": {
@@ -30976,7 +31150,7 @@
   "u": "http://adiumxtras.com/download/6838"
  },
  "https://www.adiumxtras.com/download/6839": {
-  "err": "URLError [Errno 111] Connection refused",
+  "err": "URLError timed out",
   "fails": 0,
   "ts": null
  },
@@ -30990,7 +31164,7 @@
   "ts": null
  },
  "https://www.adiumxtras.com/download/6847": {
-  "err": "URLError [Errno 111] Connection refused",
+  "err": "URLError _ssl.c:1063: The handshake operation timed out",
   "fails": 0,
   "ts": null
  },
@@ -31013,7 +31187,7 @@
   "ts": null
  },
  "https://www.adiumxtras.com/download/6870": {
-  "err": "URLError [Errno 111] Connection refused",
+  "err": "URLError timed out",
   "fails": 0,
   "ts": null
  },
@@ -31027,9 +31201,9 @@
   "ts": null
  },
  "https://www.adiumxtras.com/download/6876": {
-  "err": "URLError _ssl.c:1063: The handshake operation timed out",
   "fails": 0,
-  "ts": null
+  "saved": 1795788273,
+  "ts": "20261127075301"
  },
  "https://www.adiumxtras.com/download/6877": {
   "ts": null
@@ -31095,17 +31269,17 @@
   "ts": null
  },
  "https://www.adiumxtras.com/download/6913": {
-  "err": "URLError [Errno 111] Connection refused",
   "fails": 0,
-  "ts": null
+  "saved": 1795783491,
+  "ts": "20261127103622"
  },
  "https://www.adiumxtras.com/download/6914": {
   "ts": null
  },
  "https://www.adiumxtras.com/download/6915": {
-  "err": "URLError [Errno 111] Connection refused",
   "fails": 0,
-  "ts": null
+  "saved": 1795783491,
+  "ts": "20261127103333"
  },
  "https://www.adiumxtras.com/download/6918": {
   "ts": null
@@ -31154,7 +31328,7 @@
   "ts": null
  },
  "https://www.adiumxtras.com/download/6938": {
-  "err": "http 429",
+  "err": "URLError _ssl.c:1063: The handshake operation timed out",
   "fails": 0,
   "ts": null
  },
@@ -31189,7 +31363,7 @@
   "ts": null
  },
  "https://www.adiumxtras.com/download/6956": {
-  "err": "URLError _ssl.c:1063: The handshake operation timed out",
+  "err": "URLError timed out",
   "fails": 0,
   "ts": null
  },
@@ -31227,9 +31401,9 @@
   "ts": null
  },
  "https://www.adiumxtras.com/download/6987": {
-  "err": "http 429",
   "fails": 0,
-  "ts": null
+  "saved": 1795784008,
+  "ts": "20261127052145"
  },
  "https://www.adiumxtras.com/download/6988": {
   "ts": null
@@ -31244,7 +31418,7 @@
   "ts": null
  },
  "https://www.adiumxtras.com/download/6992": {
-  "err": "URLError [Errno 111] Connection refused",
+  "err": "http 429",
   "fails": 0,
   "ts": null
  },
@@ -31266,7 +31440,7 @@
   "ts": null
  },
  "https://www.adiumxtras.com/download/7003": {
-  "err": "URLError [Errno 111] Connection refused",
+  "err": "URLError timed out",
   "fails": 0,
   "ts": null
  },
@@ -31299,7 +31473,7 @@
   "ts": null
  },
  "https://www.adiumxtras.com/download/7014": {
-  "err": "URLError [Errno 111] Connection refused",
+  "err": "URLError _ssl.c:1063: The handshake operation timed out",
   "fails": 0,
   "ts": null
  },
@@ -31310,7 +31484,7 @@
   "ts": null
  },
  "https://www.adiumxtras.com/download/7017": {
-  "err": "http 429",
+  "err": "URLError timed out",
   "fails": 0,
   "ts": null
  },
@@ -31324,7 +31498,7 @@
   "ts": null
  },
  "https://www.adiumxtras.com/download/7021": {
-  "err": "URLError [Errno 111] Connection refused",
+  "err": "URLError timed out",
   "fails": 0,
   "ts": null
  },
@@ -31332,17 +31506,17 @@
   "ts": null
  },
  "https://www.adiumxtras.com/download/7023": {
-  "err": "URLError [Errno 111] Connection refused",
   "fails": 0,
-  "ts": null
+  "saved": 1795783491,
+  "ts": "20261127045804"
  },
  "https://www.adiumxtras.com/download/7024": {
-  "err": "URLError [Errno 111] Connection refused",
+  "err": "http 429",
   "fails": 0,
   "ts": null
  },
  "https://www.adiumxtras.com/download/7025": {
-  "err": "URLError [Errno 111] Connection refused",
+  "err": "URLError timed out",
   "fails": 0,
   "ts": null
  },
@@ -31371,7 +31545,7 @@
   "ts": null
  },
  "https://www.adiumxtras.com/download/7043": {
-  "err": "http 429",
+  "err": "URLError timed out",
   "fails": 0,
   "ts": null
  },
@@ -31426,7 +31600,7 @@
   "ts": null
  },
  "https://www.adiumxtras.com/download/7087": {
-  "err": "URLError [Errno 111] Connection refused",
+  "err": "URLError timed out",
   "fails": 0,
   "ts": null
  },
@@ -31484,6 +31658,8 @@
   "ts": null
  },
  "https://www.adiumxtras.com/download/7113": {
+  "err": "URLError timed out",
+  "fails": 0,
   "ts": null
  },
  "https://www.adiumxtras.com/download/7119": {
@@ -31493,7 +31669,7 @@
   "ts": null
  },
  "https://www.adiumxtras.com/download/7121": {
-  "err": "URLError [Errno 111] Connection refused",
+  "err": "URLError _ssl.c:1063: The handshake operation timed out",
   "fails": 0,
   "ts": null
  },
@@ -31563,14 +31739,14 @@
   "ts": null
  },
  "https://www.adiumxtras.com/download/7160": {
-  "err": "URLError [Errno 111] Connection refused",
   "fails": 0,
-  "ts": null
+  "saved": 1795787841,
+  "ts": "20261127114109"
  },
  "https://www.adiumxtras.com/download/7162": {
-  "err": "URLError [Errno 111] Connection refused",
   "fails": 0,
-  "ts": null
+  "saved": 1795789530,
+  "ts": "20261127025321"
  },
  "https://www.adiumxtras.com/download/7163": {
   "ts": null
@@ -31613,9 +31789,9 @@
   "ts": null
  },
  "https://www.adiumxtras.com/download/7200": {
-  "err": "URLError _ssl.c:1063: The handshake operation timed out",
   "fails": 0,
-  "ts": null
+  "saved": 1795784953,
+  "ts": "20261127060409"
  },
  "https://www.adiumxtras.com/download/7204": {
   "ts": null
@@ -31681,7 +31857,7 @@
   "ts": null
  },
  "https://www.adiumxtras.com/download/7243": {
-  "err": "URLError [Errno 111] Connection refused",
+  "err": "http 429",
   "fails": 0,
   "ts": null
  },
@@ -31692,16 +31868,16 @@
   "ts": null
  },
  "https://www.adiumxtras.com/download/7251": {
-  "err": "URLError [Errno 111] Connection refused",
   "fails": 0,
-  "ts": null
+  "saved": 1795789077,
+  "ts": "20261127082855"
  },
  "https://www.adiumxtras.com/download/7254": {
   "ts": "20151010105812",
   "u": "http://adiumxtras.com/download/7254"
  },
  "https://www.adiumxtras.com/download/7259": {
-  "err": "URLError [Errno 111] Connection refused",
+  "err": "http 429",
   "fails": 0,
   "ts": null
  },
@@ -31718,7 +31894,7 @@
   "ts": null
  },
  "https://www.adiumxtras.com/download/7274": {
-  "err": "URLError [Errno 111] Connection refused",
+  "err": "URLError timed out",
   "fails": 0,
   "ts": null
  },
@@ -31849,12 +32025,12 @@
   "ts": null
  },
  "https://www.adiumxtras.com/download/7337": {
-  "err": "URLError _ssl.c:1063: The handshake operation timed out",
   "fails": 0,
-  "ts": null
+  "saved": 1795789530,
+  "ts": "20261127025241"
  },
  "https://www.adiumxtras.com/download/7338": {
-  "err": "http 429",
+  "err": "URLError timed out",
   "fails": 0,
   "ts": null
  },
@@ -31865,11 +32041,13 @@
   "ts": null
  },
  "https://www.adiumxtras.com/download/7340": {
-  "err": "URLError [Errno 111] Connection refused",
+  "err": "http 429",
   "fails": 0,
   "ts": null
  },
  "https://www.adiumxtras.com/download/7341": {
+  "err": "URLError timed out",
+  "fails": 0,
   "ts": null
  },
  "https://www.adiumxtras.com/download/7351": {
@@ -31895,7 +32073,7 @@
   "ts": "20261126152156"
  },
  "https://www.adiumxtras.com/download/7366": {
-  "err": "URLError [Errno 111] Connection refused",
+  "err": "URLError timed out",
   "fails": 0,
   "ts": null
  },
@@ -31921,11 +32099,13 @@
   "ts": null
  },
  "https://www.adiumxtras.com/download/7377": {
-  "err": "URLError [Errno 111] Connection refused",
+  "err": "URLError timed out",
   "fails": 0,
   "ts": null
  },
  "https://www.adiumxtras.com/download/7381": {
+  "err": "URLError timed out",
+  "fails": 0,
   "ts": null
  },
  "https://www.adiumxtras.com/download/7382": {
@@ -31947,7 +32127,7 @@
   "ts": null
  },
  "https://www.adiumxtras.com/download/7393": {
-  "err": "URLError [Errno 111] Connection refused",
+  "err": "URLError timed out",
   "fails": 0,
   "ts": null
  },
@@ -31959,7 +32139,7 @@
   "ts": null
  },
  "https://www.adiumxtras.com/download/7398": {
-  "err": "URLError [Errno 111] Connection refused",
+  "err": "URLError timed out",
   "fails": 0,
   "ts": null
  },
@@ -31973,7 +32153,7 @@
   "ts": null
  },
  "https://www.adiumxtras.com/download/7405": {
-  "err": "URLError [Errno 111] Connection refused",
+  "err": "http 429",
   "fails": 0,
   "ts": null
  },
@@ -31984,11 +32164,13 @@
   "ts": null
  },
  "https://www.adiumxtras.com/download/7413": {
-  "err": "http 429",
   "fails": 0,
-  "ts": null
+  "saved": 1795784008,
+  "ts": "20261127052135"
  },
  "https://www.adiumxtras.com/download/7416": {
+  "err": "URLError timed out",
+  "fails": 0,
   "ts": null
  },
  "https://www.adiumxtras.com/download/7417": {
@@ -32016,7 +32198,7 @@
   "ts": null
  },
  "https://www.adiumxtras.com/download/7437": {
-  "err": "URLError [Errno 111] Connection refused",
+  "err": "http 429",
   "fails": 0,
   "ts": null
  },
@@ -32030,7 +32212,7 @@
   "ts": null
  },
  "https://www.adiumxtras.com/download/7450": {
-  "err": "URLError [Errno 111] Connection refused",
+  "err": "http 429",
   "fails": 0,
   "ts": null
  },
@@ -32038,7 +32220,7 @@
   "ts": null
  },
  "https://www.adiumxtras.com/download/7452": {
-  "err": "URLError [Errno 111] Connection refused",
+  "err": "URLError timed out",
   "fails": 0,
   "ts": null
  },
@@ -32070,7 +32252,7 @@
   "ts": null
  },
  "https://www.adiumxtras.com/download/7476": {
-  "err": "URLError _ssl.c:1063: The handshake operation timed out",
+  "err": "URLError timed out",
   "fails": 0,
   "ts": null
  },
@@ -32081,7 +32263,7 @@
   "ts": null
  },
  "https://www.adiumxtras.com/download/7491": {
-  "err": "URLError [Errno 111] Connection refused",
+  "err": "URLError timed out",
   "fails": 0,
   "ts": null
  },
@@ -32092,9 +32274,9 @@
   "ts": null
  },
  "https://www.adiumxtras.com/download/7507": {
-  "err": "URLError [Errno 111] Connection refused",
   "fails": 0,
-  "ts": null
+  "saved": 1795781817,
+  "ts": "20261127101409"
  },
  "https://www.adiumxtras.com/download/7508": {
   "ts": null
@@ -32112,7 +32294,7 @@
   "ts": null
  },
  "https://www.adiumxtras.com/download/7523": {
-  "err": "URLError [Errno 111] Connection refused",
+  "err": "URLError timed out",
   "fails": 0,
   "ts": null
  },
@@ -32225,6 +32407,8 @@
   "ts": null
  },
  "https://www.adiumxtras.com/download/7612": {
+  "err": "URLError timed out",
+  "fails": 0,
   "ts": null
  },
  "https://www.adiumxtras.com/download/7616": {
@@ -32393,7 +32577,7 @@
   "ts": null
  },
  "https://www.adiumxtras.com/download/7712": {
-  "err": "http 429",
+  "err": "URLError timed out",
   "fails": 0,
   "ts": null
  },
@@ -32431,7 +32615,7 @@
   "ts": null
  },
  "https://www.adiumxtras.com/download/7738": {
-  "err": "URLError _ssl.c:1063: The handshake operation timed out",
+  "err": "URLError timed out",
   "fails": 0,
   "ts": null
  },
@@ -32460,9 +32644,9 @@
   "ts": null
  },
  "https://www.adiumxtras.com/download/7764": {
-  "err": "http 429",
   "fails": 0,
-  "ts": null
+  "saved": 1795781817,
+  "ts": "20261127034849"
  },
  "https://www.adiumxtras.com/download/7766": {
   "ts": null
@@ -32471,7 +32655,7 @@
   "ts": null
  },
  "https://www.adiumxtras.com/download/7775": {
-  "err": "URLError [Errno 111] Connection refused",
+  "err": "URLError timed out",
   "fails": 0,
   "ts": null
  },
@@ -32518,7 +32702,7 @@
   "ts": null
  },
  "https://www.adiumxtras.com/download/7792": {
-  "err": "URLError [Errno 111] Connection refused",
+  "err": "URLError timed out",
   "fails": 0,
   "ts": null
  },
@@ -32538,7 +32722,7 @@
   "ts": null
  },
  "https://www.adiumxtras.com/download/7799": {
-  "err": "URLError [Errno 111] Connection refused",
+  "err": "http 429",
   "fails": 0,
   "ts": null
  },
@@ -32639,7 +32823,7 @@
   "ts": null
  },
  "https://www.adiumxtras.com/download/7846": {
-  "err": "URLError [Errno 111] Connection refused",
+  "err": "URLError timed out",
   "fails": 0,
   "ts": null
  },
@@ -32656,7 +32840,7 @@
   "ts": null
  },
  "https://www.adiumxtras.com/download/7855": {
-  "err": "URLError _ssl.c:1063: The handshake operation timed out",
+  "err": "URLError timed out",
   "fails": 0,
   "ts": null
  },
@@ -32715,6 +32899,8 @@
   "ts": "20261127000814"
  },
  "https://www.adiumxtras.com/download/7886": {
+  "err": "URLError timed out",
+  "fails": 0,
   "ts": null
  },
  "https://www.adiumxtras.com/download/7887": {
@@ -32738,7 +32924,7 @@
   "ts": null
  },
  "https://www.adiumxtras.com/download/7900": {
-  "err": "URLError [Errno 111] Connection refused",
+  "err": "URLError timed out",
   "fails": 0,
   "ts": null
  },
@@ -32769,7 +32955,7 @@
   "ts": "20261127051403"
  },
  "https://www.adiumxtras.com/download/7914": {
-  "err": "URLError [Errno 111] Connection refused",
+  "err": "URLError timed out",
   "fails": 0,
   "ts": null
  },
@@ -32800,6 +32986,8 @@
   "ts": null
  },
  "https://www.adiumxtras.com/download/7925": {
+  "err": "URLError timed out",
+  "fails": 0,
   "ts": null
  },
  "https://www.adiumxtras.com/download/7926": {
@@ -32815,7 +33003,7 @@
   "ts": null
  },
  "https://www.adiumxtras.com/download/7936": {
-  "err": "URLError [Errno 111] Connection refused",
+  "err": "URLError timed out",
   "fails": 0,
   "ts": null
  },
@@ -32838,7 +33026,7 @@
   "ts": null
  },
  "https://www.adiumxtras.com/download/7953": {
-  "err": "URLError [Errno 111] Connection refused",
+  "err": "URLError timed out",
   "fails": 0,
   "ts": null
  },
@@ -32872,9 +33060,9 @@
   "ts": null
  },
  "https://www.adiumxtras.com/download/7972": {
-  "err": "URLError [Errno 111] Connection refused",
   "fails": 0,
-  "ts": null
+  "saved": 1795789077,
+  "ts": "20261127115937"
  },
  "https://www.adiumxtras.com/download/7974": {
   "fails": 0,
@@ -32929,20 +33117,22 @@
   "ts": null
  },
  "https://www.adiumxtras.com/download/7994": {
+  "err": "URLError timed out",
+  "fails": 0,
   "ts": null
  },
  "https://www.adiumxtras.com/download/7995": {
   "ts": null
  },
  "https://www.adiumxtras.com/download/7997": {
-  "err": "URLError [Errno 111] Connection refused",
+  "err": "http 429",
   "fails": 0,
   "ts": null
  },
  "https://www.adiumxtras.com/download/7998": {
-  "err": "URLError [Errno 111] Connection refused",
   "fails": 0,
-  "ts": null
+  "saved": 1795788699,
+  "ts": "20261127080919"
  },
  "https://www.adiumxtras.com/download/8": {
   "ts": null
@@ -32954,7 +33144,7 @@
   "ts": null
  },
  "https://www.adiumxtras.com/download/8004": {
-  "err": "URLError [Errno 111] Connection refused",
+  "err": "URLError timed out",
   "fails": 0,
   "ts": null
  },
@@ -32975,7 +33165,7 @@
   "ts": null
  },
  "https://www.adiumxtras.com/download/8016": {
-  "err": "URLError [Errno 111] Connection refused",
+  "err": "URLError timed out",
   "fails": 0,
   "ts": null
  },
@@ -32986,9 +33176,9 @@
   "ts": null
  },
  "https://www.adiumxtras.com/download/8022": {
-  "err": "URLError [Errno 111] Connection refused",
   "fails": 0,
-  "ts": null
+  "saved": 1795788273,
+  "ts": "20261127080203"
  },
  "https://www.adiumxtras.com/download/8024": {
   "ts": null
@@ -33025,7 +33215,7 @@
   "ts": null
  },
  "https://www.adiumxtras.com/download/8044": {
-  "err": "URLError [Errno 111] Connection refused",
+  "err": "URLError timed out",
   "fails": 0,
   "ts": null
  },
@@ -33053,15 +33243,17 @@
   "ts": null
  },
  "https://www.adiumxtras.com/download/8066": {
+  "err": "URLError timed out",
+  "fails": 0,
   "ts": null
  },
  "https://www.adiumxtras.com/download/8067": {
   "ts": null
  },
  "https://www.adiumxtras.com/download/807": {
-  "err": "URLError [Errno 111] Connection refused",
   "fails": 0,
-  "ts": null
+  "saved": 1795787415,
+  "ts": "20261127072054"
  },
  "https://www.adiumxtras.com/download/8070": {
   "ts": null
@@ -33140,7 +33332,7 @@
   "ts": null
  },
  "https://www.adiumxtras.com/download/811": {
-  "err": "URLError [Errno 111] Connection refused",
+  "err": "URLError timed out",
   "fails": 0,
   "ts": null
  },
@@ -33214,7 +33406,7 @@
   "ts": null
  },
  "https://www.adiumxtras.com/download/820": {
-  "err": "URLError [Errno 111] Connection refused",
+  "err": "http 429",
   "fails": 0,
   "ts": null
  },
@@ -33224,9 +33416,9 @@
   "ts": "20261127071842"
  },
  "https://www.adiumxtras.com/download/8206": {
-  "err": "URLError [Errno 111] Connection refused",
   "fails": 0,
-  "ts": null
+  "saved": 1795786547,
+  "ts": "20261127111600"
  },
  "https://www.adiumxtras.com/download/8209": {
   "ts": null
@@ -33290,7 +33482,7 @@
   "ts": null
  },
  "https://www.adiumxtras.com/download/8253": {
-  "err": "URLError [Errno 111] Connection refused",
+  "err": "URLError timed out",
   "fails": 0,
   "ts": null
  },
@@ -33310,9 +33502,9 @@
   "ts": null
  },
  "https://www.adiumxtras.com/download/8259": {
-  "err": "URLError [Errno 111] Connection refused",
   "fails": 0,
-  "ts": null
+  "saved": 1795782354,
+  "ts": "20261127042232"
  },
  "https://www.adiumxtras.com/download/826": {
   "ts": null
@@ -33381,7 +33573,7 @@
   "ts": null
  },
  "https://www.adiumxtras.com/download/8304": {
-  "err": "URLError [Errno 111] Connection refused",
+  "err": "URLError timed out",
   "fails": 0,
   "ts": null
  },
@@ -33431,6 +33623,8 @@
   "ts": null
  },
  "https://www.adiumxtras.com/download/833": {
+  "err": "URLError timed out",
+  "fails": 0,
   "ts": null
  },
  "https://www.adiumxtras.com/download/8330": {
@@ -33494,7 +33688,7 @@
   "ts": null
  },
  "https://www.adiumxtras.com/download/8410": {
-  "err": "URLError [Errno 111] Connection refused",
+  "err": "URLError _ssl.c:1063: The handshake operation timed out",
   "fails": 0,
   "ts": null
  },
@@ -33588,7 +33782,7 @@
   "ts": null
  },
  "https://www.adiumxtras.com/download/851": {
-  "err": "URLError [Errno 111] Connection refused",
+  "err": "URLError timed out",
   "fails": 0,
   "ts": null
  },
@@ -33608,6 +33802,8 @@
   "ts": null
  },
  "https://www.adiumxtras.com/download/8524": {
+  "err": "URLError timed out",
+  "fails": 0,
   "ts": null
  },
  "https://www.adiumxtras.com/download/8527": {
@@ -33647,9 +33843,9 @@
   "ts": null
  },
  "https://www.adiumxtras.com/download/8561": {
-  "err": "URLError _ssl.c:1063: The handshake operation timed out",
   "fails": 0,
-  "ts": null
+  "saved": 1795787415,
+  "ts": "20261127072315"
  },
  "https://www.adiumxtras.com/download/8563": {
   "ts": null
@@ -34022,6 +34218,8 @@
   "ts": null
  },
  "https://www.adiumxtras.com/download/97": {
+  "err": "URLError timed out",
+  "fails": 0,
   "ts": null
  },
  "https://www.adiumxtras.com/download/970": {
@@ -34088,6 +34286,8 @@
   "ts": null
  },
  "https://www.adiumxtras.com/download/995": {
+  "err": "URLError timed out",
+  "fails": 0,
   "ts": null
  },
  "https://www.adiumxtras.com/download/996": {
