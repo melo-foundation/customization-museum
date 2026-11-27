@@ -12,6 +12,14 @@ APP_TAGS = A.get("app_tags", {})
 HIDDEN = set(json.load(open("hidden.json", encoding="utf-8")))
 
 
+def archived(page_ts, download_ts, download):
+    """True when a copy of the item survives: a real Wayback snapshot of its page or file,
+    a Wayback-derived source (placeholder ts "2"), or a file hosted on archive.org."""
+    real = lambda t: bool(t) and t[:14].isdigit() and len(t) >= 14
+    return real(page_ts) or real(download_ts) or page_ts == "2" or download_ts == "2" or bool(
+        re.match(r"https?://([\w-]+\.)?archive\.org/", download or ""))
+
+
 def classify(app, tags):
     """(types, subject tags) for one entry's raw tags."""
     types, subjects = [], []
@@ -97,6 +105,8 @@ for f in sorted(glob.glob("data/*.json")):
             p=e.get("page"), v=f"previews/{e['id']}.png" if e["id"] in PREVIEWS else e.get("preview"), l=e.get("download"),
             tp=ts("page"), tv=None if e["id"] in PREVIEWS else ts("preview"), tl=ts("download"),
         )
+        if archived(row["tp"], row["tl"], row["l"]):
+            row["z"] = 1
         if e.get("extra"):
             row["x"] = e["extra"]
         if e["id"] in OVERRIDES:
@@ -107,6 +117,10 @@ if __name__ == "__main__":
     assert classify("x", ["Smileys", "varios", "Customise", "anime"]) == (["Emoticons"], ["Misc", "Anime"])
     assert classify("Windows Desktop Themes", ["music"]) == (["Skins & Themes"], ["Windows 9x Classic", "Music"])
     assert classify("x", []) == (["Other"], [])
+    assert archived("20090101000000", None, None) and archived(None, "20100101000000|http://x/y.zip", "http://x/y.zip")
+    assert archived("2", None, None) and archived(None, None, "https://archive.org/download/item/f.wal")
+    assert not archived(None, None, "http://example.com/f.zip") and not archived("", "", None)
+    assert not archived(None, None, "http://notarchive.org/f.zip") and not archived("2009", None, None)
     assert front_matter("---\ntitle: A: B\ntags: x, y\n---\nbody") == ({"title": "A: B", "tags": "x, y"}, "body")
     json.dump(out, open("entries.json", "w", encoding="utf-8"), separators=(",", ":"), ensure_ascii=False)
     write_section_pages(out)
