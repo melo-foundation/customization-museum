@@ -295,6 +295,119 @@ ${[['', `All ${h.esc(r.app ? h.appName(r.app) : 'Items')}`, !typeName], ...types
 ${links} &nbsp;
 </td></tr></table>`, { width: '100%', bg: '#F6F6F6' });
 
+  // description as the original printed it: plain text, line breaks kept, each URL as globe icon + "Link"
+  const describe = (h, e) => {
+    const link = u => `<a target="_blank" rel="noopener" href="${u}"><img src="${A}url.gif" border="0" alt="${u}" align="absmiddle"></a>&nbsp;<a target="_blank" rel="noopener" href="${u}">Link</a>`;
+    return e.m && e.desc ? e.desc.replace(/^<p>|<\/p>$/g, '').replace(/<\/p><p>/g, '<br><br>')
+      : e.n ? h.esc(e.n).replace(/https?:\/\/[^\s<]+/g, link).replace(/\n/g, '<br>') : e.g.map(t => h.esc(t)).join(', ');
+  };
+  const longDate = iso => { const d = new Date(iso + 'T00:00:00'); return isNaN(d) ? iso : `${DAYS[d.getDay()]}, ${MONTHS[d.getMonth()]} ${d.getDate()}, ${d.getFullYear()}`; };
+
+  // front page from the newest items (ctx.recent): Daily Shot, Featured Skin, News and Newest Additions as the original laid them out
+  const homeRecent = (ctx) => {
+    const { h, manifest: m, recent } = ctx;
+    // Daily Shot: the newest picture not already shown in the news
+    const shot = recent.slice(8).find(e => e.v) || recent.find(e => e.v);
+    const daily = shot ? frame(`<a class="frametitle" href="${h.url.item(shot)}">Daily Shot</a>`, `<table width="100%" border="0" valign="top" cellpadding="0" cellspacing="3">
+<tr><td align="center" class="columns"><a href="${h.url.item(shot)}">${h.img(shot, 'border="0" class="cm-shot"')}</a><br><a class="columns" href="${h.url.item(shot)}">${h.esc(shot.t)}</a></td></tr>
+</table>`) : dailyShot(ctx);
+    const sites = Object.entries(m.sites).sort((a, b) => b[1].count - a[1].count).slice(0, 5);
+    const articles = frame(`<a class="frametitle" href="${h.url.home()}">Sources</a>`, `<table width="100%" border="0" valign="top" cellpadding="0" cellspacing="3">
+${sites.map(([s, i]) => `<tr><td valign="bottom" class="columns"><img src="${A}articles.gif" border="0" align="absmiddle"></td><td width="100%" valign="bottom" class="columns"><a class="columns" href="${h.url.site(s)}">${h.esc(i.name)}</a></td></tr>`).join('')}
+</table>`);
+    const f = recent[0], fx = f.x || {}, file = h.file(f);
+    const field = (label, html) => `<span style="width: 70px">${label}</span>${html}<br>`;
+    const featured = frame(`<a class="frametitle" href="${h.url.item(f)}">Featured Skin</a>`, `<table width="100%" border="0" valign="top" cellpadding="0" cellspacing="5">
+<tr>
+<td valign="top" width="50" bgcolor="#AAAAAA" rowspan="2">
+<table width="100%" height="100%" border="0" valign="top" cellpadding="5" cellspacing="1">
+<tr><td valign="top" width="100%" height="100%" bgcolor="#DDDDDD" class="content"><a href="${h.url.item(f)}">${h.img(f, 'border="0" class="cm-thumb"')}</a></td></tr>
+</table>
+</td>
+<td valign="top" width="100%" height="100%" bgcolor="#AAAAAA">
+<table width="100%" height="100%" border="0" valign="top" cellpadding="3" cellspacing="1">
+<tr><td valign="top" width="100%" height="100%" bgcolor="#ffffff" class="content">
+${field('Skin:', `<a class="content" href="${h.url.item(f)}">${h.esc(f.t)}</a> for <a class="content" href="${h.url.app(f.k)}">${h.esc(f.a)}</a>`)}${field('Author:', (fx.Author || fx.Creator) ? `<a class="content" href="${h.url.site(f.s)}">${h.esc(fx.Author || fx.Creator)}</a>` : `<a class="content" href="${h.url.site(f.s)}">${h.esc(h.siteName(f.s))}</a>`)}${fx['File size'] ? `<span style="width: 70px">File&nbsp;size:</span><b>${h.esc(fx['File size'])}</b>` : `<span style="width: 70px">Type:</span><b>${h.esc(f.y.join(', '))}</b>`}
+<br><br><br>
+</td></tr>
+</table>
+</td>
+</tr>
+<tr>
+<td valign="bottom" width="100%" height="10" bgcolor="#AAAAAA">
+<table width="100%" height="100%" border="0" cellpadding="3" cellspacing="1">
+<tr>
+<td width="100%" height="100%" bgcolor="#ffffff" class="content" align="right">${file ? `<a class="content" href="${h.esc(file)}" target="_blank" rel="noopener">[Download]</a>` : `<a class="content" href="${h.url.item(f)}">[Details]</a>`}</td>
+</tr>
+</table>
+</td>
+</tr>
+</table>`, { width: '100%', bg: '#F6F6F6' });
+    const about = frame('Customization Museum', `<table width="100%" border="0" valign="top" cellpadding="0" cellspacing="5">
+<tr>
+<td valign="top" width="50" bgcolor="#AAAAAA" rowspan="2">
+<table width="100%" height="100%" border="0" valign="top" cellpadding="5" cellspacing="1">
+<tr><td valign="top" width="100%" height="100%" bgcolor="#DDDDDD" class="content"><a href="${h.link({}, { arch: '1' })}"><img border="0" src="${A}32-sb-icon.gif"></a></td></tr>
+</table>
+</td>
+<td valign="top" width="100%" height="100%" bgcolor="#AAAAAA">
+<table width="100%" height="100%" border="0" valign="top" cellpadding="3" cellspacing="1">
+<tr><td valign="top" width="100%" height="100%" bgcolor="#ffffff" class="content">
+Browse <b>${m.total}</b> skins, themes and add-ons for <b>${m.apps.length}</b> programs...<br><br>
+<b><a class="content" href="${h.link({}, { arch: '1' })}">[Archived]</a> - <a class="content" href="${h.url.request()}" target="_blank" rel="noopener">[Request]</a></b>
+</td></tr>
+</table>
+</td>
+</tr>
+</table>`, { width: '100%', bg: '#F6F6F6' });
+    const story = e => {
+      const x = e.x || {}, page = h.page(e);
+      return `<tr>
+<td width="100%" bgcolor="#AAAAAA" align="center">
+<table width="100%" height="100%" border="0" align="center" cellpadding="5" cellspacing="0" summary="" bgcolor="#ffffff">
+<tr>
+<td bgcolor="#ffffff" valign="top" width="100%" class="content">
+<b>${e.d ? `${longDate(e.d)}&nbsp;-&nbsp;` : ''}${h.esc(e.t)}</b><br><br>
+${describe(h, e) || `${h.esc(e.y.join(', '))} for ${h.esc(e.a)}`}
+<br>
+</td>
+${e.v ? `<td bgcolor="#ffffff" valign="top"><table border="0" cellpadding="1" cellspacing="0" style="background: #AAAAAA"><tr><td><table border="0" cellpadding="1" cellspacing="0" style="background: #DDDDDD"><tr><td><a href="${h.url.item(e)}">${h.img(e, 'border="0" class="cm-newsthumb"')}</a></td></tr></table></td></tr></table></td>` : ''}
+</tr>
+<tr>
+<td${e.v ? ' colspan="2"' : ''} bgcolor="#ffffff" valign="top" width="100%">
+<table width="100%" border="0" align="center" cellpadding="1" cellspacing="0" summary="">
+<tr>
+<td align="left">${page ? `<br><br>&nbsp;&nbsp;&nbsp;<img src="${A}visit-now.gif" border="0">&nbsp;<a class="contents" target="_blank" rel="noopener" href="${h.esc(page)}">Visit Now!</a><br><br>` : ''}</td>
+<td align="right">&nbsp;</td>
+</tr>
+<tr>
+<td align="left">
+<a class="contents" href="${h.url.item(e)}">[Full&nbsp;Story]</a>&nbsp;-&nbsp;
+<a class="contents" href="${h.esc(h.report(e))}" target="_blank" rel="noopener">[Report]</a>
+</td>
+<td class="contents" align="right">Reported by&nbsp;<a class="contents" href="${h.url.site(e.s)}">${h.esc(x.Author || x.Creator || h.siteName(e.s))}</a>&nbsp;</td>
+</tr>
+</table>
+</td>
+</tr>
+</table>
+</td>
+</tr>`;
+    };
+    const news = frame('Museum News', `<table width="100%" border="0" valign="TOP" cellpadding="1" cellspacing="5">
+${recent.slice(1, 8).map(story).join('\n')}
+</table>`, { width: '100%', bg: '#F6F6F6' });
+    const leftCol = daily + library(ctx) + resources(ctx) + options(ctx) + articles + poll(ctx);
+    const sitesAll = Object.entries(m.sites).sort((a, b) => b[1].count - a[1].count);
+    const rightCol = goodies(ctx)
+      + iconList('Top&nbsp;Libraries', m.apps.slice(0, 10).map(a => [appIcon(a), h.url.app(a.slug), h.esc(a.name)]))
+      + ranked('Top&nbsp;Sources', sitesAll.slice(0, 10).map(([s, i]) => [h.url.site(s), h.esc(i.name), i.count]))
+      + inlineIcons('Newest&nbsp;Additions', recent.slice(0, 20).map(e => [rowIcon(e), h.url.item(e), h.esc(e.t)]))
+      + iconList('Types', Object.entries(m.types).map(([t]) => [typeIcon(t), h.url.type(t), h.esc(t)]))
+      + community(ctx);
+    return page(ctx, leftCol, featured + about + ' .' + news, rightCol);
+  };
+
   // field labels exactly as the original listing printed them
   const LABEL = { 'File size': 'File&nbsp;size:&nbsp;<b> ', 'Downloads today': 'Downloads today:<b> ', Created: 'Created: <b>', Updated: 'Updated: <b>' };
   // one skin as in the original listing (thumbnail uses our full-size preview, scaled into the 150px box)
@@ -305,10 +418,7 @@ ${links} &nbsp;
     const x = e.x || {}, author = x.Author || x.Creator;
     const info = Object.entries(x).filter(([k]) => !['Author', 'Creator', 'Compatibility'].includes(k));
     if (!x.Created) info.unshift(['Source', h.siteName(e.s)], ['Archived', h.archivedLabel(e)], ...(e.d ? [['Created', e.d]] : []));
-    // description as the original printed it: plain text, line breaks kept, each URL as globe icon + "Link"
-    const link = u => `<a target="_blank" rel="noopener" href="${u}"><img src="${A}url.gif" border="0" alt="${u}" align="absmiddle"></a>&nbsp;<a target="_blank" rel="noopener" href="${u}">Link</a>`;
-    const desc = e.m && e.desc ? e.desc.replace(/^<p>|<\/p>$/g, '').replace(/<\/p><p>/g, '<br><br>')
-      : e.n ? h.esc(e.n).replace(/https?:\/\/[^\s<]+/g, link).replace(/\n/g, '<br>') : e.g.map(t => h.esc(t)).join(', ');
+    const desc = describe(h, e);
     const xp = /xp/i.test(x.Compatibility || '');
     const titleCells = `<td align="center" height="1" background="${A}frame_title.gif" class="frametitle">
 <div align="left"><img src="${xp ? `${A}16-winxp-icon.gif` : rowIcon(e)}" border="0" align="absmiddle">&nbsp;<a class="frametitle" href="${h.url.item(e)}">${h.esc(e.t)}</a>
@@ -363,18 +473,24 @@ ${html}
 </tr>
 </table>`;
 
+  // original pager: [<< BACK] numbers [NEXT >>], current page unlinked; up to 15 numbers around the current page
   const pager = (h, r, l) => {
     if (l.pages < 2) return '';
-    const p = h.pager(r, l.pages);
-    return `<table width="100%" border="0" cellpadding="0" cellspacing="5"><tr><td align="center" class="content">
-${p.prev ? `<a class="content" href="${p.prev}">&lt;&lt; Previous Page</a>&nbsp;&nbsp;` : ''}[ ${p.items.map(i => i.gap ? '...' : i.current ? `<b>${i.n}</b>` : `<a class="content" href="${i.url}">${i.n}</a>`).join(' ')} ]${p.next ? `&nbsp;&nbsp;<a class="content" href="${p.next}">Next Page &gt;&gt;</a>` : ''}
-</td></tr></table>`;
+    const from = Math.max(1, Math.min(l.page - 7, l.pages - 14)), to = Math.min(l.pages, from + 14);
+    const go = n => h.link(r, { page: n });
+    const nums = [];
+    for (let n = from; n <= to; n++) nums.push(n === l.page ? `${n}&nbsp;&nbsp;` : `<a class="toplinks" href="${go(n)}">${n}</a>&nbsp;&nbsp;&nbsp;`);
+    return `<table border="0" width="100%" valign="TOP" cellpadding="3" cellspacing="0"><tr><td class="selected"><a class="toplinks" href="${go(Math.max(1, l.page - 1))}">[&lt;&lt;&nbsp;BACK]</a></td><td align="center" class="selected">&nbsp;
+${nums.join('\n')}</td><td align="right" class="selected"><a class="toplinks" href="${go(Math.min(l.pages, l.page + 1))}">[NEXT &gt;&gt;]</a></td></tr></table>`;
   };
 
   THEMES.wincustomize = {
     label: 'WinCustomize 2003',
+    perPage: 15,
+    recent: 30,
 
     home(ctx) {
+      if (ctx.recent?.length) return homeRecent(ctx);
       const { h, manifest: m } = ctx;
       const big = m.apps[0];
       // "Featured Skin" box, original markup

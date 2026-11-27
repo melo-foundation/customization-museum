@@ -38,3 +38,6 @@ html[data-theme="wincustomize"] img[src$="bg_searchbarl.gif"], html[data-theme="
 html[data-theme="wincustomize"] font[size="1"] { display:block; }
 /* an icon alone in its cell sizes the row by its own height (16-wfx-icon.gif is 14px tall) */
 html[data-theme="wincustomize"] td.columns[valign="bottom"] > img:only-child { display:block; }
+/* front page: Daily Shot and news thumbnails at the original's sizes */
+html[data-theme="wincustomize"] img.cm-shot { max-width:150px; max-height:150px; vertical-align:bottom; }
+html[data-theme="wincustomize"] img.cm-newsthumb { display:block; max-width:100px; max-height:100px; }
