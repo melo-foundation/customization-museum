@@ -47,7 +47,7 @@
 </div>
 </div>
 <div id="contentheaderright">
-	<div class="langbox"><label>Theme:&nbsp;</label>${h.themePicker()}</div>
+	<div class="langbox"><label>Theme:&nbsp;</label>${h.themePicker()} ${h.fidelityToggle()}</div>
 </div>`;
   };
 
@@ -175,7 +175,7 @@ ${f.map(([k, v], j) => `   <tr>
       const e = pick[t.dataset.feat];
       if (!e) continue;
       const u = h.url.item(e), f = fields(h, e).slice(0, 4), tds = t.querySelectorAll('td');
-      tds[0].innerHTML = `<img class="frame cm-thumb" src="${h.esc(h.thumb(e))}" alt="${h.esc(e.t)} screenshot"/>\n    	<br/><a href="${u}" class="highslide"><strong>full screenshot</strong></a>`;
+      tds[0].innerHTML = `<img class="frame cm-thumb" src="${h.esc(h.thumb(e))}" alt="${h.esc(e.t)} screenshot" data-alt="${h.esc(h.thumbFallback(e))}" onerror="if(!this.dataset.f){this.dataset.f=1;this.src=this.dataset.alt}else{this.replaceWith(Object.assign(document.createElement('span'),{className:'frame cm-nothumb',textContent:'no preview'}))}"/>\n    	<br/><a href="${u}" class="highslide"><strong>full screenshot</strong></a>`;
       tds[1].innerHTML = `<strong><a href="${u}">${h.esc(e.t)}</a></strong>`;
       f.forEach(([k, v], i) => { tds[2 + i].innerHTML = `<em>${k}:</em> ${v}`; });
     }

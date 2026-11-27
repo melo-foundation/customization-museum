@@ -1,0 +1,84 @@
+/* Readable mode for the Messenger Plus! theme, layered over the untouched original style.css.
+   Text and spacing scale; chrome images stay at 1:1 and widen only by repeating pixel-identical
+   columns (m-*.png slices of the original images), never by fractional zoom. */
+
+/* wider page */
+#container { width: clamp(800px, 90vw, 1560px); }
+@media (min-width: 2200px) { #container { width: min(88vw, 2000px); } }
+
+/* rounded white panel: left cap, repeated middle column, right cap */
+#header { background: url(assets/m-rb-l.png) no-repeat 0 10px, url(assets/m-rb-r.png) no-repeat right 10px, url(assets/m-rb-m.png) repeat-x 0 10px; }
+#footer { background: url(assets/m-rb-l.png) no-repeat 0 -440px, url(assets/m-rb-r.png) no-repeat right -440px, url(assets/m-rb-m.png) repeat-x 0 -440px; }
+
+/* header band: original left 600px, column 600 repeated (the white slot widens with it), original right end */
+#contentheader, body #contentheader {
+  background: url(assets/m-ch-l.png) no-repeat 0 0, url(assets/m-ch-r.png) no-repeat right 0, url(assets/m-ch-m.png) repeat-x 0 0;
+  margin: 0 10px 0 11px; padding-left: 23px;
+}
+#contentheaderright { left: auto; right: 22px; margin-left: 0; width: auto; }
+.cm-banner { left: 300px; right: 26px; width: auto; font-size: 14px; }
+.cm-banner select { font-size: 13px; max-width: 160px; }
+
+/* columns use the extra width; sidebar box image widened the same way */
+.content .left { width: calc(100% - 276px); }
+.content .right { width: 220px; }
+.right .box, .right .box2 {
+  background: #ffffe0 url(assets/m-sb-l.png) no-repeat left bottom;
+  background-image: url(assets/m-sb-l.png), url(assets/m-sb-r.png), url(assets/m-sb-m.png);
+  background-position: left bottom, right bottom, left bottom;
+  background-repeat: no-repeat, no-repeat, repeat-x;
+}
+#searchform input#q { width: 200px !important; font-size: 14px; }
+#searchsubmit { font-size: 13px; }
+
+/* text: the original 11px Verdana scaled to a comfortable size, with matching line height */
+body, table, textarea, input, select, span.small { font-size: 14px; }
+.content .left p { line-height: 155%; }
+.content .left td { line-height: 1.5; }
+#header #mainnav li a, #header #mainnav li { font-size: 15px; }
+body.skinsdb #header #mainnav #navdownload a { font-size: 18px; }
+#contentheader h2 { font-size: 32px; }
+#contentheader h3 { font-size: 15px; }
+.content h2 { font-size: 26px; }
+.content h3, .content .featuredbox h3 { font-size: 19px; }
+.content h4 { font-size: 20px; }
+.right .box h5 { font-size: 12px; }
+.right ul li { font-size: 16px; }
+.right ul li a span { font-size: 12px; }
+.right p { font-size: 13px; }
+#footer p { font-size: 13px; }
+#footer small { font-size: 11px; }
+.largefilename, span.largefilename { font-size: 20px; }
+.cm-logo-s { font-size: 11px; }
+
+/* bigger previews: list and featured thumbnails 1.5x, item screenshot fills the column at 5:4 */
+img.cm-thumb, span.cm-nothumb { width: 228px; height: 171px; line-height: 171px; }
+.left table.border td[rowspan] { width: 260px; }
+img.cm-shot, span.cm-noshot { width: 100%; max-width: 900px; height: auto; aspect-ratio: 5 / 4; line-height: normal; display: inline-flex; align-items: center; justify-content: center; }
+
+/* home: wider two-column feature area */
+.featuredbox .left2 { width: 230px; }
+.featuredbox .right2 { width: calc(100% - 250px); }
+.cm-bigicon { width: 138px; height: 126px; }
+
+.langbox select { width: auto; max-width: 200px; font-size: 12px; }
+
+/* very wide screens: one more step up */
+@media (min-width: 2200px) {
+  body, table, textarea, input, select, span.small { font-size: 16px; }
+  #header #mainnav li a, #header #mainnav li { font-size: 17px; }
+  body.skinsdb #header #mainnav #navdownload a { font-size: 20px; }
+  #contentheader h2 { font-size: 36px; }
+  #contentheader h3 { font-size: 17px; }
+  .content h2 { font-size: 30px; }
+  .content h3, .content .featuredbox h3 { font-size: 21px; }
+  .content h4 { font-size: 22px; }
+  .right ul li { font-size: 18px; }
+  .content .right { width: 260px; }
+  .content .left { width: calc(100% - 316px); }
+  #searchform input#q { width: 240px !important; }
+  img.cm-thumb, span.cm-nothumb { width: 304px; height: 228px; line-height: 228px; }
+  .left table.border td[rowspan] { width: 330px; }
+  .featuredbox .left2 { width: 270px; }
+  .featuredbox .right2 { width: calc(100% - 290px); }
+}
