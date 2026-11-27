@@ -70,9 +70,12 @@
     set($(doc, '#rockdock form'), `Theme: ${field(h.themePicker())} ${mode ? `Display: ${field(mode)}` : ''} or <a href="${h.url.request()}" target="_blank" rel="noopener">Missing something? Request an item!</a>`);
     const lost = $(doc, '#lostlink');
     if (lost) { lost.href = `${REPO_URL}/issues`; lost.textContent = 'Reports'; lost.target = '_blank'; }
-    // the 728x90 banner position
+    // the 728x90 banner position: a strip of previews from the same listing or program
+    const pool = (ctx.list ? ctx.list.rows.slice().reverse() : ctx.related || []).filter(e => e.v && e.i !== ctx.item?.i);
+    const at = ctx.item ? Math.max(0, pool.length >> 1) : 0;
+    const strip = [...pool.slice(at), ...pool.slice(0, at)].slice(0, 10).map(e => `<a href="${h.url.item(e)}" title="${esc(e.t)}">${h.img(e)}</a>`).join('');
     doc.querySelectorAll('[data-slot="ad"]').forEach(el => {
-      el.innerHTML = h.warning() || `<a class="cm-banner" href="${h.url.request()}" target="_blank" rel="noopener"><b>Customization Museum</b><span>${m.total.toLocaleString()} skins, themes and emoticons for ${m.apps.length} programs</span><em>Request an item</em></a>`;
+      el.innerHTML = h.warning() || `<div class="cm-banner">${strip}</div>`;
     });
     doc.querySelectorAll('[data-slot="adline"]').forEach(el => {
       el.innerHTML = `${m.archived.toLocaleString()} files archived: <a href="${h.esc(h.link({}, { arch: '1' }))}">Browse the Archived Files Now</a>`;
