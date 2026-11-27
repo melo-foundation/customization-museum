@@ -1,119 +1,175 @@
 // label: Download Portal 2006
+// Recreates the 2006 Softpedia page structure (984px table, navy header, circle row, 822px main column,
+// 157px right column) with our own name and data. Measurements come from Wayback captures of softpedia.com.
 (() => {
-  const CIRC = [['red', '#e8202a'], ['pink', '#e0407a'], ['orange', '#f07a14'], ['gold', '#e8b410'], ['green', '#4aa83a'], ['blue', '#2a92c8'], ['purple', '#6a4cc0']];
-  const short = t => t.split(/[ &]/)[0].toUpperCase();
-
-  const header = (ctx) => {
-    const { h, manifest: m, route } = ctx, E = h.esc;
-    const types = Object.entries(m.types).sort((a, b) => b[1] - a[1]).slice(0, 6);
-    const circ = [...types.map(([t]) => [short(t), h.url.type(t)]), ['ARCHIVED', h.link(route, { app: '', type: '', site: '', tag: '', q: '', arch: '1' })]];
-    return `<div class="sp-head">
-      <div class="sp-nav"><a href="${h.url.home()}">HOME</a><a href="${h.url.request()}" target="_blank" rel="noopener">SUBMIT ITEM</a><a href="${h.link(route, { app: '', type: '', site: '', tag: '', q: '', arch: '1' })}">ARCHIVE</a><a href="https://github.com/melo-foundation/customization-museum" target="_blank" rel="noopener">SOURCE</a><span>${h.themePicker()}</span></div>
-      <a class="sp-logo" href="${h.url.home()}">CUSTOMIZATION MUSEUM<sup>&trade;</sup></a>
-      <div class="sp-upd">${m.total.toLocaleString()} files online</div>
-      <div class="sp-wave"></div>
-      <div class="sp-circs">${circ.map(([l, u], i) => `<a class="sp-c c${i}" href="${u}" style="--c:${CIRC[i][1]}"><span>${E(l)}</span></a>`).join('')}</div>
-      <div class="sp-sbox"><label>Search:</label>${h.searchForm(route, '')}</div>
-    </div>${h.warning()}`;
+  const COLORS = ['#e8232b', '#d93f7c', '#ec7d1c', '#3fa63f', '#1f9bb5', '#3376cf', '#6a4fc4'];
+  const HOMECOL = ['#ec2e36', '#3fae3f', '#e0457f', '#2aa6c4', '#3a7ad6', '#ec7d1c', '#6a4fc4'];  // front-page box order
+  const MONTHS = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+  const ord = n => n + (n % 10 === 1 && n !== 11 ? 'st' : n % 10 === 2 && n !== 12 ? 'nd' : n % 10 === 3 && n !== 13 ? 'rd' : 'th');
+  const longDate = d => {
+    const [y, m, day] = (d || '').split('-').map(Number);
+    if (!y) return '';
+    return m ? `${MONTHS[m - 1]} ${day ? ord(day) + ', ' : ''}${y}` : String(y);
   };
+  const resetLink = (h, r, change) => h.link(r, { app: '', type: '', site: '', tag: '', q: '', arch: '', ...change });
 
-  const sidebar = (ctx, cats, best, extra = '') => {
+  // ---------- header ----------
+  function header(ctx) {
+    const { h, manifest: m, route: r } = ctx, E = h.esc;
+    const nav = [['HOME', h.url.home()], ['SUBMIT ITEM', h.url.request(), 1], ['ARCHIVED', resetLink(h, r, { arch: '1' })], ['NEWEST', resetLink(h, r, { sort: '' })],
+      ['OLDEST', resetLink(h, r, { sort: 'old' })], ['A-Z', resetLink(h, r, { sort: 'az' })], ['SOURCE CODE', 'https://github.com/melo-foundation/customization-museum', 1]];
+    const types = Object.keys(m.types).slice(0, 6);
+    const circles = [...types.map(t => [t.split(/[ &]/)[0], h.url.type(t)]), ['Archived', resetLink(h, r, { arch: '1' })]];
+    // measured sphere centres in the original circle row (x within the 974px page)
+    const CX = [55, 130, 204, 277, 351, 424, 498];
+    const circle = ([label, url], i) => `<a class="sp-circ" href="${url}" style="--c:${COLORS[i]};left:${CX[i] - 29}px"><span>${E(label.toUpperCase())}</span></a>`;
+    return `<table class="sp-top" cellspacing="0" cellpadding="0"><tr>
+        <td class="sp-logocell" rowspan="2"><a class="sp-logo" href="${h.url.home()}">CUSTOMIZATION MUSEUM<sup>TM</sup></a><div class="update">${m.total.toLocaleString()} files online</div></td>
+        <td class="sp-nav">${nav.map(([t, u, ext]) => `<a href="${u}"${ext ? ' target="_blank" rel="noopener"' : ''}>${t}</a>`).join('')}</td></tr>
+        <tr><td class="sp-adrow">${h.themePicker()}</td></tr></table>
+      <table class="sp-circles" cellspacing="0" cellpadding="0"><tr>
+        <td class="sp-c1">${circle(circles[0], 0)}</td>
+        <td class="sp-c2">${circles.slice(1, 6).map((c, i) => circle(c, i + 1)).join('')}</td>
+        <td class="sp-c3">${circles[6] ? circle(circles[6], 6) : ''}</td>
+        <td class="sp-m7"><span class="sp-lens"></span><b>Search:</b></td>
+        <td class="sp-m8">${h.searchForm(r, '')}</td>
+        <td class="sp-m9"><a class="sp-bm" href="${h.url.home()}"><i>+</i>BOOKMARK THIS SITE</a><span class="sp-go">GO</span><a class="sp-adv" href="${resetLink(h, r, {})}">ADVANCED SEARCH &raquo;</a></td>
+      </tr></table>${h.warning()}`;
+  }
+
+  // ---------- right column ----------
+  function right(ctx, boxes) {
     const { h } = ctx;
-    const ul = a => `<ul>${a.map(([u, t]) => `<li><a href="${u}">${h.esc(t)}</a></li>`).join('')}</ul>`;
-    return `<aside class="sp-right">
-      <div class="sp-rt">Welcome!</div><div class="sp-rb">Hello, visitor.<br><br><a href="${h.url.request()}" target="_blank" rel="noopener">Submit</a> a file.</div>
-      ${extra}
-      <div class="sp-rt">Main categories:</div><div class="sp-rb">${ul(cats)}</div>
-      <div class="sp-rt">Week's best:</div><div class="sp-rb">${ul(best)}</div></aside>`;
-  };
-  const homeSide = ctx => {
-    const { h, manifest: m } = ctx;
-    return sidebar(ctx, [...m.apps].sort((a, b) => b.count - a.count).slice(0, 18).map(a => [h.url.app(a.slug), a.name]),
-      Object.entries(m.sites).sort((a, b) => b[1].count - a[1].count).slice(0, 14).map(([s, i]) => [h.url.site(s), i.name]));
-  };
+    return `<td class="sp-right">
+      <a class="sp-rbtn sp-basket" href="${h.url.request()}" target="_blank" rel="noopener"><i></i>Submit a file</a>
+      <a class="sp-rbtn sp-reviews" href="${resetLink(h, ctx.route, { arch: '1' })}"><i></i>Archived files</a>
+      <div class="right_title_bkg">Welcome!</div>
+      <div class="rightcellcontent sp-rbox sp-welcomebox">Hello, visitor<br><br><a href="${h.url.request()}" target="_blank" rel="noopener">Submit</a> a file or<br>request a site.<br><br>Otherwise, <a href="${h.url.home()}">browse</a> the archive.</div>
+      ${boxes}</td>`;
+  }
+  const bulletBox = (h, title, items) => `<div class="right_title_bkg">${h.esc(title)}</div>
+    <div class="rightcellcontent sp-rbox"><ul class="sp-bul">${items.map(([u, t]) => `<li><a href="${u}">${h.esc(t.length > 22 ? t.slice(0, 20) + '...' : t)}</a></li>`).join('')}</ul></div>`;
 
-  const fmtDate = d => { if (!d) return ''; const [y, mo, da] = d.split('-'); const M = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December']; return M[+mo - 1] ? `${M[+mo - 1]} ${da ? +da + ', ' : ''}${y}` : d; };
+  // ---------- section title row (title, program finder, categories select, display mode) ----------
+  function sectionBar(ctx, title, titleUrl, cats, links) {
+    const { h, route: r } = ctx, E = h.esc;
+    return `<table class="sp-sect" cellspacing="0" cellpadding="0"><tr>
+        <td class="sp-st"><div class="sect_title_win"><a href="${titleUrl}">${E(title)}</a></div></td>
+        <td class="sp-pf"><a href="${h.url.home()}"><i></i>Program finder</a></td>
+        <td class="sp-cs"><span class="sp-sep"></span><b>Categories in this section:</b></td>
+        <td class="sp-csel"><select class="quickcategory" onchange="if(this.value)location.href=this.value"><option value="">Choose...</option>${cats.map(([u, t]) => `<option value="${E(u)}">${E(t)}</option>`).join('')}</select></td>
+        <td class="sp-dm"><span class="sp-sep"></span><b>Display mode:</b>${[['A', 'all', ''], ['Y', 'archived', '1'], ['N', 'missing', '0']].map(([c, t, v]) => `<a href="${h.link(r, { arch: v })}"><i>${c}</i>${t}</a>`).join('')}</td>
+      </tr><tr><td colspan="5"><div class="onthispage"><table cellspacing="0" cellpadding="0" width="100%"><tr>
+        <td class="sp-otp"><span>On this page</span></td>
+        ${links.map(([u, t], i) => `<td class="celltext_bigger"><i class="sp-li l${i}"></i><a href="${u}">${E(t)}</a></td>`).join('')}
+      </tr></table></div></td></tr>
+      <tr><td colspan="5" class="sp-dotrow"><div></div></td></tr></table>`;
+  }
 
-  const subband = (ctx, title, links) => `<div class="sp-sub"><div class="sp-st">${ctx.h.esc(title)}</div>
-    <div class="sp-onpage">On this page</div><div class="sp-sl">${links.map(([u, t]) => `<a href="${u}">${ctx.h.esc(t)}</a>`).join('')}</div></div>`;
+  function page(ctx, center, rightCol) {
+    const { h } = ctx;
+    return `<div class="sp-wrap"><table class="sp-frame" cellspacing="0" cellpadding="0"><tr><td class="sp-edge"></td><td class="sp-white">
+      ${header(ctx)}
+      <table class="mainbkg sp-main" cellspacing="0" cellpadding="0"><tr valign="top"><td class="sp-center">${center}</td>${rightCol}</tr></table>
+      <table class="sp-foot" cellspacing="0" cellpadding="0"><tr><td class="sp-fbar" colspan="2"></td></tr>
+        <tr><td class="copyrights sp-fcopy">&copy; Customization Museum. Files are archived automatically and not checked.<br>Names and trademarks belong to their respective owners.</td><td class="sp-fside"></td></tr>
+        <tr><td class="copyrights sp-flinks"><a href="${h.url.home()}">Home</a> | <a href="${h.url.request()}" target="_blank" rel="noopener">Submit</a> | <a href="https://github.com/melo-foundation/customization-museum" target="_blank" rel="noopener">Source</a> | <a href="${h.url.request()}" target="_blank" rel="noopener">Report a problem</a></td><td class="sp-fside"></td></tr>
+        <tr><td class="sp-fnavy" colspan="2"></td></tr></table>
+    </td><td class="sp-edge"></td></tr></table></div>`;
+  }
 
-  const row = (h, e) => `<div class="sp-row">
-    <a class="sp-ic" href="${h.url.item(e)}"><b>${h.esc((e.t || '?')[0].toUpperCase())}</b>${h.img(e)}</a>
-    <div class="sp-ri"><a class="sp-rt1" href="${h.url.item(e)}">${h.esc(e.t)}</a>
-      <div class="sp-d1">${h.esc(e.a)} ${e.y.map(h.esc).join(', ')}${e.g.length ? ' - ' + e.g.slice(0, 5).map(h.esc).join(', ') : ''}</div>
-      <div class="sp-d2">${e.y.map(h.esc).join(', ')} | ${h.esc(h.siteName(e.s))} | Archived: ${h.esc(h.archivedLabel(e))}</div></div>
-    <div class="sp-rr"><div>${h.file(e) ? `<a href="${h.esc(h.file(e))}" target="_blank" rel="noopener">download</a> | ` : ''}<a href="${h.url.item(e)}">details</a></div><div class="sp-dt">${h.esc(fmtDate(e.d))}</div></div></div>`;
-
-  const pagerLinks = (h, r, l) => {
+  // ---------- list rows ----------
+  function row(h, e) {
+    const file = h.file(e), desc = [...e.y, ...e.g.slice(0, 4)].join(', ');
+    return `<tr><td class="sp-rl"><table width="100%" cellspacing="0" cellpadding="1"><tr>
+        <td class="sp-ico" rowspan="3"><a href="${h.url.item(e)}"><b>${h.esc((e.t || '?')[0].toUpperCase())}</b>${h.img(e)}</a></td>
+        <td class="celltitles"><a href="${h.url.item(e)}">${h.esc(e.t)}</a></td></tr>
+        <tr><td class="celltext_description">${h.esc(e.a)}${desc ? ' - ' + h.esc(desc) : ''}</td></tr>
+        <tr><td class="celltext">${h.esc(e.y[0] || '')} | ${h.esc(h.siteName(e.s))} | Archived: ${h.esc(h.archivedLabel(e))}</td></tr></table></td>
+      <td class="sp-rr"><table width="100%" cellspacing="0" cellpadding="1">
+        <tr><td class="celltext" align="right">${e.z ? '<span class="celltext_pick">archived</span> | ' : ''}${file ? `<a href="${h.esc(file)}" target="_blank" rel="noopener">download</a> | ` : ''}<a href="${h.url.item(e)}">details</a>&nbsp;</td></tr>
+        <tr><td class="orizdotsbkg"></td></tr>
+        <tr><td class="celltext" align="right">${h.esc(longDate(e.d))}&nbsp;</td></tr></table></td></tr>`;
+  }
+  function pages(h, r, l) {
     if (l.pages < 2) return '';
     const p = h.pager(r, l.pages);
-    return `${p.prev ? `<a href="${p.prev}">&laquo;</a> ` : ''}${p.items.map(i => i.gap ? '... ' : i.current ? `<b>${i.n}</b> ` : `<a href="${i.url}">${i.n}</a> `).join('')}${p.next ? `<a href="${p.next}">&raquo;</a>` : ''}`;
-  };
+    return `Pages: ${p.prev ? `<a href="${p.prev}">&laquo;</a> ` : ''}${p.items.map(i => i.gap ? '... ' : i.current ? `<b>${i.n}</b> ` : `<a href="${i.url}">${i.n}</a> `).join('')}${p.next ? `<a href="${p.next}">&raquo;</a>` : ''}`;
+  }
 
   THEMES.softpedia = {
     label: 'Download Portal 2006',
+
     home(ctx) {
-      const { h, manifest: m } = ctx, E = h.esc;
-      const types = Object.entries(m.types).sort((a, b) => b[1] - a[1]);
-      const boxes = types.slice(0, 6).map(([t, n], i) => {
-        const apps = m.apps.filter(a => a.types[t]).sort((a, b) => b.types[t] - a.types[t]).slice(0, 10);
-        return `<div class="sp-box b${i}"><div class="sp-bh"><a href="${h.url.type(t)}">${E(t)}</a></div><div class="sp-bs">${n.toLocaleString()} files</div>
-          <div class="sp-bb">${apps.map(a => `<div class="sp-bi"><a href="${h.link({}, { app: a.slug, type: t })}">${E(a.name)}</a> <span>| ${E(t)} - ${a.types[t].toLocaleString()} files</span></div>`).join('')}</div></div>`;
-      });
-      const srcs = Object.entries(m.sites).sort((a, b) => b[1].count - a[1].count).slice(0, 8);
-      return `${header(ctx)}<div class="sp-body"><div class="sp-bg">
-        <div class="sp-center"><div class="sp-welcome"><h1>Dear visitor, welcome to the archive of customization downloads!</h1>
-          <div class="sp-stat">${m.total.toLocaleString()} Items / ${m.archived.toLocaleString()} Archived</div></div>
-        <div class="sp-lk"><div class="sp-onpage">On this page</div><div class="sp-lc">
-          <a href="${h.url.app(m.apps[0].slug)}">Biggest Program</a><a href="${h.url.type(types[0][0])}">Skins and Themes</a><a href="${h.link({}, { arch: '1' })}">Archived Files</a>
-          <a href="${h.url.type('Emoticons')}">Emoticon Packs</a><a href="${h.url.site(srcs[0][0])}">Top Source</a><a href="${h.url.request()}" target="_blank" rel="noopener">Submit a File</a>
-          <a href="${h.url.type('Icons')}">Icon Sets</a><a href="${h.url.type('Sounds')}">Sounds</a><a href="${h.link({}, { sort: 'old' })}">Oldest Files</a></div></div>
-        <div class="sp-boxes"><div class="sp-bcol">${boxes.filter((_, i) => i % 2 === 0).join('')}</div><div class="sp-bcol">${boxes.filter((_, i) => i % 2).join('')}</div></div>
-        <div class="sp-box b6 wide"><div class="sp-bh"><a href="${h.url.home()}">Programs</a></div><div class="sp-bs">${m.apps.length} programs</div><div class="sp-bb sp-cols2">${[...m.apps].sort((a, b) => b.count - a.count).map(a => `<div class="sp-bi"><a href="${h.url.app(a.slug)}">${E(a.name)}</a> <span>| ${a.count.toLocaleString()} files</span></div>`).join('')}</div></div>
-        </div>${homeSide(ctx)}</div></div>${footer(h)}`;
+      const { h, manifest: m, route: r } = ctx, E = h.esc;
+      const types = Object.entries(m.types);
+      const box = ([t, n], i, limit) => {
+        const apps = m.apps.filter(a => a.types[t]).sort((a, b) => b.types[t] - a.types[t]).slice(0, limit);
+        return `<div class="sp-hbox" style="--c:${HOMECOL[i % HOMECOL.length]}">
+          <div class="sp-hbh"><a href="${h.url.type(t)}">${E(t)}</a><span class="sp-pill">${n.toLocaleString()}</span><span class="sp-pill">FILES</span></div>
+          <div class="sp-hbs celltext"><span>${apps.length} programs</span><a href="${h.url.type(t)}">view all files</a></div>
+          <div class="sp-hbb">${apps.map(a => `<div class="sp-he"><i class="sp-hi"></i><a class="sp-ht" href="${h.link({}, { app: a.slug, type: t })}">${E(a.name)} ${E(t)}</a> <span class="sp-hd">| ${a.types[t].toLocaleString()} ${E(t.toLowerCase())} from ${E(a.name)}, ${a.count.toLocaleString()} files in total</span></div>`).join('')}</div></div>`;
+      };
+      const srcs = Object.entries(m.sites).sort((a, b) => b[1].count - a[1].count);
+      const links = [[h.url.app(m.apps[0].slug), m.apps[0].name + ' Files'], [h.url.type(types[0][0]), types[0][0]], [h.url.site(srcs[0][0]), srcs[0][1].name],
+        [resetLink(h, r, { arch: '1' }), 'Archived Files'], [h.url.type(types[1][0]), types[1][0]], [resetLink(h, r, { sort: 'old' }), 'Oldest Files'],
+        [h.url.request(), 'Submit a File'], [h.url.type(types[2][0]), types[2][0]], [resetLink(h, r, { sort: 'az' }), 'All Files A-Z']];
+      const center = `<table class="sp-hwel" cellspacing="0" cellpadding="0"><tr><td class="sp-hh1">Dear visitor, welcome to the archive of customization downloads!</td>
+          <td class="sp-hstat">${m.total.toLocaleString()} Items /<br>${m.archived.toLocaleString()} Archived</td></tr></table>
+        <table class="sp-hotp" cellspacing="0" cellpadding="0"><tr><td class="sp-hotb" rowspan="3"><span>On this page<i>&#8680;&#8680;&#8680;&#8680;</i></span></td>
+          ${[0, 1, 2].map(row => `${row ? '<tr>' : ''}${[0, 1, 2].map(col => { const [u, txt] = links[row + col * 3]; return `<td class="celltext_bigger"><i class="sp-li l${col}"></i><a href="${u}"${u.startsWith('https://github') ? ' target="_blank" rel="noopener"' : ''}>${E(txt)}</a></td>`; }).join('')}</tr>`).join('')}
+        </table>
+        <div class="sp-hgap"></div>
+        <table class="sp-hcols" cellspacing="0" cellpadding="0"><tr valign="top">
+          <td class="sp-hcol">${box(types[0], 0, 40)}</td>
+          <td class="sp-hcol">${types.slice(1, 5).map((t, i) => box(t, i + 1, 9)).join('')}</td></tr></table>`;
+      const side = `<div class="sp-adbox"></div>${bulletBox(h, "Top sources:", srcs.slice(0, 30).map(([s, i]) => [h.url.site(s), i.name]))}`;
+      return page(ctx, center, right(ctx, side));
     },
+
     list(ctx) {
       const { h, route: r, list: l, about } = ctx, E = h.esc, f = l.facets;
-      const parts = [];
-      if (r.app) parts.push(h.appName(r.app));
-      if (r.site) parts.push(h.siteName(r.site));
-      if (r.type) parts.push(l.typeName);
-      if (r.tag) parts.push(r.tag);
-      if (r.q) parts.push(`"${r.q}"`);
-      if (!parts.length) parts.push(r.arch === '1' ? 'Archived' : 'All files');
-      const secTitle = (r.app ? h.appName(r.app) : parts[0]) + ' downloads:';
-      const side = sidebar(ctx, [[h.link(r, { app: '', type: '', tag: '' }), 'All programs'], ...f.apps.map(([k, n, c]) => [h.link(r, { app: k, type: '', tag: '' }), `${n} (${c})`])].slice(0, 30),
-        f.types.map(([t, n]) => [h.link(r, { type: r.type && h.slug(r.type) === h.slug(t) ? '' : t, tag: '' }), `${t} (${n})`]),
-        `<div class="sp-rt">Category Options:</div><div class="sp-rb sp-opt">Show only:<br>${h.archSelect(r)}<br>Sort by:<br>${h.sortSelect(r)}</div>`);
-      const bc = `<a href="${h.url.home()}">C:</a> \\ ${[r.app && [h.url.app(r.app), h.appName(r.app)], r.type && [h.url.type(r.type), l.typeName], r.site && [h.url.site(r.site), h.siteName(r.site)], r.tag && [h.link(r, {}), r.tag], r.q && [h.link(r, {}), `Search: ${r.q}`]].filter(Boolean).map(([u, t]) => `<a href="${u}">${E(t)}</a>`).join(' \\ ') || `<a href="${h.link(r, {})}">${E(parts[0])}</a>`}`;
-      const pg = pagerLinks(h, r, l);
-      return `${header(ctx)}<div class="sp-body"><div class="sp-bg">
-        <div class="sp-center">${subband(ctx, secTitle, [[h.url.home(), 'Home'], [h.link(r, { sort: 'old' }), 'Oldest files'], [h.link(r, { arch: '1' }), 'Archived only']])}
-        ${about ? `<div class="sp-about"><div class="sp-tools"><a href="${E(about.edit)}" target="_blank" rel="noopener">Edit</a> | <a href="${h.link(r, { site: '' })}">Close</a></div>${about.html}</div>` : ''}
-        <div class="sp-lt"><div class="sp-bcz">${bc} <span>(${l.total.toLocaleString()} files)</span></div><div class="sp-pg">${pg ? 'Pages: ' + pg : ''}</div></div>
-        <div class="sp-rows">${l.rows.length ? l.rows.map(e => row(h, e)).join('') : '<p class="sp-empty">No files found.</p>'}</div>
-        <div class="sp-lb"><a href="#" onclick="scrollTo(0,0);return false">go to top</a><div class="sp-pg">${pg ? 'Pages: ' + pg : ''}</div></div>
-        ${f.tags.length ? `<div class="sp-tg"><b>Tags:</b> ${f.tags.slice(0, 40).map(([t, n]) => `<a href="${h.link(r, { tag: r.tag === t ? '' : t })}">${E(t)}</a>`).join(' | ')}</div>` : ''}
-        </div>${side}</div></div>${footer(h)}`;
+      const name = r.app ? h.appName(r.app) : r.site ? h.siteName(r.site) : r.type ? l.typeName : r.tag ? r.tag : r.q ? `"${r.q}"` : 'All';
+      const crumbs = [r.app && [h.url.app(r.app), h.appName(r.app)], r.type && [h.link(r, { tag: '' }), l.typeName], r.site && [h.url.site(r.site), h.siteName(r.site)],
+        r.tag && [h.link(r, {}), r.tag], r.q && [h.link(r, {}), 'Search: ' + r.q]].filter(Boolean);
+      const pg = pages(h, r, l);
+      const center = `${sectionBar(ctx, name + ' downloads:', h.link(r, { tag: '', page: 1 }), f.apps.map(([k, n, c]) => [h.link(r, { app: k, type: '', tag: '' }), `${n} (${c})`]),
+          [[h.link(r, { sort: '' }), 'Newest files'], [h.link(r, { sort: 'old' }), 'Oldest files'], [h.link(r, { arch: '1' }), 'Archived files']])}
+        ${about ? `<div class="sp-about celltext_big"><div class="sp-tools celltext"><a href="${E(about.edit)}" target="_blank" rel="noopener">Edit</a> | <a href="${h.link(r, { site: '' })}">Close</a></div>${about.html}</div>` : ''}
+        <table class="indexcellbkg_2 sp-box" cellspacing="0" cellpadding="0"><tr><td class="sp-boxin">
+          <table width="100%" cellspacing="0" cellpadding="0"><tr><td width="70%"><span class="celltitles_categ"><a href="${h.url.home()}">C:</a>${(crumbs.length ? crumbs : [[h.link(r, {}), name]]).map(([u, t]) => ` \\ <a href="${u}">${E(t)}</a>`).join('')}</span> <span class="celltext">(${l.total.toLocaleString()} files)</span></td>
+            <td width="30%" align="right" class="celltext sp-pgs">${pg}</td></tr></table><br>
+          ${l.rows.length ? `<table class="sp-rows" cellspacing="0" cellpadding="0">${l.rows.map(e => row(h, e)).join('')}</table>` : '<p class="celltext_big sp-empty">No files found.</p>'}
+          <table class="sp-bottom" cellspacing="0" cellpadding="0"><tr><td class="celltext"><a href="#" onclick="scrollTo(0,0);return false">go to top</a></td><td class="celltext" align="right">${pg}</td></tr></table>
+          ${f.tags.length ? `<div class="celltext sp-tags"><b>Tags:</b> ${f.tags.slice(0, 40).map(([t]) => `<a href="${h.link(r, { tag: r.tag === t ? '' : t })}">${E(t)}</a>`).join(' | ')}</div>` : ''}
+        </td></tr></table>`;
+      const side = `<div class="right_title_bkg">Category Options:</div>
+        <div class="rightcellcontent sp-rbox sp-opts">Show only:<br>${h.archSelect(r)}<br><br>Sort By:<br>${h.sortSelect(r)}</div>
+        ${bulletBox(h, 'Programs:', [[h.link(r, { app: '', type: '', tag: '' }), 'All programs'], ...f.apps.map(([k, n, c]) => [h.link(r, { app: k, type: '', tag: '' }), `${n} (${c})`])].slice(0, 30))}
+        ${bulletBox(h, 'File types:', f.types.map(([t, n]) => [h.link(r, { type: t, tag: '' }), `${t} (${n})`]))}`;
+      return page(ctx, center, right(ctx, side));
     },
+
     item(ctx) {
-      const { h, item: e } = ctx, E = h.esc, m = ctx.manifest;
-      if (!e) return `${header(ctx)}<div class="sp-body"><div class="sp-bg"><div class="sp-center"><p class="sp-empty">Item not found. <a href="${h.url.home()}">Back to home</a></p></div>${homeSide(ctx)}</div></div>${footer(h)}`;
-      const a = (href, t, c = '') => href ? `<a class="${c}" href="${E(href)}" target="_blank" rel="noopener">${t}</a>` : '';
-      const file = h.file(e);
-      return `${header(ctx)}<div class="sp-body"><div class="sp-bg">
-        <div class="sp-center">${subband(ctx, e.a + ' downloads:', [[h.url.app(e.k), e.a], ...(e.y[0] ? [[h.link({}, { app: e.k, type: e.y[0] }), e.y[0]]] : []), [h.url.site(e.s), h.siteName(e.s)]])}
-        <div class="sp-it"><div class="sp-ith"><h1>${E(e.t)}</h1><span>${a(h.report(e), 'Report', 'rep')}</span></div>
-        <div class="sp-itb"><div class="sp-il">
-          ${file ? `<a class="sp-dlb" href="${E(file)}" target="_blank" rel="noopener"><span>DOWNLOAD</span></a>` : '<div class="sp-dlb off"><span>NO FILE</span></div>'}
-          <div class="sp-ila">${a(h.page(e), 'Original page')}<br>${a(h.edit(e), 'Edit this entry')}<br>${a(h.report(e), 'Report this file', 'rep')}</div>
-          <div class="sp-shot">${h.media(e)}</div></div>
-        <div class="sp-ir"><table class="sp-spec">${h.details(e).map(([k, v]) => `<tr><th>${k}:</th><td>${v}</td></tr>`).join('')}</table>
-          <div class="sp-links">${a(h.report(e), 'Report', 'rep')} | ${a(h.edit(e), 'Edit')}${h.page(e) ? ' | ' + a(h.page(e), 'Original page') : ''}</div>
-          ${e.desc ? `<div class="sp-dh">${E(e.t)} description</div><div class="sp-desc">${e.desc}</div>` : ''}
-          ${file ? `<div class="sp-dls">${a(file, E(e.t) + ' Download')}</div>` : ''}
-        </div></div></div></div>${sidebar(ctx, [...m.apps].sort((a, b) => b.count - a.count).slice(0, 18).map(x => [h.url.app(x.slug), x.name]), e.y.map(t => [h.link({}, { app: e.k, type: t }), `${e.a} ${t}`]))}</div></div>${footer(h)}`;
+      const { h, item: e, manifest: m } = ctx, E = h.esc;
+      if (!e) return page(ctx, `<p class="celltext_big sp-empty">Item not found. <a href="${h.url.home()}">Back to the archive</a></p>`, right(ctx, ''));
+      const file = h.file(e), a = (u, t) => u ? `<a href="${E(u)}" target="_blank" rel="noopener">${t}</a>` : '';
+      const center = `${sectionBar(ctx, e.a + ' downloads:', h.url.app(e.k), m.apps.map(x => [h.url.app(x.slug), x.name]),
+          [[h.url.app(e.k), 'More from ' + e.a], [h.url.site(e.s), 'More from ' + h.siteName(e.s)], [h.report(e), 'Report this file']])}
+        <table class="dwldbkg sp-box" cellspacing="0" cellpadding="0"><tr><td class="sp-boxin">
+          <table width="100%" cellspacing="0" cellpadding="0"><tr><td class="celltitles_categ_ptitle">${E(e.t)}</td><td align="right" class="celltext">${a(h.report(e), 'Report')}&nbsp;</td></tr></table>
+          <table class="sp-itm" cellspacing="0" cellpadding="0"><tr valign="top">
+            <td class="sp-itl">${file ? `<a class="sp-dl" href="${E(file)}" target="_blank" rel="noopener"><span>DOWNLOAD</span></a>` : '<span class="sp-dl off"><span>NO FILE</span></span>'}
+              <div class="celltext sp-ila">${a(h.edit(e), 'Edit this entry')}<br>${a(h.report(e), 'Report this file')}</div>
+              <div class="sp-shot">${h.media(e)}</div></td>
+            <td class="sp-itr"><table class="sp-spec" cellspacing="0" cellpadding="0">${h.details(e).map(([k, v], i) => `<tr${i % 2 ? ' class="sp-odd"' : ''}><td class="celltext_n sp-k"><b>${k}:</b></td><td class="celltext_n">${v}</td></tr>`).join('')}</table>
+              <table class="sp-actions" cellspacing="0" cellpadding="0"><tr>
+                <td class="celltext_big"><i class="sp-li l0"></i>${a(file, 'Download') || 'No file'}</td><td class="celltext_big"><i class="sp-li l1"></i>${a(h.page(e), 'Original page') || 'No page'}</td><td class="celltext_big"><i class="sp-li l2"></i>${a(h.edit(e), 'Edit this entry')}</td><td class="celltext_big"><i class="sp-li l3"></i>${a(h.report(e), 'Report')}</td></tr></table>
+              ${e.desc ? `<div class="subtitles sp-dh">${E(e.t)} description</div><div class="celltext_big sp-desc">${e.desc}</div>` : ''}</td></tr></table>
+        </td></tr></table>`;
+      const side = bulletBox(h, `More ${e.a}:`, e.y.map(t => [h.link({}, { app: e.k, type: t }), `${e.a} ${t}`]).concat([[h.url.app(e.k), 'All ' + e.a]]));
+      return page(ctx, center, right(ctx, side));
     },
   };
-  function footer(h) { return `<div class="sp-foot"><div class="sp-f1">Customization Museum. Files are archived automatically and not checked.</div><div class="sp-f2"><a href="${h.url.home()}">Home</a> | <a href="${h.url.request()}" target="_blank" rel="noopener">Submit</a> | <a href="https://github.com/melo-foundation/customization-museum" target="_blank" rel="noopener">Source</a></div><div class="sp-f3"></div></div>`; }
+  function chunk(a, n) { const o = []; for (let i = 0; i < a.length; i += n) o.push(a.slice(i, i + n)); return o; }
 })();

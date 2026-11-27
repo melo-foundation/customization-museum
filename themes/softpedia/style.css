@@ -1,119 +1,203 @@
-html[data-theme="softpedia"] body{margin:0;background:#E8EDFA;font:11px Verdana,Arial,Helvetica,sans-serif;color:#5C6985}
-html[data-theme="softpedia"] #app{width:972px;margin:0 auto;background:#fff}
-html[data-theme="softpedia"] a{color:#34538C}
-html[data-theme="softpedia"] a:hover{color:#001F5B;text-decoration:none}
-html[data-theme="softpedia"] select{font:10px Verdana;color:#001F5B;background:#F2F5FF;max-width:130px}
-html[data-theme="softpedia"] .sp-head{position:relative;height:246px;background:#001F5B;overflow:hidden}
-html[data-theme="softpedia"] .sp-nav{position:absolute;right:0;top:0;height:22px;display:flex;align-items:center}
-html[data-theme="softpedia"] .sp-nav a{color:#fff;font:bold 9px Arial;text-decoration:none;padding:0 14px;border-left:1px dotted #5a78b8;line-height:16px}
-html[data-theme="softpedia"] .sp-nav span{padding:0 12px}
-html[data-theme="softpedia"] .sp-logo{position:absolute;left:22px;top:28px;color:#fff;font:26px Georgia,'Times New Roman',serif;letter-spacing:2px;text-decoration:none}
-html[data-theme="softpedia"] .sp-logo sup{font-size:8px}
-html[data-theme="softpedia"] .sp-upd{position:absolute;left:52px;top:68px;font:10px Arial;color:#8fa3d0}
-html[data-theme="softpedia"] .sp-wave{position:absolute;left:0;top:98px;width:100%;height:118px;background:linear-gradient(#001F5B 0,#3c5ca8 8%,#a9bde6 30%,#d4e0f6 60%,#8fa7da 90%,#001F5B 100%);border-radius:0 0 0 0}
-html[data-theme="softpedia"] .sp-circs{position:absolute;left:18px;top:102px;display:flex;gap:18px}
-html[data-theme="softpedia"] .sp-c{width:58px;height:58px;border-radius:50%;background:radial-gradient(circle at 35% 28%,#fff8 0,#fff0 35%),radial-gradient(circle at 50% 60%,var(--c),#0006 140%);border:2px solid #fff9;box-shadow:0 2px 3px #0005;display:flex;align-items:center;justify-content:center;text-decoration:none;margin-top:6px}
-html[data-theme="softpedia"] .sp-c span{color:#fff;font:bold 9px Arial;text-shadow:0 1px 1px #0008;text-align:center}
-html[data-theme="softpedia"] .sp-sbox{position:absolute;right:24px;top:116px;width:230px;display:flex;align-items:center;gap:6px;color:#1b3d7f;font:bold 12px Georgia,serif;background:linear-gradient(#cfdcf5,#a9bde6);padding:4px 6px;border-radius:4px}
-html[data-theme="softpedia"] .sp-sbox form{flex:1}
-html[data-theme="softpedia"] .sp-sbox input{width:100%;box-sizing:border-box;font:11px Arial;color:#001F5B;border:1px inset #426BBC;background:#F2F5FF}
-html[data-theme="softpedia"] .cm-warning{margin:0;padding:5px 12px;background:#FFF8D6;border-bottom:1px solid #d9c26a;color:#5C6985;font-size:10px;display:flex;gap:10px;align-items:center}
-html[data-theme="softpedia"] .cm-warning button{margin-left:auto;font:10px Arial}
-html[data-theme="softpedia"] .sp-body{background:linear-gradient(#fff 0,#fff 60%,#EAF0FD 100%)}
-html[data-theme="softpedia"] .sp-bg{display:flex;align-items:stretch}
-html[data-theme="softpedia"] .sp-center{flex:1;min-width:0;padding:10px 14px 24px 22px}
-html[data-theme="softpedia"] .sp-right{width:150px;flex:none;background:#CEDEFE linear-gradient(#CEDEFE,#EAF0FD);border-left:1px dotted #7f9bd0;padding-bottom:20px}
-html[data-theme="softpedia"] .sp-rt{margin:10px 0 0;height:24px;line-height:24px;padding-left:6px;font:bold 12px Arial;color:#21427D;background:linear-gradient(#a9bde6,#CEDEFE);border-radius:8px 0 0 0}
-html[data-theme="softpedia"] .sp-rb{padding:6px 8px 6px 10px;font:9px Verdana;color:#677695}
-html[data-theme="softpedia"] .sp-rb a{color:#001F5B}
-html[data-theme="softpedia"] .sp-rb ul{margin:0;padding:0;list-style:none}
-html[data-theme="softpedia"] .sp-rb li{font:9px/18px Verdana;padding-left:12px;position:relative;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;text-indent:0}
-html[data-theme="softpedia"] .sp-rb li:before{content:"";position:absolute;left:1px;top:7px;width:4px;height:4px;background:#34538C;transform:rotate(45deg)}
-html[data-theme="softpedia"] .sp-rb li a{font:9px Verdana}
-html[data-theme="softpedia"] .sp-opt{line-height:1.9}
-html[data-theme="softpedia"] .sp-welcome{display:flex;justify-content:space-between;gap:20px;padding-bottom:6px}
-html[data-theme="softpedia"] .sp-welcome h1{margin:0;font:bold 17px Georgia,serif;color:#34538C;flex:1}
-html[data-theme="softpedia"] .sp-stat{font:bold 11px Georgia,serif;color:#34538C;width:150px}
-html[data-theme="softpedia"] .sp-lk{display:flex;gap:10px;align-items:flex-start;margin-bottom:34px}
-html[data-theme="softpedia"] .sp-onpage{flex:none;width:84px;height:44px;box-sizing:border-box;border:2px solid #9fb5e0;border-radius:8px;background:linear-gradient(#fff,#e1eafb);font:13px Georgia,serif;color:#34538C;padding:8px 6px;white-space:nowrap}
-html[data-theme="softpedia"] .sp-lc{display:grid;grid-template-columns:repeat(3,1fr);gap:8px 12px;flex:1;padding-left:20px}
-html[data-theme="softpedia"] .sp-lc a,html[data-theme="softpedia"] .sp-sl a{font:11px Verdana;padding-left:20px;position:relative}
-html[data-theme="softpedia"] .sp-lc a:before,html[data-theme="softpedia"] .sp-sl a:before{content:"";position:absolute;left:2px;top:1px;width:11px;height:11px;border:1px solid #6f8cc8;background:linear-gradient(#fff,#cfdcf5)}
-html[data-theme="softpedia"] .sp-boxes{display:flex;gap:14px;align-items:flex-start}
-html[data-theme="softpedia"] .sp-bcol{flex:1;min-width:0}
-html[data-theme="softpedia"] .sp-box{margin-bottom:16px;border-radius:12px 12px 0 0;background:var(--bb,#F2F6FF)}
-html[data-theme="softpedia"] .sp-bh{height:26px;line-height:26px;padding-left:16px;border-radius:12px 12px 0 0;background:linear-gradient(var(--h1),var(--h2))}
-html[data-theme="softpedia"] .sp-bh a{font:17px Georgia,serif;color:#fff;text-decoration:none;text-shadow:0 1px 1px #0004}
-html[data-theme="softpedia"] .sp-bs{font:9px Arial;color:#808FAD;padding:2px 0 2px 8px}
-html[data-theme="softpedia"] .sp-bb{padding:2px 8px 6px 8px;font:10px/1.35 Verdana;color:#677695}
-html[data-theme="softpedia"] .sp-bi{padding:5px 0 5px 22px;position:relative}
-html[data-theme="softpedia"] .sp-bi:before{content:"";position:absolute;left:2px;top:6px;width:11px;height:11px;border:1px solid #7f8fb5;background:linear-gradient(#fff,#d5ddf0)}
-html[data-theme="softpedia"] .sp-bi a{font:bold 11px Verdana;color:var(--ln)}
-html[data-theme="softpedia"] .b0{--h1:#ff6a6a;--h2:#e8353a;--bb:#FFF2F2;--ln:#34538C}
-html[data-theme="softpedia"] .b1{--h1:#f58ab0;--h2:#d8497a;--bb:#FFF0F5;--ln:#34538C}
-html[data-theme="softpedia"] .b2{--h1:#ffb15c;--h2:#e8801c;--bb:#FFF6EA;--ln:#34538C}
-html[data-theme="softpedia"] .b3{--h1:#8fd870;--h2:#4aa83a;--bb:#EFFBEA;--ln:#34538C}
-html[data-theme="softpedia"] .b4{--h1:#7aa8e8;--h2:#3772C4;--bb:#EEF4FF;--ln:#34538C}
-html[data-theme="softpedia"] .b5{--h1:#b6a2ee;--h2:#7a5fd0;--bb:#F3F0FF;--ln:#34538C}
-html[data-theme="softpedia"] .b6{--h1:#a6a2f0;--h2:#6a62d8;--bb:#F1F0FF;--ln:#34538C}
-html[data-theme="softpedia"] .sp-cols2{columns:2;column-gap:20px}
-html[data-theme="softpedia"] .sp-cols2 .sp-bi{break-inside:avoid}
-html[data-theme="softpedia"] .sp-sub{padding:4px 0 8px}
-html[data-theme="softpedia"] .sp-sub{display:grid;grid-template-columns:auto 1fr;align-items:center;gap:2px 14px;margin:-4px 0 14px}
-html[data-theme="softpedia"] .sp-st{grid-column:1/3;font:19px Georgia,serif;color:#34538C;margin:0}
-html[data-theme="softpedia"] .sp-sub .sp-onpage{height:26px;padding:3px 8px}
-html[data-theme="softpedia"] .sp-sl{display:flex;gap:30px}
-html[data-theme="softpedia"] .sp-about{border:1px solid #cfdcf5;background:#F6F9FF;padding:8px 12px;margin-bottom:12px;color:#364269}
-html[data-theme="softpedia"] .sp-about h1{font:bold 13px Arial;color:#34538C;margin:0 0 4px}
-html[data-theme="softpedia"] .sp-tools{float:right;font-size:10px}
-html[data-theme="softpedia"] .sp-lt{display:flex;justify-content:space-between;align-items:center;height:42px;padding:0 6px 0 14px;background:linear-gradient(#EAF0FD,#fff);border-radius:20px 0 0 0;border-top:1px dotted #9fb5e0}
-html[data-theme="softpedia"] .sp-bcz{font:bold 13px Arial;color:#34538C}
-html[data-theme="softpedia"] .sp-bcz a{font:bold 13px Arial}
-html[data-theme="softpedia"] .sp-bcz span{font:10px Verdana;color:#808FAD;font-weight:normal}
-html[data-theme="softpedia"] .sp-pg{font:10px Verdana;color:#5C6985}
-html[data-theme="softpedia"] .sp-pg b{color:#001F5B}
-html[data-theme="softpedia"] .sp-rows{padding:0 0 0 14px}
-html[data-theme="softpedia"] .sp-row{display:flex;gap:8px;padding:6px 6px 6px 4px;border-bottom:1px solid #fff}
-html[data-theme="softpedia"] .sp-row:nth-child(odd){background:#EFF3FC}
-html[data-theme="softpedia"] .sp-ic{width:28px;height:28px;flex:none;border:1px solid #b8c6e2;background:#fff;position:relative;display:block;overflow:hidden;margin-top:2px}
-html[data-theme="softpedia"] .sp-ic b{position:absolute;inset:0;text-align:center;line-height:28px;font:bold 14px Arial;color:#8fa3d0}
-html[data-theme="softpedia"] .sp-ic img{position:absolute;inset:0;width:100%;height:100%;object-fit:contain;background:#fff}
-html[data-theme="softpedia"] .sp-ri{flex:1;min-width:0}
-html[data-theme="softpedia"] .sp-rt1{font:bold 11px Verdana;color:#001F5B;overflow-wrap:anywhere}
-html[data-theme="softpedia"] .sp-d1{font:10px Verdana;color:#001F5B;margin-top:1px}
-html[data-theme="softpedia"] .sp-d2{font:10px Verdana;color:#5C6985;margin-top:1px}
-html[data-theme="softpedia"] .sp-rr{width:190px;flex:none;text-align:right;font:10px Verdana}
-html[data-theme="softpedia"] .sp-rr a{color:#34538C}
-html[data-theme="softpedia"] .sp-dt{color:#5C6985;margin-top:12px}
-html[data-theme="softpedia"] .sp-lb{display:flex;justify-content:space-between;margin:6px 6px 0 14px;padding-top:6px;border-top:1px solid #9fb5e0;font:10px Verdana}
-html[data-theme="softpedia"] .sp-tg{margin:10px 14px 0;font:10px/1.8 Verdana}
-html[data-theme="softpedia"] .sp-empty{padding:30px;text-align:center}
-html[data-theme="softpedia"] .sp-it{margin-top:6px}
-html[data-theme="softpedia"] .sp-ith{display:flex;justify-content:space-between;align-items:center;height:42px;padding:0 6px 0 14px;background:linear-gradient(#EAF0FD,#fff);border-radius:20px 0 0 0;border-top:1px dotted #9fb5e0}
-html[data-theme="softpedia"] .sp-ith h1{margin:0;font:bold 17px Arial;color:#34538C;overflow-wrap:anywhere}
-html[data-theme="softpedia"] .sp-ith span,html[data-theme="softpedia"] .rep{font:10px Verdana}
-html[data-theme="softpedia"] .sp-itb{display:flex;gap:18px;padding:10px 6px 10px 14px}
-html[data-theme="softpedia"] .sp-il{width:180px;flex:none}
-html[data-theme="softpedia"] .sp-dlb{display:flex;width:84px;height:84px;margin:0 auto 6px;border-radius:50%;background:radial-gradient(circle at 40% 30%,#ff9a9a,#e03030 60%,#a01010);border:3px solid #fff;box-shadow:0 2px 4px #0006;align-items:center;justify-content:center;text-decoration:none}
-html[data-theme="softpedia"] .sp-dlb span{color:#fff;font:bold 11px Arial;text-shadow:0 1px 1px #0008}
-html[data-theme="softpedia"] .sp-dlb.off{background:radial-gradient(circle at 40% 30%,#ddd,#999)}
-html[data-theme="softpedia"] .sp-ila{font:10px/2 Verdana;padding:0 0 8px 6px}
-html[data-theme="softpedia"] .sp-shot{border:2px solid #9fb5e0;background:#fff;padding:4px;text-align:center;min-height:90px;display:flex;align-items:center;justify-content:center}
-html[data-theme="softpedia"] .sp-shot img,html[data-theme="softpedia"] .sp-shot video{max-width:100%;height:auto}
-html[data-theme="softpedia"] .sp-shot audio{width:100%}
-html[data-theme="softpedia"] .sp-ir{flex:1;min-width:0}
-html[data-theme="softpedia"] .sp-spec{width:100%;border-collapse:collapse}
-html[data-theme="softpedia"] .sp-spec tr:nth-child(odd){background:#EFF3FC}
-html[data-theme="softpedia"] .sp-spec th{width:130px;text-align:left;font:bold 10px Verdana;color:#364269;padding:5px 6px;vertical-align:top}
-html[data-theme="softpedia"] .sp-spec td{font:10px Verdana;color:#5C6985;padding:5px 6px;overflow-wrap:anywhere}
-html[data-theme="softpedia"] .sp-spec td a{color:#001F5B;font-weight:bold}
-html[data-theme="softpedia"] .sp-links{margin:6px 0 14px;padding:5px 6px;background:#EFF3FC;font:10px Verdana}
-html[data-theme="softpedia"] .sp-dh{font:bold 13px Arial;color:#34538C;margin:10px 0 8px}
-html[data-theme="softpedia"] .sp-desc{font:11px/1.45 Verdana;color:#364269;text-align:justify}
-html[data-theme="softpedia"] .sp-dls{margin:16px 0 0;padding:10px;background:#EFF3FC;font:bold 11px Verdana}
-html[data-theme="softpedia"] .sp-dls a{padding-left:24px}
-html[data-theme="softpedia"] .sp-foot{border-top:12px solid #8fa3d0;background:#EAF0FD;position:relative}
-html[data-theme="softpedia"] .sp-f1{padding:8px 22px 4px;font:10px Arial;color:#62708B}
-html[data-theme="softpedia"] .sp-f2{padding:5px 22px;font:10px Arial;color:#62708B;background:#CEDEFE}
-html[data-theme="softpedia"] .sp-f2 a{color:#001F5B}
-html[data-theme="softpedia"] .sp-f3{height:10px;background:#001F5B}
+/* Download Portal 2006: geometry and type measured from Wayback captures of softpedia.com (Jan-Nov 2006),
+   class names and values follow its style.css. Images of the original are redrawn in CSS. */
+html[data-theme="softpedia"] body { margin:0; background:#ECF0F8; color:#677695; font:11px Verdana,Arial,Helvetica,sans-serif; }
+html[data-theme="softpedia"] a { color:#34538C; }
+html[data-theme="softpedia"] a:hover { color:#001F5B; text-decoration:none; }
+html[data-theme="softpedia"] table { border-collapse:collapse; }
+html[data-theme="softpedia"] td { padding:0; }
+html[data-theme="softpedia"] .sp-wrap { text-align:center; }
+html[data-theme="softpedia"] .sp-frame { width:984px; margin:0 auto; text-align:left; }
+html[data-theme="softpedia"] .sp-edge { width:5px; background:#C1CCE1; }
+html[data-theme="softpedia"] .sp-white { width:974px; background:#fff; vertical-align:top; }
+
+/* original classes */
+html[data-theme="softpedia"] .update { font:11px Arial,Helvetica,sans-serif; color:#808FAD; }
+html[data-theme="softpedia"] .celltitles, html[data-theme="softpedia"] .celltitles a { font:bold 11px Verdana,Arial,Helvetica,sans-serif; color:#34538C; }
+html[data-theme="softpedia"] .celltitles a:hover { color:#001F5B; text-decoration:none; }
+html[data-theme="softpedia"] .celltext, html[data-theme="softpedia"] .celltext a { font:10px Verdana,Arial,Helvetica,sans-serif; color:#5C6985; }
+html[data-theme="softpedia"] .celltext a { color:#34538C; }
+html[data-theme="softpedia"] .celltext_n, html[data-theme="softpedia"] .celltext_n a { font:11px Verdana,Arial,Helvetica,sans-serif; color:#5C6985; }
+html[data-theme="softpedia"] .celltext_n a { color:#34538C; }
+html[data-theme="softpedia"] .celltext_big, html[data-theme="softpedia"] .celltext_big a { font:11px Verdana,Arial,Helvetica,sans-serif; color:#364269; }
+html[data-theme="softpedia"] .celltext_big a { color:#34538C; }
+html[data-theme="softpedia"] .celltext_bigger, html[data-theme="softpedia"] .celltext_bigger a { font:12px Verdana,Arial,Helvetica,sans-serif; color:#364269; }
+html[data-theme="softpedia"] .celltext_bigger a { color:#34538C; }
+html[data-theme="softpedia"] .celltext_description, html[data-theme="softpedia"] .celltext_description a { font:10px Verdana,Arial,Helvetica,sans-serif; color:#001F5B; }
+html[data-theme="softpedia"] .celltext_pick { color:#32A738; }
+html[data-theme="softpedia"] .celltitles_categ, html[data-theme="softpedia"] .celltitles_categ a { font:bold 13px Arial,Helvetica,sans-serif; color:#34538C; }
+html[data-theme="softpedia"] .celltitles_categ_ptitle { font:bold 19px Verdana,Arial,sans-serif; color:#4A5571; padding-top:6px; }
+html[data-theme="softpedia"] .subtitles { font:13px Arial,Helvetica,sans-serif; color:#34538C; }
+html[data-theme="softpedia"] .rightcellcontent, html[data-theme="softpedia"] .rightcellcontent a { font:9px Verdana,Arial,Helvetica,sans-serif; color:#34538C; }
+html[data-theme="softpedia"] .rightcellcontent a { color:#001F5B; }
+html[data-theme="softpedia"] .copyrights, html[data-theme="softpedia"] .copyrights a { font:10px Arial,Helvetica,sans-serif; color:#62708B; }
+html[data-theme="softpedia"] .copyrights a { color:#001F5B; }
+html[data-theme="softpedia"] .quickcategory, html[data-theme="softpedia"] select { width:120px; font:10px Verdana,Arial,Helvetica,sans-serif; color:#001F5B; height:18px; padding:0 14px 0 4px; border:1px solid #C9D9FF; -webkit-appearance:none; appearance:none;
+  background:#F2F5FF linear-gradient(45deg, transparent 50%, #001F5B 50%) right 8px top 7px / 4px 4px no-repeat; }
+html[data-theme="softpedia"] .quickcategory { background:#F2F5FF linear-gradient(135deg, #001F5B 50%, transparent 50%) right 6px top 7px / 5px 5px no-repeat; }
+
+/* header: 26px nav + 60px band (logo spans both), then the 104px circle row */
+html[data-theme="softpedia"] .sp-top { width:100%; background:#001F5B; }
+html[data-theme="softpedia"] .sp-logocell { vertical-align:top; height:86px; position:relative; }
+html[data-theme="softpedia"] .sp-logo { position:absolute; left:25px; top:26px; color:#fff; text-decoration:none; font:normal 27px/32px Georgia,"Times New Roman",serif; letter-spacing:1px; white-space:nowrap; }
+html[data-theme="softpedia"] .sp-logo sup { font:8px Arial; vertical-align:top; position:relative; top:-2px; left:1px; }
+html[data-theme="softpedia"] .sp-logocell .update { position:absolute; left:51px; width:188px; top:61px; text-align:center; }
+html[data-theme="softpedia"] .sp-nav { width:700px; height:26px; text-align:right; white-space:nowrap; vertical-align:top; }
+html[data-theme="softpedia"] .sp-nav a { display:inline-block; height:26px; line-height:22px; padding:0 13px; border-left:1px dotted #5B6F9C; color:#fff; font:bold 10px Arial,sans-serif; letter-spacing:-.2px; text-decoration:none; }
+html[data-theme="softpedia"] .sp-adrow { height:60px; text-align:right; vertical-align:middle; padding-right:14px; }
+html[data-theme="softpedia"] .sp-adrow select { width:auto; background:#0b2a67; color:#9fb2dc; border:1px solid #2c4886; }
+
+html[data-theme="softpedia"] .sp-circles { width:974px; height:104px; position:relative; table-layout:fixed;
+  background: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' width='974' height='104'><polygon fill='%23001F5B' points='0,0 0,25 4,24 8,23 12,23 16,22 20,21 24,19 28,16 32,14 36,12 40,11 44,9 48,9 52,9 56,9 60,9 64,10 68,11 72,12 76,14 80,16 84,18 88,19 92,20 96,19 100,18 104,16 108,13 112,12 116,10 120,9 124,9 128,9 132,9 136,9 140,10 144,11 148,12 152,14 156,16 160,18 164,19 168,20 172,19 176,17 180,14 184,12 188,11 192,10 196,9 200,9 204,8 208,9 212,9 216,10 220,11 224,13 228,15 232,18 236,19 240,20 244,19 248,18 252,16 256,13 260,12 264,10 268,9 272,9 276,9 280,9 284,9 288,10 292,11 296,12 300,14 304,16 308,18 312,19 316,20 320,19 324,17 328,14 332,12 336,11 340,10 344,9 348,9 352,8 356,9 360,9 364,10 368,11 372,13 376,15 380,18 384,19 388,20 392,19 396,18 400,16 404,13 408,12 412,10 416,9 420,9 424,9 428,9 432,9 436,10 440,11 444,12 448,14 452,16 456,18 460,19 464,19 468,18 472,16 476,13 480,12 484,10 488,9 492,9 496,8 500,8 504,9 508,9 512,10 516,12 520,14 524,16 528,19 532,21 536,22 540,22 544,23 548,24 552,25 556,25 560,26 564,27 568,27 572,28 576,28 580,28 584,29 588,29 592,29 596,30 600,30 604,30 608,31 612,31 616,31 620,32 624,32 628,32 632,32 636,33 640,33 644,33 648,33 652,34 656,34 660,34 664,34 668,34 672,35 676,35 680,35 684,35 688,35 692,35 696,36 700,36 704,36 708,36 712,36 716,36 720,37 724,37 728,37 732,37 736,37 740,37 744,37 748,37 752,38 756,38 760,38 764,38 768,38 772,38 776,38 780,38 784,38 788,38 792,38 796,39 800,39 804,39 808,39 812,39 816,36 820,34 824,31 828,29 832,27 836,25 840,24 844,22 848,21 852,21 856,20 860,19 864,19 868,18 872,18 876,18 880,18 884,18 888,18 892,18 896,18 900,18 904,18 908,18 912,18 916,18 920,18 924,18 928,18 932,18 936,18 940,18 944,18 948,18 952,18 956,18 960,18 964,18 968,18 972,18 974,18 974,0'/><polyline fill='none' stroke='%23B9CBF2' stroke-width='2' points='0,26 4,25 8,24 12,24 16,23 20,22 24,20 28,17 32,15 36,13 40,12 44,10 48,10 52,10 56,10 60,10 64,11 68,12 72,13 76,15 80,17 84,19 88,20 92,21 96,20 100,19 104,17 108,14 112,13 116,11 120,10 124,10 128,10 132,10 136,10 140,11 144,12 148,13 152,15 156,17 160,19 164,20 168,21 172,20 176,18 180,15 184,13 188,12 192,11 196,10 200,10 204,9 208,10 212,10 216,11 220,12 224,14 228,16 232,19 236,20 240,21 244,20 248,19 252,17 256,14 260,13 264,11 268,10 272,10 276,10 280,10 284,10 288,11 292,12 296,13 300,15 304,17 308,19 312,20 316,21 320,20 324,18 328,15 332,13 336,12 340,11 344,10 348,10 352,9 356,10 360,10 364,11 368,12 372,14 376,16 380,19 384,20 388,21 392,20 396,19 400,17 404,14 408,13 412,11 416,10 420,10 424,10 428,10 432,10 436,11 440,12 444,13 448,15 452,17 456,19 460,20 464,20 468,19 472,17 476,14 480,13 484,11 488,10 492,10 496,9 500,9 504,10 508,10 512,11 516,13 520,15 524,17 528,20 532,22 536,23 540,23 544,24 548,25 552,26 556,26 560,27 564,28 568,28 572,29 576,29 580,29 584,30 588,30 592,30 596,31 600,31 604,31 608,32 612,32 616,32 620,33 624,33 628,33 632,33 636,34 640,34 644,34 648,34 652,35 656,35 660,35 664,35 668,35 672,36 676,36 680,36 684,36 688,36 692,36 696,37 700,37 704,37 708,37 712,37 716,37 720,38 724,38 728,38 732,38 736,38 740,38 744,38 748,38 752,39 756,39 760,39 764,39 768,39 772,39 776,39 780,39 784,39 788,39 792,39 796,40 800,40 804,40 808,40 812,40 816,37 820,35 824,32 828,30 832,28 836,26 840,25 844,23 848,22 852,22 856,21 860,20 864,20 868,19 872,19 876,19 880,19 884,19 888,19 892,19 896,19 900,19 904,19 908,19 912,19 916,19 920,19 924,19 928,19 932,19 936,19 940,19 944,19 948,19 952,19 956,19 960,19 964,19 968,19 972,19 974,19'/></svg>") 0 0 no-repeat,
+    linear-gradient(#001F5B 0, #001F5B 8px, #6E89C0 14px, #7690C6 24px, #87A0D3 48px, #A8BEEA 74px, #C8D8F8 92px, #D1E0FF 104px); }
+html[data-theme="softpedia"] .sp-c1, html[data-theme="softpedia"] .sp-c2, html[data-theme="softpedia"] .sp-c3 { vertical-align:top; padding-top:19px; }
+html[data-theme="softpedia"] .sp-c1 { width:57px; padding-left:18px; }
+html[data-theme="softpedia"] .sp-c2 { width:371px; white-space:nowrap; text-align:center; }
+html[data-theme="softpedia"] .sp-c3 { width:174px; }
+html[data-theme="softpedia"] .sp-circ { position:absolute; top:25px; width:59px; height:59px; margin:0; border-radius:50%; text-decoration:none;
+  background: radial-gradient(circle at 50% 22%, rgba(255,255,255,.55) 0, rgba(255,255,255,0) 42%), radial-gradient(circle at 50% 60%, var(--c) 55%, color-mix(in srgb, var(--c) 70%, #000) 100%);
+  box-shadow: 0 0 0 2px rgba(190,205,240,.45), 0 2px 3px rgba(0,20,70,.4); display:inline-flex; align-items:center; justify-content:center; }
+html[data-theme="softpedia"] .sp-circ span { color:#fff; font:bold 11px "Arial Narrow","Liberation Sans Narrow","Nimbus Sans Narrow",Arial,sans-serif; letter-spacing:-.4px; text-shadow:0 1px 1px rgba(0,0,0,.5); }
+html[data-theme="softpedia"] .sp-m7 { width:96px; vertical-align:top; padding-top:54px; text-align:right; color:#0d2a63; white-space:nowrap; }
+html[data-theme="softpedia"] .sp-m7 b { font:bold 14px "Arial Narrow","Liberation Sans Narrow","Nimbus Sans Narrow",Arial,sans-serif; letter-spacing:-.3px; color:#1c3a74; margin-right:4px; }
+html[data-theme="softpedia"] .sp-lens { display:inline-block; width:10px; height:10px; border:2px solid #2d4d8b; border-radius:50%; margin-right:6px; position:relative; top:2px; }
+html[data-theme="softpedia"] .sp-m8 { width:86px; vertical-align:top; padding-top:55px; }
+html[data-theme="softpedia"] .sp-m8 form { margin:0; }
+html[data-theme="softpedia"] .sp-m8 input { width:84px; height:16px; box-sizing:border-box; font:11px Arial,Helvetica,sans-serif; color:#001F5B; border:1px inset #426BBC; background:#F2F5FF; padding:0 2px; }
+html[data-theme="softpedia"] .sp-m9 { width:157px; vertical-align:top; position:relative; }
+html[data-theme="softpedia"] .sp-bm { position:absolute; left:21px; top:24px; color:#1c3a74; font:bold 9px "Arial Narrow","Liberation Sans Narrow","Nimbus Sans Narrow",Arial,sans-serif; text-decoration:none; white-space:nowrap; }
+html[data-theme="softpedia"] .sp-bm i { display:inline-block; width:10px; height:10px; line-height:10px; border-radius:50%; background:#2d4d8b; color:#fff; font:bold 9px Arial; text-align:center; font-style:normal; margin-right:4px; }
+html[data-theme="softpedia"] .sp-go { position:absolute; left:3px; top:55px; width:21px; height:21px; border-radius:50%; background:radial-gradient(circle at 50% 30%, #5f7fc0, #1f3f80); color:#fff; font:bold 9px/21px Arial; text-align:center; box-shadow:0 0 0 2px #c3d2f0; }
+html[data-theme="softpedia"] .sp-adv { position:absolute; left:40px; top:55px; width:97px; height:21px; border-radius:11px; background:linear-gradient(#5f7fc0, #2a4a8c); color:#fff; font:bold 9px/21px "Arial Narrow","Liberation Sans Narrow","Nimbus Sans Narrow",Arial,sans-serif; text-align:center; text-decoration:none; box-shadow:0 0 0 2px #c3d2f0; }
+
+html[data-theme="softpedia"] .cm-warning { margin:0; padding:5px 12px; background:#FFF8D6; border-bottom:1px solid #E1D49A; color:#5C6985; font:10px Verdana,sans-serif; display:flex; gap:10px; align-items:center; }
+html[data-theme="softpedia"] .cm-warning button { margin-left:auto; font:10px Verdana; }
+
+/* main: 822px column with a 780px table, 152px right column */
+html[data-theme="softpedia"] .sp-main { width:100%; background:linear-gradient(#D8E5FF 0, #fff 70px) no-repeat; }
+html[data-theme="softpedia"] .sp-center { width:822px; text-align:center; vertical-align:top; padding-bottom:20px; }
+html[data-theme="softpedia"] .sp-center > * { text-align:left; }
+html[data-theme="softpedia"] .sp-sect { width:780px; margin:0 auto; table-layout:fixed; }
+html[data-theme="softpedia"] .sp-st { width:190px; height:35px; vertical-align:top; }
+html[data-theme="softpedia"] .sect_title_win { width:180px; font:19px Verdana; position:relative; top:7px; line-height:22px; }
+html[data-theme="softpedia"] .sect_title_win a { color:#34538C; }
+html[data-theme="softpedia"] .sp-pf { width:108px; vertical-align:middle; }
+html[data-theme="softpedia"] .sp-pf a { color:#1c3a74; text-decoration:none; font:bold 13px "Arial Narrow","Liberation Sans Narrow","Nimbus Sans Narrow",Arial,sans-serif; letter-spacing:-.4px; white-space:nowrap; }
+html[data-theme="softpedia"] .sp-pf i { display:inline-block; width:15px; height:11px; border:3px solid #6f88bd; border-radius:6px; margin-right:6px; vertical-align:-3px; }
+html[data-theme="softpedia"] .sp-cs { width:152px; text-align:right; white-space:nowrap; vertical-align:middle; }
+html[data-theme="softpedia"] .sp-cs b, html[data-theme="softpedia"] .sp-dm b { font:bold 13px "Arial Narrow","Liberation Sans Narrow","Nimbus Sans Narrow",Arial,sans-serif; letter-spacing:-.4px; color:#1c3a74; }
+html[data-theme="softpedia"] .sp-sep { display:inline-block; width:1px; height:27px; border-left:1px dotted #8ea3cf; margin:0 10px 0 9px; vertical-align:middle; }
+html[data-theme="softpedia"] .sp-csel { width:120px; vertical-align:middle; text-align:right; }
+html[data-theme="softpedia"] .sp-dm { width:205px; text-align:right; white-space:nowrap; vertical-align:middle; }
+html[data-theme="softpedia"] .sp-dm b { margin-right:6px; vertical-align:middle; }
+html[data-theme="softpedia"] .sp-dm a { display:inline-flex; flex-direction:column; align-items:center; width:32px; vertical-align:middle; text-decoration:none; font:8px "Arial Narrow","Liberation Sans Narrow","Nimbus Sans Narrow",Arial,sans-serif; color:#3a5a9c; }
+html[data-theme="softpedia"] .sp-dm a i { width:21px; height:21px; border-radius:50%; background:radial-gradient(circle at 50% 30%, #7d9bd6, #2a4c92); color:#fff; font:bold 9px/21px Arial; font-style:normal; text-align:center; box-shadow:0 0 0 1px #c3d2f0; }
+html[data-theme="softpedia"] .onthispage { width:770px; padding-top:11px; height:35px; }
+html[data-theme="softpedia"] .sp-otp { width:153px; vertical-align:top; }
+html[data-theme="softpedia"] .sp-otp span { display:inline-block; width:118px; height:25px; line-height:25px; padding-left:12px; border:1px solid #9AB2E2; border-radius:13px; background:linear-gradient(#fff, #DCE6FA); font:17px "Arial Narrow","Liberation Sans Narrow","Nimbus Sans Narrow",Arial,sans-serif; letter-spacing:-.3px; color:#1c3a74; position:relative; }
+html[data-theme="softpedia"] .sp-otp span:after { content:"\21E8"; position:absolute; right:12px; color:#8BA4D8; font-size:15px; }
+html[data-theme="softpedia"] .onthispage .celltext_bigger { vertical-align:middle; white-space:nowrap; }
+html[data-theme="softpedia"] .sp-li { display:inline-block; width:12px; height:12px; border:1px solid #6F86B8; background:linear-gradient(#fff, #C9D6F1); margin-right:7px; vertical-align:-2px; }
+html[data-theme="softpedia"] .sp-dotrow div { width:770px; height:21px; background:linear-gradient(90deg, #9DB0D8 1px, transparent 1px) 0 10px / 4px 1px repeat-x; }
+
+/* content box with the rounded dotted top-left corner */
+html[data-theme="softpedia"] .sp-box { width:770px; margin:16px auto 0; position:relative; }
+html[data-theme="softpedia"] .sp-box:before { content:""; position:absolute; left:0; top:0; width:767px; height:60px; border-top:1px dotted #9DB0D8; border-left:1px dotted #9DB0D8; border-top-left-radius:22px; pointer-events:none; -webkit-mask:linear-gradient(#000 30%, transparent); mask:linear-gradient(#000 30%, transparent); }
+html[data-theme="softpedia"] .sp-boxin { padding:15px 0 0 15px; vertical-align:top; }
+html[data-theme="softpedia"] .sp-pgs { padding-right:8px; }
+html[data-theme="softpedia"] .sp-pgs b { color:#364269; }
+html[data-theme="softpedia"] .sp-rows { width:754px; margin-top:5px; }
+html[data-theme="softpedia"] .sp-rows > tbody > tr:nth-child(odd) { background:#EFF3FC; }
+html[data-theme="softpedia"] .sp-rl { width:564px; padding:5px 0; vertical-align:top; }
+html[data-theme="softpedia"] .sp-rr { width:190px; padding:5px 0; vertical-align:top; }
+html[data-theme="softpedia"] .sp-rows td td { padding:1px; }
+html[data-theme="softpedia"] .sp-ico { width:32px; height:26px; vertical-align:top; text-align:center; padding-right:2px !important; }
+html[data-theme="softpedia"] .sp-ico a { display:block; width:32px; height:32px; margin:0 2px; position:relative; overflow:hidden; text-decoration:none; }
+html[data-theme="softpedia"] .sp-ico b { position:absolute; inset:0; border:1px solid #B5C4E3; background:#fff; font:bold 14px/30px Arial; color:#8FA3D0; text-align:center; }
+html[data-theme="softpedia"] .sp-ico img { position:absolute; inset:0; width:32px; height:32px; object-fit:cover; background:#fff; }
+html[data-theme="softpedia"] .sp-rows .celltitles a { text-decoration:underline; }
+html[data-theme="softpedia"] .orizdotsbkg { height:11px; background:linear-gradient(90deg, #A6B6D7 2px, transparent 2px) 0 5px / 4px 1px repeat-x; }
+html[data-theme="softpedia"] .sp-bottom { width:754px; margin-top:5px; border-top:1px solid #9DAAC4; }
+html[data-theme="softpedia"] .sp-bottom td { padding-top:8px; }
+html[data-theme="softpedia"] .sp-tags { width:740px; margin-top:12px; line-height:16px; }
+html[data-theme="softpedia"] .sp-empty { padding:30px; }
+html[data-theme="softpedia"] .sp-about { width:740px; margin:10px auto 0; padding:8px 12px; background:#F2F5FF; border:1px solid #CEDEFE; }
+html[data-theme="softpedia"] .sp-about h1 { font:bold 13px Arial; color:#34538C; margin:0 0 4px; }
+html[data-theme="softpedia"] .sp-about p, html[data-theme="softpedia"] .sp-about ul { margin:4px 0; }
+html[data-theme="softpedia"] .sp-tools { float:right; }
+
+/* home: welcome row, square "On this page" button with 3x3 links, ad slot, two columns of coloured boxes */
+html[data-theme="softpedia"] .sp-hwel { width:780px; margin:-3px auto 0; }
+html[data-theme="softpedia"] .sp-hh1 { padding-left:4px; font:bold 18px/22px Verdana,Arial,sans-serif; color:#364269; vertical-align:top; }
+html[data-theme="softpedia"] .sp-hstat { width:180px; font:bold 13px/16px Verdana,Arial,sans-serif; color:#364269; vertical-align:top; padding-top:2px; }
+html[data-theme="softpedia"] .sp-hotp { width:780px; margin:5px auto 0; }
+html[data-theme="softpedia"] .sp-hotp td { height:21px; vertical-align:middle; white-space:nowrap; }
+html[data-theme="softpedia"] .sp-hotp td.celltext_bigger { width:220px; }
+html[data-theme="softpedia"] .sp-hotb { width:131px; padding-left:8px; vertical-align:top !important; }
+html[data-theme="softpedia"] .sp-hotb span { display:block; width:90px; height:54px; box-sizing:border-box; padding:8px 0 0 9px; border:1px solid #9AB2E2; border-radius:9px; background:linear-gradient(#fff, #DCE6FA);
+  font:17px "Arial Narrow","Liberation Sans Narrow","Nimbus Sans Narrow",Arial,sans-serif; letter-spacing:-.3px; color:#1c3a74; }
+html[data-theme="softpedia"] .sp-hotb i { display:block; font-style:normal; font-size:13px; color:#8BA4D8; letter-spacing:1px; margin-top:4px; }
+html[data-theme="softpedia"] .sp-hgap { height:143px; }
+html[data-theme="softpedia"] .sp-hcols { width:780px; margin:0 auto; }
+html[data-theme="softpedia"] .sp-hcol { width:380px; padding:0 0 0 4px; }
+html[data-theme="softpedia"] .sp-hcol + .sp-hcol { padding-left:20px; }
+html[data-theme="softpedia"] .sp-hbox { width:380px; margin-bottom:22px; background:color-mix(in srgb, var(--c) 5%, #fff); }
+html[data-theme="softpedia"] .sp-hbh { position:relative; height:30px; box-sizing:border-box; padding:4px 0 0 18px; border-radius:15px; border:1px solid color-mix(in srgb, var(--c) 80%, #000);
+  background:linear-gradient(color-mix(in srgb, var(--c) 60%, #fff) 0, var(--c) 55%, color-mix(in srgb, var(--c) 85%, #000)); }
+html[data-theme="softpedia"] .sp-hbh a { font:19px Verdana,Arial,sans-serif; color:#34538C; text-decoration:underline; }
+html[data-theme="softpedia"] .sp-pill { float:right; margin:2px 6px 0 0; height:14px; padding:0 8px; border-radius:7px; background:linear-gradient(#fff, #d7e1f5); color:#34538C; font:bold 8px/14px Arial,sans-serif; }
+html[data-theme="softpedia"] .sp-hbh .sp-pill:first-of-type { margin-right:12px; }
+html[data-theme="softpedia"] .sp-hbs { display:flex; justify-content:space-between; padding:3px 10px 6px 6px; color:#808FAD; }
+html[data-theme="softpedia"] .sp-hbs a { color:#34538C; }
+html[data-theme="softpedia"] .sp-hbb { padding:4px 4px 8px 4px; }
+html[data-theme="softpedia"] .sp-he { padding:0 0 7px 26px; position:relative; font:11px/15px Verdana,Arial,sans-serif; color:#5C6985; }
+html[data-theme="softpedia"] .sp-hi { position:absolute; left:2px; top:2px; width:13px; height:13px; border:1px solid #6F86B8; background:linear-gradient(#fff, #C9D6F1); }
+html[data-theme="softpedia"] .sp-ht { font:bold 13px Verdana,Arial,sans-serif; color:#34538C; text-decoration:underline; }
+html[data-theme="softpedia"] .sp-adbox { width:120px; height:110px; margin:10px auto 14px; border:1px solid #fff; }
+
+/* item */
+html[data-theme="softpedia"] .sp-box.dwldbkg { margin-top:104px; }
+html[data-theme="softpedia"] .sp-itm { width:754px; margin-top:12px; }
+html[data-theme="softpedia"] .sp-itl { width:200px; padding-right:32px; }
+html[data-theme="softpedia"] .sp-dl { display:flex; width:58px; height:58px; margin:10px 0 2px 16px; border-radius:50%; align-items:center; justify-content:center; text-decoration:none;
+  background:radial-gradient(circle at 50% 24%, rgba(255,255,255,.55) 0, rgba(255,255,255,0) 40%), radial-gradient(circle at 50% 60%, #e8232b 55%, #9e1015 100%); box-shadow:0 0 0 3px #D3DEF6, 0 2px 4px rgba(0,0,0,.35); }
+html[data-theme="softpedia"] .sp-dl span { color:#fff; font:bold 11px "Arial Narrow","Liberation Sans Narrow","Nimbus Sans Narrow",Arial,sans-serif; text-shadow:0 1px 1px rgba(0,0,0,.5); }
+html[data-theme="softpedia"] .sp-dl.off { background:radial-gradient(circle at 50% 60%, #aab3c6 55%, #6e7891 100%); }
+html[data-theme="softpedia"] .sp-ila { line-height:21px; padding:0 0 8px 34px; border-bottom:1px dotted #8EA3CF; margin-bottom:10px; }
+html[data-theme="softpedia"] .sp-shot { width:160px; height:110px; margin:0 0 10px 24px; box-sizing:border-box; border:1px solid #9FB5E0; background:#F2F5FF; overflow:hidden; display:flex; flex-direction:column; align-items:center; justify-content:center; }
+html[data-theme="softpedia"] .sp-shot img, html[data-theme="softpedia"] .sp-shot video { max-width:158px; max-height:108px; width:auto !important; image-rendering:auto !important; }
+html[data-theme="softpedia"] .sp-shot audio { width:100%; }
+html[data-theme="softpedia"] .sp-itr { vertical-align:top; }
+html[data-theme="softpedia"] .sp-spec { width:100%; margin-top:6px; }
+html[data-theme="softpedia"] .sp-spec td { height:22px; padding:0 4px; vertical-align:middle; }
+html[data-theme="softpedia"] .sp-spec .sp-odd { background:#EFF3FC; }
+html[data-theme="softpedia"] .sp-k { width:147px; white-space:nowrap; color:#364269 !important; }
+html[data-theme="softpedia"] .sp-actions { width:100%; margin:8px 0 16px; background:#EFF3FC; }
+html[data-theme="softpedia"] .sp-actions td { height:28px; padding:0 6px; text-align:left; }
+html[data-theme="softpedia"] .sp-dh { border-bottom:1px dotted #9DB0D8; padding-bottom:4px; margin-bottom:8px; }
+html[data-theme="softpedia"] .sp-desc { text-align:justify; line-height:15px; }
+
+/* right column */
+html[data-theme="softpedia"] .sp-right { width:152px; vertical-align:top; padding-top:0; background:#CEDEFE; border-left:1px dotted #8DA2CE; padding-bottom:20px; }
+html[data-theme="softpedia"] .sp-rbtn { display:block; position:relative; width:130px; height:38px; margin:0 0 12px 9px; top:-3px; box-sizing:border-box; padding-left:36px; border:1px solid #A9BDE3; border-radius:12px;
+  background:linear-gradient(#fff, #E6EDFC 60%, #D3E0FA); color:#1c3a74; font:bold 14px/34px "Arial Narrow","Liberation Sans Narrow","Nimbus Sans Narrow",Arial,sans-serif; letter-spacing:-.5px; text-decoration:none; white-space:nowrap; }
+html[data-theme="softpedia"] .sp-rbtn i { position:absolute; left:9px; top:9px; width:16px; height:14px; border:2px solid #5d7ab4; border-radius:2px 2px 6px 6px; }
+html[data-theme="softpedia"] .sp-rbtn.sp-reviews { margin-bottom:4px; }
+html[data-theme="softpedia"] .sp-reviews i { border-radius:2px; transform:skewX(-8deg); }
+html[data-theme="softpedia"] .right_title_bkg { margin-top:-4px; height:22px; line-height:24px; padding-left:6px; font:bold 12px Arial,Helvetica,sans-serif; color:#21427D; border-radius:9px 9px 0 0; background:linear-gradient(#A7BCEB, #CEDEFE 70%); box-shadow:inset 0 1px 0 #fff, inset 1px 0 0 #E6EDFC; }
+html[data-theme="softpedia"] .sp-rbox { padding:8px 6px 16px 6px; }
+html[data-theme="softpedia"] .sp-welcomebox, html[data-theme="softpedia"] .sp-welcomebox a { font:11px/14px Verdana,Arial,sans-serif; color:#5C6985; }
+html[data-theme="softpedia"] .sp-welcomebox a { color:#34538C; }
+html[data-theme="softpedia"] .sp-rbox a { text-decoration:underline; }
+html[data-theme="softpedia"] .sp-opts { font:11px Verdana,Arial,sans-serif; color:#5C6985; }
+html[data-theme="softpedia"] .sp-opts select { width:140px; margin-top:2px; }
+html[data-theme="softpedia"] .sp-bul { margin:0; padding:0; list-style:none; }
+html[data-theme="softpedia"] .sp-bul li { position:relative; padding:0 0 8px 14px; white-space:nowrap; overflow:hidden; }
+html[data-theme="softpedia"] .sp-bul li:before { content:""; position:absolute; left:2px; top:3px; width:5px; height:5px; border-radius:50%; background:#3f6fd0; box-shadow:0 0 0 1px #9db8ea; }
+
+/* footer: 10px bar, 32px copyright, 21px links, 10px navy */
+html[data-theme="softpedia"] .sp-foot { width:100%; }
+html[data-theme="softpedia"] .sp-fbar { height:10px; background:#7A87A1; }
+html[data-theme="softpedia"] .sp-fcopy { width:822px; height:32px; padding:0 0 0 31px !important; background:#D7E0F1; vertical-align:middle; line-height:12px; }
+html[data-theme="softpedia"] .sp-flinks { height:21px; padding-left:31px !important; background:#B3C3E1; vertical-align:middle; }
+html[data-theme="softpedia"] .sp-fside { width:152px; background:#CCD8ED; }
+html[data-theme="softpedia"] .sp-fnavy { height:10px; background:#001F5B; }
