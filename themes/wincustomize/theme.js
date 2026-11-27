@@ -1,7 +1,7 @@
 // label: WinCustomize 2003
 // Original WinCustomize "GreenApple" markup (front page 2003-03-15, library listing 2003-09-11),
 // with the site's own CSS and UI images from themes/wincustomize/assets/. Only content regions are ours;
-// the logo image is replaced by our name in the same 189x75 box.
+// the original logo carries a small "Customization Museum replica" tag beside it.
 (() => {
   const A = 'themes/wincustomize/assets/';
   const DAYS = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
@@ -60,11 +60,12 @@ ${titleCells || `<td align="center" height="1" background="${A}frame_title.gif" 
 
   const header = (ctx) => {
     const { h, manifest: m } = ctx;
-    const ad = h.warning() || `<div class="cm-adstats"><span><b>${m.total.toLocaleString()}</b> skins, themes and add-ons &nbsp;-&nbsp; <b>${m.archived.toLocaleString()}</b> on the Wayback Machine</span></div>`;
+    // the 468x60 banner slot is empty in every capture; it only holds the malware notice until dismissed
+    const ad = h.warning();
     return `<table width="100%" align="center" border="0" cellpadding="0" cellspacing="0">
 <tr>
-<td height="1" bgcolor="#007236" align="left" valign="top"><a href="${h.url.home()}" class="cm-logo"><span>Customization</span><span>Museum</span></a></td>
-<td height="1" bgcolor="#007236" align="right" class="content"><div class="cm-ad">${ad}</div></td>
+<td height="1" bgcolor="#007236" align="left" valign="top"><a href="${h.url.home()}"><img src="${A}logo_top.gif" border="0" alt="WinCustomize"></a><span class="cm-replica">Customization Museum replica</span></td>
+<td height="1" bgcolor="#007236" align="right" class="content">${ad ? `<div class="cm-ad">${ad}</div>` : ''}</td>
 </tr>
 </table>
 <form id="cm-hsearch" data-search></form>
@@ -206,6 +207,8 @@ ${answers}
 </tr>
 </table>`);
   };
+  // the original cut side-column names at 18 characters ("Windows XP Media C")
+  const cut = (h, s, n = 18) => `<span title="${h.esc(s)}">${h.esc(s.length > n ? s.slice(0, n) : s)}</span>`;
   const iconList = (title, rows) => frame(title, `<table width="100%" border="0" valign="top" cellpadding="0" cellspacing="3">
 ${rows.map(([img, href, label]) => `<tr>
 <td class="columns" valign="bottom"><img src="${img}" border="0" align="absmiddle"></td>
@@ -226,13 +229,13 @@ ${Object.entries(m.sites).sort((a, b) => b[1].count - a[1].count).slice(0, 6).ma
   };
 
   const left = (ctx, r = {}, home = false) => (home ? dailyShot(ctx) : '') + library(ctx, r) + resources(ctx) + options(ctx) + poll(ctx);
-  const right = (ctx, rows) => {
+  const right = (ctx, rows, sort) => {
     const { h, manifest: m } = ctx;
     const sites = Object.entries(m.sites).sort((a, b) => b[1].count - a[1].count);
     return goodies(ctx)
-      + iconList('Top&nbsp;Libraries', m.apps.slice(0, 10).map(a => [appIcon(a), h.url.app(a.slug), h.esc(a.name)]))
-      + ranked('Top&nbsp;Sources', sites.slice(0, 10).map(([s, i]) => [h.url.site(s), h.esc(i.name), i.count]))
-      + (rows && rows.length ? inlineIcons('On&nbsp;This&nbsp;Page', rows.slice(0, 20).map(e => [rowIcon(e), h.url.item(e), h.esc(e.t)])) : '')
+      + iconList('Top&nbsp;Libraries', m.apps.slice(0, 10).map(a => [appIcon(a), h.url.app(a.slug), cut(h, a.name)]))
+      + ranked('Top&nbsp;Sources', sites.slice(0, 10).map(([s, i]) => [h.url.site(s), cut(h, i.name, 16), i.count]))
+      + (rows && rows.length ? inlineIcons(sort ? 'On&nbsp;This&nbsp;Page' : 'Newest&nbsp;Additions', rows.slice(0, 20).map(e => [rowIcon(e), h.url.item(e), cut(h, e.t)])) : '')
       + iconList('Types', Object.entries(m.types).map(([t]) => [typeIcon(t), h.url.type(t), h.esc(t)]))
       + community(ctx);
   };
@@ -400,9 +403,9 @@ ${recent.slice(1, 8).map(story).join('\n')}
     const leftCol = daily + library(ctx) + resources(ctx) + options(ctx) + articles + poll(ctx);
     const sitesAll = Object.entries(m.sites).sort((a, b) => b[1].count - a[1].count);
     const rightCol = goodies(ctx)
-      + iconList('Top&nbsp;Libraries', m.apps.slice(0, 10).map(a => [appIcon(a), h.url.app(a.slug), h.esc(a.name)]))
-      + ranked('Top&nbsp;Sources', sitesAll.slice(0, 10).map(([s, i]) => [h.url.site(s), h.esc(i.name), i.count]))
-      + inlineIcons('Newest&nbsp;Additions', recent.slice(0, 20).map(e => [rowIcon(e), h.url.item(e), h.esc(e.t)]))
+      + iconList('Top&nbsp;Libraries', m.apps.slice(0, 10).map(a => [appIcon(a), h.url.app(a.slug), cut(h, a.name)]))
+      + ranked('Top&nbsp;Sources', sitesAll.slice(0, 10).map(([s, i]) => [h.url.site(s), cut(h, i.name, 16), i.count]))
+      + inlineIcons('Newest&nbsp;Additions', recent.slice(0, 20).map(e => [rowIcon(e), h.url.item(e), cut(h, e.t)]))
       + iconList('Types', Object.entries(m.types).map(([t]) => [typeIcon(t), h.url.type(t), h.esc(t)]))
       + community(ctx);
     return page(ctx, leftCol, featured + about + ' .' + news, rightCol);
@@ -425,13 +428,13 @@ ${recent.slice(1, 8).map(story).join('\n')}
 </div></td>
 <td align="right" height="1" background="${A}frame_title.gif" class="frametitle">&nbsp;&nbsp;Category: <b>${h.esc(e.y.join(', '))}</b>
 </td>`;
-    return frame('', `<table width="100%" border="0" valign="TOP" cellpadding="0" cellspacing="5"><tr><td valign="TOP" width="50" height="100%" bgcolor="#AAAAAA">
+    return frame('', `<table width="100%" border="0" valign="TOP" cellpadding="0" cellspacing="5"><tr><td valign="TOP" width="50" height="100%" bgcolor="#AAAAAA" class="cm-fill">
 <table width="100%" height="100%" border="0" valign="TOP" cellpadding="5" cellspacing="1"><tr><td valign="TOP" width="100%" height="100%" bgcolor="#DDDDDD" class="contents">
-<div style="overflow: hidden; width: 150px">
+${thumb ? `<div class="cm-tw" style="overflow: hidden; width: 150px">
 <a class="" href="${h.url.item(e)}">${thumb}</a>
-</div>
+</div>` : `<img alt="" border="0" src="${A}blank.gif">`}
 </td></tr></table>
-</td><td valign="TOP" width="100%" bgcolor="#AAAAAA">
+</td><td valign="TOP" width="100%" height="100%" bgcolor="#AAAAAA" class="cm-fill">
 <table width="100%" height="100%" border="0" valign="TOP" cellpadding="5" cellspacing="1"><tr><td valign="TOP" width="100%" height="100%" bgcolor="#ffffff" class="content">
 <table border="0" width="100%" height="100%" align="CENTER" cellpadding="1" cellspacing="0"><tr><td valign="TOP" class="contents">
 ${author ? `Author:&nbsp;<a class="contents" href="${h.url.site(e.s)}">${h.esc(author)}</a>` : `Program:&nbsp;<a class="contents" href="${h.url.app(e.k)}">${h.esc(e.a)}</a>`}<br><br>
@@ -440,11 +443,11 @@ ${info.map(([k, v]) => `${k === 'Created' ? '<br>' : ''}${LABEL[k] || `${h.esc(k
 <br>
 </td></tr>
 ${x.Compatibility ? `<tr><td valign="bottom" class="contents">${xp ? `<img src="${A}16-winxp-icon.gif" border="0" align="absmiddle">&nbsp;` : ''}<b>${h.esc(x.Compatibility).replace(/ /g, '&nbsp;')}</b></td></tr>` : ''}
-<tr><td valign="TOP" height="100%" class="contents">
+${desc ? `<tr><td valign="TOP" height="100%" class="contents">
 <br>
-${desc ? `<b>Description:&nbsp;<br></b>${desc}` : ''}
+<b>Description:&nbsp;<br></b>${desc}
 </td>
-</tr>
+</tr>` : ''}
 </table>
 </td></tr></table>
 </td></tr><tr><td valign="TOP" width="100%" bgcolor="#AAAAAA" colspan="2">
@@ -558,7 +561,7 @@ ${Object.entries(a.types).map(([t, n]) => `<a class="content" href="${h.link({},
         : aboutBox(`About ${h.esc(title)}`, `${h.esc(title)}: ${l.total} items`,
           `&nbsp;&nbsp;<a class="content" href="${h.link(r, { sort: '' })}">Newest</a> &nbsp;&nbsp;-&nbsp;&nbsp;<a class="content" href="${h.link(r, { sort: 'old' })}">Oldest</a>&nbsp;&nbsp;-&nbsp;&nbsp;<a class="content" href="${h.link(r, { arch: '1' })}">Archived</a>`);
       const rows = l.rows.length ? l.rows.map(e => entry(h, e)).join('') : panel('No skins matched.');
-      return page(ctx, left(ctx, { app: r.app }), search + box + '<!-- BEGIN DISPLAYING SKINS -->' + rows + pager(h, r, l), right(ctx, l.rows));
+      return page(ctx, left(ctx, { app: r.app }), search + box + '<!-- BEGIN DISPLAYING SKINS -->' + rows + pager(h, r, l), right(ctx, l.rows, r.sort));
     },
 
     item(ctx) {
@@ -574,7 +577,7 @@ ${Object.entries(a.types).map(([t, n]) => `<a class="content" href="${h.link({},
       // "Comments" box: details, description and the full-size preview as comment panels
       const comments = frame('Details',
         panel(`${h.details(e).map(([k, v]) => `<b>${k}:</b> ${v}`).join('<br>\n')}${by(`${a(h.edit(e), 'Edit')}&nbsp;-&nbsp;${a(h.report(e), 'Report')}${h.page(e) ? `&nbsp;-&nbsp;${a(h.page(e), 'Original page')}` : ''}`)}`)
-        + panel(`<div align="center" class="cm-media">${h.media(e)}</div>`),
+        + (h.media(e) ? panel(`<div align="center" class="cm-media">${h.media(e)}</div>`) : ''),
         { width: '100%', bg: '#F6F6F6' });
       return page(ctx, left(ctx, r), search + box + entry(h, e) + comments, right(ctx));
     },
