@@ -114,7 +114,7 @@ ${titleCells || `<td align="center" height="1" background="${A}frame_title.gif" 
     const { h, manifest: m } = ctx;
     const rows = m.apps.slice(0, 22).map(a => `<tr>
 <td class="columns" valign="bottom"><img src="${appIcon(a)}" border="0" align="absmiddle"></td>
-<td class="columns" valign="bottom" width="100%"><a class="columns" href="${h.url.app(a.slug)}">${h.esc(a.name)}</a></td>
+<td class="columns" valign="bottom" width="100%"><nobr class="cm-lib"><a class="columns" href="${h.url.app(a.slug)}">${cut(h, a.name, 14)}</a></nobr></td>
 <td class="columns" valign="bottom" align="right">[${a.count}]</td>
 </tr>`).join('');
     return frame(`<a class="frametitle" href="${h.url.home()}">Library</a>`, `<table width="100%" border="0" valign="top" cellpadding="0" cellspacing="3">${rows}
@@ -194,16 +194,21 @@ ${answers}
 <tr><td align="center" class="columns"><a href="${h.link({}, { arch: '1' })}"><img src="${A}32-sb-icon.gif" border="0"></a><br><a class="columns" href="${h.link({}, { arch: '1' })}">${m.archived} of ${m.total} items archived</a></td></tr>
 </table>`);
   };
+  // original product box: picture, one caption line, BUY IT! button; the product is one of our items with a preview
   const goodies = (ctx) => {
     const { h, manifest: m } = ctx;
+    const pool = (ctx.recent || ctx.list?.rows || (ctx.related || []).filter(e => e !== ctx.item)).filter(e => e.v);
+    const g = pool.length ? pool[new Date().getDate() % Math.min(pool.length, 15)] : ctx.item?.v ? ctx.item : null;
+    const href = g ? h.url.item(g) : h.url.request();
     return frame('Museum&nbsp;Goodies', `<table width="100%" border="0" valign="top" cellpadding="0" cellspacing="3">
 <tr><td align="center" class="columns">
-<br>${m.total} items<br>${m.apps.length} programs<br><br>
+${g ? `<a href="${href}">${h.img(g, 'border="0" class="cm-goodie"')}</a><br>
+<a class="columns" href="${href}">${cut(h, g.t, 22)}</a>` : `<br>${m.total} items<br>${m.apps.length} programs<br><br>`}
 </td></tr>
 </table>
 <table width="100%" height="34" align="CENTER" border="0" cellpadding="0" cellspacing="0" background="${A}bg_bottom.gif">
 <tr>
-<td align="center" valign="middle" class="search" height="34"><a class="search" href="${h.url.request()}" target="_blank" rel="noopener">REQUEST</a></td>
+<td align="center" valign="middle" class="search" height="34"><a href="${href}"${g ? '' : ' target="_blank" rel="noopener"'}><img src="${A}button_buy.gif" border="0" align="middle"></a></td>
 </tr>
 </table>`);
   };

@@ -49,3 +49,7 @@ html[data-theme="wincustomize"] td.cm-fill[width="50"] { background:#DDDDDD; }
 html[data-theme="wincustomize"] img[src$="logo_top.gif"] { display:block; }
 /* a screenshot that failed to load leaves the slim strip, not an empty 150px panel */
 html[data-theme="wincustomize"] .cm-tw:not(:has(img)) { width:1px !important; height:1px; }
+/* Goodies product picture at the original's size (WB4.jpg was 124x122) */
+html[data-theme="wincustomize"] img.cm-goodie { max-width:125px; max-height:125px; vertical-align:bottom; }
+/* Library names stay on one line inside the 170px box whatever the glyph widths */
+html[data-theme="wincustomize"] nobr.cm-lib { display:block; max-width:98px; overflow:hidden; }
