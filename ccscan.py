@@ -6,7 +6,7 @@ import gzip, sys, urllib.request
 import duckdb
 
 EXTS = [
-    "plsk", "plsc", "mct", "mco", "tsz", "tsv", "ysz", "ipz", "mts", "wmz", "wms", "vlt", "fth",
+    "plsk", "plsc", "mct", "mco", "tsz", "ysz", "ipz", "mts", "wmz", "wms", "vlt", "fth",
     "sqinterface", "qsk", "qsf", "msstyles", "themepack", "deskthemepack", "wba", "uis", "iptheme",
     "dxtheme", "dxpack", "rmskin", "lsz", "widget", "nth", "thm", "ptf", "tsk",
     "adiummessagestyle", "adiumemoticonset", "adiumicon", "adiumsoundset", "adiumstatusicons", "listtheme", "listlayout",
