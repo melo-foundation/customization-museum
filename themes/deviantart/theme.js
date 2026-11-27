@@ -39,6 +39,12 @@
 
   const thumb = (h, e, cap) => `<div class="dv-tt"><a class="dv-th" href="${h.url.item(e)}" title="${h.esc(e.t)}">${h.img(e) || '<span class="dv-ph"></span>'}</a>${cap}</div>`;
 
+  // "in <category>": the program when browsing across programs; inside a program, the item's own subject tag or type
+  const where = (h, r, e) => {
+    if (!r.app) return `<a href="${h.url.app(e.k)}">${h.esc(e.a)}</a>`;
+    const tag = e.g.find(g => g !== r.tag && !/classic|modern/i.test(g));
+    return tag ? `<a href="${h.esc(h.link(r, { tag }))}">${h.esc(tag)}</a>` : `<a href="${h.url.type(e.y[0])}">${h.esc(e.y[0])}</a>`;
+  };
   const catButton = label => `<span class="dv-cats">${label}<i></i></span>`;
 
   THEMES.deviantart = {
@@ -109,7 +115,7 @@
         <div class="dv-tabs"><span class="dv-sorts">${opt(r.sort, [['', 'Newest'], ['az', 'A&ndash;Z'], ['old', 'Way back']], 'sort')}</span><span class="dv-show">Show ${opt(r.arch, [['', 'All'], ['1', 'Archived'], ['0', 'Not archived']], 'arch')}</span></div>
         <div class="dv-range"><span>Types</span>${range}</div>
         <div class="dv-body">
-          <div class="dv-grid">${l.rows.length ? l.rows.map(e => thumb(h, e, `<div class="dv-cap">in <a href="${h.url.app(e.k)}">${h.esc(e.a)}</a></div>`)).join('') : '<p class="dv-empty">No deviations found.</p>'}</div>
+          <div class="dv-grid">${l.rows.length ? l.rows.map(e => thumb(h, e, `<div class="dv-ttl"><a href="${h.url.item(e)}">${h.esc(e.t)}</a></div><div class="dv-cap">in ${where(h, r, e)}</div>`)).join('') : '<p class="dv-empty">No deviations found.</p>'}</div>
           ${side}
         </div>
         ${l.pages > 1 ? `<div class="dv-pager">${p.prev ? `<a href="${p.prev}">Previous Page</a>` : '<span>Previous Page</span>'}<em>Page ${l.page} of ${l.pages}</em>${p.next ? `<a href="${p.next}">Next Page</a>` : '<span>Next Page</span>'}</div>` : ''}

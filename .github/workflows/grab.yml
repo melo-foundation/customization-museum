@@ -1,0 +1,39 @@
+name: grab
+
+on:
+  workflow_dispatch:
+    inputs:
+      urls:
+        description: Wayback page URLs (use .../web/<ts>if_/<url>), space separated, max 10
+        required: true
+      tag:
+        default: grab
+
+permissions:
+  contents: read
+
+jobs:
+  grab:
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+    steps:
+      - run: |
+          mkdir out && cd out
+          n=0
+          for u in $URLS; do
+            n=$((n + 1)); d=$(printf 'page%02d' $n); mkdir "$d"
+            printf '%s\t%s\n' "$d" "$u" >> index.tsv
+            # page + every stylesheet, image and script it loads, links rewritten to the local copies
+            (cd "$d" && wget -q -p -k -E -H -nH --cut-dirs=0 -e robots=off --tries=3 --waitretry=5 --wait=1 \
+              --user-agent="customization-museum/0.1 (+https://github.com/melo-foundation/customization-museum)" "$u" || true)
+            # CSS url() references are not followed by wget -p in every case: fetch them too
+            find "$d" -name '*.css*' -print0 | xargs -0 -r grep -ohE "url\(['\"]?[^)'\"]+" | sed -E "s/url\(['\"]?//" | sort -u > "$d/css-urls.txt" || true
+            echo "$d: $(find "$d" -type f | wc -l) files, $(du -sh "$d" | cut -f1)"
+          done
+        env:
+          URLS: ${{ inputs.urls }}
+      - uses: actions/upload-artifact@v4
+        with:
+          name: ${{ inputs.tag }}
+          path: out
+          retention-days: 7
