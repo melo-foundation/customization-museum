@@ -1,156 +1,185 @@
 // label: deviantART 2006
-// Layout of deviantART v5 (late 2006): dark top bar, login strip, ad slot, rounded content panel, footer.
+// Original deviantART v5 (Dec 2006) markup and stylesheet; only content regions are filled from ctx.
+// Templates are generated from Wayback mirrors (between the TPL markers); do not edit them by hand.
 (() => {
-  const ico = {
-    browse: '<svg viewBox="0 0 16 16"><rect x="1.5" y="1.5" width="13" height="13" rx="2" fill="#d9b25a" stroke="#6b4e1c"/><rect x="4" y="4" width="8" height="8" fill="#fff6dc"/></svg>',
-    archive: '<svg viewBox="0 0 16 16"><path d="M2 4h12v9H2z" fill="#c9d8d0" stroke="#41514b"/><path d="M1 2h14v3H1z" fill="#8fa89b" stroke="#41514b"/></svg>',
-    request: '<svg viewBox="0 0 16 16"><circle cx="8" cy="8" r="6.5" fill="#e2d35b" stroke="#6a5f16"/><path d="M5 9c1 2 5 2 6 0" stroke="#4a4210" fill="none"/><circle cx="6" cy="6.5" r="1" fill="#4a4210"/><circle cx="10" cy="6.5" r="1" fill="#4a4210"/></svg>',
-    about: '<svg viewBox="0 0 16 16"><path d="M2 3h12v8H7l-3 3v-3H2z" fill="#dde7e3" stroke="#41514b"/></svg>',
-  };
-  const ext = 'target="_blank" rel="noopener"';
+  const TPL = /*TPL*/{"front": {"html": "<div id=\"world\">\n<div id=\"top\"> <i class=\"ttr\"></i>\n<h1><a href=\"#\">deviant ART</a></h1>\n<div id=\"top-middle\">\n<div class=\"icons iconset-top\">\n<i class=\"i1\"></i><a class=\"a1\" href=\"#\">Browse</a>\n<i class=\"i2\"></i><a class=\"a2\" href=\"#\">Shop <small>new!</small></a>\n<i class=\"i5\"></i><a class=\"a5\" href=\"#\">Chat</a>\n<i class=\"i3\"></i><a class=\"a3\" href=\"#\">News</a>\n<i class=\"i4\"></i><a class=\"a4\" href=\"#\">Today</a>\n<i class=\"i6\"></i><a class=\"a6\" href=\"#\">Forum</a>\n</div>\n<form action=\"#\" class=\"f search\" method=\"get\">\n<i class=\"ll\"></i>\n<i class=\"rr\"></i>\n<input name=\"section\" type=\"hidden\" value=\"browse\"/>\n<input name=\"qh\" type=\"hidden\" value=\"boost:popular age_sigma:24h age_scale:5\"/>\n<input class=\"itext\" name=\"q\" type=\"text\" value=\"\"/>\n<input class=\"ibutton\" type=\"submit\" value=\"Search Art\"/>\n</form>\n</div>\n<div id=\"rockdock\">\n<form action=\"#\" method=\"post\">\n<input name=\"ref\" type=\"hidden\" value=\"http://www.deviantart.com/\"/> Username: <span class=\"inputter\"></span>\n<input class=\"itext\" name=\"username\" type=\"text\"/> Password: <span class=\"inputter\"></span>\n<input class=\"itext\" name=\"password\" type=\"password\"/>\n<span id=\"entrancelinker\"><a href=\"#\" id=\"entrancelink\">login</a></span>\n<input class=\"ibutton\" name=\"action\" style=\"display:none\" type=\"submit\" value=\"login\"/> or <a href=\"#\">Not a member? Become a Deviant!</a>\n</form>\n</div>\n<a href=\"#\" id=\"lostlink\">Lost Password?</a>\n<i class=\"tl\"></i><i class=\"tr\"></i>\n</div>\n<div id=\"output\">\n<div class=\"bubbleview onebubble ieh\" id=\"da\">\n<table class=\"f full\" id=\"home-art\"><tr>\n<td class=\"f\">\n<div class=\"catbar\">\n<a href=\"#\" id=\"catbutton\">Categories</a>\n<div class=\"preload\" id=\"menu-preload\"><span class=\"i\"></span></div>\n<span id=\"deviation-rocket\">28,588,007 deviations</span> </div>\n<hr/>\n<a class=\"nav h a\" href=\"#\">Newest</a>\n<div class=\"stream\"></div>\n<hr/>\n<a class=\"nav h a\" href=\"#\">Popular</a>\n<div class=\"stream\"></div>\n<hr/>\n<a class=\"nav h a\" href=\"#\">Prints</a>\n<div class=\"stream\"></div>\n<hr/>\n<a class=\"nav h a\" href=\"#\">Daily Deviations</a>\n<div class=\"stream\"></div>\n</td>\n<td class=\"f\" id=\"home-bar\"> <h2> Become a Deviant! </h2>\n<form action=\"#\" method=\"post\"> Join the largest art community in the world! As a member, you can collect favourites, submit art, and track your friends and favourite artists. <br/><br/>\n<div id=\"home-join\">\n<strong>Choose a username!</strong><br/>\n<input class=\"itext\" name=\"cusername\" type=\"text\"/>.deviantart.com<br/>\n<input class=\"ibutton\" type=\"submit\" value=\"Join!\"/>\n</div>\n</form>\n<br/><div class=\"section\">\n<h2 class=\"section-head\" style=\"font-size:110%;font-weight:bold\">Notices</h2>\n<br/>\n<div class=\"trailing section-block\">\n<div class=\"first last subsection\" id=\"subsection-nav-newsthumbs\"></div></div></div> <div class=\"sub\">\n<h3>deviantART Loves You</h3>\nDeviously serving the art and skin community for 2,315 days.\nOnly 241 days until our seventh birthday! </div>\n</td>\n</tr></table>\n</div> <div class=\"h\" id=\"depths\">\n<i class=\"tl\"></i><i class=\"tr\"></i>\n<i class=\"bl\"></i><i class=\"br\"></i>\n<div id=\"depths-in\">\n<span>\n<a href=\"#\">Random Deviation</a> | <a href=\"#\">Random Deviant</a> | <a href=\"#\">Our Partners</a>\n</span>\n<br/><br/> © 2006 deviantART Inc. | <a href=\"#\">About Us</a> | <a href=\"#\">Contact Us</a> | <a href=\"#\">Advertise</a> | <a href=\"#\">Etiquette</a> | <a href=\"#\">Privacy Policy</a> | <a href=\"#\">Terms of Service</a> | <a href=\"#\">Services</a> | <a href=\"#\">Help and FAQ</a>\n</div> </div>\n</div>\n</div>", "bodyId": "deviantART-v5", "bodyClass": "bubble cm-v556"}, "deviation": {"html": "<div id=\"world\">\n<div id=\"top\"> <i class=\"ttr\"></i>\n<h1><a href=\"#\">deviant ART</a></h1>\n<div id=\"top-middle\">\n<div class=\"icons iconset-top\">\n<i class=\"i1\"></i><a class=\"a1\" href=\"#\">Browse</a>\n<i class=\"i2\"></i><a class=\"a2\" href=\"#\">Shop <small>new!</small></a>\n<i class=\"i5\"></i><a class=\"a5\" href=\"#\">Chat</a>\n<i class=\"i3\"></i><a class=\"a3\" href=\"#\">News</a>\n<i class=\"i4\"></i><a class=\"a4\" href=\"#\">Today</a>\n<i class=\"i6\"></i><a class=\"a6\" href=\"#\">Forum</a>\n</div>\n<form action=\"#\" class=\"f search\" method=\"get\">\n<i class=\"ll\"></i>\n<i class=\"rr\"></i>\n<input name=\"section\" type=\"hidden\" value=\"browse\"/>\n<input name=\"qh\" type=\"hidden\" value=\"boost:popular age_sigma:24h age_scale:5\"/>\n<input class=\"itext\" name=\"q\" type=\"text\" value=\"\"/>\n<input class=\"ibutton\" type=\"submit\" value=\"Search Art\"/>\n</form>\n</div>\n<div id=\"rockdock\">\n<form action=\"#\" method=\"post\">\n<input name=\"ref\" type=\"hidden\" value=\"http://www.deviantart.com/deviation/10038753/\"/> Username: <span class=\"inputter\"></span>\n<input class=\"itext\" name=\"username\" type=\"text\"/> Password: <span class=\"inputter\"></span>\n<input class=\"itext\" name=\"password\" type=\"password\"/>\n<span id=\"entrancelinker\"><a href=\"#\" id=\"entrancelink\">login</a></span>\n<input class=\"ibutton\" name=\"action\" style=\"display:none\" type=\"submit\" value=\"login\"/> or <a href=\"#\">Not a member? Become a Deviant!</a>\n</form>\n</div>\n<a href=\"#\" id=\"lostlink\">Lost Password?</a>\n<i class=\"tl\"></i><i class=\"tr\"></i>\n</div>\n<div id=\"output\">\n<div class=\"h\" data-slot=\"ad\" id=\"ad-blocking-makes-fella-sad\">\n<i class=\"tl\"></i><i class=\"tr\"></i>\n<i class=\"bl\"></i><i class=\"br\"></i> </div>\n<div class=\"bubbleview iehh\" id=\"deviation\">\n<div class=\"iconleft deviant\">\n<h1>Wander <small>by =<a class=\"u\" href=\"#\">alesyira<img alt=\"\" class=\"avatar\" height=\"50\" src=\"../../../../../20061218144952im_/http%253A/a.deviantart.com/avatars/a/l/alesyira.gif\" width=\"50\"/></a></small></h1>\n<div class=\"catpath\">\n<a href=\"#\" id=\"catbutton\">Categories</a>\n<a class=\"h\" href=\"#\">Digital Art</a> &gt; <a class=\"h\" href=\"#\">Paintings &amp; Airbrushing</a> &gt; <a class=\"h\" href=\"#\">Fanart</a> &gt; <a class=\"h\" href=\"#\">Anime/Manga</a> <div class=\"preload\" id=\"menu-preload\"><span class=\"i\"></span></div>\n</div>\n<br/> <span class=\"shadow\" id=\"zoomed-out\"></span>\n<span class=\"shadow\" id=\"zoomed-in\" style=\"display:none;background-image:none !important\"><a href=\"#\"></a></span>\n<div class=\"tools\" id=\"deviation-tools\">\n<div class=\"tool-links iconset-art icons vicons\" id=\"deviation-links\">\n<i class=\"i1\"></i><a href=\"#\" id=\"zoom-button\">Full View</a>\n<i class=\"i16\"></i><a href=\"#\" id=\"request-button\">Print Not Enabled<small>(Shop Similar Prints)</small></a><i class=\"i8\"></i><a href=\"#\">Send to Mobile</a><strong class=\"c\">Also</strong><i class=\"i15\"></i><a class=\"c\" href=\"#\">alesyira's profile</a><i class=\"i14\"></i><a class=\"c\" href=\"#\">alesyira's gallery</a> </div>\n</div> </div>\n<div class=\"pp c copy\"> ©2004-2006 =<a class=\"u\" href=\"#\">alesyira</a> </div> <div class=\"c\">\n<div class=\"l hh h altaltview ppp\" id=\"artist-comments\">\n<i class=\"tl\"></i><i class=\"tr\"></i>\n<i class=\"bl\"></i><i class=\"br\"></i>\n<div class=\"details\">\n<strong>Details</strong><br/> Submitted: <span title=\"120w 6d ago\">Aug 23, 2004</span><br/> Image Size: 173 KB<br/> Resolution: 1168×814<br/> Comments: 45<br/> Favourites: 110 [<a class=\"a\" href=\"#\">who?</a>] <br/> <br/>\n<strong>Views</strong><br/> Total: 3,733<br/> Today: 85<br/>\n<br/>\n<strong>Full-views</strong><br/> Total: 1,765<br/> Today: 0<br/>\n<br/>\n<strong>Embed</strong><br/>\n<input type=\"text\" value='&lt;object width=\"450\" height=\"369\"&gt;&lt;param name=\"movie\" value=\"http://backend.deviantart.com/embed/view.swf\"&gt;&lt;/param&gt;&lt;param name=\"flashvars\" value=\"id=10038753\" /&gt;&lt;embed src=\"http://backend.deviantart.com/embed/view.swf\" type=\"application/x-shockwave-flash\" width=\"450\" flashvars=\"id=10038753\" height=\"369\"&gt;&lt;/embed&gt;&lt;/object&gt;&lt;br /&gt;&lt;a href=\"http://www.deviantart.com/deviation/10038753/\"&gt;Wander&lt;/a&gt; by =&lt;a class=\"u\" href=\"http://alesyira.deviantart.com/\"&gt;alesyira&lt;/a&gt; on &lt;a href=\"http://www.deviantart.com\"&gt;deviant&lt;/a&gt;&lt;a href=\"http://www.deviantart.com\"&gt;ART&lt;/a&gt;'/><br/><br/>\n<strong>Thumb</strong><br/>\n<input type=\"text\" value=\":thumb10038753:\"/><br/> </div>\n<h3 class=\"f\"> Artist's Comments </h3>\n<div class=\"text block pppt\"></div>\n</div>\n</div>\n<div class=\"c\"> <div class=\"altaltview h c\" id=\"adso-magnifico\"></div>\n</div> </div>\n<div class=\"h\" id=\"depths\">\n<i class=\"tl\"></i><i class=\"tr\"></i>\n<i class=\"bl\"></i><i class=\"br\"></i>\n<div id=\"depths-in\">\n<span>\n<a href=\"#\">Random Deviation</a> | <a href=\"#\">Random Deviant</a> | <a href=\"#\">Our Partners</a>\n</span>\n<br/><br/> © 2006 deviantART Inc. | <a href=\"#\">About Us</a> | <a href=\"#\">Contact Us</a> | <a href=\"#\">Advertise</a> | <a href=\"#\">Etiquette</a> | <a href=\"#\">Privacy Policy</a> | <a href=\"#\">Terms of Service</a> | <a href=\"#\">Services</a> | <a href=\"#\">Help and FAQ</a>\n</div> </div>\n</div>\n</div>", "bodyId": "deviantART-v5", "bodyClass": "bubble cm-v556"}, "browse": {"html": "<div id=\"world\">\n<div class=\"section-browse\" id=\"top\"> <i class=\"ttr\"></i>\n<h1><a href=\"#\">deviant ART</a></h1>\n<div id=\"top-middle\">\n<div class=\"icons iconset-top\">\n<i class=\"i1\"></i><a class=\"a1\" href=\"#\">Browse</a>\n<i class=\"i2\"></i><a class=\"a2\" href=\"#\">Shop</a>\n<i class=\"i5\"></i><a class=\"a5\" href=\"#\">Chat</a>\n<i class=\"i3\"></i><a class=\"a3\" href=\"#\">News</a>\n<i class=\"i4\"></i><a class=\"a4\" href=\"#\">Today</a>\n<i class=\"i6\"></i><a class=\"a6\" href=\"#\">Forum</a>\n</div>\n<form action=\"#\" class=\"f search\" method=\"get\">\n<i class=\"ll\"></i>\n<i class=\"rr\"></i>\n<input name=\"section\" type=\"hidden\" value=\"browse\"/>\n<input name=\"qh\" type=\"hidden\" value=\"boost:popular age_sigma:24h age_scale:5\"/>\n<input class=\"itext\" name=\"q\" type=\"text\" value=\"\"/>\n<input class=\"ibutton\" type=\"submit\" value=\"Search Art\"/>\n</form>\n</div>\n<div id=\"rockdock\">\n<form action=\"#\" method=\"post\">\n<input name=\"ref\" type=\"hidden\" value=\"http://browse.deviantart.com/customization/skins/?order=9\"/> Username: <span class=\"inputter\"></span>\n<input class=\"itext\" name=\"username\" type=\"text\"/> Password: <span class=\"inputter\"></span>\n<input class=\"itext\" name=\"password\" type=\"password\"/>\n<span id=\"entrancelinker\"><a href=\"#\" id=\"entrancelink\">login</a></span>\n<input class=\"ibutton\" name=\"action\" style=\"display:none\" type=\"submit\" value=\"login\"/> or <a href=\"#\">Not a member? Become a Deviant!</a>\n</form>\n</div>\n<a href=\"#\" id=\"lostlink\">Lost Password?</a>\n<i class=\"tl\"></i><i class=\"tr\"></i>\n</div>\n<div id=\"output\">\n<div class=\"h\" data-slot=\"ad\" id=\"ad-blocking-makes-fella-sad\">\n<i class=\"tl\"></i><i class=\"tr\"></i>\n<i class=\"bl\"></i><i class=\"br\"></i> </div>\n<div class=\"h bubbleview\" id=\"browse\"><div class=\"catbar h\"><h1>Skins &amp; Themes</h1><form aaaction=\"http://search.deviantart.com/\" action=\"#\" class=\"searchle\" method=\"get\"><input name=\"catpath\" type=\"hidden\" value=\"customization/skins/\"/><input name=\"order\" type=\"hidden\" value=\"9\"/><input class=\"itext cold\" name=\"q\" type=\"text\" value=\"search these results\"/>\n<span class=\"scripted\"><a href=\"#\"></a></span>\n<span class=\"unscripted\"><input class=\"ibutton\" type=\"submit\" value=\"Search\"/></span>\n</form>\n<div class=\"catpath\"> <a href=\"#\" id=\"catbutton\">Categories</a>\n<a class=\"h\" href=\"#\">Customization</a> &gt; <a class=\"h\" href=\"#\">Skins &amp; Themes</a> <div class=\"preload\" id=\"menu-preload\"><span class=\"i\"></span></div>\n</div>\n</div>\n<div class=\"alink switcher\" id=\"browsebar1\"> <span class=\"r\" style=\"z-index:24\">\n<span>Show</span>\n<a class=\"h active\" href=\"#\">24</a><a class=\"h\" href=\"#\">60</a><a class=\"h\" href=\"#\">120</a> </span>\n<a class=\"h\" href=\"#\">Newest</a>\n<a class=\"h active\" href=\"#\">Popular</a>\n<a class=\"h\" href=\"#\">Way back</a>\n</div><div class=\"alink\" id=\"browsebar2\"><span>Time Range</span><a class=\"h active\" href=\"#\">24 hours</a><a class=\"h\" href=\"#\">2 days</a><a class=\"h\" href=\"#\">3 days</a><a class=\"h\" href=\"#\">1 week</a><a class=\"h\" href=\"#\">1 month</a><a class=\"h\" href=\"#\">All Time</a></div><div class=\"stream-ads\"><div class=\"ads\">\n</div><div class=\"stream\"></div></div><br/> <div class=\"alink nav\"><span class=\"shadow\"><span><del>Previous Page</del> <a href=\"#\">Next Page</a></span></span></div></div> <div class=\"h\" id=\"depths\">\n<i class=\"tl\"></i><i class=\"tr\"></i>\n<i class=\"bl\"></i><i class=\"br\"></i>\n<div id=\"depths-in\">\n<span>\n<a href=\"#\">Random Deviation</a> | <a href=\"#\">Random Deviant</a> | <a href=\"#\">Our Partners</a>\n</span>\n<br/><br/> © 2007 deviantART Inc. | <a href=\"#\">About Us</a> | <a href=\"#\">Contact Us</a> | <a href=\"#\">Advertise</a> | <a href=\"#\">Etiquette</a> | <a href=\"#\">Privacy Policy</a> | <a href=\"#\">Terms of Service</a> | <a href=\"#\">Services</a> | <a href=\"#\">Help &amp; FAQ</a>\n</div> </div>\n</div>\n</div>", "bodyId": "deviantART-v5", "bodyClass": "bubble maturefilter cm-v565"}}/*TPL*/;
   const REPO_URL = 'https://github.com/melo-foundation/customization-museum';
 
-  const searchForm = (h, r, cls, label, ph = '') => `<form data-search role="search" class="${cls}"><input type="search" name="q" value="${h.esc(r.q)}" placeholder="${ph}" aria-label="Search"><button type="submit">${label}</button></form>`;
+  const parse = html => new DOMParser().parseFromString(`<!doctype html><body>${html}</body>`, 'text/html');
+  const $ = (doc, sel) => doc.querySelector(sel);
+  const set = (el, html) => { if (el) el.innerHTML = html; };
 
-  const top = ctx => {
-    const { h, route: r, manifest: m } = ctx;
-    return `<div class="dv-top">
-      <a class="dv-logo" href="${h.url.home()}">customization<b>museum</b></a>
-      <ul class="dv-nav">
-        <li class="on"><a href="${h.url.home()}">${ico.browse}Browse</a></li>
-        <li><a href="${h.link({}, { arch: '1' })}">${ico.archive}Archived</a></li>
-        <li><a href="${h.url.request()}" ${ext}>${ico.request}Request</a></li>
-        <li><a href="${REPO_URL}" ${ext}>${ico.about}About</a></li>
-      </ul>
-      ${searchForm(h, r, 'dv-search', 'Search Art')}
-    </div>
-    <div class="dv-login"><span>Theme: ${h.themePicker()}</span><span class="dv-count">${m.total.toLocaleString()} items &middot; ${m.archived.toLocaleString()} archived</span><a href="${h.url.request()}" ${ext}>Request an item</a></div>`;
-  };
-
-  const adslot = h => `<div class="dv-ad">${h.warning() || '<div class="dv-adtext">An archive of themes, skins and add-ons for old customizable programs.</div>'}</div>
-      <div class="dv-noads">Missing something? <a href="${h.url.request()}" ${ext}>Request it</a></div>`;
-
-  const foot = h => `<div class="dv-foot">
-      <div class="dv-f1"><a href="${h.url.home()}">Browse</a> | <a href="${h.link({}, { arch: '1' })}">Archived</a> | <a href="${h.url.request()}" ${ext}>Request</a></div>
-      <div class="dv-f2">Customization Museum | <a href="${REPO_URL}" ${ext}>Source</a> | <a href="${REPO_URL}/issues" ${ext}>Reports</a></div>
-    </div>`;
-
-  const wrap = (ctx, inner, ad = true) => `<div class="dv-world">${top(ctx)}${ad ? adslot(ctx.h) : ''}${inner}${foot(ctx.h)}</div>`;
-
-  const thumb = (h, e, cap) => `<div class="dv-tt"><a class="dv-th" href="${h.url.item(e)}" title="${h.esc(e.t)}">${h.img(e) || '<span class="dv-ph"></span>'}</a>${cap}</div>`;
-
-  // "in <category>": the program when browsing across programs; inside a program, the item's own subject tag or type
+  // "in <category>": the program across programs; inside a program, the item's subject tag or type
   const where = (h, r, e) => {
     if (!r.app) return `<a href="${h.url.app(e.k)}">${h.esc(e.a)}</a>`;
     const tag = e.g.find(g => g !== r.tag && !/classic|modern/i.test(g));
     return tag ? `<a href="${h.esc(h.link(r, { tag }))}">${h.esc(tag)}</a>` : `<a href="${h.url.type(e.y[0])}">${h.esc(e.y[0])}</a>`;
   };
-  const catButton = label => `<span class="dv-cats">${label}<i></i></span>`;
+
+  // the original thumbnail markup: div > span > span.shadow > a > i + img
+  const thumb = (h, e) => `<div><span><span class="shadow"><a href="${h.url.item(e)}" title="${h.esc(e.t)}"><i></i>${h.img(e, 'class="cm-th"') || '<img class="cm-th" src="themes/deviantart/assets/noentrythumb.gif" alt="">'}</a></span></span></div>`;
+
+  // chrome shared by every page: logo, top icons, search, login strip, ad slot, footer
+  function chrome(doc, ctx) {
+    const { h, route: r, manifest: m } = ctx;
+    const logo = $(doc, '#top h1 a');
+    if (logo) { logo.href = h.url.home(); logo.innerHTML = '<b>Customization</b> Museum'; logo.classList.add('cm-logo'); }
+    const nav = [[h.url.home(), 'Browse'], [h.link({}, { arch: '1' }), 'Archived'], [h.url.request(), 'Request'],
+      [h.url.type('Skins & Themes'), 'Skins'], [h.url.type('Emoticons'), 'Emoticons'], [REPO_URL, 'About']];
+    doc.querySelectorAll('#top .iconset-top a').forEach((a, i) => {
+      if (!nav[i]) return;
+      a.href = nav[i][0];
+      a.textContent = nav[i][1];
+      if (/^https?:/.test(nav[i][0]) && !nav[i][0].startsWith(h.url.home())) { a.target = '_blank'; a.rel = 'noopener'; }
+    });
+    const search = $(doc, '#top form.search');
+    if (search) {
+      search.setAttribute('data-search', '');
+      search.querySelectorAll('input[type=hidden]').forEach(i => i.remove());
+      const q = search.querySelector('input.itext');
+      if (q) { q.name = 'q'; q.value = r.q || ''; }
+    }
+    const dock = $(doc, '#rockdock form');
+    set(dock, `Theme: ${h.themePicker()} &nbsp; ${m.total.toLocaleString()} items &middot; ${m.archived.toLocaleString()} archived &nbsp;or&nbsp; <a href="${h.url.request()}" target="_blank" rel="noopener">Request an item</a>`);
+    const lost = $(doc, '#lostlink');
+    if (lost) { lost.href = `${REPO_URL}/issues`; lost.textContent = 'Reports'; lost.target = '_blank'; }
+    doc.querySelectorAll('[data-slot="ad"]').forEach(el => {
+      el.innerHTML = h.warning() || '<div class="cm-adtext">An archive of themes, skins and add-ons for old customizable programs.</div>';
+    });
+    set($(doc, '#depths-in'), `<span><a href="${h.url.home()}">Browse</a> | <a href="${h.link({}, { arch: '1' })}">Archived</a> | <a href="${h.url.request()}" target="_blank" rel="noopener">Request</a></span><br><br>Customization Museum | <a href="${REPO_URL}" target="_blank" rel="noopener">Source</a> | <a href="${REPO_URL}/issues" target="_blank" rel="noopener">Reports</a>`);
+  }
+
+  function render(name, ctx, fill) {
+    const t = TPL[name];
+    const doc = parse(t.html);
+    chrome(doc, ctx);
+    fill(doc);
+    return `<div class="cm-da" data-body-id="${t.bodyId}" data-body-class="${t.bodyClass}">${doc.body.innerHTML}</div>`;
+  }
 
   THEMES.deviantart = {
     label: 'deviantART 2006',
 
     home(ctx) {
       const { h, manifest: m } = ctx;
-      const progs = m.apps.slice(0, 14).map(a => `<li><a href="${h.url.app(a.slug)}">${h.esc(a.name)}</a> <i>${a.count.toLocaleString()}</i></li>`).join('');
-      const types = Object.entries(m.types).slice(0, 8).map(([t, n]) => `<li><a href="${h.url.type(t)}">${h.esc(t)}</a> <i>${n.toLocaleString()}</i></li>`).join('');
-      return wrap(ctx, `<div class="dv-panel dv-front">
-        <div class="dv-fmain">
-          <div class="dv-fbar">${catButton('Categories')}<span>${m.total.toLocaleString()} deviations</span></div>
-          ${m.apps.filter(a => a.count >= 100 && a.count <= 1500).slice(0, 8).map(a => `<div class="dv-frow" hidden data-app="${h.esc(a.slug)}"><a class="dv-fh" href="${h.url.app(a.slug)}">${h.esc(a.name)}</a><div class="dv-frowin"></div></div>`).join('')}
-        </div>
-        <div class="dv-fside">
-          <h2>Customization Museum</h2>
-          <p>${m.total.toLocaleString()} themes, skins and add-ons from ${m.apps.length} programs. ${m.archived.toLocaleString()} are archived.</p>
-          <h4>Search the museum</h4>
-          ${searchForm(h, ctx.route, 'dv-join', 'Search!')}
-          <h4>Programs</h4><ul class="dv-flist">${progs}</ul>
-          <h4>Types</h4><ul class="dv-flist">${types}</ul>
-        </div>
-      </div>`, false);
-    },
-
-    // front-page rows: four thumbnails from mid-sized programs (small data files load fast)
-    after(ctx, el) {
-      if (ctx.item || ctx.list) return;
-      const rows = [...el.querySelectorAll('.dv-frow[data-app]')];
-      // fill candidates in order; show the first four that actually have thumbnails
-      (async () => {
-        let shown = 0;
-        for (const row of rows) {
-          if (shown === 4) break;
-          const data = await fetch(`idx/app/${row.dataset.app}.json`).then(r => r.ok ? r.json() : []).catch(() => []);
-          const picks = data.filter(e => e.v).slice(0, 4);
-          if (!picks.length) continue;
-          row.querySelector('.dv-frowin').innerHTML = picks.map(e => thumb(ctx.h, e, '')).join('');
-          row.hidden = false;
-          shown++;
+      return render('front', ctx, doc => {
+        set($(doc, '#deviation-rocket'), `${m.total.toLocaleString()} deviations`);
+        const cat = $(doc, '#catbutton');
+        if (cat) cat.href = h.url.home();
+        // four rows: mid-sized programs (small data files); filled with thumbnails in after()
+        const picks = m.apps.filter(a => a.count >= 100 && a.count <= 1500);
+        doc.querySelectorAll('#home-art td.f > a.nav').forEach((a, i) => {
+          const p = picks[i];
+          const stream = a.nextElementSibling;
+          if (!p) { a.remove(); stream?.remove(); return; }
+          a.href = h.url.app(p.slug);
+          a.textContent = p.name;
+          if (stream) { stream.innerHTML = ''; stream.dataset.app = p.slug; stream.dataset.candidates = picks.slice(4).map(x => x.slug).join(','); }
+        });
+        const bar = $(doc, '#home-bar');
+        if (bar) {
+          set(bar.querySelector('h2'), 'Customization Museum');
+          const form = bar.querySelector('form');
+          if (form) {
+            form.setAttribute('data-search', '');
+            form.innerHTML = `${m.total.toLocaleString()} themes, skins and add-ons from ${m.apps.length} programs. ${m.archived.toLocaleString()} are archived.<br><br>
+              <div id="home-join"><strong>Search the museum</strong><br><input class="itext" name="q" type="text"><br><input class="ibutton" type="submit" value="Search!"></div>`;
+          }
+          set(bar.querySelector('.section-head'), 'Programs');
+          set(bar.querySelector('.trailing.section-block'), `<div class="first last subsection">${m.apps.slice(0, 12).map(a => `<a href="${h.url.app(a.slug)}">${h.esc(a.name)}</a> (${a.count.toLocaleString()})`).join('<br>')}</div>`);
+          const sub = bar.querySelector('.sub');
+          set(sub, `<h3>Sources</h3>${Object.keys(m.sites).length} sites, ${Object.values(m.types).length} kinds of add-ons.`);
         }
-      })();
+      });
     },
 
     list(ctx) {
       const { h, route: r, list: l, about } = ctx;
       const f = l.facets;
-      const title = r.app ? h.appName(r.app) : l.typeName || (r.site ? h.siteName(r.site) : r.tag || (r.q ? `“${r.q}”` : 'All Deviations'));
-      const crumbs = [['Customization', h.url.home()]];
-      if (r.app) crumbs.push([h.appName(r.app), h.url.app(r.app)]);
-      if (l.typeName) crumbs.push([l.typeName, h.link(r, { tag: '' })]);
-      if (r.site) crumbs.push([h.siteName(r.site), h.url.site(r.site)]);
-      if (r.tag) crumbs.push([r.tag, h.link(r, {})]);
-      if (r.q) crumbs.push([`Search: ${r.q}`, h.link(r, {})]);
-      const opt = (cur, list, key) => list.map(([v, t]) => cur === v ? `<b>${t}</b>` : `<a href="${h.link(r, { [key]: v })}">${t}</a>`).join('');
-      const range = f.types.map(([t]) => (l.typeName && h.slug(l.typeName) === h.slug(t)) ? `<b>${h.esc(t)}</b>` : `<a href="${h.link(r, { type: t, tag: '' })}">${h.esc(t)}</a>`).join('');
-      const p = h.pager(r, l.pages);
-      const side = `<div class="dv-rcol">
-        <h4>Programs</h4><ul>${f.apps.map(([k, name, n]) => `<li${k === r.app ? ' class="on"' : ''}><a href="${h.link(r, { app: k, type: '', tag: '' })}">${h.esc(name)}</a> <i>${n}</i></li>`).join('')}</ul>
-        ${f.tags.length ? `<h4>Tags</h4><ul>${f.tags.slice(0, 30).map(([t, n]) => `<li${t === r.tag ? ' class="on"' : ''}><a href="${h.link(r, { tag: t === r.tag ? '' : t })}">${h.esc(t)}</a> <i>${n}</i></li>`).join('')}</ul>` : ''}
-      </div>`;
-      return wrap(ctx, `<div class="dv-panel">
-        <div class="dv-head">
-          <h1>${h.esc(title)}</h1>
-          <div class="dv-crumbrow">${catButton('Categories')}<span class="dv-crumbs">${crumbs.map(([t, u]) => `<a href="${h.esc(u)}">${h.esc(t)}</a>`).join(' &gt; ')}</span>${searchForm(h, r, 'dv-within', '', 'search these results')}</div>
-        </div>
-        ${about ? `<div class="dv-about"><div class="dv-tools"><a href="${h.esc(about.edit)}" ${ext}>Edit</a> | <a href="${h.esc(h.link(r, { site: '' }))}">Close</a></div>${about.html}</div>` : ''}
-        <div class="dv-tabs"><span class="dv-sorts">${opt(r.sort, [['', 'Newest'], ['az', 'A&ndash;Z'], ['old', 'Way back']], 'sort')}</span><span class="dv-show">Show ${opt(r.arch, [['', 'All'], ['1', 'Archived'], ['0', 'Not archived']], 'arch')}</span></div>
-        <div class="dv-range"><span>Types</span>${range}</div>
-        <div class="dv-body">
-          <div class="dv-grid">${l.rows.length ? l.rows.map(e => thumb(h, e, `<div class="dv-ttl"><a href="${h.url.item(e)}">${h.esc(e.t)}</a></div><div class="dv-cap">in ${where(h, r, e)}</div>`)).join('') : '<p class="dv-empty">No deviations found.</p>'}</div>
-          ${side}
-        </div>
-        ${l.pages > 1 ? `<div class="dv-pager">${p.prev ? `<a href="${p.prev}">Previous Page</a>` : '<span>Previous Page</span>'}<em>Page ${l.page} of ${l.pages}</em>${p.next ? `<a href="${p.next}">Next Page</a>` : '<span>Next Page</span>'}</div>` : ''}
-      </div>`);
+      return render('browse', ctx, doc => {
+        const title = r.app ? h.appName(r.app) : l.typeName || (r.site ? h.siteName(r.site) : r.tag || (r.q ? `“${r.q}”` : 'All Deviations'));
+        set($(doc, '#browse .catbar h1'), h.esc(title));
+        const sf = $(doc, '#browse form.searchle');
+        if (sf) {
+          sf.setAttribute('data-search', '');
+          sf.querySelectorAll('input[type=hidden]').forEach(i => i.remove());
+          const q = sf.querySelector('input.itext');
+          if (q) { q.value = r.q || ''; q.placeholder = 'search these results'; q.classList.remove('cold'); }
+          sf.querySelector('.scripted')?.remove();
+        }
+        const crumbs = [['Customization', h.url.home()]];
+        if (r.app) crumbs.push([h.appName(r.app), h.url.app(r.app)]);
+        if (l.typeName) crumbs.push([l.typeName, h.link(r, { tag: '' })]);
+        if (r.site) crumbs.push([h.siteName(r.site), h.url.site(r.site)]);
+        if (r.tag) crumbs.push([r.tag, h.link(r, {})]);
+        if (r.q) crumbs.push([`Search: ${r.q}`, h.link(r, {})]);
+        const cp = $(doc, '#browse .catpath');
+        if (cp) {
+          const pre = cp.querySelector('#menu-preload');
+          cp.innerHTML = `<a id="catbutton" href="${h.url.home()}">Categories</a> ${crumbs.map(([t, u]) => `<a class="h" href="${h.esc(u)}">${h.esc(t)}</a>`).join(' &gt; ')} `;
+          if (pre) cp.append(pre);
+        }
+        const opt = (cur, list, key) => list.map(([v, t]) => `<a class="h${cur === v ? ' active' : ''}" href="${h.esc(h.link(r, { [key]: v }))}">${t}</a>`).join(' ');
+        set($(doc, '#browsebar1'), `<span class="r" style="z-index:24"><span>Show</span> ${opt(r.arch, [['', 'All'], ['1', 'Archived'], ['0', 'Not archived']], 'arch')}</span> ${opt(r.sort, [['', 'Newest'], ['az', 'A–Z'], ['old', 'Way back']], 'sort')}`);
+        set($(doc, '#browsebar2'), `<span>Types</span>${f.types.slice(0, 8).map(([t]) => `<a class="h${l.typeName && h.slug(l.typeName) === h.slug(t) ? ' active' : ''}" href="${h.esc(h.link(r, { type: t, tag: '' }))}">${h.esc(t)}</a>`).join('')}`);
+        set($(doc, '#browse .stream-ads > .ads'), `<h4>Programs</h4><ul>${f.apps.map(([k, name, n]) => `<li${k === r.app ? ' class="on"' : ''}><a href="${h.esc(h.link(r, { app: k, type: '', tag: '' }))}">${h.esc(name)}</a> (${n})</li>`).join('')}</ul>${f.tags.length ? `<h4>Tags</h4><ul>${f.tags.slice(0, 30).map(([t, n]) => `<li${t === r.tag ? ' class="on"' : ''}><a href="${h.esc(h.link(r, { tag: t === r.tag ? '' : t }))}">${h.esc(t)}</a> (${n})</li>`).join('')}</ul>` : ''}`);
+        // original stream item markup, plus our title line above the "in <category>" caption
+        set($(doc, '#browse .stream-ads > .stream'), l.rows.length
+          ? l.rows.map(e => `<div><span><span class="shadow"><a href="${h.url.item(e)}" title="${h.esc(e.t)}"><i></i>${h.img(e, 'class="cm-th"') || '<img class="cm-th" src="themes/deviantart/assets/noentrythumb.gif" alt="">'}</a></span><a class="cm-t" href="${h.url.item(e)}">${h.esc(e.t)}</a> in ${where(h, r, e)}</span></div>`).join('')
+          : '<p>No deviations found.</p>');
+        const p = h.pager(r, l.pages);
+        set($(doc, '#browse .alink.nav'), l.pages > 1
+          ? `<span class="shadow"><span>${p.prev ? `<a href="${p.prev}">Previous Page</a>` : '<del>Previous Page</del>'}${'&nbsp;'.repeat(14)}${l.page} / ${l.pages}${'&nbsp;'.repeat(14)}${p.next ? `<a href="${p.next}">Next Page</a>` : '<del>Next Page</del>'}</span></span>`
+          : '');
+        if (about) {
+          const box = doc.createElement('div');
+          box.className = 'cm-about';
+          box.innerHTML = `<div class="cm-tools"><a href="${h.esc(about.edit)}" target="_blank" rel="noopener">Edit</a> | <a href="${h.esc(h.link(r, { site: '' }))}">Close</a></div>${about.html}`;
+          $(doc, '#browsebar1')?.before(box);
+        }
+      });
     },
 
     item(ctx) {
       const { h, item: e } = ctx;
-      if (!e) return wrap(ctx, `<div class="dv-panel dv-dev"><p class="dv-empty">Deviation not found. <a href="${h.url.home()}">Back to the museum</a></p></div>`);
-      const a = (href, text) => href ? `<a href="${h.esc(href)}" ${ext}>${text}</a>` : '';
-      const year = (e.d || '').slice(0, 4);
-      return wrap(ctx, `<div class="dv-panel dv-dev">
-        <div class="dv-dhead">
-          <span class="dv-av">${h.img(e)}</span>
-          <h1>${h.esc(e.t)} <small>by <a href="${h.url.app(e.k)}">${h.esc(e.a)}</a></small></h1>
-          <div class="dv-dcat"><a href="${h.url.home()}">Customization</a> &gt; <a href="${h.url.app(e.k)}">${h.esc(e.a)}</a> &gt; ${e.y.map(t => `<a href="${h.url.type(t)}">${h.esc(t)}</a>`).join(' &gt; ')}</div>
-        </div>
-        <div class="dv-dmid">
-          <div class="dv-dleft">
-            <p>${a(h.file(e), 'Download') || '<span>Download Not Available</span>'}</p>
-            <p>${a(h.page(e), 'Original page') || '<span>No original page</span>'}</p>
-            <p>${a(h.edit(e), 'Edit Details')}</p>
-            <h5>Also</h5>
-            <p><a href="${h.url.app(e.k)}">${h.esc(e.a)} gallery</a></p>
-            <p><a href="${h.url.site(e.s)}">${h.esc(h.siteName(e.s))}</a></p>
-            <p>${a(h.report(e), 'Report')}</p>
-          </div>
-          <div class="dv-dimg">${h.media(e)}</div>
-        </div>
-        <div class="dv-copy">${year ? `&copy;${h.esc(year)} ` : ''}${h.esc(h.siteName(e.s))}</div>
-        <div class="dv-comments">
-          <div class="dv-ctext"><h4>Artist's Comments</h4>${e.desc || `<p>${e.g.length ? h.esc(e.g.join(', ')) : 'No comments.'}</p>`}</div>
-          <div class="dv-details"><h4>Details</h4><dl>${h.details(e).map(([k, v]) => `<dt>${k}</dt><dd>${v}</dd>`).join('')}</dl><p class="dv-arch">Archived: ${h.esc(h.archivedLabel(e))}</p></div>
-        </div>
-      </div>`);
+      return render('deviation', ctx, doc => {
+        const dev = $(doc, '#deviation');
+        if (!e) { set(dev, `<h1>Deviation not found</h1><p><a href="${h.url.home()}">Back to the museum</a></p>`); return; }
+        const year = (e.d || '').slice(0, 4);
+        const a = (href, text, cls = '') => href ? `<a href="${h.esc(href)}" target="_blank" rel="noopener"${cls ? ` class="${cls}"` : ''}>${text}</a>` : `<span>${text}</span>`;
+        set($(doc, '#deviation .iconleft h1'), `${h.esc(e.t)} <small>by <a class="u" href="${h.url.app(e.k)}">${h.esc(e.a)}${h.img(e, 'class="avatar" width="50" height="50"')}</a></small>`);
+        const cp = $(doc, '#deviation .catpath');
+        if (cp) {
+          const pre = cp.querySelector('#menu-preload');
+          cp.innerHTML = `<a id="catbutton" href="${h.url.home()}">Categories</a> <a class="h" href="${h.url.app(e.k)}">${h.esc(e.a)}</a> &gt; ${e.y.map(t => `<a class="h" href="${h.url.type(t)}">${h.esc(t)}</a>`).join(' &gt; ')} `;
+          if (pre) cp.append(pre);
+        }
+        set($(doc, '#zoomed-out'), `<a href="${h.esc(h.file(e) || h.page(e) || '#')}" target="_blank" rel="noopener">${h.media(e)}</a>`);
+        $(doc, '#zoomed-in')?.remove();
+        set($(doc, '#deviation-links'), `<i class="i1"></i>${a(h.file(e), 'Download')}<i class="i16"></i>${a(h.page(e), 'Original page')}<i class="i8"></i>${a(h.edit(e), 'Edit Details')}<strong class="c">Also</strong><i class="i15"></i><a class="c" href="${h.url.app(e.k)}">${h.esc(e.a)} gallery</a><i class="i14"></i><a class="c" href="${h.url.site(e.s)}">${h.esc(h.siteName(e.s))}</a><i class="i8"></i>${a(h.report(e), 'Report', 'c')}`);
+        set($(doc, '#deviation .copy'), `${year ? `&copy;${h.esc(year)} ` : ''}<a class="u" href="${h.url.site(e.s)}">${h.esc(h.siteName(e.s))}</a>`);
+        set($(doc, '#artist-comments .details'), `<strong>Details</strong><br>${h.details(e).map(([k, v]) => `${k}: ${v}`).join('<br>')}<br><br><strong>Archived</strong><br>${h.esc(h.archivedLabel(e))}`);
+        set($(doc, '#artist-comments .text.block'), e.desc || (e.g.length ? h.esc(e.g.join(', ')) : 'No comments.'));
+      });
+    },
+
+    after(ctx, el) {
+      const root = el.querySelector('.cm-da');
+      if (root) { document.body.id = root.dataset.bodyId; document.body.className = root.dataset.bodyClass; }
+      if (ctx.item || ctx.list) return;
+      // front rows: fill each stream with four thumbnails; a program without previews hands its row to the next candidate
+      const queue = (el.querySelector('[data-candidates]')?.dataset.candidates || '').split(',').filter(Boolean);
+      el.querySelectorAll('.stream[data-app]').forEach(async stream => {
+        for (let slug = stream.dataset.app; slug; slug = queue.shift()) {
+          const rows = await fetch(`idx/app/${slug}.json`).then(r => r.ok ? r.json() : []).catch(() => []);
+          const picks = rows.filter(e => e.v).slice(0, 4);
+          if (!picks.length) continue;
+          stream.innerHTML = picks.map(e => thumb(ctx.h, e)).join('');
+          const head = stream.previousElementSibling;
+          if (head?.matches('a.nav')) { head.href = ctx.h.url.app(slug); head.textContent = rows[0].a; }
+          return;
+        }
+      });
     },
   };
 })();

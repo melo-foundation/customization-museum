@@ -1,112 +1,338 @@
 // label: Messenger Plus! Gallery
+// Markup follows msgpluslive.net/skins (2009-2010) element for element; only content regions are filled from ctx.
 (() => {
-  const mark = `<svg class="mp-mark" viewBox="0 0 60 58"><defs><linearGradient id="mpg1" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#4fb3ee"/><stop offset="1" stop-color="#1a6fb5"/></linearGradient><linearGradient id="mpg2" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#ffb347"/><stop offset="1" stop-color="#e8641b"/></linearGradient></defs><path d="M2 8C14 0 30 4 38 20L22 34C10 30 3 20 2 8Z" fill="url(#mpg1)"/><path d="M26 4C40 6 54 20 50 40L36 52 28 30Z" fill="url(#mpg2)"/><path d="M12 34 28 24l8 14-12 14z" fill="#8bc34a" opacity=".9"/><rect x="26" y="8" width="9" height="30" rx="4" transform="rotate(28 30 22)" fill="#e9e9e9" stroke="#777"/></svg>`;
-  const T = (h, e) => h.esc(e);
-
-  const nav = (ctx) => {
-    const { h, route: r } = ctx, s = r.sort || '';
-    const listing = !!ctx.list;
-    const on = k => k === (!listing ? 'home' : s === 'old' ? 'old' : s === 'az' ? 'az' : 'new');
-    const li = (k, label, href) => `<li${on(k) ? ' class="on"' : ''}><a href="${href}">${label}</a></li>`;
-    return `<ul class="mp-nav">${li('home', 'home', h.url.home())}${li('new', 'newest', h.link(r, { sort: '', item: '' }))}${li('old', 'oldest', h.link(r, { sort: 'old', item: '' }))}${li('az', 'a-z', h.link(r, { sort: 'az', item: '' }))}<li><a href="${h.url.request()}" target="_blank" rel="noopener">request</a></li></ul>`;
+  const mark = (w, h) => `<svg width="${w}" height="${h}" viewBox="0 0 60 58" aria-hidden="true"><path d="M2 8C14 0 30 4 38 20L22 34C10 30 3 20 2 8Z" fill="#2a91d8"/><path d="M26 4C40 6 54 20 50 40L36 52 28 30Z" fill="#f7941d"/><path d="M12 34 28 24l8 14-12 14z" fill="#8bc34a"/></svg>`;
+  const fmtDate = d => {
+    if (!d) return '';
+    const [y, m, day] = d.split('-');
+    const mon = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'][+m - 1];
+    return mon && day ? `${mon} ${day}&#44; ${y}` : y;
   };
 
-  const shell = (ctx, o) => {
+  // five labelled fields per listing row, like the original: real scraped ones first, then ours to keep the geometry
+  const fields = (h, e) => {
+    const x = e.x || {}, out = [];
+    if (x.Creator) out.push(['Creator', h.esc(x.Creator)]);
+    out.push(['Added', fmtDate(e.d) || 'Unknown']);
+    if (x.Downloads) out.push(['Downloads', h.esc(x.Downloads)]);
+    if (x.Rating) out.push(['Rating', h.esc(x.Rating)]);
+    if (x.Compatibility) out.push(['Compatibility', h.esc(x.Compatibility)]);
+    for (const f of [['Program', `<a href="${h.url.app(e.k)}">${h.esc(e.a)}</a>`], ['Type', e.y.map(t => `<a href="${h.url.type(t)}">${h.esc(t)}</a>`).join(', ')],
+      ['Source', `<a href="${h.url.site(e.s)}">${h.esc(h.siteName(e.s))}</a>`], ['Archived', h.esc(h.archivedLabel(e))]]) {
+      if (out.length >= 5) break;
+      out.push(f);
+    }
+    return out.slice(0, 5);
+  };
+
+  const header = (ctx, title, sub) => {
     const { h, route: r } = ctx;
-    const btn = (cls, a, b, href, on) => `<a class="${on ? 'on' : ''}" href="${href}"><i></i>${a}<br>${b}</a>`;
-    const s = r.sort || '', lst = !!ctx.list;
-    const btns = `<div class="mp-btns">${btn('', 'browse by', 'date', h.link(r, { sort: '', item: '', page: 1 }), lst && s === '')}${btn('', 'browse by', 'age', h.link(r, { sort: 'old', item: '', page: 1 }), lst && s === 'old')}${btn('', 'browse by', 'name', h.link(r, { sort: 'az', item: '', page: 1 }), lst && s === 'az')}${btn('', 'browse by', 'category', h.url.home(), !lst && !ctx.item)}</div>`;
-    const bc = (o.bc || []).map(([t, u]) => ` &raquo; ${u ? `<a href="${u}">${h.esc(t)}</a>` : h.esc(t)}`).join('');
-    const sideBoxes = o.side || '';
-    return `<div class="mp-c"><div class="mp-wrap">
-      <div class="mp-hd"><a class="mp-logo" href="${h.url.home()}">${mark}<span class="mp-t">Customization <b>Museum</b></span><span class="mp-s">old skins, themes &amp; emoticons</span></a>${nav(ctx)}</div>
-      <div class="mp-band"><div class="mp-lang"><label>Theme:&nbsp;</label>${h.themePicker()}</div><h2>${h.esc(o.title)}</h2><h3>${h.esc(o.sub)}</h3><div class="mp-bbox">${o.box || ''}</div></div>
-      <div class="mp-content"><div class="mp-left">${h.warning()}${o.home ? '' : btns + `<h4 class="mp-bc">${bc}</h4>`}${o.body}</div>
-      <div class="mp-right">${h.searchForm(r).replace('</form>', '<button type="submit">Search</button></form>')}<p class="mp-rss"><i></i>${(o.total || 0).toLocaleString()} items</p>${sideBoxes}</div></div></div>
-      <div class="mp-ft"><div class="gf">archived<small>unofficial &middot; non-commercial</small></div><p>Customization Museum &copy; unofficial archive of user-made skins and themes<br><small>Program names and marks belong to their owners.<br>Files are archived as found and are not checked.<br>Report a bad entry with the Report link on its page.</small></p>
-      <p class="side"><small><a href="${h.url.request()}" target="_blank" rel="noopener">request an item</a></small></p>
-      <p class="links"><a href="${h.url.home()}">home </a>|<a href="${h.link(r, { sort: '', item: '' })}"> newest </a>|<a href="${h.link(r, { sort: 'old', item: '' })}"> oldest </a>|<a href="${h.link(r, { sort: 'az', item: '' })}"> a-z </a>|<a href="${h.url.request()}" target="_blank" rel="noopener"> request</a></p></div></div>`;
+    const all = { ...r, app: '', type: '', site: '', tag: '', q: '', item: '' };
+    return `<div id="header">
+	<h1><a href="${h.url.home()}" class="cm-logo"><span class="cm-logo-mark">${mark(62, 60)}</span><span class="cm-logo-t">Customization <b>Museum</b></span><span class="cm-logo-s">old skins, themes &amp; emoticons</span></a></h1>
+	<ul id="mainnav">
+		<li id="navhome"><a href="${h.url.home()}">home</a></li>
+		<li id="navnews"><a href="${h.link(all, { sort: '' })}">newest</a></li>
+		<li id="navdownload"><a href="${h.link(all, { sort: '' })}" id="mainnav-link-download">browse</a></li>
+		<li id="navfeatures"><a href="${h.link(all, { sort: 'old' })}">oldest</a></li>
+		<li id="navhelp"><a href="${h.link(all, { sort: 'az' })}">a-z</a></li>
+		<li id="navmore"><a href="${h.url.request()}" target="_blank" rel="noopener">request</a></li>
+	</ul>
+	<div id="header-toolbar"><a id="header-toolbar-changecolor" href="#theme"><img src="themes/msgplus/assets/colorize.png" alt="Change theme"/></a></div>
+</div>
+<div id="contentheaderhelper">
+<div id="contentheader">
+	<h2>${h.esc(title)}</h2>
+<h3>${h.esc(sub)}</h3>
+</div>
+</div>
+<div id="contentheaderright">
+	<div class="langbox"><label>Theme:&nbsp;</label>${h.themePicker()}</div>
+</div>`;
   };
 
-  const box = (title, items, cls = '') => `<div class="mp-box ${cls}"><h5>${title}</h5><ul>${items}</ul></div>`;
-  const bl = (href, label, sub, on) => `<li${on ? ' class="on"' : ''}><a href="${href}">${label}${sub ? `<span>${sub}</span>` : ''}</a></li>`;
-
-  const row = (h, e, i) => {
-    const f = h.file(e), u = h.url.item(e);
-    const fld = (k, v) => v ? `<div><i>${k}:</i> <span class="mp-v">${v}</span></div>` : '';
-    return `<div class="mp-row${i % 2 ? ' alt' : ''}" onclick="if(!event.target.closest('a'))location.href='${u}'">
-      <div class="mp-th">${h.img(e) || '<span class="mp-np">no preview</span>'}<br><a href="${u}"><strong>full screenshot</strong></a></div>
-      <div class="mp-info"><div><a href="${u}"><b>${h.esc(e.t)}</b></a></div>
-      ${fld('Program', `<a href="${h.url.app(e.k)}">${h.esc(e.a)}</a>`)}${fld('Added', h.esc(e.d))}${fld('Type', e.y.map(t => `<a href="${h.url.type(t)}">${h.esc(t)}</a>`).join(', '))}${fld('Tags', h.esc(e.g.slice(0, 5).join(', ')))}${fld('Source', `<a href="${h.url.site(e.s)}">${h.esc(h.siteName(e.s))}</a>`)}${fld('Archived', h.esc(h.archivedLabel(e)))}</div></div>`;
+  const sidebar = (ctx) => {
+    const { h, route: r, manifest: m } = ctx;
+    const all = { ...r, app: '', type: '', site: '', tag: '', q: '', item: '' };
+    const box = (title, items) => `<div class="box">
+			<h5>${title}</h5>
+			<ul>
+${items.map(([href, label, sub]) => `				<li><a href="${href}">${h.esc(label)}${sub ? `					<span>${h.esc(sub)}</span>` : ''}</a></li>`).join('\n')}
+			</ul>
+		</div>`;
+    return `	<div class="right">
+		<form method="get" id="searchform" data-search>
+			<div>
+				<input type="text" value="${h.esc(r.q)}" name="q" id="q" style="width:130px;"/><br/>
+				<input type="submit" id="searchsubmit" value="Search Items"/>
+			</div>
+		</form>
+		<p align="center">
+		<a href="${h.url.request()}" target="_blank" rel="noopener"><img src="themes/msgplus/assets/feedicon.gif" width="14" height="14" alt=""/> Request an item</a><br/><br/>
+		<a class="cm-badge" href="${h.link(all, { arch: '1' })}">${m.archived.toLocaleString()} archived</a>
+		</p>
+		${box('browsing links', [[h.link(all, { sort: '' }), 'Newest Items', 'Everything, latest first'], [h.link(all, { sort: 'old' }), 'Oldest Items', 'From the very beginning'], [h.link(all, { sort: 'az' }), 'A to Z'], [h.link(all, { arch: '1' }), 'Archived Only'], [h.url.home(), 'All Programs']])}
+		${box('more things you can do', [[h.url.home(), 'Browse by Program'], [h.url.request(), 'Request an Item']])}
+	</div>`;
   };
+
+  const footer = (ctx) => {
+    const { h, route: r } = ctx;
+    const all = { ...r, app: '', type: '', site: '', tag: '', q: '', item: '' };
+    return `<div id="footer">
+	<div id="gfddlogo"><a href="${h.url.request()}" class="cm-gfdd" target="_blank" rel="noopener">customization<br/><b>museum</b></a></div>
+	<p>Customization Museum &copy; an unofficial archive of user-made customization<br/>
+	<small>Program names and marks belong to their respective owners.<br/>
+	Files are archived automatically and are not checked.<br/>
+	Report a bad entry with the <em>Report</em> link on its page.</small>
+	</p>
+	<p class="side"><small><a href="${h.url.request()}" target="_blank" rel="noopener"> request </a>&amp;<a href="${h.url.request()}" target="_blank" rel="noopener"> report </a></small></p>
+	<p class="links"><a href="${h.url.home()}">home </a>|<a href="${h.link(all, { sort: '' })}"> newest </a>|<a href="${h.link(all, { sort: '' })}"> browse </a>|<a href="${h.link(all, { sort: 'old' })}"> oldest </a>|<a href="${h.link(all, { sort: 'az' })}"> a-z </a>|<a href="${h.url.request()}" target="_blank" rel="noopener"> request</a></p>
+</div>`;
+  };
+
+  const page = (ctx, o) => `<div id="bghelper">
+<div id="container">
+${header(ctx, o.title, o.sub)}
+${o.banner ? `<div class="cm-banner">${o.banner}</div>` : ''}
+<div class="content">
+<div class="left">
+${o.left}
+</div>
+${sidebar(ctx)}
+</div>
+${footer(ctx)}
+</div>
+</div>`;
+
+  const warning = h => h.warning() ? `<div class="highlight important cm-warning"><strong>Important:</strong> Files are archived automatically and are not checked. They may contain malware: scan anything you download. <button data-dismiss-warning>OK</button></div>` : '';
+
+  const buttons = (ctx) => {
+    const { h, route: r } = ctx;
+    const base = { ...r, item: '', page: 1 };
+    return ` <table width="100%" align="center" cellpadding="3" cellspacing="0" border="0">
+  <tr>
+    <td align="right">
+    </td>
+  </tr>
+</table>
+<div class="downdbbuttons"><a href="${h.link(base, { sort: '' })}" class="downdbbydate">browse by date</a>
+<a href="${h.link(base, { sort: 'old' })}" class="downdbbyrating">browse by age</a>
+<a href="${h.link(base, { sort: 'az' })}" class="downdbbydownloads">browse by name</a>
+<a href="${h.url.home()}" class="downdbbycategory">browse by category</a></div>`;
+  };
+
+  const crumbs = (h, list) => `<table class="afterdowndbbuttons" width="100%" border="0" align="center" cellpadding="3" cellspacing="0">
+  <tr>
+    <td><h4>
+${list.map(([t, u]) => `                &raquo; ${u ? `<a href="${u}">${h.esc(t)}</a>` : h.esc(t)} `).join('\n')}
+          </h4></td>
+  </tr>
+</table><p/>`;
 
   const pager = (h, r, l) => {
-    if (l.pages < 2) return '';
+    if (l.pages < 2) return '<p/>';
     const p = h.pager(r, l.pages);
-    return `<div class="mp-pg">${p.prev ? `<a href="${p.prev}">&lt;&lt; Prev Page</a> ` : ''}${p.items.map(i => i.gap ? '<span>...</span>' : i.current ? `<a href="${h.esc(i.url || '#')}">[ ${i.n} ]</a>` : `<a href="${i.url}">${i.n}</a>`).join(' ')}${p.next ? ` <a href="${p.next}">Next Page &gt;&gt;</a>` : ''}</div>`;
+    const links = [p.prev ? `<a href="${p.prev}">&lt;&lt; Previous Page</a>` : '',
+      ...p.items.filter(i => !i.gap).map(i => `<a href="${i.url}">${i.current ? `[ ${i.n} ]` : i.n}</a>`),
+      p.next ? `<a href="${p.next}">Next Page &gt;&gt;</a>` : ''].filter(Boolean);
+    return `<div align="center">\n${links.join('\n')}\n</div><p/>`;
   };
 
-  const sideNav = (ctx, extra = '') => {
-    const { h, route: r } = ctx;
-    return box('browsing links', bl(h.url.home(), 'Home', 'All programs and types') + bl(h.link({ ...r, app: '', type: '', site: '', tag: '', q: '' }, { sort: '' }), 'Newest', '') + bl(h.link({ ...r, app: '', type: '', site: '', tag: '', q: '' }, { sort: 'old' }), 'Oldest', '') + bl(h.link({ ...r, app: '', type: '', site: '', tag: '', q: '' }, { sort: 'az' }), 'A to Z', '')) + extra;
+  const row = (h, e, i) => {
+    const bg = i % 2 ? '#ebf8ff' : '#f6fcff', u = h.url.item(e), img = h.thumb(e);
+    const f = fields(h, e);
+    return `<table onclick="if(!event.target.closest('a'))location.href='${u}'" width="100%" border="0" align="center" cellpadding="3" cellspacing="0" class="border" onmouseover="this.style.backgroundColor='#ffffda';" onmouseout="this.style.backgroundColor='${bg}';" style="background-color:${bg}; cursor:pointer;">
+   <tr>
+    <td width="35%" rowspan="6" align="center">
+        ${img ? `<img class="frame cm-thumb" src="${h.esc(img)}" alt="${h.esc(e.t)} screenshot" data-alt="${h.esc(h.thumbFallback(e))}" onerror="if(!this.dataset.f){this.dataset.f=1;this.src=this.dataset.alt}else{this.replaceWith(Object.assign(document.createElement('span'),{className:'frame cm-nothumb',textContent:'no preview'}))}"/>` : '<span class="frame cm-nothumb">no preview</span>'}
+        <br/><a href="${u}" class="highslide"><strong>full screenshot</strong></a>
+            </td>
+    <td width="88%" colspan="2">
+      <a href="${u}"><b>${h.esc(e.t)}</b></a>
+    </td>
+  </tr>
+${f.map(([k, v], j) => `   <tr>
+    <td width="65%" align="left" colspan="2">
+    <i>${k}:</i> ${v}${j === 4 ? '        <br/>&nbsp;' : ''}
+    </td>
+  </tr>`).join('\n')}
+</table>`;
+  };
+
+  const fillFeatured = async (ctx, el) => {
+    const boxes = el.querySelectorAll('table[data-feat]');
+    if (!boxes.length) return;
+    const { h } = ctx;
+    const rows = (await fetch(h.url.home() + 'idx/app/msn-wlm.json').then(r => r.json())).filter(e => e.s === 'wlm' && e.v);
+    const num = v => parseFloat(String(v || '').replace(/,/g, '')) || 0;
+    const used = new Set(), first = list => { const e = list.find(e => !used.has(e.i)); if (e) used.add(e.i); return e; };
+    const pick = {};
+    pick.new = first([...rows].sort((a, b) => b.d.localeCompare(a.d)));
+    pick.top = first([...rows].sort((a, b) => num(b.x?.Downloads) - num(a.x?.Downloads) || a.d.localeCompare(b.d)));
+    pick.featured = first([...rows].sort((a, b) => num(b.x?.Rating) - num(a.x?.Rating) || b.d.localeCompare(a.d)));
+    for (const t of boxes) {
+      const e = pick[t.dataset.feat];
+      if (!e) continue;
+      const u = h.url.item(e), f = fields(h, e).slice(0, 4), tds = t.querySelectorAll('td');
+      tds[0].innerHTML = `<img class="frame cm-thumb" src="${h.esc(h.thumb(e))}" alt="${h.esc(e.t)} screenshot"/>\n    	<br/><a href="${u}" class="highslide"><strong>full screenshot</strong></a>`;
+      tds[1].innerHTML = `<strong><a href="${u}">${h.esc(e.t)}</a></strong>`;
+      f.forEach(([k, v], i) => { tds[2 + i].innerHTML = `<em>${k}:</em> ${v}`; });
+    }
   };
 
   THEMES.msgplus = {
     label: 'Messenger Plus! Gallery',
+    after(ctx, el) { document.body.className = 'skinsdb'; return fillFeatured(ctx, el); },
+
     home(ctx) {
-      const { h, manifest: m } = ctx;
-      const r = ctx.route;
-      const all = { ...r, app: '', type: '', site: '', tag: '', q: '' };
-      const snaps = [['Newest Items', h.link(all, { sort: '' })], ['Oldest Items', h.link(all, { sort: 'old' })], ['A to Z', h.link(all, { sort: 'az' })], ['Archived Only', h.link(all, { arch: '1' })]].map(([t, u]) => `<li><a href="${u}">${t}</a></li>`).join('');
-      const types = Object.entries(m.types).slice(0, 9).map(([t]) => `<li><a href="${h.url.type(t)}">${h.esc(t)}</a></li>`).join('');
-      const sites = Object.entries(m.sites).sort((a, b) => b[1].count - a[1].count).slice(0, 3).map(([s, i]) => `<li><a href="${h.url.site(s)}">${h.esc(i.name)}</a></li>`).join('');
-      const panel = (title, list, more, moreUrl) => `<h3>${title}</h3><div class="mp-feat"><ul>${list.map(a => `<li><a href="${h.url.app(a.slug)}"><b>${h.esc(a.name)}</b></a> <i>Items:</i> ${a.count.toLocaleString()} <i>Types:</i> ${h.esc(Object.keys(a.types).slice(0, 2).join(', '))}</li>`).join('')}</ul><a class="more" href="${moreUrl}">${more} &gt;</a></div>`;
-      const apps = m.apps;
-      const body = `<div class="mp-hl mp-top"><b>Note:</b> ${m.total.toLocaleString()} items from ${m.apps.length} programs, ${m.archived.toLocaleString()} archived. Files are not checked.</div>
-        <div class="mp-intro">${mark.replace('class="mp-mark"', 'class="mp-bigmark"')}<h3>What is this?</h3><p>An index of old skins, themes, emoticons and other customization files for messengers, media players and desktops. Each entry links to its original page and to an archived copy when one exists. Browse by program, type or source, or search for a name.</p></div>
-        <h2>Browse the Museum</h2><p>View and download items made by users over the years.</p>
-        <div class="mp-two"><div class="a"><h3>Snapshots</h3><div class="mp-fb"><ul>${snaps}</ul></div><h3>Categories</h3><div class="mp-fb"><ul>${types}</ul></div>
-          <h3>External Resources</h3><p class="mp-ext">Items come from these sites:</p><ul class="mp-dots">${sites}</ul></div>
-        <div class="b">${panel('Largest Collections', apps.slice(0, 4), 'More Programs', h.link(all, { sort: '' }))}${panel('Also Collected', apps.slice(4, 8), 'More Programs', h.link(all, { sort: '' }))}${panel('Smaller Collections', apps.slice(8, 12), 'All Items', h.link(all, { sort: 'az' }))}</div></div>
-        <span class="mp-big">Missing something? How can I add it?</span><p>Use <a href="${h.url.request()}" target="_blank" rel="noopener">Request</a> to suggest a page, a file or a whole site, and it will be archived and indexed.</p>`;
-      return shell(ctx, { home: true, title: 'Customization Museum', sub: 'Old skins, themes and emoticons', total: m.total, bc: [[ 'Customization Museum', '']], body, box: `<b>${m.total.toLocaleString()}</b> items in the archive`, side: sideNav(ctx) });
+      const { h, manifest: m, route: r } = ctx;
+      const all = { ...r, app: '', type: '', site: '', tag: '', q: '', item: '' };
+      const li = list => list.map(([href, t]) => `<li><a href="${href}">${h.esc(t)}</a></li>`).join('\n');
+      const snaps = li([[h.link(all, { sort: '' }), 'Newest Items'], [h.link(all, { sort: 'old' }), 'Oldest Items'], [h.link(all, { sort: 'az' }), 'A to Z'], [h.link(all, { arch: '1' }), 'Archived Items']]);
+      const cats = Object.keys(m.types).slice(0, 9).map(t => `<li><a href="${h.url.type(t)}">${h.esc(t)}</a></li>`).join('');
+      const ext = Object.entries(m.sites).sort((a, b) => b[1].count - a[1].count).slice(0, 3).map(([s, i]) => `	<li><a href="${h.url.site(s)}">${h.esc(i.name)}</a></li>`).join('\n');
+      const feat = (title, key, more, moreUrl) => `<h3>${title}</h3>
+<div class="highlightwidthfix3 subhighlight"><div class="r1"><div class="r2"><div class="r5">
+<table width="100%" data-feat="${key}">
+	<tr>
+    <td rowspan="7" align="center" width="50%"><span class="frame cm-nothumb">&nbsp;</span>
+    	<br/><a class="highslide"><strong>full screenshot</strong></a>
+    </td>
+  <td width="50%"><strong><a>&nbsp;</a></strong></td></tr>
+  <tr><td width="50%">&nbsp;</td></tr>
+  <tr><td width="50%">&nbsp;</td></tr>
+  <tr><td width="50%">&nbsp;</td></tr>
+	<tr><td width="50%">&nbsp;</td></tr>
+  <tr><td width="50%" align="right"><strong><a href="${moreUrl}">${more} &gt;</a></strong></td></tr>
+</table>
+</div></div></div></div>`;
+      const left = `${warning(h) || `<div class="highlight important"><strong>Important:</strong> Files are archived automatically and are not checked: scan anything you download.</div>`}
+	<span class="cm-bigicon" style="float:left;margin:0 15px 0px -15px">${mark(138, 126)}</span>
+	<h3>What is this?</h3>
+  <p>An index of old skins, themes, emoticons and other customization files for messengers, media players and desktops: ${m.total.toLocaleString()} items from ${m.apps.length} programs, ${m.archived.toLocaleString()} of them archived. Each entry links to its original page and to an archived copy when one exists. Browse by program, type or source, or search for a name.</p>
+  <h2 style="clear:both"><a href="${h.link(all, { sort: '' })}">Browse the Museum</a></h2>
+  <p>View and download items made by users over the years. </p>
+<div class="featuredbox clearfix" style="margin-bottom:15px">
+		<div class="left2 clearfix">
+<h3>Snapshots</h3><div class="subhighlight clearfix"><div class="r1"><div class="r2"><div class="r4">
+<ul>
+${snaps}
+</ul>
+</div></div></div></div>
+<h3>Categories</h3><div class="subhighlight clearfix"><div class="r1"><div class="r2"><div class="r6"><ul>
+${cats}</ul>
+</div></div></div></div>
+<h3 style="margin-top:10px;">External Resources</h3>
+<p>Items in the museum come from these sites, among others:</p>
+<ul>
+${ext}
+	</ul>
+	</div>
+		<div class="right2 clearfix">
+${feat('Featured Item', 'featured', 'More Messenger Plus! Skins', h.url.site('wlm'))}
+${feat('Just Added', 'new', 'More New Items', h.link(all, { sort: '' }))}
+${feat('Most Downloaded', 'top', 'More Skins', h.url.site('wlm'))}
+		</div>
+</div>
+<h2>Missing something... how can I add it?!</h2>
+<p>Anything we have not found yet can be suggested with a <a href="${h.url.request()}" target="_blank" rel="noopener">request</a>: a single page or file, or a whole site. Requests are archived on the Wayback Machine first and then indexed here, so nothing has to be uploaded by hand.</p>`;
+      return page(ctx, { title: 'Customization Museum', sub: 'Old skins, themes and emoticons', left });
     },
+
     list(ctx) {
-      const { h, route: r, list: l, about } = ctx, f = l.facets;
-      const sname = (r.sort === 'old' ? 'Browse by Age' : r.sort === 'az' ? 'Browse by Name' : 'Browse by Date');
+      const { h, route: r, list: l, about } = ctx;
+      const sname = r.sort === 'old' ? 'Browse by Age' : r.sort === 'az' ? 'Browse by Name' : 'Browse by Date';
       const bc = [['Customization Museum', h.url.home()]];
       if (r.app) bc.push([h.appName(r.app), h.url.app(r.app)]);
-      if (l.typeName) bc.push([l.typeName, '']);
-      if (r.q) bc.push(['Search: ' + r.q, '']);
+      if (r.site) bc.push([h.siteName(r.site), h.url.site(r.site)]);
+      if (l.typeName) bc.push([l.typeName, h.url.type(l.typeName)]);
+      if (r.tag) bc.push([r.tag, '']);
+      if (r.q) bc.push([`Search: ${r.q}`, '']);
       bc.push([sname, '']);
-      const sel = '';
-      const li = (href, label, n, on) => `<li${on ? ' class="on"' : ''}><a href="${href}">${h.esc(label)}<span>${n}</span></a></li>`;
-      const side = sideNav(ctx)
-        + box('programs', f.apps.slice(0, 12).map(([k, n, c]) => li(h.link(r, { app: k === r.app ? '' : k, type: '', tag: '' }), n, c, k === r.app)).join(''), 'sc')
-        + box('types', f.types.slice(0, 14).map(([t, n]) => li(h.link(r, { type: r.type && h.slug(r.type) === h.slug(t) ? '' : t, tag: '' }), t, n, t === l.typeName)).join(''), 'sc')
-        + (f.tags.length ? box('tags', f.tags.slice(0, 12).map(([t, n]) => li(h.link(r, { tag: r.tag === t ? '' : t }), t, n, r.tag === t)).join(''), 'sc') : '');
-      const body = `${about ? `<div class="mp-about"><div class="mp-tools"><a href="${h.esc(about.edit)}" target="_blank" rel="noopener">Edit</a><a href="${h.link(r, { site: '' })}">Close</a></div>${about.html}</div>` : ''}
-        ${sel}${pager(h, r, l)}<div class="mp-sec"></div>
-        ${l.rows.length ? l.rows.map((e, i) => row(h, e, i)).join('') : '<p class="mp-empty">No results</p>'}
-        <div class="mp-sec"></div>${pager(h, r, l)}`;
-      return shell(ctx, { title: r.app ? h.appName(r.app) : 'Customization Museum', sub: `${l.total.toLocaleString()} items`, total: l.total, bc, body, side, box: `<span>${l.total.toLocaleString()} items, page <b>${r.page}</b> of <b>${l.pages}</b></span><span>${h.sortSelect(r)} ${h.archSelect(r)}</span>` });
+      const title = r.app ? h.appName(r.app) : r.site ? h.siteName(r.site) : l.typeName || (r.q ? 'Search Results' : 'All Items');
+      const left = `${warning(h)}${buttons(ctx)}
+${crumbs(h, bc)}
+${about ? `<div class="highlight cm-about"><span class="cm-tools"><a href="${h.esc(about.edit)}" target="_blank" rel="noopener">Edit</a> | <a href="${h.link(r, { site: '' })}">Close</a></span>${about.html}</div>` : ''}
+<p/>
+${pager(h, r, l)}
+<table width="100%" border="0" align="center" cellpadding="3" cellspacing="0" class="border">
+  <tr class="sectionheader">
+    <td width="12%">&nbsp;</td>
+    <td width="22%">&nbsp;</td>
+    <td width="22%">&nbsp;</td>
+    <td width="22%">&nbsp;</td>
+    <td width="22%">&nbsp;</td>
+  </tr></table>
+${l.rows.length ? l.rows.map((e, i) => row(h, e, i)).join('\n') : '<p align="center">No items match.</p>'}
+<table width="100%" border="0" align="center" cellpadding="3" cellspacing="0" class="border">
+  <tr class="sectionheader">
+    <td width="100%">&nbsp;</td>
+  </tr></table>
+<p/>
+${pager(h, r, l)}`;
+      const banner = `<b>${l.total.toLocaleString()}</b> items &middot; page <b>${Math.min(r.page, l.pages)}</b> of <b>${l.pages}</b> <span>${h.sortSelect(r)} ${h.archSelect(r)}</span>`;
+      return page(ctx, { title, sub: `${l.total.toLocaleString()} items`, left, banner });
     },
+
     item(ctx) {
-      const { h, item: e, route: r } = ctx;
-      if (!e) return shell(ctx, { title: 'Customization Museum', sub: 'Item not found', bc: [['Customization Museum', h.url.home()]], body: `<p class="mp-empty">Item not found. <a href="${h.url.home()}">Back to the museum</a></p>`, side: sideNav(ctx) });
-      const a = (href, text) => href ? `<a href="${h.esc(href)}" target="_blank" rel="noopener">${text}</a>` : '';
-      const file = h.file(e);
-      const dl = file ? `<a class="mp-dl" href="${h.esc(file)}" target="_blank" rel="noopener">download</a>` : '';
-      const rows = h.details(e);
-      const top = rows.slice(0, 3), rest = rows.slice(3);
-      const trs = top.map(([k, v], i) => `<tr><td class="k">${k}:</td><td class="v">${v}</td>${i === 0 ? `<td class="d" rowspan="${top.length}">${dl}</td>` : ''}</tr>`).join('')
-        + rest.map(([k, v]) => `<tr><td class="k">${k}:</td><td class="v" colspan="2">${v}</td></tr>`).join('');
-      const links = `<div class="mp-lk">${a(h.page(e), 'Original page')} ${h.page(e) ? '|' : ''} ${a(h.edit(e), 'Edit')} | ${a(h.report(e), 'Report')}</div>`;
-      const body = `<table class="mp-view"><tr><th colspan="3">${h.esc(e.t)} <small>${h.esc(e.a)}</small></th></tr>${trs}
-        <tr><td class="mp-shot" colspan="3"><div class="in">${h.media(e)}</div>${e.desc ? `<div class="mp-desc">${e.desc}</div>` : ''}${links}</td></tr></table>
-        <div class="mp-dlb">${dl}</div>`;
-      const side = sideNav(ctx, box('more', bl(h.url.app(e.k), `More ${h.esc(e.a)}`, '') + e.y.map(t => bl(h.url.type(t), `More ${h.esc(t)}`, '')).join('') + bl(h.url.site(e.s), h.esc(h.siteName(e.s)), '')));
-      return shell(ctx, { title: 'Customization Museum', sub: h.esc(e.a), total: ctx.manifest ? ctx.manifest.total : 0, bc: [['Customization Museum', h.url.home()], [e.a, h.url.app(e.k)], [e.t, '']], body, side, box: `<b>${h.esc(e.t)}</b>` });
+      const { h, item: e } = ctx;
+      if (!e) return page(ctx, { title: 'Customization Museum', sub: 'Item not found', left: `${buttons(ctx)}<p>Item not found. <a href="${h.url.home()}">Back to the museum</a></p>` });
+      const x = e.x || {}, file = h.file(e), img = h.thumb(e);
+      const dl = file ? `<a href="${h.esc(file)}" class="downdbdownload" target="_blank" rel="noopener">download</a>` : '<span class="downdbdownload cm-nodl">no file</span>';
+      const top = [['Last Update', fmtDate(e.d) || 'Unknown'], x.Creator ? ['Creator', h.esc(x.Creator)] : ['Program', `<a href="${h.url.app(e.k)}">${h.esc(e.a)}</a>`],
+        x.Downloads ? ['Downloads', h.esc(x.Downloads)] : ['Type', e.y.map(t => `<a href="${h.url.type(t)}">${h.esc(t)}</a>`).join(', ')]];
+      const rating = x.Rating ? `<span class="small">${h.esc(x.Rating)}</span>` : `<a href="${h.url.site(e.s)}">${h.esc(h.siteName(e.s))}</a> &middot; ${h.esc(h.archivedLabel(e))}`;
+      const compat = x.Compatibility ? `This skin works with Messenger versions <strong>${h.esc(x.Compatibility)}</strong>` : h.esc(e.g.join(', ') || e.y.join(', '));
+      const links = [h.page(e) && `<a href="${h.esc(h.page(e))}" rel="external" target="_blank">Original page</a>`, `<a href="${h.esc(h.edit(e))}" target="_blank" rel="noopener">Edit</a>`, `<a href="${h.esc(h.report(e))}" target="_blank" rel="noopener">Report</a>`].filter(Boolean).join(' | ');
+      const left = `${warning(h)}${buttons(ctx)}
+${crumbs(h, [['Customization Museum', h.url.home()], [e.a, h.url.app(e.k)], [e.t, h.url.item(e)]])}
+<table width="100%" border="1" align="center" cellpadding="3" cellspacing="0" class="border">
+  <tr>
+    <td width="75%" class="fileheader" valign="top" height="100%" colspan="3">
+      <span class="largefilename">${h.esc(e.t)}</span> ${h.esc(e.a)}<br/>
+    </td>
+  </tr>
+  <tr>
+    <td width="15%">${top[0][0]}:</td>
+    <td width="58%">${top[0][1]}</td>
+    <td rowspan="3" width="27%" align="center">
+        ${dl}
+    </td>
+  </tr>
+      <tr>
+      <td width="15%">${top[1][0]}:</td>
+      <td width="55%">${top[1][1]}</td>
+    </tr>
+    <tr>
+    <td width="15%">${top[2][0]}:</td>
+    <td width="55%">${top[2][1]}</td>
+  </tr>
+  <tr>
+    <td width="15%">${x.Rating ? 'Rating' : 'Source'}:</td>
+    <td valign="top" width="85%" colspan="2">${rating}</td>
+  </tr>
+   <tr>
+    <td width="15%">${x.Compatibility ? 'Compatibility' : 'Tags'}:</td>
+    <td valign="top" width="85%" colspan="2">${compat}</td>
+  </tr>
+  <tr>
+    <td class="skindetails" colspan="3" width="100%">
+				          <p align="center">${img ? `<a href="${h.esc(img)}" class="highslide" target="_blank" rel="noopener">${h.media(e).replace('<img ', '<img class="frame cm-shot" ')}</a>` : h.media(e)}</p>
+                ${e.desc ? `<div class="cm-desc">${e.desc}</div>` : ''}
+                	<p>More Info: ${links}</p>
+            </td>
+  </tr>
+</table>
+<table width="100%" border="0" align="center" cellpadding="3" cellspacing="0">
+  <tr>
+    <td width="100%" align="center">
+        ${dl}
+    </td>
+  </tr>
+</table>
+<p>&nbsp;</p>`;
+      return page(ctx, { title: 'Customization Museum', sub: e.a, left });
     },
   };
 })();
