@@ -204,6 +204,7 @@ async function findItem(id) {
 // ?theme=<name> selects a theme (shareable links, screenshot tooling); it is remembered like the picker
 const themeParam = new URLSearchParams(location.search).get('theme');
 if (themeParam && /^[a-z0-9-]+$/.test(themeParam)) localStorage.setItem('theme', themeParam);
+if (new URLSearchParams(location.search).get('warned') === '1') localStorage.setItem('warned', '1');
 let currentTheme = localStorage.getItem('theme') || 'default', renderToken = 0;
 function loadTheme(name) {
   if (THEMES[name]?.home) return Promise.resolve(THEMES[name]);
