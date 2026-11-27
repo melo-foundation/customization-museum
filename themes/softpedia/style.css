@@ -40,15 +40,10 @@ html[data-theme="softpedia"] .spx-adwarn { display:flex; align-items:center; pad
 html[data-theme="softpedia"] .cm-warning { display:flex; gap:16px; align-items:center; width:100%; color:#677695; font:bold 12px/16px Arial,Helvetica,sans-serif; }
 html[data-theme="softpedia"] .cm-warning button { margin-left:auto; font:bold 11px Arial; color:#001F5B; background:#F2F5FF; border:1px solid #426BBC; padding:2px 10px; cursor:pointer; }
 
-/* right column slots: 120x90 box (front page) and the Special Deal picture area */
+/* right column 120x90 slot (front page) */
 html[data-theme="softpedia"] .spx-ad120 { display:flex; flex-direction:column; align-items:center; justify-content:center; color:#21427D; }
 html[data-theme="softpedia"] .spx-ad120 b { font:bold 26px Arial,sans-serif; color:#34538C; }
 html[data-theme="softpedia"] .spx-ad120 span { font:10px/12px Verdana,Arial,sans-serif; color:#5C6985; }
-html[data-theme="softpedia"] .spx-dealpic { position:relative; display:block; width:140px; height:150px; margin-top:5px; box-sizing:border-box; border:2px solid #9CB5E5; background:linear-gradient(#fff, #E3EBFB); text-align:center; color:#21427D; text-decoration:none; }
-html[data-theme="softpedia"] .spx-dealpic b { display:block; padding-top:28px; font:bold 32px Arial,sans-serif; color:#34538C; }
-html[data-theme="softpedia"] .spx-dealpic span { display:block; font:bold 12px Arial,sans-serif; }
-html[data-theme="softpedia"] .spx-dealpic i { position:absolute; left:9px; bottom:34px; height:8px; max-width:118px; background:linear-gradient(#7FD07F, #32A738); border-radius:4px; }
-html[data-theme="softpedia"] .spx-dealpic em { position:absolute; left:0; right:0; bottom:12px; font:10px Verdana,sans-serif; font-style:normal; color:#5C6985; }
 
 /* front-page box: our file count where the RSS/KLIP buttons sat */
 html[data-theme="softpedia"] .spx-count { display:inline-block; padding:0 7px; height:14px; border-radius:7px; background:linear-gradient(#fff, #D7E1F5); border:1px solid #9AB0DD; font:bold 9px/14px Arial,sans-serif; color:#34538C; }
@@ -79,3 +74,7 @@ html[data-theme="softpedia"] #spx-search { line-height:0; }
 html[data-theme="softpedia"] #spx-search .searchfield { vertical-align:top; }
 /* quirks: an <li> outside <ul>/<ol> draws its marker inside */
 html[data-theme="softpedia"] #app td > li { list-style-position:inside; }
+/* quirks: a cell height attribute includes its vertical padding (circle cells, with horizontal padding, carry their own height) */
+html[data-theme="softpedia"] #app td[height]:not([background]) { box-sizing:border-box; }
+/* quirks: forms keep a 1em bottom margin */
+html[data-theme="softpedia"] .spx-opts { margin:0 0 1em; }
