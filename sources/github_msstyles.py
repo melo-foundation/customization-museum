@@ -84,7 +84,7 @@ def scrape():
         assets = [a for a in rel.get("assets", []) if re.search(r"\.(zip|msstyles|7z|rar|theme|themepack)$", a["name"], re.I)]
         in_tree = any(t["path"].lower().endswith(".msstyles") for t in tree.get("tree", []))
         in_rel = any(re.search(r"msstyles|theme|style|skin", a["name"], re.I) for a in assets)
-        if not (in_tree or in_rel or "msstyles" in (r.get("description") or "").lower() or "msstyles" in r.get("topics", [])):
+        if not (in_tree or in_rel):
             continue
         rd = api(f"https://api.github.com/repos/{name}/readme", tok, None)
         readme = ""
@@ -94,6 +94,8 @@ def scrape():
             except Exception:
                 pass
         owner, repo = name.split("/")
+        if re.search(r"cve-|poc|themebleed", repo, re.I):
+            continue
         v = version(" ".join([repo, r.get("description") or "", " ".join(r.get("topics", []))])) or version(readme[:3000])
         extra = {"Author": owner, "Stars": str(r["stargazers_count"])}
         if r.get("license") and r["license"].get("spdx_id") not in (None, "NOASSERTION"):

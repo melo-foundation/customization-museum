@@ -1,0 +1,789 @@
+[
+ {
+  "app": "Windows Visual Styles",
+  "date": "2019-10-17",
+  "description": "msstyles of older windows ported to Windows 8.1, kept as close to the originals as possible.",
+  "download": "https://github.com/Goujer/Legacy-Styles-for-Windows-8.1/releases/download/0.0.2/Themes.7z",
+  "extra": {
+   "Author": "Goujer",
+   "License": "MIT",
+   "Stars": "8"
+  },
+  "id": "github-msstyles-goujer-legacy-styles-for-windows-8.1",
+  "page": "https://github.com/Goujer/Legacy-Styles-for-Windows-8.1",
+  "preview": "https://opengraph.githubassets.com/1/Goujer/Legacy-Styles-for-Windows-8.1",
+  "tags": [
+   "8",
+   "Visual Styles"
+  ],
+  "title": "Legacy-Styles-for-Windows-8.1"
+ },
+ {
+  "app": "Windows Visual Styles",
+  "date": "2026-11-17",
+  "description": "Windows 8 beta (8250/8102) look on Windows 11 25H2: msstyles port, later a shell transplant",
+  "download": "https://github.com/JeyKul/Win8BetaLook/archive/refs/heads/master.zip",
+  "extra": {
+   "Author": "JeyKul",
+   "License": "GPL-3.0",
+   "Stars": "0"
+  },
+  "id": "github-msstyles-jeykul-win8betalook",
+  "page": "https://github.com/JeyKul/Win8BetaLook",
+  "preview": "https://opengraph.githubassets.com/1/JeyKul/Win8BetaLook",
+  "tags": [
+   "11",
+   "Visual Styles"
+  ],
+  "title": "Win8BetaLook"
+ },
+ {
+  "app": "Windows Visual Styles",
+  "date": "2026-11-15",
+  "description": "Theme Loader 4: bounded, validated loader for version-4 .msstyles visual styles (+ DirectUI research component)",
+  "download": "https://github.com/LeewayOpenSoftware/ThemeLoader4/archive/refs/heads/main.zip",
+  "extra": {
+   "Author": "LeewayOpenSoftware",
+   "License": "LGPL-2.1",
+   "Stars": "0"
+  },
+  "id": "github-msstyles-leewayopensoftware-themeloader4",
+  "page": "https://github.com/LeewayOpenSoftware/ThemeLoader4",
+  "preview": "https://opengraph.githubassets.com/1/LeewayOpenSoftware/ThemeLoader4",
+  "tags": [
+   "10",
+   "Visual Styles"
+  ],
+  "title": "ThemeLoader4"
+ },
+ {
+  "app": "Windows Visual Styles",
+  "date": "2024-10-03",
+  "description": "Aero 7 theme for Windows 11 23H2+",
+  "download": "https://github.com/LittleFox2024/Aero7-11/releases/download/v3.2.0/Aero7-11.zip",
+  "extra": {
+   "Author": "LittleFox2024",
+   "License": "GPL-3.0",
+   "Stars": "121"
+  },
+  "id": "github-msstyles-littlefox2024-aero7-11",
+  "page": "https://github.com/LittleFox2024/Aero7-11",
+  "preview": "https://github.com/user-attachments/assets/48751eb9-c8cf-402e-965e-22f5951d2337",
+  "tags": [
+   "11",
+   "Visual Styles"
+  ],
+  "title": "Aero7-11"
+ },
+ {
+  "app": "Windows Visual Styles",
+  "date": "2026-11-15",
+  "description": "Start win11 with program",
+  "download": "https://github.com/LostErr0r/windows-new/archive/refs/heads/main.zip",
+  "extra": {
+   "Author": "LostErr0r",
+   "Stars": "0"
+  },
+  "id": "github-msstyles-losterr0r-windows-new",
+  "page": "https://github.com/LostErr0r/windows-new",
+  "preview": "https://opengraph.githubassets.com/1/LostErr0r/windows-new",
+  "tags": [
+   "11",
+   "Visual Styles"
+  ],
+  "title": "windows new"
+ },
+ {
+  "app": "Windows Visual Styles",
+  "date": "2020-05-12",
+  "description": "msstyles project for Windows and ReactOS",
+  "download": "https://github.com/Mas4hmad/ms-visual-styles/archive/refs/heads/master.zip",
+  "extra": {
+   "Author": "Mas4hmad",
+   "License": "GPL-2.0",
+   "Stars": "2"
+  },
+  "id": "github-msstyles-mas4hmad-ms-visual-styles",
+  "page": "https://github.com/Mas4hmad/ms-visual-styles",
+  "preview": "https://opengraph.githubassets.com/1/Mas4hmad/ms-visual-styles",
+  "tags": [
+   "Visual Styles"
+  ],
+  "title": "ms visual styles"
+ },
+ {
+  "app": "Windows Visual Styles",
+  "date": "2022-07-01",
+  "description": "Collection of batch scripts to change the appearance of the Windows 8+ user interface. An extension of the .theme ini files.",
+  "download": "https://github.com/OrthodoxWindows/ThemeSwitcherScripts/releases/download/Prerelease-1.1/ThemeSwitcherScripts.1.1.-.EN.zip",
+  "extra": {
+   "Author": "OrthodoxWindows",
+   "License": "GPL-3.0",
+   "Stars": "34"
+  },
+  "id": "github-msstyles-orthodoxwindows-themeswitcherscripts",
+  "page": "https://github.com/OrthodoxWindows/ThemeSwitcherScripts",
+  "preview": "https://user-images.githubusercontent.com/100134023/177014021-419b31c8-3530-4850-bdc6-c7009c575cad.png",
+  "tags": [
+   "8",
+   "Visual Styles"
+  ],
+  "title": "ThemeSwitcherScripts"
+ },
+ {
+  "app": "Windows Visual Styles",
+  "date": "2026-07-04",
+  "description": "Catpputccin mocha dots for windows",
+  "download": "https://github.com/PiyushManwani/Cat-Windots/archive/refs/heads/main.zip",
+  "extra": {
+   "Author": "PiyushManwani",
+   "Stars": "0"
+  },
+  "id": "github-msstyles-piyushmanwani-cat-windots",
+  "page": "https://github.com/PiyushManwani/Cat-Windots",
+  "preview": "https://opengraph.githubassets.com/1/PiyushManwani/Cat-Windots",
+  "tags": [
+   "11",
+   "Visual Styles"
+  ],
+  "title": "Cat-Windots"
+ },
+ {
+  "app": "Windows Visual Styles",
+  "date": "2026-11-01",
+  "description": "Тёмная Windows 11 в один клик Темы, папки, вкладки в Проводнике",
+  "download": "https://github.com/SKANDALlST/VibeShift/archive/refs/heads/main.zip",
+  "extra": {
+   "Author": "SKANDALlST",
+   "Stars": "0"
+  },
+  "id": "github-msstyles-skandallst-vibeshift",
+  "page": "https://github.com/SKANDALlST/VibeShift",
+  "preview": "https://raw.githubusercontent.com/SKANDALlST/VibeShift/main/screenshots/app.png",
+  "tags": [
+   "11",
+   "Visual Styles"
+  ],
+  "title": "VibeShift"
+ },
+ {
+  "app": "Windows Visual Styles",
+  "date": "2025-06-12",
+  "description": "An accurate and comprehensive Windows Vista, 7, and 8.x theme for Windows 11",
+  "download": "https://github.com/Sand216/Aero11/releases/download/1.5/Aero11.zip",
+  "extra": {
+   "Author": "Sand216",
+   "License": "MIT",
+   "Stars": "253"
+  },
+  "id": "github-msstyles-sand216-aero11",
+  "page": "https://github.com/Sand216/Aero11",
+  "preview": "https://raw.githubusercontent.com/Sand216/Aero11/aero11_seven/screenshot.png",
+  "tags": [
+   "11",
+   "Visual Styles"
+  ],
+  "title": "Aero11"
+ },
+ {
+  "app": "Windows Visual Styles",
+  "date": "2024-12-09",
+  "description": "Windows 10 msstyles theme for Windows 11",
+  "download": "https://github.com/Sand216/Vibranium11/releases/download/1.1/Vibranium11.zip",
+  "extra": {
+   "Author": "Sand216",
+   "License": "MIT",
+   "Stars": "48"
+  },
+  "id": "github-msstyles-sand216-vibranium11",
+  "page": "https://github.com/Sand216/Vibranium11",
+  "preview": "https://raw.githubusercontent.com/Sand216/Vibranium11/main/screenshot.png",
+  "tags": [
+   "11",
+   "Visual Styles"
+  ],
+  "title": "Vibranium11"
+ },
+ {
+  "app": "Windows Visual Styles",
+  "date": "2013-09-06",
+  "description": "A Windows 8 visual style",
+  "download": "https://github.com/SirJohnLemon/virt/archive/refs/heads/master.zip",
+  "extra": {
+   "Author": "SirJohnLemon",
+   "Stars": "0"
+  },
+  "id": "github-msstyles-sirjohnlemon-virt",
+  "page": "https://github.com/SirJohnLemon/virt",
+  "preview": "https://opengraph.githubassets.com/1/SirJohnLemon/virt",
+  "tags": [
+   "8",
+   "Visual Styles"
+  ],
+  "title": "virt"
+ },
+ {
+  "app": "Windows Visual Styles",
+  "date": "2023-06-30",
+  "description": "Aero.msstyles win32-darkmode toolbar button fix for Windows 11.",
+  "download": "https://github.com/WildByDesign/Aero.msstyles-win32-darkmode/releases/download/24H2/aero11-24H2.7z",
+  "extra": {
+   "Author": "WildByDesign",
+   "Stars": "12"
+  },
+  "id": "github-msstyles-wildbydesign-aero.msstyles-win32-darkmode",
+  "page": "https://github.com/WildByDesign/Aero.msstyles-win32-darkmode",
+  "preview": "https://github.com/WildByDesign/Aero.msstyles-win32-darkmode/assets/26308319/93cd3e3d-3caf-4c58-a7f6-5c001dd57a0a",
+  "tags": [
+   "11",
+   "Visual Styles"
+  ],
+  "title": "Aero.msstyles-win32-darkmode"
+ },
+ {
+  "app": "Windows Visual Styles",
+  "date": "2025-10-08",
+  "description": "some fixing to windows 10 aerolite.msstyle",
+  "download": "https://github.com/a5632645/aerolite-fix/archive/refs/heads/main.zip",
+  "extra": {
+   "Author": "a5632645",
+   "Stars": "0"
+  },
+  "id": "github-msstyles-a5632645-aerolite-fix",
+  "page": "https://github.com/a5632645/aerolite-fix",
+  "preview": "https://raw.githubusercontent.com/a5632645/aerolite-fix/main/put.png",
+  "tags": [
+   "10",
+   "Visual Styles"
+  ],
+  "title": "aerolite fix"
+ },
+ {
+  "app": "Windows Visual Styles",
+  "date": "2023-06-30",
+  "description": "An archive of various msstyles and visual style-related resources",
+  "download": "https://github.com/abart27/MsstylesArchive/archive/refs/heads/main.zip",
+  "extra": {
+   "Author": "abart27",
+   "Stars": "1"
+  },
+  "id": "github-msstyles-abart27-msstylesarchive",
+  "page": "https://github.com/abart27/MsstylesArchive",
+  "preview": "https://opengraph.githubassets.com/1/abart27/MsstylesArchive",
+  "tags": [
+   "Visual Styles"
+  ],
+  "title": "MsstylesArchive"
+ },
+ {
+  "app": "Windows Visual Styles",
+  "date": "2026-11-02",
+  "description": "",
+  "download": "https://github.com/alexandrec90/skinamp/releases/download/v0.1.0/Skinamp-win-Portable.zip",
+  "extra": {
+   "Author": "alexandrec90",
+   "Stars": "0"
+  },
+  "id": "github-msstyles-alexandrec90-skinamp",
+  "page": "https://github.com/alexandrec90/skinamp",
+  "preview": "https://opengraph.githubassets.com/1/alexandrec90/skinamp",
+  "tags": [
+   "XP",
+   "Visual Styles"
+  ],
+  "title": "skinamp"
+ },
+ {
+  "app": "Windows Visual Styles",
+  "date": "2026-11-16",
+  "description": "",
+  "download": "https://github.com/altalib67-sketch/KushOS/archive/refs/heads/main.zip",
+  "extra": {
+   "Author": "altalib67-sketch",
+   "Stars": "0"
+  },
+  "id": "github-msstyles-altalib67-sketch-kushos",
+  "page": "https://github.com/altalib67-sketch/KushOS",
+  "preview": "https://opengraph.githubassets.com/1/altalib67-sketch/KushOS",
+  "tags": [
+   "XP",
+   "Visual Styles"
+  ],
+  "title": "KushOS"
+ },
+ {
+  "app": "Windows Visual Styles",
+  "date": "2025-04-02",
+  "description": "Explorer7",
+  "download": "https://github.com/ant0-blase/Explorer7/archive/refs/heads/main.zip",
+  "extra": {
+   "Author": "ant0-blase",
+   "Stars": "0"
+  },
+  "id": "github-msstyles-ant0-blase-explorer7",
+  "page": "https://github.com/ant0-blase/Explorer7",
+  "preview": "https://opengraph.githubassets.com/1/ant0-blase/Explorer7",
+  "tags": [
+   "XP",
+   "Visual Styles"
+  ],
+  "title": "Explorer7"
+ },
+ {
+  "app": "Windows Visual Styles",
+  "date": "2026-03-22",
+  "description": "A web-based editor for Windows themes (.msstyles)",
+  "download": "https://github.com/aubymori/UXEdit/archive/refs/heads/main.zip",
+  "extra": {
+   "Author": "aubymori",
+   "Stars": "1"
+  },
+  "id": "github-msstyles-aubymori-uxedit",
+  "page": "https://github.com/aubymori/UXEdit",
+  "preview": "https://opengraph.githubassets.com/1/aubymori/UXEdit",
+  "tags": [
+   "Visual Styles"
+  ],
+  "title": "UXEdit"
+ },
+ {
+  "app": "Windows Visual Styles",
+  "date": "2026-11-22",
+  "description": "Kush 1.1 operating system source, original Fluent-inspired shell design. Work in progress.",
+  "download": "https://github.com/eltaieb-eltalib/kush-os-fluent/archive/refs/heads/main.zip",
+  "extra": {
+   "Author": "eltaieb-eltalib",
+   "License": "GPL-2.0",
+   "Stars": "0"
+  },
+  "id": "github-msstyles-eltaieb-eltalib-kush-os-fluent",
+  "page": "https://github.com/eltaieb-eltalib/kush-os-fluent",
+  "preview": "https://raw.githubusercontent.com/eltaieb-eltalib/kush-os-fluent/main/docs/design/2026-11-22-media-main.png",
+  "tags": [
+   "XP",
+   "Visual Styles"
+  ],
+  "title": "kush os fluent"
+ },
+ {
+  "app": "Windows Visual Styles",
+  "date": "2026-11-19",
+  "description": "Kush 1.1 — latest modifications (ReactOS master + Sudanese identity + TrapFrame, GOP and AHCI fixes). Source only, no ISO.",
+  "download": "https://github.com/eltaieb-eltalib/last-kushos/archive/refs/heads/main.zip",
+  "extra": {
+   "Author": "eltaieb-eltalib",
+   "License": "GPL-2.0",
+   "Stars": "0"
+  },
+  "id": "github-msstyles-eltaieb-eltalib-last-kushos",
+  "page": "https://github.com/eltaieb-eltalib/last-kushos",
+  "preview": "https://raw.githubusercontent.com/eltaieb-eltalib/last-kushos/main/docs/wow64/screenshots/02-wow64test-12-of-12.png",
+  "tags": [
+   "10",
+   "Visual Styles"
+  ],
+  "title": "last kushos"
+ },
+ {
+  "app": "Windows Visual Styles",
+  "date": "2024-04-26",
+  "description": "",
+  "download": "https://github.com/falbue/Dynamics-Theme/releases/download/v1.4/Dynamics.Theme.zip",
+  "extra": {
+   "Author": "falbue",
+   "Stars": "3"
+  },
+  "id": "github-msstyles-falbue-dynamics-theme",
+  "page": "https://github.com/falbue/Dynamics-Theme",
+  "preview": "https://opengraph.githubassets.com/1/falbue/Dynamics-Theme",
+  "tags": [
+   "11",
+   "Visual Styles"
+  ],
+  "title": "Dynamics-Theme"
+ },
+ {
+  "app": "Windows Visual Styles",
+  "date": "2017-04-21",
+  "description": "A highly polished Windows Aero theme for WPF",
+  "download": "https://github.com/gix/PresentationTheme.Aero/releases/download/v0.6.4/ThemeTools-0.6.4.zip",
+  "extra": {
+   "Author": "gix",
+   "License": "MIT",
+   "Stars": "83"
+  },
+  "id": "github-msstyles-gix-presentationtheme.aero",
+  "page": "https://github.com/gix/PresentationTheme.Aero",
+  "preview": "https://raw.githubusercontent.com/gix/PresentationTheme.Aero/master/Docs/images/theme-browser.png",
+  "tags": [
+   "10",
+   "Visual Styles"
+  ],
+  "title": "PresentationTheme.Aero"
+ },
+ {
+  "app": "Windows Visual Styles",
+  "date": "2016-03-22",
+  "description": "Qt4/5 style engine that runs Windows XP .msstyles",
+  "download": "https://github.com/jewalky/lunatic/archive/refs/heads/master.zip",
+  "extra": {
+   "Author": "jewalky",
+   "Stars": "3"
+  },
+  "id": "github-msstyles-jewalky-lunatic",
+  "page": "https://github.com/jewalky/lunatic",
+  "preview": "https://opengraph.githubassets.com/1/jewalky/lunatic",
+  "tags": [
+   "XP",
+   "Visual Styles"
+  ],
+  "title": "lunatic"
+ },
+ {
+  "app": "Windows Visual Styles",
+  "date": "2024-01-26",
+  "description": "A collection of original and restyled .msstyles themes for wine",
+  "download": "https://github.com/listumps/wine_themes/archive/refs/heads/main.zip",
+  "extra": {
+   "Author": "listumps",
+   "Stars": "64"
+  },
+  "id": "github-msstyles-listumps-wine_themes",
+  "page": "https://github.com/listumps/wine_themes",
+  "preview": "https://raw.githubusercontent.com/listumps/wine_themes/main/images/win_xp_blue_theme.jpg",
+  "tags": [
+   "XP",
+   "Visual Styles"
+  ],
+  "title": "wine themes"
+ },
+ {
+  "app": "Windows Visual Styles",
+  "date": "2020-09-10",
+  "description": "Classic theme for Windows 10",
+  "download": "https://github.com/malvinas2/ClassicThemeForWindows10/releases/download/2.0/ClassicThemeForWindows10.zip",
+  "extra": {
+   "Author": "malvinas2",
+   "Stars": "135"
+  },
+  "id": "github-msstyles-malvinas2-classicthemeforwindows10",
+  "page": "https://github.com/malvinas2/ClassicThemeForWindows10",
+  "preview": "https://github.com/malvinas2/ClassicThemeForWindows10/blob/master/_settings/windows_10_with_classic_theme.png",
+  "tags": [
+   "10",
+   "Visual Styles"
+  ],
+  "title": "ClassicThemeForWindows10"
+ },
+ {
+  "app": "Windows Visual Styles",
+  "date": "2026-03-16",
+  "description": "Windows utility to parse and view DarkMode class mappings from .msstyles theme files",
+  "download": "https://github.com/memoarfaa/aero-darkmode-parser/archive/refs/heads/main.zip",
+  "extra": {
+   "Author": "memoarfaa",
+   "License": "MIT",
+   "Stars": "2"
+  },
+  "id": "github-msstyles-memoarfaa-aero-darkmode-parser",
+  "page": "https://github.com/memoarfaa/aero-darkmode-parser",
+  "preview": "https://github.com/user-attachments/assets/cb2f7e69-30eb-489d-ad37-78d60567a49f",
+  "tags": [
+   "Visual Styles"
+  ],
+  "title": "aero darkmode parser"
+ },
+ {
+  "app": "Windows Visual Styles",
+  "date": "2026-09-03",
+  "description": "Windows 11 Theme",
+  "download": "https://github.com/mg-gouda/itheme-win11/archive/refs/heads/master.zip",
+  "extra": {
+   "Author": "mg-gouda",
+   "Stars": "0"
+  },
+  "id": "github-msstyles-mg-gouda-itheme-win11",
+  "page": "https://github.com/mg-gouda/itheme-win11",
+  "preview": "https://opengraph.githubassets.com/1/mg-gouda/itheme-win11",
+  "tags": [
+   "11",
+   "Visual Styles"
+  ],
+  "title": "itheme win11"
+ },
+ {
+  "app": "Windows Visual Styles",
+  "date": "2013-02-01",
+  "description": "Small tool for exploring visual styles (aka themes) on Windows XP and later, as provided by UXTHEME.DLL.",
+  "download": "https://github.com/mity/theme-explorer/releases/download/release-20150826/ThemeExplorer-20150826-bin.zip",
+  "extra": {
+   "Author": "mity",
+   "License": "MIT",
+   "Stars": "96"
+  },
+  "id": "github-msstyles-mity-theme-explorer",
+  "page": "https://github.com/mity/theme-explorer",
+  "preview": "https://opengraph.githubassets.com/1/mity/theme-explorer",
+  "tags": [
+   "XP",
+   "Visual Styles"
+  ],
+  "title": "theme explorer"
+ },
+ {
+  "app": "Windows Visual Styles",
+  "date": "2025-06-24",
+  "description": "Theme changer for Windows, originally part of SecureUxTheme",
+  "download": "https://github.com/namazso/ThemeToolSharp/releases/download/1.1.0/ThemeToolSharp.zip",
+  "extra": {
+   "Author": "namazso",
+   "License": "LGPL-2.1",
+   "Stars": "90"
+  },
+  "id": "github-msstyles-namazso-themetoolsharp",
+  "page": "https://github.com/namazso/ThemeToolSharp",
+  "preview": "https://github.com/user-attachments/assets/8bb91e8a-6dfe-47fc-9cc1-834022d38a64",
+  "tags": [
+   "8",
+   "Visual Styles"
+  ],
+  "title": "ThemeToolSharp"
+ },
+ {
+  "app": "Windows Visual Styles",
+  "date": "2017-06-01",
+  "description": "an editor for windows visual styles",
+  "download": "https://github.com/nptr/msstyleEditor/releases/download/2.1.2.0/msstyleEditor.zip",
+  "extra": {
+   "Author": "nptr",
+   "License": "MIT",
+   "Stars": "1093"
+  },
+  "id": "github-msstyles-nptr-msstyleeditor",
+  "page": "https://github.com/nptr/msstyleEditor",
+  "preview": "https://user-images.githubusercontent.com/5485569/154944873-e6f03424-6c8f-4114-8f15-6f1af7343f1b.png",
+  "tags": [
+   "8",
+   "Visual Styles"
+  ],
+  "title": "msstyleEditor"
+ },
+ {
+  "app": "Windows Visual Styles",
+  "date": "2022-03-01",
+  "description": "Game Library Automation",
+  "download": "https://github.com/oldtools/v0rt3X/releases/download/Themed/portable_theme.zip",
+  "extra": {
+   "Author": "oldtools",
+   "Stars": "4"
+  },
+  "id": "github-msstyles-oldtools-v0rt3x",
+  "page": "https://github.com/oldtools/v0rt3X",
+  "preview": "https://oldtools.github.io/v0rt3X/img/Setup.png",
+  "tags": [
+   "XP",
+   "Visual Styles"
+  ],
+  "title": "v0rt3X"
+ },
+ {
+  "app": "Windows Visual Styles",
+  "date": "2019-02-19",
+  "description": "Modern theme for reactOS",
+  "download": "https://github.com/p01arst0rm/reactos-modern/archive/refs/heads/master.zip",
+  "extra": {
+   "Author": "p01arst0rm",
+   "Stars": "5"
+  },
+  "id": "github-msstyles-p01arst0rm-reactos-modern",
+  "page": "https://github.com/p01arst0rm/reactos-modern",
+  "preview": "https://opengraph.githubassets.com/1/p01arst0rm/reactos-modern",
+  "tags": [
+   "Visual Styles"
+  ],
+  "title": "reactos modern"
+ },
+ {
+  "app": "Windows Visual Styles",
+  "date": "2019-03-17",
+  "description": "Noble theme for ReactOS",
+  "download": "https://github.com/p01arst0rm/reactos-noble/archive/refs/heads/master.zip",
+  "extra": {
+   "Author": "p01arst0rm",
+   "Stars": "2"
+  },
+  "id": "github-msstyles-p01arst0rm-reactos-noble",
+  "page": "https://github.com/p01arst0rm/reactos-noble",
+  "preview": "https://opengraph.githubassets.com/1/p01arst0rm/reactos-noble",
+  "tags": [
+   "Visual Styles"
+  ],
+  "title": "reactos noble"
+ },
+ {
+  "app": "Windows Visual Styles",
+  "date": "2026-11-25",
+  "description": "Pixel-exact Windows XP Luna theme for Cinnamon/GTK 3, generated from your own luna.msstyles",
+  "download": "https://github.com/paulorlyk/xptheme/archive/refs/heads/main.zip",
+  "extra": {
+   "Author": "paulorlyk",
+   "Stars": "0"
+  },
+  "id": "github-msstyles-paulorlyk-xptheme",
+  "page": "https://github.com/paulorlyk/xptheme",
+  "preview": "https://opengraph.githubassets.com/1/paulorlyk/xptheme",
+  "tags": [
+   "XP",
+   "Visual Styles"
+  ],
+  "title": "xptheme"
+ },
+ {
+  "app": "Windows Visual Styles",
+  "date": "2018-12-18",
+  "description": "ReactOS, Wine and XP styles (msstyles)",
+  "download": "https://github.com/s40in/ros_xp_msstyles/archive/refs/heads/master.zip",
+  "extra": {
+   "Author": "s40in",
+   "License": "GPL-2.0",
+   "Stars": "4"
+  },
+  "id": "github-msstyles-s40in-ros_xp_msstyles",
+  "page": "https://github.com/s40in/ros_xp_msstyles",
+  "preview": "https://opengraph.githubassets.com/1/s40in/ros_xp_msstyles",
+  "tags": [
+   "XP",
+   "Visual Styles"
+  ],
+  "title": "ros xp msstyles"
+ },
+ {
+  "app": "Windows Visual Styles",
+  "date": "2025-06-26",
+  "description": "SamCux Windows 11 Desktop Look",
+  "download": "https://github.com/samcuxx/SamDesk/archive/refs/heads/main.zip",
+  "extra": {
+   "Author": "samcuxx",
+   "Stars": "1"
+  },
+  "id": "github-msstyles-samcuxx-samdesk",
+  "page": "https://github.com/samcuxx/SamDesk",
+  "preview": "https://opengraph.githubassets.com/1/samcuxx/SamDesk",
+  "tags": [
+   "11",
+   "Visual Styles"
+  ],
+  "title": "SamDesk"
+ },
+ {
+  "app": "Windows Visual Styles",
+  "date": "2026-05-28",
+  "description": "Default theme for Windows 10 with added thick borders and accent color disconnected from window color",
+  "download": "https://github.com/sappyyy/Windows-10-Thick-Borders-Theme/archive/refs/heads/main.zip",
+  "extra": {
+   "Author": "sappyyy",
+   "Stars": "0"
+  },
+  "id": "github-msstyles-sappyyy-windows-10-thick-borders-theme",
+  "page": "https://github.com/sappyyy/Windows-10-Thick-Borders-Theme",
+  "preview": "https://github.com/user-attachments/assets/67b890b8-45e3-4042-9797-448849653b31",
+  "tags": [
+   "10",
+   "Visual Styles"
+  ],
+  "title": "Windows-10-Thick-Borders-Theme"
+ },
+ {
+  "app": "Windows Visual Styles",
+  "date": "2026-07-13",
+  "description": "沢渡雫主题 Codex Desktop 扩展：3 套 v2 动画桌宠 + Windows 勿忘草皮肤，支持独立安装、完整恢复与 SHA-256 校验。非官方非商业同人项目。",
+  "download": "https://github.com/suakitsu/shizuku-codex-pet/releases/download/skin-v1.0.0/Shizuku-Codex-Skin-Windows-v1.0.0.zip",
+  "extra": {
+   "Author": "suakitsu",
+   "License": "MIT",
+   "Stars": "0"
+  },
+  "id": "github-msstyles-suakitsu-shizuku-codex-pet",
+  "page": "https://github.com/suakitsu/shizuku-codex-pet",
+  "preview": "https://opengraph.githubassets.com/1/suakitsu/shizuku-codex-pet",
+  "tags": [
+   "10",
+   "Visual Styles"
+  ],
+  "title": "shizuku codex pet"
+ },
+ {
+  "app": "Windows Visual Styles",
+  "date": "2025-06-19",
+  "description": "My personal Windows dotfiles and configs.",
+  "download": "https://github.com/swopnil7/Windots/archive/refs/heads/main.zip",
+  "extra": {
+   "Author": "swopnil7",
+   "License": "MIT",
+   "Stars": "92"
+  },
+  "id": "github-msstyles-swopnil7-windots",
+  "page": "https://github.com/swopnil7/Windots",
+  "preview": "https://img.icons8.com/fluency/96/windows-10.png",
+  "tags": [
+   "XP",
+   "Visual Styles"
+  ],
+  "title": "Windots"
+ },
+ {
+  "app": "Windows Visual Styles",
+  "date": "2026-07-21",
+  "description": "Codex皮肤 / Codex主题：Windows 桌面端 Codex 换肤工具，提供主题壁纸、个性化图标与樱花动态效果。OpenAI Codex Theme & Skin Launcher.",
+  "download": "https://github.com/syiibfs-hash/ritual-ink-codex-theme-launcher/releases/download/v1.1.1/CodexThemeLauncher-v1.1.1.zip",
+  "extra": {
+   "Author": "syiibfs-hash",
+   "License": "MIT",
+   "Stars": "1"
+  },
+  "id": "github-msstyles-syiibfs-hash-ritual-ink-codex-theme-launcher",
+  "page": "https://github.com/syiibfs-hash/ritual-ink-codex-theme-launcher",
+  "preview": "https://raw.githubusercontent.com/syiibfs-hash/ritual-ink-codex-theme-launcher/main/assets/falling-sakura-wallpaper.jpg",
+  "tags": [
+   "11",
+   "Visual Styles"
+  ],
+  "title": "ritual ink codex theme launcher"
+ },
+ {
+  "app": "Windows Visual Styles",
+  "date": "2026-04-04",
+  "description": "Aero theme from various eras ported to Windows 10",
+  "download": "https://github.com/vaporvance/aero10/releases/download/seven-v1.0.3/aero10.1-seven.zip",
+  "extra": {
+   "Author": "vaporvance",
+   "Stars": "164"
+  },
+  "id": "github-msstyles-vaporvance-aero10",
+  "page": "https://github.com/vaporvance/aero10",
+  "preview": "https://raw.githubusercontent.com/vaporvance/aero10/master/github/banner/banner-dark.png",
+  "tags": [
+   "10",
+   "Visual Styles"
+  ],
+  "title": "aero10"
+ },
+ {
+  "app": "Windows Visual Styles",
+  "date": "2026-09-25",
+  "description": "Theme catalog for Nekochat Reloaded: Windows XP .msstyles and CSS themes, installable in one click from the Theme Browser",
+  "download": "https://github.com/xKaMikax/nekochat_reloaded_themes/archive/refs/heads/main.zip",
+  "extra": {
+   "Author": "xKaMikax",
+   "Stars": "0"
+  },
+  "id": "github-msstyles-xkamikax-nekochat_reloaded_themes",
+  "page": "https://github.com/xKaMikax/nekochat_reloaded_themes",
+  "preview": "https://opengraph.githubassets.com/1/xKaMikax/nekochat_reloaded_themes",
+  "tags": [
+   "XP",
+   "Visual Styles"
+  ],
+  "title": "nekochat reloaded themes"
+ }
+]
