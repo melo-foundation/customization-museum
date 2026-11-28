@@ -43,4 +43,3 @@ html[data-fidelity="readable"][data-theme="wincustomize"] td[width="92"] { width
 html[data-fidelity="readable"][data-theme="wincustomize"] div[style*="width: 150px"] { width: 300px !important; }
 html[data-fidelity="readable"][data-theme="wincustomize"] img.cm-thumb { max-width: 300px; max-height: 300px; }
 html[data-fidelity="readable"][data-theme="wincustomize"] img.cm-shot { max-width: 210px; max-height: 210px; }
-html[data-fidelity="readable"][data-theme="wincustomize"] img.cm-newsthumb { max-width: 160px; max-height: 160px; }

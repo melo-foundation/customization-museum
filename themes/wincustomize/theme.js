@@ -368,42 +368,19 @@ Browse <b>${m.total}</b> skins, themes and add-ons for <b>${m.apps.length}</b> p
 </td>
 </tr>
 </table>`, { width: '100%', bg: '#F6F6F6' });
-    const story = e => {
-      const x = e.x || {}, page = h.page(e);
-      return `<tr>
-<td width="100%" bgcolor="#AAAAAA" align="center">
-<table width="100%" height="100%" border="0" align="center" cellpadding="5" cellspacing="0" summary="" bgcolor="#ffffff">
-<tr>
-<td bgcolor="#ffffff" valign="top" width="100%" class="content">
-<b>${e.d ? `${longDate(e.d)}&nbsp;-&nbsp;` : ''}${h.esc(e.t)}</b><br><br>
-${describe(h, e) || `${h.esc(e.y.join(', '))} for ${h.esc(e.a)}`}
-<br>
-</td>
-${e.v ? `<td bgcolor="#ffffff" valign="top"><table border="0" cellpadding="1" cellspacing="0" style="background: #AAAAAA"><tr><td><table border="0" cellpadding="1" cellspacing="0" style="background: #DDDDDD"><tr><td><a href="${h.url.item(e)}">${h.img(e, 'border="0" class="cm-newsthumb"')}</a></td></tr></table></td></tr></table></td>` : ''}
-</tr>
-<tr>
-<td${e.v ? ' colspan="2"' : ''} bgcolor="#ffffff" valign="top" width="100%">
-<table width="100%" border="0" align="center" cellpadding="1" cellspacing="0" summary="">
-<tr>
-<td align="left">${page ? `<br><br>&nbsp;&nbsp;&nbsp;<img src="${A}visit-now.gif" border="0">&nbsp;<a class="contents" target="_blank" rel="noopener" href="${h.esc(page)}">Visit Now!</a><br><br>` : '<br><br>'}</td>
-<td align="right">&nbsp;</td>
-</tr>
-<tr>
-<td align="left">
-<a class="contents" href="${h.url.item(e)}">[Full&nbsp;Story]</a>&nbsp;-&nbsp;
-<a class="contents" href="${h.esc(h.report(e))}" target="_blank" rel="noopener">[Report]</a>
-</td>
-<td class="contents" align="right">Reported by&nbsp;<a class="contents" href="${h.url.site(e.s)}">${h.esc(x.Author || x.Creator || h.siteName(e.s))}</a>&nbsp;</td>
-</tr>
-</table>
-</td>
-</tr>
-</table>
-</td>
-</tr>`;
-    };
-    const news = frame('Wincustomize News', `<table width="100%" border="0" valign="TOP" cellpadding="1" cellspacing="5">
-${recent.slice(1, 8).map(story).join('\n')}
+    // newest additions as a thumbnail grid in the site's own grey-boxed thumbnail style (the original's news stories don't fit item data)
+    const tile = e => `<td width="25%" valign="top" align="center" class="content">
+<table border="0" cellpadding="1" cellspacing="0" style="background: #AAAAAA"><tr><td><table border="0" cellpadding="1" cellspacing="0" style="background: #DDDDDD"><tr><td width="150" height="112" align="center" valign="middle" bgcolor="#ffffff"><a href="${h.url.item(e)}">${h.img(e, 'border="0" class="cm-gridthumb"')}</a></td></tr></table></td></tr></table>
+<a class="contents" href="${h.url.item(e)}"><b>${cut(h, e.t, 24)}</b></a><br>
+<a class="contents" href="${h.url.app(e.k)}">${h.esc(e.a)}</a>&nbsp;-&nbsp;${h.esc(e.y[0] || '')}<br>
+${e.d ? h.esc(e.d) : '&nbsp;'}
+</td>`;
+    const tiles = recent.slice(1).filter(e => e.v).slice(0, 12);
+    const rows = [];
+    for (let i = 0; i < tiles.length; i += 4) rows.push(`<tr>${tiles.slice(i, i + 4).map(tile).join('')}${'<td width="25%"></td>'.repeat(4 - tiles.slice(i, i + 4).length)}</tr>`);
+    const news = frame('Latest&nbsp;Additions', `<table width="100%" border="0" valign="TOP" cellpadding="4" cellspacing="6" bgcolor="#ffffff">
+${rows.join('\n')}
+<tr><td colspan="4" align="right" class="content"><a class="contents" href="${h.link({}, { sort: '' })}">[more...]</a>&nbsp;</td></tr>
 </table>`, { width: '100%', bg: '#F6F6F6' });
     const leftCol = daily + library(ctx) + resources(ctx) + options(ctx) + articles + poll(ctx);
     const sitesAll = Object.entries(m.sites).sort((a, b) => b[1].count - a[1].count);
