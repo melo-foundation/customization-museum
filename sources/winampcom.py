@@ -4,7 +4,7 @@ Skin detail pages live at winamp.com/skin/<slug>/<id>. Modern skins have a compo
 under download.nullsoft.com/customize/component/3/..., classic ones under .../component/<year>/...
 """
 import html, re, urllib.parse
-from sources.wayback import Blocked, capture, cdx
+from sources.wayback import capture, cdx, crawl
 
 APP = "Winamp 3/5 (Modern Skins)"
 SITE = "http://www.winamp.com"
@@ -44,7 +44,7 @@ def key(url):
 
 def scrape():
     files, images, pages = {}, {}, {}
-    for ts, orig in cdx("download.nullsoft.com/customize/component/3/*", "&limit=100000"):
+    for ts, orig in cdx("download.nullsoft.com/customize/component/3/*", "&limit=100000&filter=original:.*(?:\\.wal|/large_image/|/small_image/).*"):
         k = key(orig)
         if not k:
             continue
@@ -54,19 +54,16 @@ def scrape():
         elif ext in ("jpg", "png", "gif") and ("/large_image/" in orig or "/small_image/" in orig):
             if k not in images or "/large_image/" in orig:
                 images[k] = (ts, orig)
-    for ts, orig in cdx("winamp.com/skin/*", "&limit=50000"):
+    for ts, orig in cdx("winamp.com/skin/*", "&limit=50000&filter=mimetype:text/html&filter=original:.*/skin/[^/?]+/[0-9]+/?$"):
         m = SKIN.search(urllib.parse.urlsplit(orig).path)
         if m and "?" not in orig and (int(m.group(2)) not in pages or ts > pages[int(m.group(2))][0]):
             pages[int(m.group(2))] = (ts, orig)
 
     meta = {}
-    try:
-        for sid, (ts, orig) in sorted(pages.items()):
-            p = skin_page(capture(ts, orig) or "")
-            if p and p["modern"] and key(p["preview"]):
-                meta[key(p["preview"])] = p
-    except Blocked as e:
-        print("wayback stopped:", e, flush=True)
+    for _, p in crawl("winampcom", sorted(pages.items()), lambda t: skin_page(capture(*t[1]) or "")):
+        if p and p["modern"] and key(p["preview"]):
+            meta[key(p["preview"])] = p
+    print("winampcom: files", len(files), "images", len(images), "modern skin pages", len(meta), flush=True)
 
     wb = lambda ts, u: f"https://web.archive.org/web/{ts}id_/{u}"
     out = []

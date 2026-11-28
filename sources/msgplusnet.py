@@ -1,6 +1,6 @@
 """Messenger Plus! skins, scripts, sounds and pictures, rebuilt from Wayback captures of msgplus.net."""
 import datetime, html, re, urllib.parse
-from sources.wayback import Blocked, capture, cdx
+from sources.wayback import capture, cdx, crawl
 from sources.wlm import APP, LISTING, VIEW, cards, norm_date, view_page
 
 SITE = "http://www.msgplus.net"
@@ -57,7 +57,9 @@ def script_page(text):
 
 
 def scrape():
-    rows = cdx("msgplus.net/*", "&limit=200000")
+    keep = "Download-Details|/skins/view/|/skins/(?:browse|by-date|by-downloads|by-rating|featured)|/scripts/view/|/scripts/\\?act=view|/skins/uploads/"
+    rows = cdx("msgplus.net/*", "&limit=200000&filter=original:.*(?:" + keep + ").*")
+    print("msgplusnet: cdx rows", len(rows), flush=True)
     views, listings, uploads, seen = {}, [], {}, set()
     docs, scripts = {}, {}
     for ts, orig in rows:
@@ -83,16 +85,13 @@ def scrape():
             uploads[urllib.parse.unquote(path[len("/skins/uploads/"):])] = ts
 
     skins, out = {}, []
-    try:
-        for ts, orig in listings:
-            for sid, c in cards(local(capture(ts, orig) or "")).items():
-                skins.setdefault(sid, c)
-        for sid, (ts, orig, slug, _) in sorted(views.items()):
-            if sid not in skins:
-                v = skin_view(capture(ts, orig) or "")
-                skins[sid] = dict(slug=slug, title=v["title"] or slug.replace("-", " "), date=v["date"], base=v["base"])
-    except Blocked as e:
-        print("wayback stopped (skins):", e, flush=True)
+    got = crawl("msgplusnet listings", listings, lambda t: cards(local(capture(*t) or "")))
+    for _, c_ in got:
+        for sid, c in c_.items():
+            skins.setdefault(sid, c)
+    todo = [(sid, v) for sid, v in sorted(views.items()) if sid not in skins]
+    for (sid, (ts, orig, slug, _)), v in crawl("msgplusnet skins", todo, lambda t: skin_view(capture(*t[1][:2]) or "")):
+        skins[sid] = dict(slug=slug, title=v["title"] or slug.replace("-", " "), date=v["date"], base=v["base"])
 
     for sid, s in sorted(skins.items()):
         base = s["base"] or s["slug"]
@@ -105,20 +104,15 @@ def scrape():
             download=f"{SITE}/skins/uploads/{files[-1]}" if files else f"{SITE}/skins/download/{sid}/",
         ))
 
-    try:
-        for sid, (ts, orig) in sorted(scripts.items()):
-            s = script_page(capture(ts, orig) or "")
-            if s["title"]:
-                out.append(dict(app=APP, id=f"msgplusnet-script-{sid}", title=s["title"], date=s["date"], tags=["Scripts"],
-                                page=f"{SITE}/scripts/?act=view&id={sid}", preview=s["preview"], download=f"{SITE}/scripts/download/{sid}/"))
-        for did, (_, ts, orig) in sorted(docs.items()):
-            d = details(capture(ts, orig) or "")
-            if d["title"] and d["ext"]:
-                out.append(dict(app=APP, id=f"msgplusnet-d{did}", title=d["title"], date=d["date"],
-                                tags=[KIND.get(d["ext"], "Skins")], page=f"{SITE}/Downloads/Download-Details/DocumentID/{did}/",
-                                preview=d["preview"], download=d["download"]))
-    except Blocked as e:
-        print("wayback stopped (downloads):", e, flush=True)
+    for (sid, _), r in crawl("msgplusnet scripts", sorted(scripts.items()), lambda t: script_page(capture(*t[1]) or "")):
+        if r["title"]:
+            out.append(dict(app=APP, id=f"msgplusnet-script-{sid}", title=r["title"], date=r["date"], tags=["Scripts"],
+                            page=f"{SITE}/scripts/?act=view&id={sid}", preview=r["preview"], download=f"{SITE}/scripts/download/{sid}/"))
+    for (did, _), d in crawl("msgplusnet downloads", sorted(docs.items()), lambda t: details(capture(*t[1][1:]) or "")):
+        if d["title"] and d["ext"]:
+            out.append(dict(app=APP, id=f"msgplusnet-d{did}", title=d["title"], date=d["date"],
+                            tags=[KIND.get(d["ext"], "Skins")], page=f"{SITE}/Downloads/Download-Details/DocumentID/{did}/",
+                            preview=d["preview"], download=d["download"]))
     return out
 
 

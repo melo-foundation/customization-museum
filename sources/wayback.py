@@ -2,14 +2,17 @@
 
 Locally (shared IP, blocked easily) it is fail-fast; on GitHub Actions it retries and skips bad URLs.
 """
-import hashlib, json, os, time, urllib.error, urllib.parse, urllib.request
+import hashlib, json, os, threading, time, urllib.error, urllib.parse, urllib.request
 from lib import CACHE, UA
 
 CI = bool(os.environ.get("GITHUB_ACTIONS"))
-GAP = 1.0 if CI else 2.0
+GAP = 0.4 if CI else 2.0  # global gap between requests across all threads (~2.5 req/s)
+BUDGET = float(os.environ.get("WAYBACK_BUDGET", 4.5 * 3600))  # seconds after import before crawl() stops fetching new pages
+START = time.time()
 RETRIES = (5, 30, 120) if CI else ()
 MAX_STRAIGHT_FAILS = 25 if CI else 2
 _last = [0.0]
+_lock = threading.Lock()
 _straight = [0]
 
 
@@ -32,10 +35,12 @@ def decode(data):
 
 
 def _get(url, timeout):
-    wait = _last[0] + GAP - time.time()
+    with _lock:
+        slot = max(time.time(), _last[0] + GAP)
+        _last[0] = slot
+    wait = slot - time.time()
     if wait > 0:
         time.sleep(wait)
-    _last[0] = time.time()
     with urllib.request.urlopen(urllib.request.Request(url, headers=HEADERS), timeout=timeout) as r:
         return decode(r.read())
 
@@ -81,3 +86,36 @@ def cdx(pattern, extra=""):
 
 def capture(ts, url):
     return fetch(f"https://web.archive.org/web/{ts}id_/{url}")
+
+
+def crawl(label, items, fn, workers=4):
+    """[(item, fn(item))] for as many items as the time budget allows; fn may raise Blocked. Progress every 100."""
+    from concurrent.futures import ThreadPoolExecutor
+    items = list(items)
+    print(f"{label}: {len(items)} pages to fetch", flush=True)
+    done, res, stop = [0], [], threading.Event()
+
+    def one(it):
+        if stop.is_set():
+            return
+        if time.time() - START > BUDGET:
+            if not stop.is_set():
+                print(f"{label}: time budget reached, stopping", flush=True)
+            stop.set()
+            return
+        try:
+            r = fn(it)
+        except Blocked as e:
+            print(f"{label}: wayback stopped:", e, flush=True)
+            stop.set()
+            return
+        with _lock:
+            res.append((it, r))
+            done[0] += 1
+            if done[0] % 100 == 0:
+                print(f"{label}: {done[0]}/{len(items)} pages, {sum(1 for _, x in res if x)} usable", flush=True)
+
+    with ThreadPoolExecutor(workers) as ex:
+        list(ex.map(one, items))
+    print(f"{label}: finished {done[0]}/{len(items)}", flush=True)
+    return res
