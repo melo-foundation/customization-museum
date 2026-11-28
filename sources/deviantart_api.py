@@ -24,7 +24,7 @@ RULES = [  # (app, regex over lowercase title + tags + matched tag/query)
     ("Pidgin", r"pidgin"), ("Adium", r"adium"), ("Opera", r"opera ?(skin|theme)"),
 ]
 BAD = re.compile(r"rainmeter|bootskin|wallpaper|\bicon ?pack|cursors? set|\bsuite\b|stardock|windowblinds|\bwb\b|winamp ?(classic|2)")
-MAXPAGES = int(os.environ.get("DA_MAXPAGES", "2" if os.environ.get("DA_DISCOVER", "1") else "100"))
+MAXPAGES = int(os.environ.get("DA_MAXPAGES", "100"))
 _tok = {}
 T0 = time.time()
 BUDGET = int(os.environ.get('DA_BUDGET', '10000'))
@@ -76,14 +76,31 @@ def api(path, **params):
     return _req(f"{API}{path}?{q}", auth=_tok["t"])
 
 
-def classify(text):
-    t = text.lower()
-    if BAD.search(t) and not re.search(r"msstyles|visual ?style", t):
+BLOCK = re.compile(r"activat|loader|\bkms|crack|keygen|serial|\bpatch|wallpaper|screenshot|my desktop|desktop shot|fan ?art|anime|manga|pin ?-?up|rainmeter|bootskin|icon ?pack|\bwb\b|windowblinds|photoshop|brush|\bstock\b|render")
+VSX = re.compile(r"msstyles|visual ?_?styles?|uxtheme")
+SKINW = r"skins?|themes?|style|icons?"
+APPS = [  # (app, regex that must match the title)
+    ("Winamp 3/5 (Modern Skins)", r"(winamp ?3|winamp ?5 modern|winamp modern|wasabi|\.wal\b)"),
+    ("Windows Media Player", r"(wmp ?(9|10|11|12)? ?skins?|wmpskin|windows media player (skins?|themes?))"),
+    ("MSN / WLM", r"(messenger ?plus|msg ?plus|msgplus|msn (skin|theme)|wlm (skin|theme)|(live|msn) messenger (skin|theme))"),
+    ("Trillian", r"trillian"), ("Miranda NG", r"miranda"), ("Sonique", r"sonique"),
+    ("Yahoo! Messenger", r"yahoo ?messenger"), ("Pidgin", r"pidgin"), ("Adium", r"adium"),
+    ("Opera", r"opera (skin|theme)"), ("CursorXP", r"cursorxp"),
+]
+
+
+def classify(title, taglist, downloadable):
+    """Strict: needs a downloadable file and the program/format named in the title (VS: title or tags)."""
+    if not downloadable:
         return None
-    for app, rx in RULES:
-        if re.search(rx, t):
-            if app in ("Trillian", "Miranda NG", "Sonique", "Yahoo! Messenger", "Pidgin", "Adium") and not re.search(r"skin|theme|style|icons?|emoticon", t):
-                continue
+    t = title.lower()
+    tg = " ".join(taglist).lower()
+    if BLOCK.search(t) or BLOCK.search(tg):
+        return None
+    if VSX.search(t) or (VSX.search(tg) and re.search(r"theme|style|skin|xp|vista|windows|win ?(7|8|10|11)|\bw(7|8|10|11)\b", t)):
+        return VS
+    for app, rx in APPS:
+        if re.search(rx, t) and (re.search(SKINW, t) or app in ("Winamp 3/5 (Modern Skins)", "Windows Media Player", "MSN / WLM", "CursorXP")):
             return app
     return None
 
@@ -123,30 +140,6 @@ def scrape():
                 add(d, q)
         print(f"query {q!r}: {len(found)} candidates", flush=True)
 
-    from collections import Counter
-    cats = Counter((d.get("category_path") or "") for h, d in found.values())
-    print("category_path values:", flush=True)
-    for c, n in cats.most_common(80):
-        ex = next(d.get("title", "") for h, d in found.values() if (d.get("category_path") or "") == c)
-        print(f"  {n:5d} {c!r} e.g. {ex[:50]!r}", flush=True)
-    if os.environ.get("DA_DISCOVER", "1"):
-        vals = list(found.values())
-        print("browse keys:", sorted(vals[0][1].keys()), flush=True)
-        print("downloadable:", Counter(bool(d.get("is_downloadable")) for h, d in vals), flush=True)
-        dl = [d["deviationid"] for h, d in vals]
-        c2 = Counter()
-        for i in range(0, min(len(dl), 1000), 50):
-            j = api("/deviation/metadata", deviationids=dl[i:i + 50], ext_submission="true")
-            for m in j.get("metadata", []):
-                sub = m.get("submission") or {}
-                c2[str(sub.get("category_path") or sub.get("category") or "")] += 1
-                if i == 0 and not c2.get("_k"):
-                    c2["_k"] = 1
-                    print("meta keys:", sorted(m.keys()), "submission:", sorted(sub.keys()), flush=True)
-        for c, n in c2.most_common(60):
-            print(f"  CAT {n:5d} {c!r}", flush=True)
-        print("download probe:", api(f"/deviation/download/{dl[0]}").get("_error", "ok"), flush=True)
-        raise SystemExit("discover only")
     tags = {}
 
     def fetch_tags(ids):
@@ -158,17 +151,17 @@ def scrape():
             if (i // 50) % 20 == 0:
                 print(f"  metadata {i}/{len(ids)}", flush=True)
 
-    def text(did):
-        hint, d = found[did]
-        return " ".join([d.get("title", ""), hint] + tags.get(did, []))
+    def cls(did):
+        d = found[did][1]
+        return classify(d.get("title", ""), tags.get(did, []), d.get("is_downloadable"))
 
-    fetch_tags(list(found))
+    fetch_tags([i for i, (h, d) in found.items() if d.get("is_downloadable")])
     # author expansion
     done = set()
     for rnd in range(2):
         authors = {}
         for did, (h, d) in found.items():
-            if classify(text(did)):
+            if cls(did):
                 u = (d.get("author") or {}).get("username")
                 if u and u not in done:
                     authors[u] = authors.get(u, 0) + 1
@@ -183,20 +176,15 @@ def scrape():
                 if d["deviationid"] not in found:
                     add(d, "")
                     new.append(d["deviationid"])
-            fetch_tags(new)
+            fetch_tags([i for i in new if found[i][1].get('is_downloadable')])
             if k % 20 == 0:
                 print(f"  author {k}/{len(authors)} {u}: {len(found)} candidates", flush=True)
         break
 
-    # download probe (result only, never the url)
-    for did in list(found)[:3]:
-        j = api(f"/deviation/download/{did}")
-        print("download probe:", j.get("_error") or ("src" in j and "src returned (signed)" or "no src"), flush=True)
-
     out = []
     for did, (hint, d) in found.items():
         dt = tags.get(did, [])
-        app = classify(text(did))
+        app = cls(did)
         if not app:
             continue
         ts = d.get("published_time")
@@ -215,5 +203,8 @@ def scrape():
             tags=sorted({"deviantART", "Skins"} | set(dt[:15])), extra=extra,
         ))
     from collections import Counter
+    import random
+    for o in random.sample(out, min(40, len(out))):
+        print("SAMPLE", o["app"], "|", o["title"][:60], "|", o["page"], flush=True)
     print("per app:", dict(Counter(o["app"] for o in out)), flush=True)
     return out
