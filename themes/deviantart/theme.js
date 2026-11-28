@@ -70,13 +70,10 @@
     set($(doc, '#rockdock form'), `Theme: ${field(h.themePicker())} ${mode ? `Display: ${field(mode)}` : ''} or <a href="${h.url.request()}" target="_blank" rel="noopener">Missing something? Request an item!</a>`);
     const lost = $(doc, '#lostlink');
     if (lost) { lost.href = `${REPO_URL}/issues`; lost.textContent = 'Reports'; lost.target = '_blank'; }
-    // the 728x90 banner position: a strip of previews from the same listing or program
-    // (item page: the item's neighbours after the six shown under "More from")
-    const all = ctx.related || [], pos = Math.max(0, all.findIndex(e => e.i === ctx.item?.i) - 3);
-    const pool = (ctx.list ? ctx.list.rows.slice().reverse() : [...all.slice(pos), ...all.slice(0, pos)].filter(e => e.v && e.i !== ctx.item?.i).slice(6)).filter(e => e.v);
-    const strip = pool.slice(0, 10).map(e => `<a href="${h.url.item(e)}" title="${esc(e.t)}">${h.img(e)}</a>`).join('');
+    // the 728x90 ad panel only carries the unchecked-files notice; once dismissed the panel is dropped
+    const warn = h.warning();
     doc.querySelectorAll('[data-slot="ad"]').forEach(el => {
-      el.innerHTML = h.warning() || `<div class="cm-banner">${strip}</div>`;
+      if (warn) el.innerHTML = warn; else el.closest('#ad-blocking-makes-fella-sad')?.remove();
     });
     doc.querySelectorAll('[data-slot="adline"]').forEach(el => {
       el.innerHTML = `${m.archived.toLocaleString()} files archived: <a href="${h.esc(h.link({}, { arch: '1' }))}">Browse the Archived Files Now</a>`;

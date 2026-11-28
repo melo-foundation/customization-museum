@@ -4501,9 +4501,6 @@ body[class] #rockdock select.itext option { background: #e8f0ec; color: #1f2929;
 /* 728x90 banner position */
 body[class] [data-slot="ad"] { position: absolute; left: 0; right: 0; top: 5px; height: 90px; display: flex; align-items: center; justify-content: center; text-align: center; }
 /* the banner is a strip of item previews, 90px tall, clipped to 728px */
-body[class] .cm-banner { width: 728px; height: 90px; overflow: hidden; display: flex; flex-wrap: wrap; justify-content: center; gap: 0 6px; }
-body[class] .cm-banner a { display: flex; align-items: center; height: 90px; }
-body[class] .cm-banner img { display: block; max-height: 90px; max-width: 150px; width: auto; height: auto; }
 body[class] [data-slot="ad"] .cm-warning { font: 8.25pt Verdana, sans-serif; color: #222; }
 body[class] [data-slot="ad"] .cm-warning button { font: 8.25pt Verdana, sans-serif; margin-left: 8px; }
 /* thumbnails: our previews at the original 150px thumbnail size, with the original drop shadow */
@@ -4551,7 +4548,6 @@ body[class] #deviation.cm-missing { padding: 12px 15px 60px; }
 body[class] .cm-more { margin: 0 auto 12px; }
 body[class] .cm-more h2 { margin: 0 0 4px; }
 body[class] .cm-more div.stream div span { width: 170px; }
-body[class] .cm-banner a:empty { display: none; }
 
 /* HiDPI: redrawn 2x/3x sprites (wordmark, Categories/Customize/Reply/Mood buttons); 1x keeps the original GIFs */
 body[class] #top-middle,
