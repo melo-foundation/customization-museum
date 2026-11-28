@@ -8,33 +8,45 @@
   const longDate = d => { const [date, time] = (d || '').split(' '), [y, m, day] = date.split('-').map(Number); return !y ? '' : (m ? `${MONTHS[m - 1]} ${day ? ord(day) + ', ' : ''}${y}` : String(y)) + (time ? ` ${time} GMT` : ''); };
   // first paragraph of an item's note as plain text
   const summary = n => (n || '').split(/\n\s*\n/)[0].replace(/[*_`#>\[\]]|\(https?:[^)]*\)/g, '').replace(/\s+/g, ' ').trim();
-  const WB = 'https://web.archive.org/web/2006/http://', GH = 'https://github.com/melo-foundation/customization-museum';
+  const GH = 'https://github.com/melo-foundation/customization-museum';
   const HEADS = [['win', '#FFF9F9', 'wins'], ['mac', '#F4FFF4', 'macs'], ['games', '#FFFAFD', 'gamess'], ['linux', '#F5FCFF', 'linuxs'], ['drivers', '#FFFCF4', 'driverss'], ['mobile', '#F7FBFF', 'mobiles']];
   // line two of a row, as the original: "Title - first sentence of the description"; nothing when there is no description
   const blurb = e => { const t = summary(e.n).match(/^.*?[.!?](?=\s|$)|^.*/)[0].trim(); return t ? `${e.t} - ${t.length > 160 ? t.slice(0, 160).replace(/\s+\S*$/, '') + '...' : t}` : ''; };
   let A = '';
-  const img = (name, w, h, extra = '') => `<img src="${A}${name}" width="${w}" height="${h}" border="0"${extra ? ' ' + extra : ''}>`;
+  // crisp 2x/3x replicas of the lettered originals (assets/hi/); 1x always shows the original bitmap.
+  // srcset picks by device pixel ratio only, so the band Readable zooms (ZOOMED) names its replicas outright.
+  const HI = new Set(['softpedia_logo.gif', 'um_skins.png', 'um_emoticons.png', 'um_icons.png', 'um_pictures.png', 'um_plugins.png', 'um_sounds.png', 'um_archived.png', 'um_newest.png',
+    'top_m_01.gif', 'top_m_request.png', 'top_m_az.png', 'top_m_archived.png', 'top_m_04.gif', 'top_m_05.gif', 'top_m_newest.png', 'top_m_source.png', 'top_m_oldest.png', 'top_m_report.png',
+    'd_m_01.gif', 'd_m_02_all.png', 'd_m_03_archived.png', 'd_m_04_missing.png', 'programfinder.gif', 'sectcat.gif', 'menu_009_2.jpg', 'menu_09_2.jpg', 'menu_10_2.jpg',
+    'download_basket.jpg', 'request_file.png', 'onthispage.gif', 'ugames_onthispage.gif', 'urss.gif']);
+  const ZOOMED = /^(um_|menu_)/;
+  const hi = name => {
+    if (!HI.has(name)) return '';
+    const b = `${A}hi/${name.replace(/\.\w+$/, '')}`, z = ZOOMED.test(name) && document.documentElement.dataset.fidelity === 'readable';
+    return ` srcset="${b}@2x.png ${z ? '1x' : '2x'}, ${b}@3x.png ${z ? '1.5x' : '3x'}"`;
+  };
+  // <input type="image"> has no srcset: the GO button's file is chosen from the pixel ratio when the header is drawn
+  const goSrc = () => { const d = (window.devicePixelRatio || 1) * (document.documentElement.dataset.fidelity === 'readable' ? 1.9 : 1); return d > 2.4 ? 'hi/menu_09_2@3x.png' : d > 1.2 ? 'hi/menu_09_2@2x.png' : 'menu_09_2.jpg'; };
+  const img = (name, w, h, extra = '') => `<img src="${A}${name}"${hi(name)} width="${w}" height="${h}" border="0"${extra ? ' ' + extra : ''}>`;
   const reset = (h, r, change) => h.link(r, { app: '', type: '', site: '', tag: '', q: '', arch: '', ...change });
   const ext = u => u && u.startsWith('http') && !u.startsWith(location.origin) ? ' target="_blank" rel="noopener"' : '';
 
   // ---------- header: two navy tables, exactly as in the original ----------
   function header(ctx) {
     const { h, manifest: m, route: r } = ctx, E = h.esc;
-    const has = k => m.apps.some(a => a.slug === k);
-    const app = (...ks) => { const k = ks.find(has); return k && h.url.app(k); };
     const newest = reset(h, r, { sort: '' });
-    // the original top_m_*.gif captions; sections we have no counterpart for open the archived original
-    const nav = [['01', 49, 'Home', h.url.home()], ['02', 104, 'Submit a file', h.url.request()], ['10', 49, 'Softpedia store, archived', WB + 'store.softpedia.com/'],
-      ['03', 70, 'Softpedia advertising, archived', WB + 'www.softpedia.com/advertise/'], ['04', 47, 'Help', GH + '#readme'], ['05', 67, 'Feedback', h.url.request()],
-      ['07', 65, 'Source code and data', GH], ['08', 90, 'Newest files', newest], ['09_eng_board', 79, 'Softpedia board, archived', WB + 'board.softpedia.com/'], ['09', 59, 'Softpedia forum, archived', WB + 'forum.softpedia.com/']];
-    // the original circles with their own lettering, each pointed at the closest thing we hold
-    const circ = [['windows2', app('windows-desktop-themes', 'windows-xp'), 'Windows Desktop Themes'], ['games2', WB + 'games.softpedia.com/', 'Softpedia Games, archived'], ['drivers2', WB + 'drivers.softpedia.com/', 'Softpedia Drivers, archived'],
-      ['handheld', app('psp'), 'PSP'], ['mac2', app('adium'), 'Adium'], ['linux2', app('kopete', 'pidgin'), 'Linux messengers'], ['mobile2', app('jimm', 'mobile'), 'Mobile'], ['news2', newest, 'Newest files']]
-      .map(([n, u, t]) => [n, u || WB + 'www.softpedia.com/', t]);
-    const c = (i, hs) => `<a href="${circ[i][1]}"${ext(circ[i][1])} title="${E(circ[i][2])}">${img(`um_${circ[i][0]}.gif`, 71, 71, (hs ? `hspace="${hs}" ` : '') + `alt="${E(circ[i][2])}"`)}</a>`;
+    // top_m_*: the original captions where the word still fits what it opens, the rest relettered in the same face
+    const arch = h.link({}, { arch: '1' });
+    const nav = [['top_m_01.gif', 49, 'Home', h.url.home()], ['top_m_request.png', 104, 'Request a file', h.url.request()], ['top_m_az.png', 49, 'Files A-Z', reset(h, r, { sort: 'az' })],
+      ['top_m_archived.png', 70, 'Archived files', arch], ['top_m_04.gif', 47, 'Help', GH + '#readme'], ['top_m_05.gif', 67, 'Feedback', h.url.request()],
+      ['top_m_newest.png', 65, 'Newest files', newest], ['top_m_source.png', 90, 'Source code and data', GH], ['top_m_oldest.png', 79, 'Oldest files', reset(h, r, { sort: 'old' })], ['top_m_report.png', 59, 'Report a problem', GH + '/issues/new?template=report.yml']];
+    // the original circles, relettered in the same face for what this archive holds
+    const circ = [['skins', h.url.type('Skins & Themes'), 'Skins & Themes'], ['emoticons', h.url.type('Emoticons'), 'Emoticons'], ['icons', h.url.type('Icons'), 'Icons'], ['pictures', h.url.type('Display Pictures'), 'Display Pictures'],
+      ['plugins', h.url.type('Scripts & Plugins'), 'Scripts & Plugins'], ['sounds', h.url.type('Sounds'), 'Sounds'], ['archived', arch, 'Archived files'], ['newest', newest, 'Newest files']];
+    const c = (i, hs) => `<a href="${circ[i][1]}"${ext(circ[i][1])} title="${E(circ[i][2])}">${img(`um_${circ[i][0]}.png`, 71, 71, (hs ? `hspace="${hs}" ` : '') + `alt="${E(circ[i][2])}"`)}</a>`;
     return `<table width="100%" border="0" cellpadding="0" cellspacing="0" bgcolor="#001F5B"><tr>
         <td rowspan="2" valign="top" class="spx-logo"><a href="${h.url.home()}">${img('softpedia_logo.gif', 239, 62, 'alt="SOFTPEDIA"')}</a><br><table width="214" border="0" cellspacing="0" cellpadding="0"><tr><td width="26"></td><td align="center" class="update">Customization Museum replica</td></tr></table></td>
-        <td width="700" align="right" height="26" class="spx-io">${nav.map(([n, w, t, u]) => `<a href="${u}"${ext(u)} title="${t}">${img(`top_m_${n}.gif`, w, 26, `alt="${t}"`)}</a>`).join('')}</td></tr>
+        <td width="700" align="right" height="26" class="spx-io">${nav.map(([n, w, t, u]) => `<a href="${u}"${ext(u)} title="${t}">${img(n, w, 26, `alt="${t}"`)}</a>`).join('')}</td></tr>
         <tr><td align="right" style="padding-right:14px"><div class="spx-ad468">${h.themePicker()}${h.fidelityToggle()}</div></td></tr></table>
       <div class="spx-band"><table width="100%" border="0" cellpadding="0" cellspacing="0" bgcolor="#001F5B"><tr>
         <td><table width="100%" border="0" cellpadding="0" cellspacing="0"><tr>
@@ -43,7 +55,7 @@
           <td width="195" height="85" align="left" valign="top" background="${A}um_r_bkg3.jpg" class="spx-io" style="padding-left:2px; padding-top:19px">${c(7, 1)}</td></tr></table></td>
         <td width="86" valign="top" background="${A}menu_08_3.jpg" style="padding-top:55px"><form id="spx-search" data-search role="search" style="margin:0"><input name="q" type="text" class="searchfield" size="11" value="${E(r.q)}"></form></td>
         <td width="157"><table width="100%" border="0" cellpadding="0" cellspacing="0"><tr><td class="spx-io"><a href="${h.url.home()}">${img('menu_009_2.jpg', 157, 40)}</a></td></tr>
-          <tr><td width="162" class="spx-io"><input type="image" form="spx-search" src="${A}menu_09_2.jpg" width="37" height="64" border="0" alt="Go"><a href="${reset(h, r, {})}">${img('menu_10_2.jpg', 120, 64)}</a></td></tr></table></td>
+          <tr><td width="162" class="spx-io"><input type="image" form="spx-search" src="${A}${goSrc()}" width="37" height="64" border="0" alt="Go"><a href="${reset(h, r, {})}">${img('menu_10_2.jpg', 120, 64)}</a></td></tr></table></td>
       </tr></table></div>`;
   }
 
@@ -58,7 +70,7 @@
         <td align="right" width="120"><select class="spx-cat" onchange="if(this.value)location.href=this.value"><option value="">Choose...</option>${cats.map(([u, t]) => `<option value="${E(u)}">${E(t)}</option>`).join('')}</select></td>
         <td align="right" width="205" class="spx-io">${img('under_nav_separator.gif', 21, 35)}${img('d_m_01.gif', 78, 35)}${disc('', 'all', 2, 31)}${disc('1', 'archived', 3, 34)}${disc('0', 'missing', 4, 36)}</td>
       </tr><tr><td colspan="5"><div class="onthispage" style="clear:both;float:left;width:770px;"><table border="0" width="100%"><tr>
-        <td width="153" class="celltext_bigger" valign="top"><img src="${A}ugames_onthispage.gif"></td>
+        <td width="153" class="celltext_bigger" valign="top"><img src="${A}ugames_onthispage.gif"${hi('ugames_onthispage.gif')} width="133" height="29"></td>
         ${links.map(([u, t], i) => `<td class="celltext_bigger"><img src="${A}${['ugames_news.gif', 'ugames_reviews.gif', 'ugames_latest_additions.gif'][i]}" align="absmiddle"> <a href="${u}"${ext(u)}>${E(t)}</a>&nbsp;&nbsp;</td>`).join('')}
       </tr></table></div></td></tr>
       <tr valign="middle"><td colspan="5" valign="top" class="spx-io">${img('770_dot_spacer.gif', 770, 21)}</td></tr></table>
@@ -71,7 +83,7 @@
   // ---------- right column ----------
   function right(ctx, boxes) {
     const { h } = ctx;
-    return `<div class="spx-io"><a href="${h.link({}, { arch: '1' })}" title="Archived files">${img('download_basket.jpg', 150, 40)}</a>${img('download_basket_bottom.jpg', 150, 9)}<a href="${WB}www.softpedia.com/reviews/" target="_blank" rel="noopener" title="Softpedia Reviews, archived">${img('softpedia_reviews.jpg', 150, 40)}</a></div>
+    return `<div class="spx-io"><a href="${h.link({}, { arch: '1' })}" title="Archived files">${img('download_basket.jpg', 150, 40)}</a>${img('download_basket_bottom.jpg', 150, 9)}<a href="${h.url.request()}" target="_blank" rel="noopener" title="Request a file">${img('request_file.png', 150, 40, 'alt="Request a file"')}</a></div>
       <table width="150" border="0" cellspacing="0" cellpadding="0"><tr><td height="34" class="right_title_bkg">Welcome! </td></tr>
         <tr><td style="padding-left:6px" class="celltext"> Hello, Guest<br><br> <a href="${h.url.request()}"${ext(h.url.request())}>Request</a> a site, program or file to add.<br> <br> Otherwise, <a href="${h.url.home()}">browse</a> them all. </td></tr></table>
       <br>${boxes}`;
@@ -158,7 +170,7 @@
       const link = ([u, t, ic], last) => `<td class="celltext_bigger"><img src="${A}${ic}" align="absmiddle"> <a href="${u}"${ext(u)}>${E(t)}</a>${last ? '' : '&nbsp;&nbsp;'}</td>`;
       const head = (i, title, url, sub, more, rss) => `<tr><td class="${HEADS[i][0]}_heading" style="padding-bottom:5px">
             <div class="mi_heading"><a href="${url}">${E(title)}</a></div>
-            <span class="rssklipbtn">${rss ? `<a target="_blank" rel="noopener" href="${GH}/commits/main.atom"><img src="${A}urss.gif" border="0"></a>` : `<img src="${A}urss.gif" border="0" style="visibility:hidden">`}</span>
+            <span class="rssklipbtn">${rss ? `<a target="_blank" rel="noopener" href="${GH}/commits/main.atom"><img src="${A}urss.gif"${hi('urss.gif')} width="42" height="14" border="0"></a>` : `<img src="${A}urss.gif"${hi('urss.gif')} width="42" height="14" border="0" style="visibility:hidden">`}</span>
             <span class="mi_subheading_l">${sub}</span>
             <span class="mi_subheading_r"><a href="${url}">${more}</a></span></td></tr>`;
       const line = (i, url, title, text) => `<tr><td style="padding:5px"><table width="100%" cellpadding="0" cellspacing="0" border="0"><tr><td class="celltext"> <img src="${A}${HEADS[i][2]}.gif" align="absmiddle" style="margin-right:7px"> <span class="celltitles"><a href="${url}" style="font-size:12px">${E(title)}</a></span> | ${E(text)} </td></tr></table></td></tr>`;
@@ -178,7 +190,7 @@
           <h1 class="welcome_hdr" style="float:left;width:450px;">Dear visitor, welcome to the archive of customization downloads!</h1>
           <h2 class="dwlc_hdr" style="float:right;width:190px;">${m.total.toLocaleString()} Items / ${m.archived.toLocaleString()} Archived</h2>
           <div class="onthispage" style="clear:both;float:left;width:780px;"><table border="0" width="100%">
-            <tr><td rowspan="3" class="celltext_bigger" width="120" valign="top"><img src="${A}onthispage.gif"></td>${link(L[0])}${link(L[1])}${link(L[2])}</tr>
+            <tr><td rowspan="3" class="celltext_bigger" width="120" valign="top"><img src="${A}onthispage.gif"${hi('onthispage.gif')} width="96" height="60"></td>${link(L[0])}${link(L[1])}${link(L[2])}</tr>
             <tr>${link(L[3])}${link(L[4])}${link(L[5])}</tr><tr>${link(L[6])}${link(L[7])}${link(L[8], 1)}</tr></table></div></td></tr></table>
         <table width="100%" border="0" cellpadding="0" cellspacing="0"><tr><td align="center">${ad728(ctx)}</td></tr></table>
         <br> &nbsp;<table width="780" border="0" cellspacing="0" cellpadding="0"><tr>
