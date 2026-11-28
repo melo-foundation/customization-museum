@@ -85,6 +85,36 @@ def cdx_host(host):
             return found
 
 
+def cdx_urls(urls):
+    """Same result shape as cdx_host, one lookup per url: for shared hosts (image CDNs, GitHub, Google Drive) where
+    listing every capture of the host would take hours for a handful of our urls."""
+    found = {}
+    for u in urls:
+        q = f"https://web.archive.org/cdx/search/cdx?url={urllib.parse.quote(u, safe='')}&output=json&fl=timestamp,original&filter=statuscode:[23]..&limit=1"
+        for attempt in range(4):
+            try:
+                with call(q, 60) as r:
+                    rows = json.load(r) if r.length != 0 else []
+                break
+            except json.JSONDecodeError:
+                rows = []
+                break
+            except Exception:
+                time.sleep(5 * 2 ** attempt)
+        else:
+            rows = []
+        for ts, orig in rows[1:2]:
+            found[norm(u)] = (ts, orig)
+        time.sleep(0.5)
+    return found
+
+
+# hosts we have this many urls on or more are listed whole; below it, each url is looked up on its own.
+# Shared hosts (CDNs, code and file hosts) are always looked up per url: their full listings run to millions.
+HOST_LISTING = 300
+SHARED = re.compile(r"(^|\.)(google|googleusercontent|githubusercontent|github|gstatic|imgur|dropbox|mediafire|sourceforge|deviantart|photobucket|tinypic|imageshack|blogspot|wordpress|wikia|fandom|archive)\.(com|org|net|io|us)$")
+
+
 def check():
     state = load(STATE)
     urls = all_urls()
@@ -99,7 +129,8 @@ def check():
         for u in todo:
             hosts.setdefault(host_of(u), []).append(u)
         for host, us in sorted(hosts.items(), key=lambda kv: len(kv[1])):
-            found = cdx_host(host)
+            found = cdx_host(host) if len(us) >= HOST_LISTING and not SHARED.search(host) else cdx_urls(us)
+            print(host, len(us), "urls,", sum(1 for u in us if norm(u) in found), "captured", flush=True)
             for u in us:
                 if norm(u) in found:
                     ts, orig = found[norm(u)]
