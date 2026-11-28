@@ -35,6 +35,9 @@ jobs:
             scrape-${{ inputs.sources }}-
             scrape-
       - run: timeout 19000 python3 scrape.py $SOURCES
+        env:
+          DA_CLIENT_ID: ${{ secrets.DA_CLIENT_ID }}
+          DA_CLIENT_SECRET: ${{ secrets.DA_CLIENT_SECRET }}
       - if: always()
         uses: actions/cache/save@v4
         with:
