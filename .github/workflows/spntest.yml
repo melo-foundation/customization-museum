@@ -1,0 +1,60 @@
+name: spntest
+
+# Measures Save Page Now submit latency and how many missing urls CDX already has. Changes nothing.
+on:
+  workflow_dispatch:
+    inputs:
+      n:
+        default: "20"
+
+permissions:
+  contents: read
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    timeout-minutes: 120
+    steps:
+      - uses: actions/checkout@v4
+      - run: |
+          python3 - <<'EOF'
+          import json, os, sys, time, urllib.error, urllib.parse, urllib.request
+          sys.path.insert(0, ".")
+          import archive
+          state = json.load(open("data/archive_state.json"))
+          missing = [u for u, v in state.items() if not v.get("ts")]
+          print(len(missing), "missing")
+
+          # 1. how many missing urls CDX already has a capture of
+          by_host = {}
+          for u in missing:
+              by_host.setdefault(archive.host_of(u), []).append(u)
+          for host, us in by_host.items():
+              found = archive.cdx_host(host)
+              hit = sum(1 for u in us if archive.norm(u) in found)
+              print(f"CDX recheck {host}: {hit}/{len(us)} missing urls already captured", flush=True)
+
+          # 2. submit latency, one at a time, generous timeout
+          h = {"User-Agent": archive.UA, "Accept": "application/json", "Authorization": "LOW " + os.environ["KEYS"]}
+          lat = []
+          for u in [u for u in missing if "adiumxtras" in u][: int(os.environ["N"])]:
+              t0 = time.time()
+              try:
+                  req = urllib.request.Request("https://web.archive.org/save", urllib.parse.urlencode({"url": u, "skip_first_archive": 1}).encode(), h)
+                  body = json.load(urllib.request.urlopen(req, timeout=300))
+                  res = "job" if body.get("job_id") else str(body)[:80]
+              except urllib.error.HTTPError as e:
+                  res = f"http {e.code}"
+              except Exception as e:
+                  res = f"{type(e).__name__} {getattr(e, 'reason', e)}"[:80]
+              dt = time.time() - t0
+              lat.append((dt, res))
+              print(f"{dt:6.1f}s {res} {u}", flush=True)
+              time.sleep(5)
+          ok = sorted(d for d, r in lat if r == "job")
+          print("submit ok:", len(ok), "/", len(lat), "latency s:", [round(d) for d in ok])
+          print("over 60s:", sum(1 for d in ok if d > 60), "over 180s:", sum(1 for d in ok if d > 180))
+          EOF
+        env:
+          KEYS: ${{ secrets.ARCHIVE_KEYS }}
+          N: ${{ inputs.n }}
