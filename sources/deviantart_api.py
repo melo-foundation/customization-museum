@@ -123,6 +123,14 @@ def scrape():
                 add(d, q)
         print(f"query {q!r}: {len(found)} candidates", flush=True)
 
+    from collections import Counter
+    cats = Counter((d.get("category_path") or "") for h, d in found.values())
+    print("category_path values:", flush=True)
+    for c, n in cats.most_common(80):
+        ex = next(d.get("title", "") for h, d in found.values() if (d.get("category_path") or "") == c)
+        print(f"  {n:5d} {c!r} e.g. {ex[:50]!r}", flush=True)
+    if os.environ.get("DA_DISCOVER"):
+        raise SystemExit("discover only")
     tags = {}
 
     def fetch_tags(ids):
