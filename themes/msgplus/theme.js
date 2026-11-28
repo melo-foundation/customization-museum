@@ -76,7 +76,8 @@
   };
   const tagline = (h, k) => `Give ${k === MSN ? 'Messenger' : k ? h.appName(k) : 'your programs'} a fresh new look`;
 
-  const nav = u => [['home', u.home], ['news', orig('news/'), ext], ['download', u.newest], ['features', orig('features/'), ext], ['help', orig('help/'), ext], ['more', orig('more/'), ext]];
+  // every nav entry opens something in this archive; only skin-specific help (below) still opens the original site
+  const nav = u => [['home', u.home], ['news', u.newest], ['download', u.newest], ['features', u.browse], ['help', 'https://github.com/melo-foundation/customization-museum#readme', ext], ['more', u.request, ext]];
 
   const header = (ctx, title, sub) => {
     const { h } = ctx, u = urls(ctx);
@@ -124,14 +125,13 @@ ${li(u.skins, 'Featured Skins', 'Awesome skins you shouldn&#039;t miss')}
 ${li(orig('skins/resources/'), 'Create a Skin', 'Everything you need to know to get started', ext)}
 ${li(u.request, 'Submit a Skin', '', ext)}
 ${li(orig('skins/help/'), 'Skins Help', '', ext)}
-${li(orig('skins/stats/'), 'Statistics', '', ext)}
 			</ul>
 		</div>
 		<div class="box">
 			<h5>more things you can do</h5>
 			<ul>
 ${li(orig('download/'), 'Download Plus!', '', ext)}
-${li(orig('help/'), 'Help &amp; Forums', '', ext)}
+${li('https://github.com/melo-foundation/customization-museum/issues', 'Help &amp; Forums', '', ext)}
 			</ul>
 		</div>
 	</div>`;
