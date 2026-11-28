@@ -4554,3 +4554,22 @@ body[class] .cm-more { margin: 0 auto 12px; }
 body[class] .cm-more h2 { margin: 0 0 4px; }
 body[class] .cm-more div.stream div span { width: 170px; }
 body[class] .cm-banner a:empty { display: none; }
+
+/* HiDPI: redrawn 2x/3x sprites (wordmark, Categories/Customize/Reply/Mood buttons); 1x keeps the original GIFs */
+body[class] #top h1,
+body[class] #top-middle,
+body[class] #top i.ttr,
+body[class] div#top-right,
+body[class] #top-middle form.search,
+body[class] #top-middle form.search i {
+  background-image: url(assets/bg-tttop-all.gif);
+  background-image: image-set(url(assets/bg-tttop-all.gif) 1x, url("assets/hi/bg-tttop-all@2x.png") 2x, url("assets/hi/bg-tttop-all@3x.png") 3x);
+  background-size: 240px 440px; }
+body[class]:not(.deviant) #catbutton,
+body[class]:not(.deviant) a.catbutton,
+body[class]:not(.deviant) a.custobutton,
+body[class]:not(.deviant) a.replybutton,
+body[class]:not(.deviant) a.moodbutton {
+  background-image: url(assets/hubblebuttons.gif);
+  background-image: image-set(url(assets/hubblebuttons.gif) 1x, url("assets/hi/hubblebuttons@2x.png") 2x, url("assets/hi/hubblebuttons@3x.png") 3x);
+  background-size: 700px 120px; }
