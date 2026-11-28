@@ -26,6 +26,8 @@ RULES = [  # (app, regex over lowercase title + tags + matched tag/query)
 BAD = re.compile(r"rainmeter|bootskin|wallpaper|\bicon ?pack|cursors? set|\bsuite\b|stardock|windowblinds|\bwb\b|winamp ?(classic|2)")
 MAXPAGES = int(os.environ.get("DA_MAXPAGES", "100"))
 _tok = {}
+T0 = time.time()
+BUDGET = int(os.environ.get('DA_BUDGET', '10000'))
 
 
 def _req(url, data=None, retries=6, auth=None):
@@ -86,10 +88,11 @@ def classify(text):
     return None
 
 
-def paged(path, label, **p):
+def paged(path, label, maxpages=None, **p):
     offset, n = 0, 0
+    maxpages = maxpages or MAXPAGES
     limit = p.pop("limit", 24)
-    while n < MAXPAGES:
+    while n < maxpages:
         j = api(path, offset=offset, limit=limit, mature_content="false", **p)
         if "_error" in j:
             print(f"{label}: error {j['_error']}", flush=True)
@@ -147,9 +150,12 @@ def scrape():
                     authors[u] = authors.get(u, 0) + 1
         print(f"author round {rnd}: {len(authors)} authors", flush=True)
         for k, u in enumerate(sorted(authors, key=lambda a: -authors[a])):
+            if time.time() - T0 > BUDGET:
+                print('author budget reached', flush=True)
+                break
             done.add(u)
             new = []
-            for d in paged("/gallery/all", u, username=u, limit=24):
+            for d in paged("/gallery/all", u, maxpages=12, username=u, limit=24):
                 if d["deviationid"] not in found:
                     add(d, "")
                     new.append(d["deviationid"])
