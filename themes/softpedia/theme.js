@@ -45,7 +45,7 @@
       ['plugins', h.url.type('Scripts & Plugins'), 'Scripts & Plugins'], ['sounds', h.url.type('Sounds'), 'Sounds'], ['archived', arch, 'Archived files'], ['newest', newest, 'Newest files']];
     const c = (i, hs) => `<a href="${circ[i][1]}"${ext(circ[i][1])} title="${E(circ[i][2])}">${img(`um_${circ[i][0]}.png`, 71, 71, (hs ? `hspace="${hs}" ` : '') + `alt="${E(circ[i][2])}"`)}</a>`;
     return `<table width="100%" border="0" cellpadding="0" cellspacing="0" bgcolor="#001F5B"><tr>
-        <td rowspan="2" valign="top" class="spx-logo"><a href="${h.url.home()}">${img('cm_logo.png', 485, 62, 'alt="Customization Museum"')}</a></td>
+        <td rowspan="2" valign="top" class="spx-logo"><a href="${h.url.home()}">${img('cm_logo.png', 490, 62, 'alt="Customization Museum"')}</a></td>
         <td width="700" align="right" height="26" class="spx-io">${nav.map(([n, w, t, u]) => `<a href="${u}"${ext(u)} title="${t}">${img(n, w, 26, `alt="${t}"`)}</a>`).join('')}</td></tr>
         <tr><td align="right" style="padding-right:14px"><div class="spx-ad468">${h.themePicker()}${h.fidelityToggle()}</div></td></tr></table>
       <div class="spx-band"><table width="100%" border="0" cellpadding="0" cellspacing="0" bgcolor="#001F5B"><tr>
