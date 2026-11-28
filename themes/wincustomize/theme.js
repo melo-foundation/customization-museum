@@ -72,7 +72,7 @@ ${titleCells || `<td align="center" height="1" background="${A}frame_title.gif" 
 <table height="1" border="0" align="center" cellpadding="0" cellspacing="0" width="100%">
 <tr>
 <td align="left" width="1" background="${A}topbarleft_bg.gif"><img src="${A}cm_topbarleft_1.png" srcset="${A}hi/cm_topbarleft_1@2x.png 2x, ${A}hi/cm_topbarleft_1@3x.png 3x" width="328" height="33" border="0"></td>
-<td align="left" class="topbar" background="${A}topbarleft_bg.gif"><nobr><a class="topbar" href="${h.url.home()}">Customization Museum</a>&nbsp;&nbsp;&nbsp;${today()}</nobr></td>
+<td align="left" class="topbar" background="${A}topbarleft_bg.gif"><nobr><a class="topbar" href="${h.url.home()}">Customization Museum</a><span class="cm-date">&nbsp;&nbsp;&nbsp;${today()}</span></nobr></td>
 <td align="left" width="1" background="${A}topbarleft_bg.gif"><img src="${A}topbarleft_2.gif" border="0"></td>
 <td align="right" width="100%" class="topbar" background="${A}topbarmid_bg.gif">&nbsp;</td>
 <td align="right" width="1" background="${A}topbarright_bg.gif"><img src="${A}topbarright_1.gif" border="0"></td>

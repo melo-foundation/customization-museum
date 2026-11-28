@@ -4,6 +4,9 @@
 /* what the original <body bgcolor="#FFFFFF" leftmargin="0" topmargin="0" ...> attributes did */
 html[data-theme="wincustomize"], html[data-theme="wincustomize"] body { background:#ffffff; margin:0; }
 
+/* the wider logo leaves the top bar ~1105px of fixed content: below that the date gives way */
+@media (max-width:1140px) { html[data-theme="wincustomize"] .cm-date { display:none; } }
+
 /* the 468x60 banner slot holds the malware notice until it is dismissed */
 html[data-theme="wincustomize"] .cm-ad { width:468px; height:60px; box-sizing:border-box; background:#F6F6F6; border:1px solid #806733; overflow:hidden; text-align:left; }
 html[data-theme="wincustomize"] .cm-ad:empty { display:none; }
