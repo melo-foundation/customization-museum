@@ -65,9 +65,10 @@ def cdx_host(host):
         q = f"https://web.archive.org/cdx/search/cdx?url={host}/*&output=json&fl=timestamp,original&filter=statuscode:[23]..&collapse=urlkey&limit=50000&showResumeKey=true"
         if key:
             q += "&resumeKey=" + urllib.parse.quote(key)
-        for attempt in range(6):
+        # a listing the CDX server can't produce in time rarely succeeds on retry: give up fast, check() falls back per url
+        for attempt in range(3):
             try:
-                with call(q, 180) as r:
+                with call(q, 90) as r:
                     rows = json.load(r)
                 break
             except Exception:
@@ -129,12 +130,12 @@ def check():
         for u in todo:
             hosts.setdefault(host_of(u), []).append(u)
         for host, us in sorted(hosts.items(), key=lambda kv: len(kv[1])):
+            listing = len(us) >= HOST_LISTING and not SHARED.search(host)
             try:
-                found = cdx_host(host) if len(us) >= HOST_LISTING and not SHARED.search(host) else cdx_urls(us)
+                found = cdx_host(host) if listing else cdx_urls(us)
             except Exception as e:
-                # one host the CDX server won't list shouldn't end the whole check; its urls stay unchecked for next run
-                print(host, len(us), "urls, lookup failed:", e, flush=True)
-                continue
+                print(host, len(us), "urls, listing failed:", e, "- checking url by url", flush=True)
+                found = cdx_urls(us)
             print(host, len(us), "urls,", sum(1 for u in us if norm(u) in found), "captured", flush=True)
             for u in us:
                 if norm(u) in found:
