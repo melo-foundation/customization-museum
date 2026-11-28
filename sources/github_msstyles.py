@@ -18,7 +18,12 @@ def token():
     return t
 
 
+LOW = [False]
+
+
 def api(url, tok, params=None):
+    if LOW[0]:
+        return None
     if params:
         url += "?" + urllib.parse.urlencode(params)
     h = {"User-Agent": UA, "Accept": "application/vnd.github+json"}
@@ -27,6 +32,8 @@ def api(url, tok, params=None):
     for a in range(3):
         try:
             with urllib.request.urlopen(urllib.request.Request(url, headers=h), timeout=60) as r:
+                if int(r.headers.get("X-RateLimit-Remaining", 1000)) < 200:
+                    LOW[0] = True
                 time.sleep(0.7)
                 return json.load(r)
         except urllib.error.HTTPError as e:
@@ -77,6 +84,8 @@ def scrape():
     out = []
     for name, r in sorted(repos.items()):
         if r.get("fork") or r.get("size", 0) == 0:
+            continue
+        if not re.search(r"msstyle|style|theme|aero|skin|uxtheme|xp|vista|win", name + " " + (r.get("description") or "") + " ".join(r.get("topics", [])), re.I):
             continue
         br = r.get("default_branch", "main")
         tree = api(f"https://api.github.com/repos/{name}/git/trees/{br}", tok, {"recursive": 1}) or {}

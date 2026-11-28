@@ -30,21 +30,26 @@ def version(title):
     return "XP"
 
 
+SORTS = ["newest", "oldest", "popular", "downloads", "top-rated"]
+
+
 def scrape():
-    items, seen, page = [], set(), 1
-    while page < 40:
-        got = parse(get(f"{SB}/skins/desktop-shell/msstyles?page={page}"))
-        new = [g for g in got if g[0] not in seen]
-        if not new:
-            break
-        for aid, it in new:
-            seen.add(aid)
-            title = html.unescape(it["name"])
-            items.append(dict(
-                app=APP, id=f"skinbase-msstyles-{aid}", title=title, date=(it.get("datePublished") or "")[:10],
-                tags=[version(title), "Visual Styles"], page=it["url"], preview=it.get("image"),
-                download=f"{SB}/download/artwork/{aid}",
-                extra={"Author": (it.get("creator") or {}).get("name", "")}))
-        page += 1
-        time.sleep(1)
+    """Each sort order exposes only its first 69 entries; the union covers the category."""
+    items, seen = [], set()
+    for sort in SORTS:
+        for page in range(1, 40):
+            got = [g for g in parse(get(f"{SB}/skins/desktop-shell/msstyles?page={page}&sort={sort}"))]
+            if not got:
+                break
+            for aid, it in got:
+                if aid in seen:
+                    continue
+                seen.add(aid)
+                title = html.unescape(it["name"])
+                items.append(dict(
+                    app=APP, id=f"skinbase-msstyles-{aid}", title=title, date=(it.get("datePublished") or "")[:10],
+                    tags=[version(title), "Visual Styles"], page=it["url"], preview=it.get("image"),
+                    download=f"{SB}/download/artwork/{aid}",
+                    extra={"Author": (it.get("creator") or {}).get("name", "")}))
+            time.sleep(1)
     return items
