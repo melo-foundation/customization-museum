@@ -9,6 +9,7 @@ TYPE_OF = {t.lower(): ty for ty, tags in A["types"].items() for t in tags}
 ALIAS = {k.lower(): v for k, v in A["aliases"].items()}
 DROP = {t.lower() for t in A["drop"]}
 APP_TAGS = A.get("app_tags", {})
+SITE_NAMES = A.get("site_names", {})  # sources whose host alone doesn't tell them apart
 HIDDEN = set(json.load(open("hidden.json", encoding="utf-8")))
 # titles that are a site's own page/system name, picked up when a capture redirected to it
 JUNK_TITLES = {"pafiledb", "home", "index", "404", "not found", "error", "page not found"}
@@ -85,8 +86,13 @@ def write_section_pages(entries):
 
 
 def host(e):
+    if e["s"] in SITE_NAMES:
+        return SITE_NAMES[e["s"]]
+    u = e.get("p") or e.get("l") or ""
+    # pages rebuilt from Wayback captures are named after the site they came from
+    u = re.sub(r"^https?://web\.archive\.org/web/\d+[a-z_]*/", "", u)
     try:
-        return urllib.parse.urlsplit(e.get("p") or e.get("l") or "").hostname.removeprefix("www.")
+        return urllib.parse.urlsplit(u if "://" in u else "http://" + u).hostname.removeprefix("www.")
     except AttributeError:
         return e["s"]
 

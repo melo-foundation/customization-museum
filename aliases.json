@@ -1,125 +1,134 @@
 {
- "types": {
-  "Skins & Themes": [
-   "Skins",
-   "Themes",
-   "MTS Themes",
-   "Contact List Styles",
-   "Kopete Styles",
-   "Konversation Nicklist Themes"
+  "types": {
+    "Skins & Themes": [
+      "Skins",
+      "Themes",
+      "MTS Themes",
+      "Contact List Styles",
+      "Kopete Styles",
+      "Konversation Nicklist Themes"
+    ],
+    "Emoticons": [
+      "Emoticons",
+      "Smileys",
+      "Smiley Themes",
+      "Emojis"
+    ],
+    "Icons": [
+      "Icons",
+      "Dock Icons",
+      "Status Icons",
+      "Menu Bar Icons",
+      "Service Icons",
+      "Status Icon Themes",
+      "Animated Connection Icons"
+    ],
+    "Display Pictures": [
+      "Display Pictures",
+      "Avatars"
+    ],
+    "Sounds": [
+      "Sounds",
+      "Sound Sets",
+      "Sound Themes",
+      "WAV Files"
+    ],
+    "Backgrounds": [
+      "Background Images",
+      "Wallpapers"
+    ],
+    "Message Styles": [
+      "Message Styles",
+      "IEView Templates"
+    ],
+    "Splash Screens": [
+      "Splash Screens"
+    ],
+    "Visualizations": [
+      "Visualizations"
+    ],
+    "Scripts & Plugins": [
+      "AppleScripts",
+      "Plugins",
+      "Scripts",
+      "Plugin Extensions",
+      "Tools"
+    ],
+    "Winks": [
+      "Winks"
+    ],
+    "Cursors": [
+      "Cursors"
+    ]
+  },
+  "default_type": {
+    "Windows Desktop Themes": "Skins & Themes"
+  },
+  "aliases": {
+    "varios": "Misc",
+    "misc": "Misc",
+    "miscellaneous": "Misc",
+    "images": "Misc",
+    "futbol": "Football",
+    "deportes": "Sports",
+    "hallowen": "Halloween",
+    "banderas": "Flags",
+    "frutas": "Fruit",
+    "comida": "Food",
+    "cine": "Movies",
+    "television": "TV",
+    "bob esponja": "SpongeBob",
+    "animales": "Animals",
+    "navidad": "Christmas",
+    "ordenadores": "Computers",
+    "famosas": "Celebrities",
+    "famosos": "Celebrities",
+    "juegos": "Games",
+    "musica": "Music",
+    "autos": "Cars",
+    "automotive": "Cars",
+    "amor": "Love",
+    "paises": "Countries",
+    "marcas": "Brands",
+    "mensajes": "Messages",
+    "sexo": "Adult",
+    "scifi": "Sci-Fi",
+    "msn6": "MSN 6",
+    "msn": "MSN",
+    "x men": "X-Men",
+    "southpark": "South Park",
+    "zorrito": "Fox",
+    "lol": "LOL",
+    "tv": "TV"
+  },
+  "drop": [
+    "Customise",
+    "Others",
+    "archive.org",
+    "?",
+    "Placeholder",
+    "aMSN",
+    "Pidgin",
+    "MessengerGeek",
+    "msgplus",
+    "customization",
+    "MTS 1.0",
+    "MTS 1.1",
+    "MTS 1.2",
+    "MTS 1.3"
   ],
-  "Emoticons": [
-   "Emoticons",
-   "Smileys",
-   "Smiley Themes",
-   "Emojis"
-  ],
-  "Icons": [
-   "Icons",
-   "Dock Icons",
-   "Status Icons",
-   "Menu Bar Icons",
-   "Service Icons",
-   "Status Icon Themes",
-   "Animated Connection Icons"
-  ],
-  "Display Pictures": [
-   "Display Pictures",
-   "Avatars"
-  ],
-  "Sounds": [
-   "Sounds",
-   "Sound Sets",
-   "Sound Themes",
-   "WAV Files"
-  ],
-  "Backgrounds": [
-   "Background Images",
-   "Wallpapers"
-  ],
-  "Message Styles": [
-   "Message Styles",
-   "IEView Templates"
-  ],
-  "Splash Screens": [
-   "Splash Screens"
-  ],
-  "Visualizations": [
-   "Visualizations"
-  ],
-  "Scripts & Plugins": [
-   "AppleScripts",
-   "Plugins",
-   "Scripts",
-   "Plugin Extensions",
-   "Tools"
-  ],
-  "Winks": [
-   "Winks"
-  ],
-  "Cursors": [
-   "Cursors"
-  ]
- },
- "default_type": {
-  "Windows Desktop Themes": "Skins & Themes"
- },
- "aliases": {
-  "varios": "Misc",
-  "misc": "Misc",
-  "miscellaneous": "Misc",
-  "images": "Misc",
-  "futbol": "Football",
-  "deportes": "Sports",
-  "hallowen": "Halloween",
-  "banderas": "Flags",
-  "frutas": "Fruit",
-  "comida": "Food",
-  "cine": "Movies",
-  "television": "TV",
-  "bob esponja": "SpongeBob",
-  "animales": "Animals",
-  "navidad": "Christmas",
-  "ordenadores": "Computers",
-  "famosas": "Celebrities",
-  "famosos": "Celebrities",
-  "juegos": "Games",
-  "musica": "Music",
-  "autos": "Cars",
-  "automotive": "Cars",
-  "amor": "Love",
-  "paises": "Countries",
-  "marcas": "Brands",
-  "mensajes": "Messages",
-  "sexo": "Adult",
-  "scifi": "Sci-Fi",
-  "msn6": "MSN 6",
-  "msn": "MSN",
-  "x men": "X-Men",
-  "southpark": "South Park",
-  "zorrito": "Fox",
-  "lol": "LOL",
-  "tv": "TV"
- },
- "drop": [
-  "Customise",
-  "Others",
-  "archive.org",
-  "?",
-  "Placeholder",
-  "aMSN",
-  "Pidgin",
-  "MessengerGeek",
-  "msgplus",
-  "customization",
-  "MTS 1.0",
-  "MTS 1.1",
-  "MTS 1.2",
-  "MTS 1.3"
- ],
- "app_tags": {
-  "Windows Desktop Themes": [
-   "Windows 9x Classic"
-  ]
- }
+  "app_tags": {
+    "Windows Desktop Themes": [
+      "Windows 9x Classic"
+    ]
+  },
+  "site_names": {
+    "iaitems": "archive.org uploads",
+    "winampmodern": "archive.org Winamp collection",
+    "firefoxthemes": "addons.mozilla.org",
+    "messbe": "mess.be blog",
+    "messfiles": "mess.be file database",
+    "messentools": "messentools.com",
+    "messentools_skins": "messentools.com skins"
+  }
 }
