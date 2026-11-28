@@ -20,7 +20,8 @@ def all_urls():
             continue
         for e in json.load(open(f, encoding="utf-8")):
             for k in ("page", "download", "preview"):
-                if e.get(k):
+                # files already hosted on archive.org (Wayback copies, archive.org items) need no snapshot
+                if e.get(k) and not host_of(e[k]).endswith("archive.org"):
                     urls[e[k]] = None
     return list(urls)
 
@@ -86,18 +87,26 @@ def cdx_host(host):
 
 def check():
     state = load(STATE)
-    # new urls, plus missing ones: a save that timed out on our side often finished on archive.org's side
-    todo = [u for u in all_urls() if not state.get(u, {}).get("ts")]
-    print(len(todo), "urls to check", flush=True)
-    for host in sorted({host_of(u) for u in todo}):
-        found = cdx_host(host)
+    urls = all_urls()
+    # urls never looked up come first; then missing urls that saw a failed save (a save that timed out
+    # on our side sometimes finished on archive.org's side). Each host is saved as it completes, so a
+    # run cut short by the step timeout still keeps what it found.
+    new = [u for u in urls if u not in state]
+    retry = [u for u in urls if u in state and not state[u].get("ts") and state[u].get("err")]
+    print(len(new), "new urls,", len(retry), "to recheck", flush=True)
+    for todo in (new, retry):
+        hosts = {}
         for u in todo:
-            if host_of(u) == host and norm(u) in found:
-                ts, orig = found[norm(u)]
-                state[u] = {"ts": ts, **({"u": orig} if orig != u else {})}
-            elif host_of(u) == host:
-                state.setdefault(u, {"ts": None})
-        save(STATE, state)
+            hosts.setdefault(host_of(u), []).append(u)
+        for host, us in sorted(hosts.items(), key=lambda kv: len(kv[1])):
+            found = cdx_host(host)
+            for u in us:
+                if norm(u) in found:
+                    ts, orig = found[norm(u)]
+                    state[u] = {"ts": ts, **({"u": orig} if orig != u else {})}
+                else:
+                    state.setdefault(u, {"ts": None})
+            save(STATE, state)
     stats()
 
 
@@ -142,7 +151,13 @@ def merge(path):
 def save_missing(limit, workers=4, match=""):
     state = load(STATE)
     auth = keys()
-    todo = [u for u in all_urls() if state.get(u, {}).get("ts") is None and state.get(u, {}).get("fails", 0) < 3 and match in u][:limit]
+    want = [u for u in all_urls() if state.get(u, {}).get("ts") is None and state.get(u, {}).get("fails", 0) < 3 and match in u]
+    # one host at a time, in turn, untried urls before ones that already failed: a slow or throttled host
+    # can't hold the whole queue
+    queues = {}
+    for u in sorted(want, key=lambda u: (bool(state.get(u, {}).get("err")), state.get(u, {}).get("fails", 0))):
+        queues.setdefault(host_of(u), []).append(u)
+    todo = [q[i] for i in range(max(map(len, queues.values()), default=0)) for q in queues.values() if i < len(q)][:limit]
     print(len(todo), "urls this run,", "authenticated" if auth else "anonymous", flush=True)
 
     def one(u):
