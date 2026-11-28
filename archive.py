@@ -131,19 +131,24 @@ def check():
             hosts.setdefault(host_of(u), []).append(u)
         for host, us in sorted(hosts.items(), key=lambda kv: len(kv[1])):
             listing = len(us) >= HOST_LISTING and not SHARED.search(host)
-            try:
-                found = cdx_host(host) if listing else cdx_urls(us)
-            except Exception as e:
-                print(host, len(us), "urls, listing failed:", e, "- checking url by url", flush=True)
-                found = cdx_urls(us)
-            print(host, len(us), "urls,", sum(1 for u in us if norm(u) in found), "captured", flush=True)
-            for u in us:
-                if norm(u) in found:
-                    ts, orig = found[norm(u)]
-                    state[u] = {"ts": ts, **({"u": orig} if orig != u else {})}
-                else:
-                    state.setdefault(u, {"ts": None})
-            save(STATE, state)
+            found = None
+            if listing:
+                try:
+                    found = cdx_host(host)
+                except Exception as e:
+                    print(host, len(us), "urls, listing failed:", e, "- checking url by url", flush=True)
+            # per-url lookups are slow for big hosts: record and save every 200 so a run cut short keeps them
+            for i in range(0, len(us), len(us) if found is not None else 200):
+                part = us[i : i + 200] if found is None else us
+                got = found if found is not None else cdx_urls(part)
+                for u in part:
+                    if norm(u) in got:
+                        ts, orig = got[norm(u)]
+                        state[u] = {"ts": ts, **({"u": orig} if orig != u else {})}
+                    else:
+                        state.setdefault(u, {"ts": None})
+                save(STATE, state)
+            print(host, len(us), "urls,", sum(1 for u in us if state.get(u, {}).get("ts")), "captured", flush=True)
     stats()
 
 
