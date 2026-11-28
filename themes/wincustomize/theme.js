@@ -1,7 +1,7 @@
 // label: WinCustomize 2003
 // Original WinCustomize "GreenApple" markup (front page 2003-03-15, library listing 2003-09-11),
 // with the site's own CSS and UI images from themes/wincustomize/assets/. Only content regions are ours;
-// the original logo carries a small "Customization Museum replica" tag beside it.
+// the logo reads "customizationMuseum", set like the original wordmark (Aurora Condensed BT, 64px, same layer styles).
 (() => {
   const A = 'themes/wincustomize/assets/';
   const DAYS = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
@@ -64,14 +64,14 @@ ${titleCells || `<td align="center" height="1" background="${A}frame_title.gif" 
     const ad = h.warning();
     return `<table width="100%" align="center" border="0" cellpadding="0" cellspacing="0">
 <tr>
-<td height="1" bgcolor="#007236" align="left" valign="top"><a href="${h.url.home()}"><img src="${A}logo_top.gif" srcset="${A}hi/logo_top@2x.png 2x, ${A}hi/logo_top@3x.png 3x" border="0" alt="WinCustomize"></a><span class="cm-replica">Customization Museum replica</span></td>
+<td height="1" bgcolor="#007236" align="left" valign="top"><a href="${h.url.home()}"><img src="${A}cm_logo_top.png" srcset="${A}hi/cm_logo_top@2x.png 2x, ${A}hi/cm_logo_top@3x.png 3x" width="300" height="75" border="0" alt="Customization Museum"></a></td>
 <td height="1" bgcolor="#007236" align="right" class="content">${ad ? `<div class="cm-ad">${ad}</div>` : ''}</td>
 </tr>
 </table>
 <form id="cm-hsearch" data-search></form>
 <table height="1" border="0" align="center" cellpadding="0" cellspacing="0" width="100%">
 <tr>
-<td align="left" width="1" background="${A}topbarleft_bg.gif"><img src="${A}topbarleft_1.gif" srcset="${A}hi/topbarleft_1@2x.png 2x, ${A}hi/topbarleft_1@3x.png 3x" border="0"></td>
+<td align="left" width="1" background="${A}topbarleft_bg.gif"><img src="${A}cm_topbarleft_1.png" srcset="${A}hi/cm_topbarleft_1@2x.png 2x, ${A}hi/cm_topbarleft_1@3x.png 3x" width="328" height="33" border="0"></td>
 <td align="left" class="topbar" background="${A}topbarleft_bg.gif"><nobr><a class="topbar" href="${h.url.home()}">Customization Museum</a>&nbsp;&nbsp;&nbsp;${today()}</nobr></td>
 <td align="left" width="1" background="${A}topbarleft_bg.gif"><img src="${A}topbarleft_2.gif" border="0"></td>
 <td align="right" width="100%" class="topbar" background="${A}topbarmid_bg.gif">&nbsp;</td>

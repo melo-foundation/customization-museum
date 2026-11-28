@@ -4,9 +4,6 @@
 /* what the original <body bgcolor="#FFFFFF" leftmargin="0" topmargin="0" ...> attributes did */
 html[data-theme="wincustomize"], html[data-theme="wincustomize"] body { background:#ffffff; margin:0; }
 
-/* small tag beside the real logo so the page is not mistaken for wincustomize.com */
-html[data-theme="wincustomize"] .cm-replica { position:absolute; left:196px; top:60px; font:7pt Verdana,Arial,sans-serif; color:#8fc9a6; white-space:nowrap; }
-
 /* the 468x60 banner slot holds the malware notice until it is dismissed */
 html[data-theme="wincustomize"] .cm-ad { width:468px; height:60px; box-sizing:border-box; background:#F6F6F6; border:1px solid #806733; overflow:hidden; text-align:left; }
 html[data-theme="wincustomize"] .cm-ad:empty { display:none; }
@@ -46,7 +43,7 @@ html[data-theme="wincustomize"] table.cm-feat td[height="100%"][bgcolor="#AAAAAA
 html[data-theme="wincustomize"] td.cm-fill { background:#ffffff; box-shadow: inset 0 0 0 1px #AAAAAA; }
 html[data-theme="wincustomize"] td.cm-fill[width="50"] { background:#DDDDDD; }
 /* the logo sits flush on the top bar */
-html[data-theme="wincustomize"] img[src$="logo_top.gif"] { display:block; }
+html[data-theme="wincustomize"] img[src$="cm_logo_top.png"] { display:block; }
 /* a screenshot that failed to load leaves the slim strip, not an empty 150px panel */
 html[data-theme="wincustomize"] .cm-tw:not(:has(img)) { width:1px !important; height:1px; }
 /* Goodies product picture at the original's size (WB4.jpg was 124x122) */
