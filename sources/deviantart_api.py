@@ -24,7 +24,7 @@ RULES = [  # (app, regex over lowercase title + tags + matched tag/query)
     ("Pidgin", r"pidgin"), ("Adium", r"adium"), ("Opera", r"opera ?(skin|theme)"),
 ]
 BAD = re.compile(r"rainmeter|bootskin|wallpaper|\bicon ?pack|cursors? set|\bsuite\b|stardock|windowblinds|\bwb\b|winamp ?(classic|2)")
-MAXPAGES = int(os.environ.get("DA_MAXPAGES", "100"))
+MAXPAGES = int(os.environ.get("DA_MAXPAGES", "2" if os.environ.get("DA_DISCOVER", "1") else "100"))
 _tok = {}
 T0 = time.time()
 BUDGET = int(os.environ.get('DA_BUDGET', '10000'))
@@ -130,6 +130,19 @@ def scrape():
         ex = next(d.get("title", "") for h, d in found.values() if (d.get("category_path") or "") == c)
         print(f"  {n:5d} {c!r} e.g. {ex[:50]!r}", flush=True)
     if os.environ.get("DA_DISCOVER", "1"):
+        vals = list(found.values())
+        print("browse keys:", sorted(vals[0][1].keys()), flush=True)
+        print("downloadable:", Counter(bool(d.get("is_downloadable")) for h, d in vals), flush=True)
+        dl = [d for h, d in vals if d.get("is_downloadable")][:40]
+        c2 = Counter()
+        for d in dl:
+            j = api(f"/deviation/{d['deviationid']}")
+            c2[j.get("category_path") or str(j.get("_error", ""))] += 1
+            if not c2.get("_k"):
+                c2["_k"] = 1
+                print("deviation keys:", sorted(j.keys()), flush=True)
+        print("detail categories:", dict(c2), flush=True)
+        print("download probe keys:", sorted(api(f"/deviation/download/{dl[0]['deviationid']}").keys()) if dl else None, flush=True)
         raise SystemExit("discover only")
     tags = {}
 
