@@ -34,8 +34,10 @@ def _req(url, data=None, retries=6):
             if e.code == 401 and data is None:
                 _tok.clear()
                 continue
+            print(f"  http {e.code}", flush=True)
             return {"_error": e.code}
-        except Exception:
+        except Exception as e:
+            print(f"  request error {type(e).__name__}: {str(e)[:80].replace(chr(10),' ')}", flush=True)
             time.sleep(3)
     return {"_error": "failed"}
 
