@@ -73,7 +73,7 @@
     const { h } = ctx;
     return `<div class="spx-io"><a href="${h.link({}, { arch: '1' })}" title="Archived files">${img('download_basket.jpg', 150, 40)}</a>${img('download_basket_bottom.jpg', 150, 9)}<a href="${WB}www.softpedia.com/reviews/" target="_blank" rel="noopener" title="Softpedia Reviews, archived">${img('softpedia_reviews.jpg', 150, 40)}</a></div>
       <table width="150" border="0" cellspacing="0" cellpadding="0"><tr><td height="34" class="right_title_bkg">Welcome! </td></tr>
-        <tr><td style="padding-left:6px" class="celltext"> Hello, Guest<br><br> <a href="${h.url.request()}"${ext(h.url.request())}>Request</a> a site if you know a lost one.<br> <br> Otherwise, <a href="${h.url.home()}">browse</a> them all. </td></tr></table>
+        <tr><td style="padding-left:6px" class="celltext"> Hello, Guest<br><br> <a href="${h.url.request()}"${ext(h.url.request())}>Request</a> a site, program or file to add.<br> <br> Otherwise, <a href="${h.url.home()}">browse</a> them all. </td></tr></table>
       <br>${boxes}`;
   }
   const liBox = (h, title, items, pb = 15) => `<table width="150" border="0" cellspacing="0" cellpadding="0"><tr><td height="34" class="right_title_bkg">${h.esc(title)} </td></tr>
@@ -127,7 +127,14 @@
     const band = el.querySelector('.spx-band');
     watch?.disconnect();
     if (!band) return;
-    const fit = () => { band.style.zoom = document.documentElement.dataset.fidelity === 'readable' ? band.parentElement.clientWidth / 984 : ''; };
+    // scaled as one layer (transform), not zoom: zoom lands cell edges on fractional pixels and leaves hairline seams
+    const inner = band.firstElementChild;
+    const fit = () => {
+      const k = document.documentElement.dataset.fidelity === 'readable' ? band.parentElement.clientWidth / 984 : 1;
+      inner.style.transform = k === 1 ? '' : `scale(${k})`;
+      inner.style.transformOrigin = '0 0';
+      band.style.height = k === 1 ? '' : `${Math.round(inner.offsetHeight * k)}px`;
+    };
     // the page width changes with the window and when modern.css finishes loading
     watch = new ResizeObserver(fit);
     watch.observe(band.parentElement);

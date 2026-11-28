@@ -10,7 +10,11 @@ html[data-fidelity="readable"][data-theme="softpedia"] #app td[width="795"] > ta
 html[data-fidelity="readable"][data-theme="softpedia"] #app td[width="380"] { width:49%; }
 
 /* header: the wave band keeps its 984px layout (theme.js zooms it to the page width) so the circles stay in the wave troughs */
-html[data-fidelity="readable"][data-theme="softpedia"] .spx-band { width:984px; }
+html[data-fidelity="readable"][data-theme="softpedia"] .spx-band { overflow:hidden; background:url(assets/band_readable.png) 0 0 / 100% 100% no-repeat; }
+/* the band's tiles and buttons are drawn by that one flattened image (scaling them separately leaves seams); links stay clickable */
+html[data-fidelity="readable"][data-theme="softpedia"] .spx-band table, html[data-fidelity="readable"][data-theme="softpedia"] .spx-band td { background:none !important; }
+html[data-fidelity="readable"][data-theme="softpedia"] .spx-band img[src*="menu_"], html[data-fidelity="readable"][data-theme="softpedia"] .spx-band input[type=image] { opacity:0; }
+html[data-fidelity="readable"][data-theme="softpedia"] .spx-band > table { width:984px; }
 html[data-fidelity="readable"][data-theme="softpedia"] .update { font-size:12px; }
 
 /* dotted rule under the section bar: the 770px image tiles instead of stretching */
