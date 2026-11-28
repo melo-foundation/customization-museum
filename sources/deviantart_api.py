@@ -133,16 +133,19 @@ def scrape():
         vals = list(found.values())
         print("browse keys:", sorted(vals[0][1].keys()), flush=True)
         print("downloadable:", Counter(bool(d.get("is_downloadable")) for h, d in vals), flush=True)
-        dl = [d for h, d in vals if d.get("is_downloadable")][:40]
+        dl = [d["deviationid"] for h, d in vals]
         c2 = Counter()
-        for d in dl:
-            j = api(f"/deviation/{d['deviationid']}")
-            c2[j.get("category_path") or str(j.get("_error", ""))] += 1
-            if not c2.get("_k"):
-                c2["_k"] = 1
-                print("deviation keys:", sorted(j.keys()), flush=True)
-        print("detail categories:", dict(c2), flush=True)
-        print("download probe keys:", sorted(api(f"/deviation/download/{dl[0]['deviationid']}").keys()) if dl else None, flush=True)
+        for i in range(0, min(len(dl), 1000), 50):
+            j = api("/deviation/metadata", deviationids=dl[i:i + 50], ext_submission="true")
+            for m in j.get("metadata", []):
+                sub = m.get("submission") or {}
+                c2[str(sub.get("category_path") or sub.get("category") or "")] += 1
+                if i == 0 and not c2.get("_k"):
+                    c2["_k"] = 1
+                    print("meta keys:", sorted(m.keys()), "submission:", sorted(sub.keys()), flush=True)
+        for c, n in c2.most_common(60):
+            print(f"  CAT {n:5d} {c!r}", flush=True)
+        print("download probe:", api(f"/deviation/download/{dl[0]}").get("_error", "ok"), flush=True)
         raise SystemExit("discover only")
     tags = {}
 
