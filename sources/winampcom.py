@@ -54,7 +54,7 @@ def scrape():
         elif ext in ("jpg", "png", "gif") and ("/large_image/" in orig or "/small_image/" in orig):
             if k not in images or "/large_image/" in orig:
                 images[k] = (ts, orig)
-    for ts, orig in cdx("winamp.com/skin/*", "&limit=50000&filter=mimetype:text/html&filter=original:.*/skin/[^/?]+/[0-9]+/?$"):
+    for ts, orig in cdx("winamp.com/skin/*", "&limit=50000&filter=mimetype:text/html"):
         m = SKIN.search(urllib.parse.urlsplit(orig).path)
         if m and "?" not in orig and (int(m.group(2)) not in pages or ts > pages[int(m.group(2))][0]):
             pages[int(m.group(2))] = (ts, orig)

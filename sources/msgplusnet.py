@@ -57,8 +57,14 @@ def script_page(text):
 
 
 def scrape():
-    keep = "Download-Details|/skins/view/|/skins/(?:browse|by-date|by-downloads|by-rating|featured)|/scripts/view/|/scripts/\\?act=view|/skins/uploads/"
-    rows = cdx("msgplus.net/*", "&limit=200000&filter=original:.*(?:" + keep + ").*")
+    # one narrow prefix query per page family; a whole-domain regex scan times out (504)
+    rows = []
+    for pat in ("msgplus.net/Downloads/Download-Details/*", "msgplus.net/skins/view/*", "msgplus.net/skins/uploads/*",
+                "msgplus.net/skins/browse*", "msgplus.net/skins/by-*", "msgplus.net/skins/featured*",
+                "msgplus.net/scripts/view/*", "msgplus.net/scripts/?act=view*"):
+        r = cdx(pat, "&limit=100000")
+        print("msgplusnet cdx", pat, len(r), flush=True)
+        rows += r
     print("msgplusnet: cdx rows", len(rows), flush=True)
     views, listings, uploads, seen = {}, [], {}, set()
     docs, scripts = {}, {}
