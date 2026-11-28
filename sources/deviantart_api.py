@@ -129,7 +129,7 @@ def scrape():
     for c, n in cats.most_common(80):
         ex = next(d.get("title", "") for h, d in found.values() if (d.get("category_path") or "") == c)
         print(f"  {n:5d} {c!r} e.g. {ex[:50]!r}", flush=True)
-    if os.environ.get("DA_DISCOVER"):
+    if os.environ.get("DA_DISCOVER", "1"):
         raise SystemExit("discover only")
     tags = {}
 
