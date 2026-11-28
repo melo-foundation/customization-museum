@@ -86,7 +86,8 @@ def cdx_host(host):
 
 def check():
     state = load(STATE)
-    todo = [u for u in all_urls() if u not in state]
+    # new urls, plus missing ones: a save that timed out on our side often finished on archive.org's side
+    todo = [u for u in all_urls() if not state.get(u, {}).get("ts")]
     print(len(todo), "urls to check", flush=True)
     for host in sorted({host_of(u) for u in todo}):
         found = cdx_host(host)
@@ -95,7 +96,7 @@ def check():
                 ts, orig = found[norm(u)]
                 state[u] = {"ts": ts, **({"u": orig} if orig != u else {})}
             elif host_of(u) == host:
-                state[u] = {"ts": None}
+                state.setdefault(u, {"ts": None})
         save(STATE, state)
     stats()
 
@@ -110,7 +111,7 @@ def spn2(url, auth):
     h = {"User-Agent": UA, "Accept": "application/json", "Authorization": "LOW " + auth}
     try:
         req = urllib.request.Request("https://web.archive.org/save", urllib.parse.urlencode({"url": url, "skip_first_archive": 1}).encode(), h)
-        job = json.load(urllib.request.urlopen(req, timeout=60)).get("job_id")
+        job = json.load(urllib.request.urlopen(req, timeout=180)).get("job_id")
         if not job:
             return None, "no job"
         for _ in range(60):
@@ -148,8 +149,11 @@ def save_missing(limit, workers=4, match=""):
         ts, err = spn2(u, auth) if auth else spn(u)
         if not auth:
             time.sleep(SPN_DELAY)
-        if is_transient(err):
-            time.sleep(60)
+        # 429: too many captures in flight for this account; back off. Timeouts: archive.org is slow, the capture may still land
+        if err and err.startswith("http 429"):
+            time.sleep(90)
+        elif is_transient(err):
+            time.sleep(10)
         return u, ts, err
 
     for i in range(0, len(todo), workers * 5):
