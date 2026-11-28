@@ -47,7 +47,6 @@ body.skinsdb #header #mainnav #navdownload a { font-size: 18px; }
 #footer p { font-size: 13px; }
 #footer small { font-size: 11px; }
 .largefilename, span.largefilename { font-size: 20px; }
-.cm-replica { font-size: 10px; }
 
 /* bigger previews: list and featured thumbnails 1.5x, item screenshot fills the column at 5:4 */
 img.cm-thumb { max-width: 228px; max-height: 171px; }

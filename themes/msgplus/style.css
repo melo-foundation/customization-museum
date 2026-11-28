@@ -344,12 +344,12 @@ background:#a6a6a6;
 float:left;
 margin:22px 0 0 0;
 padding:0;
-width:309px;
+width:347px;
 height:65px;
 }
 #header h1 a{
 display:block;
-width:309px;
+width:347px;
 background:#a6a6a6; 
 }
 
@@ -1863,8 +1863,6 @@ playback timings (ms):
 /* ===== Customization Museum additions ===== */
 #app { display:block; }
 #container { position:relative; }
-/* marks the page as a replica, under the original logo */
-.cm-replica { position:absolute; left:98px; top:81px; font:9px Verdana,Tahoma,sans-serif; letter-spacing:.5px; text-transform:uppercase; color:#999; white-space:nowrap; }
 /* the original was laid out in almost-standards mode: no text descender gap under the logo */
 #header h1 img { display:block; }
 /* our full-size screenshots inside the original thumbnail (152x114) and screenshot (495x396) bounds */

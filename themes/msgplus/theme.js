@@ -82,8 +82,7 @@
   const header = (ctx, title, sub) => {
     const { h } = ctx, u = urls(ctx);
     return `<div id="header">
-	<h1><a href="${u.home}"><img src="${A}msgpluslive-logo.png" srcset="${A}hi/msgpluslive-logo@2x.png 2x, ${A}hi/msgpluslive-logo@3x.png 3x" width="309" height="65" alt="Messenger Plus! Live - The Windows Live Messenger Extension"/></a></h1>
-	<span class="cm-replica">Customization Museum replica</span>
+	<h1><a href="${u.home}"><img src="${A}cm-logo.png" srcset="${A}hi/cm-logo@2x.png 2x, ${A}hi/cm-logo@3x.png 3x" width="347" height="65" alt="Customization Museum"/></a></h1>
 	<ul id="mainnav">
 ${nav(u).map(([t, href, a]) => `		<li id="nav${t}"><a href="${href}"${t === 'download' ? ' id="mainnav-link-download"' : ''}${a ? ' ' + a : ''}>${t}</a></li>`).join('\n')}
 	</ul>
