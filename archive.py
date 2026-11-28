@@ -129,7 +129,12 @@ def check():
         for u in todo:
             hosts.setdefault(host_of(u), []).append(u)
         for host, us in sorted(hosts.items(), key=lambda kv: len(kv[1])):
-            found = cdx_host(host) if len(us) >= HOST_LISTING and not SHARED.search(host) else cdx_urls(us)
+            try:
+                found = cdx_host(host) if len(us) >= HOST_LISTING and not SHARED.search(host) else cdx_urls(us)
+            except Exception as e:
+                # one host the CDX server won't list shouldn't end the whole check; its urls stay unchecked for next run
+                print(host, len(us), "urls, lookup failed:", e, flush=True)
+                continue
             print(host, len(us), "urls,", sum(1 for u in us if norm(u) in found), "captured", flush=True)
             for u in us:
                 if norm(u) in found:
