@@ -81,7 +81,7 @@
   const header = (ctx, title, sub) => {
     const { h } = ctx, u = urls(ctx);
     return `<div id="header">
-	<h1><a href="${u.home}"><img src="${A}msgpluslive-logo.png" width="309" height="65" alt="Messenger Plus! Live - The Windows Live Messenger Extension"/></a></h1>
+	<h1><a href="${u.home}"><img src="${A}msgpluslive-logo.png" srcset="${A}hi/msgpluslive-logo@2x.png 2x, ${A}hi/msgpluslive-logo@3x.png 3x" width="309" height="65" alt="Messenger Plus! Live - The Windows Live Messenger Extension"/></a></h1>
 	<span class="cm-replica">Customization Museum replica</span>
 	<ul id="mainnav">
 ${nav(u).map(([t, href, a]) => `		<li id="nav${t}"><a href="${href}"${t === 'download' ? ' id="mainnav-link-download"' : ''}${a ? ' ' + a : ''}>${t}</a></li>`).join('\n')}
@@ -140,7 +140,7 @@ ${li(orig('help/'), 'Help &amp; Forums', '', ext)}
   const footer = (ctx) => {
     const u = urls(ctx);
     return `<div id="footer">
-	<div id="gfddlogo"><a href="https://web.archive.org/web/2009/http://www.gfddgroup.com/" ${ext}><img src="${A}gfdd.png" alt="Design and Web Development by GFDD Group" width="137" height="35"/></a></div>
+	<div id="gfddlogo"><a href="https://web.archive.org/web/2009/http://www.gfddgroup.com/" ${ext}><img src="${A}gfdd.png" srcset="${A}hi/gfdd@2x.png 2x, ${A}hi/gfdd@3x.png 3x" alt="Design and Web Development by GFDD Group" width="137" height="35"/></a></div>
 	<p>Messenger Plus!&#8482; &amp; MsgPlus &copy;2001-2010 by Yuna Software<br/>
 	<small>MSN and Windows Live are registered trademarks of Microsoft Corporation.<br/>
 	Other products' names may be trademarked by their respective owners.<br/>
@@ -321,7 +321,7 @@ ${block('Source', Object.entries(m.sites).sort((a, b) => b[1].count - a[1].count
 </div></div></div></div>`;
       const left = `${important(h) || `<div class="highlight important"><strong>Important:</strong> You need to have <a href="${orig('download/')}" ${ext}>Messenger Plus! Live</a> installed before being able to install Skins.</div>`}
 
-	<img src="${A}skins-bigicon.png" width="138" height="126" alt="Messenger Plus! Live Skins" title="" style="float:left;margin:0 15px 0px -15px"/>
+	<img src="${A}skins-bigicon.png" srcset="${A}hi/skins-bigicon@2x.png 2x, ${A}hi/skins-bigicon@3x.png 3x" width="138" height="126" alt="Messenger Plus! Live Skins" title="" style="float:left;margin:0 15px 0px -15px"/>
 	<h3>What are Skins?</h3>
 
   <p>Skins change the way your Messenger windows look. We have some awesome designs available for download which will greatly improve the old Live Messenger look, and this museum keeps them next to ${m.total.toLocaleString('en-US')} skins, themes, emoticons and other add-ons made for ${m.apps.length} programs. Just browse the database and download a skin you like: every entry links to its original page and to an archived copy of its file when one exists. Enjoy!</p>
