@@ -1,5 +1,5 @@
 """deviantART customization deviations via the official API (client-credentials OAuth2)."""
-import json, os, re, time, urllib.error, urllib.parse, urllib.request
+import html, json, os, re, time, urllib.error, urllib.parse, urllib.request
 from lib import UA, ROOT
 
 API = "https://www.deviantart.com/api/v1/oauth2"
@@ -89,6 +89,23 @@ APPS = [  # (app, regex that must match the title)
 ]
 
 
+def plain(h):
+    h = re.sub(r"<br\s*/?>|</p>", "\n", h or "")
+    h = html.unescape(re.sub(r"<[^>]+>", " ", h))
+    return re.sub(r"[ \t]+", " ", re.sub(r"\s*\n\s*", "\n", h)).strip()
+
+
+COMPAT = {
+    VS: r"uxtheme|msstyles|visual ?style|resources.themes|ultrauxtheme|uxstyle|secureuxtheme|\bpatch|(windows|win) ?(xp|vista|7|8|10|11)|\bwin ?(xp|7|10|11)\b|\.theme\b|themepack",
+    "Winamp 3/5 (Modern Skins)": r"winamp ?3|winamp ?5|modern skin|\.wal\b|wasabi|freeform",
+    "Windows Media Player": r"\.wmz|\.wms|media player|wmp",
+    "MSN / WLM": r"messenger plus|msgplus|\.plsk|\.plsc|\bmsn\b|\bwlm\b|live messenger",
+    "Sonique": r"\.sgf|sonique", "CursorXP": r"cursorxp|\.curxptheme",
+    "Trillian": r"trillian|\.xml|stixe", "Miranda NG": r"miranda", "Yahoo! Messenger": r"yahoo",
+    "Pidgin": r"pidgin", "Adium": r"adium", "Opera": r"opera",
+}
+
+
 def classify(title, taglist, downloadable):
     """Strict: needs a downloadable file and the program/format named in the title (VS: title or tags)."""
     if not downloadable:
@@ -140,7 +157,7 @@ def scrape():
                 add(d, q)
         print(f"query {q!r}: {len(found)} candidates", flush=True)
 
-    tags = {}
+    tags, descs = {}, {}
 
     def fetch_tags(ids):
         ids = [i for i in ids if i not in tags]
@@ -148,12 +165,16 @@ def scrape():
             j = api("/deviation/metadata", deviationids=ids[i:i + 50], ext_submission="false", ext_camera="false", ext_stats="false", ext_collection="false")
             for m in j.get("metadata", []):
                 tags[m["deviationid"]] = [t["tag_name"] for t in m.get("tags", []) if t.get("tag_name")]
+                descs[m["deviationid"]] = plain(m.get("description"))
             if (i // 50) % 20 == 0:
                 print(f"  metadata {i}/{len(ids)}", flush=True)
 
     def cls(did):
         d = found[did][1]
-        return classify(d.get("title", ""), tags.get(did, []), d.get("is_downloadable"))
+        app = classify(d.get("title", ""), tags.get(did, []), d.get("is_downloadable"))
+        if app and re.search(COMPAT.get(app, "."), (d.get("title", "") + " " + descs.get(did, "")).lower()):
+            return app
+        return None
 
     fetch_tags([i for i, (h, d) in found.items() if d.get("is_downloadable")])
     # author expansion
@@ -199,7 +220,7 @@ def scrape():
         extra = {k: v for k, v in extra.items() if v}
         out.append(dict(
             app=app, id=f"da-{did}", title=d.get("title") or "Untitled", date=date, page=d["url"],
-            preview=prev, download=None,
+            preview=prev, download=None, description=descs.get(did, "")[:500],
             tags=sorted({"deviantART", "Skins"} | set(dt[:15])), extra=extra,
         ))
     from collections import Counter
