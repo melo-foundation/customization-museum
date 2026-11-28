@@ -40,9 +40,10 @@ html[data-theme="softpedia"] .spx-opts { margin:0 0 1em; }
 /* quirks: a block holding only an inline element gets no strut from its own (larger) font */
 html[data-theme="softpedia"] .spx-q { font-size:0; }
 
-/* logo cell: image then <br>, as the original (quirks: no strut under the image) */
+/* logo cell: the wordmark is longer than the original 239px slot; the cell keeps that slot and the image runs on under the 26px nav row (clipped clear of it) */
 html[data-theme="softpedia"] .spx-logo { font-size:0; line-height:0; }
-html[data-theme="softpedia"] .spx-logo .update { font-size:11px; line-height:normal; }
+html[data-theme="softpedia"] .spx-logo a { display:block; position:relative; width:239px; height:62px; }
+html[data-theme="softpedia"] .spx-logo img { position:absolute; left:0; top:0; max-width:none; clip-path:polygon(0 0, 279px 0, 279px 26px, 100% 26px, 100% 100%, 0 100%); }
 /* 468x60 header ad slot: empty navy like the original without its ad; our two switches sit in it */
 html[data-theme="softpedia"] .spx-ad468 { display:flex; margin-left:auto; align-items:center; justify-content:flex-end; gap:6px; width:468px; height:60px; }
 html[data-theme="softpedia"] .spx-ad468 select { width:auto; max-width:200px; font:10px Verdana,Arial,sans-serif; color:#C9D9FF; background:#001F5B; border:1px solid #426BBC; }

@@ -15,7 +15,7 @@
   let A = '';
   // crisp 2x/3x replicas of the lettered originals (assets/hi/); 1x always shows the original bitmap.
   // srcset picks by device pixel ratio only, so the band Readable zooms (ZOOMED) names its replicas outright.
-  const HI = new Set(['softpedia_logo.gif', 'um_skins.png', 'um_emoticons.png', 'um_icons.png', 'um_pictures.png', 'um_plugins.png', 'um_sounds.png', 'um_archived.png', 'um_newest.png',
+  const HI = new Set(['cm_logo.png', 'um_skins.png', 'um_emoticons.png', 'um_icons.png', 'um_pictures.png', 'um_plugins.png', 'um_sounds.png', 'um_archived.png', 'um_newest.png',
     'top_m_01.gif', 'top_m_request.png', 'top_m_az.png', 'top_m_archived.png', 'top_m_04.gif', 'top_m_05.gif', 'top_m_newest.png', 'top_m_source.png', 'top_m_oldest.png', 'top_m_report.png',
     'd_m_01.gif', 'd_m_02_all.png', 'd_m_03_archived.png', 'd_m_04_missing.png', 'programfinder.gif', 'sectcat.gif', 'menu_009_2.jpg', 'menu_09_2.jpg', 'menu_10_2.jpg',
     'download_basket.jpg', 'request_file.png', 'onthispage.gif', 'ugames_onthispage.gif', 'urss.gif']);
@@ -45,7 +45,7 @@
       ['plugins', h.url.type('Scripts & Plugins'), 'Scripts & Plugins'], ['sounds', h.url.type('Sounds'), 'Sounds'], ['archived', arch, 'Archived files'], ['newest', newest, 'Newest files']];
     const c = (i, hs) => `<a href="${circ[i][1]}"${ext(circ[i][1])} title="${E(circ[i][2])}">${img(`um_${circ[i][0]}.png`, 71, 71, (hs ? `hspace="${hs}" ` : '') + `alt="${E(circ[i][2])}"`)}</a>`;
     return `<table width="100%" border="0" cellpadding="0" cellspacing="0" bgcolor="#001F5B"><tr>
-        <td rowspan="2" valign="top" class="spx-logo"><a href="${h.url.home()}">${img('softpedia_logo.gif', 239, 62, 'alt="SOFTPEDIA"')}</a><br><table width="214" border="0" cellspacing="0" cellpadding="0"><tr><td width="26"></td><td align="center" class="update">Customization Museum replica</td></tr></table></td>
+        <td rowspan="2" valign="top" class="spx-logo"><a href="${h.url.home()}">${img('cm_logo.png', 485, 62, 'alt="Customization Museum"')}</a></td>
         <td width="700" align="right" height="26" class="spx-io">${nav.map(([n, w, t, u]) => `<a href="${u}"${ext(u)} title="${t}">${img(n, w, 26, `alt="${t}"`)}</a>`).join('')}</td></tr>
         <tr><td align="right" style="padding-right:14px"><div class="spx-ad468">${h.themePicker()}${h.fidelityToggle()}</div></td></tr></table>
       <div class="spx-band"><table width="100%" border="0" cellpadding="0" cellspacing="0" bgcolor="#001F5B"><tr>
