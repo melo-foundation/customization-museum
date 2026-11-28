@@ -112,14 +112,14 @@ ${titleCells || `<td align="center" height="1" background="${A}frame_title.gif" 
   // ---- side boxes ----
   const library = (ctx, r = {}) => {
     const { h, manifest: m } = ctx;
-    const rows = m.apps.slice(0, 22).map(a => `<tr>
+    const rows = m.apps.map((a, i) => `<tr${i >= 22 ? ' class="cm-more" style="display:none"' : ''}>
 <td class="columns" valign="bottom"><img src="${appIcon(a)}" border="0" align="absmiddle"></td>
 <td class="columns" valign="bottom" width="100%"><nobr class="cm-lib"><a class="columns" href="${h.url.app(a.slug)}">${cut(h, a.name, 14)}</a></nobr></td>
 <td class="columns" valign="bottom" align="right">[${a.count}]</td>
 </tr>`).join('');
     return frame(`<a class="frametitle" href="${h.url.home()}">Library</a>`, `<table width="100%" border="0" valign="top" cellpadding="0" cellspacing="3">${rows}
 <tr>
-<td class="columns" valign="bottom" align="center" colspan="3"><a class="columns" href="${h.url.home()}">[more...]</a></td>
+<td class="columns" valign="bottom" align="center" colspan="3">${m.apps.length > 22 ? `<a class="columns" href="#" onclick="const t=this.closest('table');const o=t.querySelector('.cm-more').style.display==='none';t.querySelectorAll('.cm-more').forEach(r=>r.style.display=o?'':'none');this.textContent=o?'[less...]':'[more...]';return false">[more...]</a>` : ''}</td>
 </tr>
 </table>`);
   };
@@ -200,7 +200,7 @@ ${answers}
     const pool = (ctx.recent || ctx.list?.rows || (ctx.related || []).filter(e => e !== ctx.item)).filter(e => e.v);
     const g = pool.length ? pool[new Date().getDate() % Math.min(pool.length, 15)] : ctx.item?.v ? ctx.item : null;
     const href = g ? h.url.item(g) : h.url.request();
-    return frame('Museum&nbsp;Goodies', `<table width="100%" border="0" valign="top" cellpadding="0" cellspacing="3">
+    return frame('WinCusto Goodies', `<table width="100%" border="0" valign="top" cellpadding="0" cellspacing="3">
 <tr><td align="center" class="columns">
 ${g ? `<a href="${href}">${h.img(g, 'border="0" class="cm-goodie"')}</a><br>
 <a class="columns" href="${href}">${cut(h, g.t, 22)}</a>` : `<br>${m.total} items<br>${m.apps.length} programs<br><br>`}
@@ -208,7 +208,7 @@ ${g ? `<a href="${href}">${h.img(g, 'border="0" class="cm-goodie"')}</a><br>
 </table>
 <table width="100%" height="34" align="CENTER" border="0" cellpadding="0" cellspacing="0" background="${A}bg_bottom.gif">
 <tr>
-<td align="center" valign="middle" class="search" height="34"><a href="${href}"${g ? '' : ' target="_blank" rel="noopener"'}><img src="${A}button_buy.gif" border="0" align="middle"></a></td>
+<td align="center" valign="middle" class="search" height="34">${g && h.file(g) ? `<a class="columns" href="${h.esc(h.file(g))}" target="_blank" rel="noopener">[Download]</a>` : `<a class="columns" href="${href}"${g ? '' : ' target="_blank" rel="noopener"'}>${g ? '[Details]' : '[Request]'}</a>`}</td>
 </tr>
 </table>`);
   };
@@ -402,7 +402,7 @@ ${e.v ? `<td bgcolor="#ffffff" valign="top"><table border="0" cellpadding="1" ce
 </td>
 </tr>`;
     };
-    const news = frame('Museum News', `<table width="100%" border="0" valign="TOP" cellpadding="1" cellspacing="5">
+    const news = frame('Wincustomize News', `<table width="100%" border="0" valign="TOP" cellpadding="1" cellspacing="5">
 ${recent.slice(1, 8).map(story).join('\n')}
 </table>`, { width: '100%', bg: '#F6F6F6' });
     const leftCol = daily + library(ctx) + resources(ctx) + options(ctx) + articles + poll(ctx);

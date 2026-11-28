@@ -36,7 +36,7 @@
         <td rowspan="2" valign="top" class="spx-logo"><a href="${h.url.home()}">${img('softpedia_logo.gif', 239, 62, 'alt="SOFTPEDIA"')}</a><br><table width="214" border="0" cellspacing="0" cellpadding="0"><tr><td width="26"></td><td align="center" class="update">Customization Museum replica</td></tr></table></td>
         <td width="700" align="right" height="26" class="spx-io">${nav.map(([n, w, t, u]) => `<a href="${u}"${ext(u)} title="${t}">${img(`top_m_${n}.gif`, w, 26, `alt="${t}"`)}</a>`).join('')}</td></tr>
         <tr><td align="right" style="padding-right:14px"><div class="spx-ad468">${h.themePicker()}${h.fidelityToggle()}</div></td></tr></table>
-      <table width="100%" border="0" cellpadding="0" cellspacing="0" bgcolor="#001F5B"><tr>
+      <div class="spx-band"><table width="100%" border="0" cellpadding="0" cellspacing="0" bgcolor="#001F5B"><tr>
         <td><table width="100%" border="0" cellpadding="0" cellspacing="0"><tr>
           <td width="74" height="85" align="center" valign="top" background="${A}um_l_bkg2.jpg" class="spx-io" style="padding-left:18px; padding-top:19px">${c(0)}</td>
           <td width="447" align="center" valign="top" background="${A}um_bkg2.jpg" class="spx-io" style="padding-left:0px; padding-top:19px"><span class="spx-mid">${c(1, 1)}${c(2, 2)}${c(3, 2)}${c(4, 1)}${c(5, 1)}${c(6, 1)}</span></td>
@@ -44,7 +44,7 @@
         <td width="86" valign="top" background="${A}menu_08_3.jpg" style="padding-top:55px"><form id="spx-search" data-search role="search" style="margin:0"><input name="q" type="text" class="searchfield" size="11" value="${E(r.q)}"></form></td>
         <td width="157"><table width="100%" border="0" cellpadding="0" cellspacing="0"><tr><td class="spx-io"><a href="${h.url.home()}">${img('menu_009_2.jpg', 157, 40)}</a></td></tr>
           <tr><td width="162" class="spx-io"><input type="image" form="spx-search" src="${A}menu_09_2.jpg" width="37" height="64" border="0" alt="Go"><a href="${reset(h, r, {})}">${img('menu_10_2.jpg', 120, 64)}</a></td></tr></table></td>
-      </tr></table>`;
+      </tr></table></div>`;
   }
 
   // ---------- section title row, "On this page" row, dotted spacer, 728x90 slot ----------
@@ -121,7 +121,21 @@
   }
   const setBase = h => { A = h.url.home() + 'themes/softpedia/assets/'; };
 
+  // Readable: the wave band keeps its original 984px composition (circles sit in the wave troughs) and is zoomed to the page width
+  let watch;
+  const fitBand = el => {
+    const band = el.querySelector('.spx-band');
+    watch?.disconnect();
+    if (!band) return;
+    const fit = () => { band.style.zoom = document.documentElement.dataset.fidelity === 'readable' ? band.parentElement.clientWidth / 984 : ''; };
+    // the page width changes with the window and when modern.css finishes loading
+    watch = new ResizeObserver(fit);
+    watch.observe(band.parentElement);
+    fit();
+  };
+
   THEMES.softpedia = {
+    after(ctx, el) { fitBand(el); },
     label: 'Download Portal 2006',
     perPage: 30,
     recent: 44,

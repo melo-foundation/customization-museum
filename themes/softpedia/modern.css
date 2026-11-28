@@ -9,13 +9,8 @@ html[data-fidelity="readable"][data-theme="softpedia"] #app table[width="770"], 
 html[data-fidelity="readable"][data-theme="softpedia"] #app td[width="795"] > table[width="780"] { width:calc(100% - 15px) !important; }
 html[data-fidelity="readable"][data-theme="softpedia"] #app td[width="380"] { width:49%; }
 
-/* header: the wave cell between the circles takes the extra width; its six circles spread with equal gaps, which match
-   the gaps to the first and last circles in the neighbouring cells (both sit flush against this cell) */
-html[data-fidelity="readable"][data-theme="softpedia"] #app td[background$="um_bkg2.jpg"] { width:auto; }
-html[data-fidelity="readable"][data-theme="softpedia"] .spx-mid { display:flex; justify-content:space-evenly; }
-html[data-fidelity="readable"][data-theme="softpedia"] #app td[width="74"][background], html[data-fidelity="readable"][data-theme="softpedia"] #app td[width="195"][background] { width:auto; }
-html[data-fidelity="readable"][data-theme="softpedia"] #app td[width="74"][background] { width:74px; }
-html[data-fidelity="readable"][data-theme="softpedia"] #app td[width="195"][background] { width:195px; }
+/* header: the wave band keeps its 984px layout (theme.js zooms it to the page width) so the circles stay in the wave troughs */
+html[data-fidelity="readable"][data-theme="softpedia"] .spx-band { width:984px; }
 html[data-fidelity="readable"][data-theme="softpedia"] .update { font-size:12px; }
 
 /* dotted rule under the section bar: the 770px image tiles instead of stretching */
