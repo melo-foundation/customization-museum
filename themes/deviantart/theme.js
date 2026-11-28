@@ -48,7 +48,7 @@
     const { h, route: r, manifest: m } = ctx;
     const logo = $(doc, '#top h1 a');
     if (logo) { logo.href = h.url.home(); logo.title = 'Customization Museum'; }
-    $(doc, '#top h1')?.insertAdjacentHTML('afterend', '<span id="cm-replica">Customization Museum replica</span>');
+    { const logo = $(doc, '#top h1 a'); if (logo) { logo.textContent = 'Customization Museum'; logo.title = 'Customization Museum'; } }
     const nav = [[h.url.home(), 'Browse'], [h.link({}, { arch: '1' }), 'Archived'], [h.url.request(), 'Request'],
       [h.url.type('Skins & Themes'), 'Skins'], [h.url.type('Emoticons'), 'Emoticons'], [REPO_URL, 'About']];
     doc.querySelectorAll('#top .iconset-top a').forEach((a, i) => {

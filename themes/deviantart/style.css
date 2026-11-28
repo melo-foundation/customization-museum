@@ -4496,7 +4496,6 @@ body.cm-v565 #pimp-preload>span.iii{background-image:url(assets/shadow-alpha-000
 /* the everyday header art (plain wordmark, plain shop icon) on every page */
 body[class] #top-middle div.icons a.a2 { padding-left: 22px; }
 /* replica tag under the original wordmark */
-body[class] #cm-replica { position: absolute; left: 34px; top: 57px; z-index: 41; font: 7pt/10px Verdana, sans-serif; letter-spacing: 0; color: #a9b8b1; white-space: nowrap; pointer-events: none; }
 /* login strip: the theme and display pickers sit in the original username and password fields */
 body[class] #rockdock select.itext { width: 121px; height: 17px; padding: 0; border: 0 none; background: transparent; position: relative; left: 4px; z-index: 40; margin-right: 12px; color: #1f2929; font: 8pt Verdana, sans-serif; vertical-align: middle; -webkit-appearance: none; appearance: none; cursor: pointer; outline: 0; }
 body[class] #rockdock select.itext option { background: #e8f0ec; color: #1f2929; }
@@ -4556,7 +4555,6 @@ body[class] .cm-more div.stream div span { width: 170px; }
 body[class] .cm-banner a:empty { display: none; }
 
 /* HiDPI: redrawn 2x/3x sprites (wordmark, Categories/Customize/Reply/Mood buttons); 1x keeps the original GIFs */
-body[class] #top h1,
 body[class] #top-middle,
 body[class] #top i.ttr,
 body[class] div#top-right,
@@ -4573,3 +4571,11 @@ body[class]:not(.deviant) a.moodbutton {
   background-image: url(assets/hubblebuttons.gif);
   background-image: image-set(url(assets/hubblebuttons.gif) 1x, url("assets/hi/hubblebuttons@2x.png") 2x, url("assets/hi/hubblebuttons@3x.png") 3x);
   background-size: 700px 120px; }
+
+/* the logo reads "customizationMUSEUM" in the wordmark's setting (Trebuchet MS 31pt), so its cell is 173px wider than the original's */
+body[class] #top h1 { width: 408px;
+  background-image: url(assets/cm-logo.png);
+  background-image: image-set(url(assets/cm-logo.png) 1x, url("assets/hi/cm-logo@2x.png") 2x, url("assets/hi/cm-logo@3x.png") 3x);
+  background-size: 413px 110px; }
+body[class] #top h1 a { width: 374px; }
+body[class] #top-middle { padding-left: 380px; }
