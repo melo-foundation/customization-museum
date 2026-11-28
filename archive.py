@@ -122,7 +122,7 @@ def check():
     # on our side sometimes finished on archive.org's side). Each host is saved as it completes, so a
     # run cut short by the step timeout still keeps what it found.
     new = [u for u in urls if u not in state]
-    retry = [u for u in urls if u in state and not state[u].get("ts") and state[u].get("err")]
+    retry = [u for u in urls if u in state and not state[u].get("ts") and (state[u].get("err") or state[u].get("sent"))]
     print(len(new), "new urls,", len(retry), "to recheck", flush=True)
     for todo in (new, retry):
         hosts = {}
@@ -147,21 +147,16 @@ def keys():
 
 
 def spn2(url, auth):
-    """Authenticated Save Page Now. Returns (timestamp|None, error|None)."""
+    """Submit one url to authenticated Save Page Now without waiting for the capture (status polling counts
+    against the same rate limit). Returns (job id|None, error|None); the next run's check finds the capture."""
     h = {"User-Agent": UA, "Accept": "application/json", "Authorization": "LOW " + auth}
     try:
         req = urllib.request.Request("https://web.archive.org/save", urllib.parse.urlencode({"url": url, "skip_first_archive": 1}).encode(), h)
-        job = json.load(urllib.request.urlopen(req, timeout=30)).get("job_id")
-        if not job:
-            return None, "no job"
-        for _ in range(60):
-            time.sleep(5)
-            st = json.load(urllib.request.urlopen(urllib.request.Request("https://web.archive.org/save/status/" + job, headers=h), timeout=60))
-            if st.get("status") == "success":
-                return st.get("timestamp"), None
-            if st.get("status") == "error":
-                return None, st.get("status_ext") or "error"
-        return None, "timeout"
+        body = json.load(urllib.request.urlopen(req, timeout=30))
+        if body.get("job_id"):
+            return body["job_id"], None
+        # refusals come back as 200 with a message (unreachable host, blocked url, daily limit...)
+        return None, "refused " + str(body.get("status_ext") or body.get("message") or body)[:100]
     except urllib.error.HTTPError as e:
         return None, f"http {e.code}"
     except urllib.error.URLError as e:
@@ -179,10 +174,17 @@ def merge(path):
     save(STATE, state)
 
 
-def save_missing(limit, workers=4, match=""):
+SUBMIT_GAP = 6        # seconds between submits
+COOLDOWN = 120       # after a 429 or dropped connection: archive.org is throttling us
+RESUBMIT_AFTER = 86400  # a submitted url isn't sent again for a day; check picks up its capture meanwhile
+
+
+def save_missing(limit, workers=1, match=""):
     state = load(STATE)
     auth = keys()
-    want = [u for u in all_urls() if state.get(u, {}).get("ts") is None and state.get(u, {}).get("fails", 0) < 3 and match in u]
+    now = time.time()
+    want = [u for u in all_urls() if state.get(u, {}).get("ts") is None and state.get(u, {}).get("fails", 0) < 3 and match in u
+            and now - state.get(u, {}).get("sent", 0) > RESUBMIT_AFTER]
     # one host at a time, in turn, untried urls before ones that already failed: a slow or throttled host
     # can't hold the whole queue
     queues = {}
@@ -190,28 +192,34 @@ def save_missing(limit, workers=4, match=""):
         queues.setdefault(host_of(u), []).append(u)
     todo = [q[i] for i in range(max(map(len, queues.values()), default=0)) for q in queues.values() if i < len(q)][:limit]
     print(len(todo), "urls this run,", "authenticated" if auth else "anonymous", flush=True)
-
-    def one(u):
-        ts, err = spn2(u, auth) if auth else spn(u)
-        if not auth:
-            time.sleep(SPN_DELAY)
-        # successful submits answer in ~1s; 429s and dropped connections (timeout/reset after 130s+) are archive.org
-        # throttling us, so both get the long back-off and a short connect timeout above
-        if is_transient(err):
-            time.sleep(90)
-        return u, ts, err
-
-    for i in range(0, len(todo), workers * 5):
-        for u, ts, err in pmap(one, todo[i : i + workers * 5], workers=workers if auth else 1):
-            s = state.setdefault(u, {"ts": None})
+    sent = refused = throttled = 0
+    for n, u in enumerate(todo, 1):
+        s = state.setdefault(u, {"ts": None})
+        if auth:
+            job, err = spn2(u, auth)
+        else:
+            ts, err = spn(u)
+            job = None
             if ts:
                 s.update(ts=ts, saved=int(time.time()))
-                s.pop("err", None)
+        if job:
+            s.update(sent=int(time.time()), job=job)
+            s.pop("err", None)
+            sent += 1
+        elif err:
+            s["err"] = err
+            if is_transient(err):
+                throttled += 1
             else:
-                s["err"] = err
-                s["fails"] = s.get("fails", 0) + (0 if is_transient(err) else 1)
-            print(ts or err, u, flush=True)
-        save(STATE, state)
+                s["fails"] = s.get("fails", 0) + 1
+                refused += 1
+        print(job or err or "saved", u, flush=True)
+        if n % 20 == 0:
+            save(STATE, state)
+            print(f"-- {n}/{len(todo)}: {sent} submitted, {refused} refused, {throttled} throttled", flush=True)
+        time.sleep(COOLDOWN if is_transient(err) else SUBMIT_GAP if auth else SPN_DELAY)
+    save(STATE, state)
+    print(f"done: {sent} submitted, {refused} refused, {throttled} throttled", flush=True)
 
 
 def stats():

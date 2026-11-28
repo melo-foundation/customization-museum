@@ -6,9 +6,9 @@ on:
   workflow_dispatch:
     inputs:
       limit:
-        default: "400"
+        default: "2000"
       workers:
-        default: "2"
+        default: "1"
       match:
         default: ""
 
@@ -30,29 +30,19 @@ jobs:
         env:
           KEYS: ${{ secrets.ARCHIVE_KEYS }}
       - run: timeout 3600 python3 archive.py check || true
+      # keep the lookup results even if the save step is cancelled
+      - run: devtools/commit-archive.sh
       # stop before the job limit so progress still gets committed
-      - run: timeout 16000 python3 archive.py save ${{ inputs.limit || '400' }} ${{ inputs.workers || '2' }} "$MATCH" || true
+      - run: timeout 16000 python3 archive.py save ${{ inputs.limit || '2000' }} ${{ inputs.workers || '1' }} "$MATCH" || true
         env:
           MATCH: ${{ inputs.match }}
-      - run: |
-          cp data/archive_state.json /tmp/state.json
-          git config user.name "github-actions[bot]"
-          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          for attempt in 1 2 3 4 5; do
-            git fetch -q origin main && git reset -q --hard origin/main
-            python3 archive.py merge /tmp/state.json && python3 build.py
-            git add data/archive_state.json idx themes/index.json site app type item
-            git diff --cached --quiet && exit 0
-            git commit -q -m "Archive progress" && git push -q origin HEAD:main && exit 0
-            sleep $((attempt * 10))
-          done
-          exit 1
+      - run: devtools/commit-archive.sh
       # keep going until nothing is left to save; cron alone proved unreliable
       - if: success()
         run: |
-          left=$(python3 -c "import json,glob;s=json.load(open('data/archive_state.json'));print(sum(1 for v in s.values() if not v.get('ts') and v.get('fails',0)<3))")
+          left=$(python3 -c "import json,glob;s=json.load(open('data/archive_state.json'));import time;print(sum(1 for v in s.values() if not v.get('ts') and v.get('fails',0)<3 and time.time()-v.get('sent',0)>86400))")
           echo "$left urls still missing"
-          if [ "$left" -gt 0 ]; then gh workflow run archive.yml -f limit="${{ inputs.limit || '400' }}" -f workers="${{ inputs.workers || '2' }}"; fi
+          if [ "$left" -gt 0 ]; then gh workflow run archive.yml -f limit="${{ inputs.limit || '2000' }}" -f workers="${{ inputs.workers || '1' }}"; fi
         env:
           GH_TOKEN: ${{ github.token }}
           GH_REPO: ${{ github.repository }}
