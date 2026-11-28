@@ -3,18 +3,28 @@ import json, os, re, time, urllib.error, urllib.parse, urllib.request
 from lib import UA, ROOT
 
 API = "https://www.deviantart.com/api/v1/oauth2"
-# tag/query -> default app
-TAGS = {
-    "msstyles": "VS", "visualstyle": "VS", "visualstyles": "VS", "uxtheme": "VS", "windowsxptheme": "VS",
-    "xptheme": "VS", "vistatheme": "VS", "windows7theme": "VS", "win7theme": "VS", "windowsvisualstyle": "VS",
-    "winampskin": "Winamp", "winampmodern": "Winamp3", "wmpskin": "Windows Media Player",
-    "msnskin": "MSN / WLM", "messengerplus": "MSN / WLM", "msgplus": "MSN / WLM", "wlmskin": "MSN / WLM",
-    "trillianskin": "Trillian", "mirandaim": "Miranda NG", "mirandaskin": "Miranda NG", "sonique": "Sonique",
-    "cursorxp": "CursorXP", "aimskin": "AIM", "icqskin": "ICQ", "yahoomessenger": "Yahoo! Messenger",
-    "pidginskin": "Pidgin", "adiumicons": "Adium", "adiumxtra": "Adium", "operaskin": "Opera",
-}
-VS = "Windows Visual Styles (uxtheme)"
-MAXPAGES = int(os.environ.get("DA_MAXPAGES", "60"))
+TAGS = """msstyles visualstyle visualstyles visual_style visual_styles xpvisualstyle vistavisualstyle windowsvisualstyle
+uxtheme windowsxptheme xptheme vistatheme windows7theme win7theme windows10theme windows11theme styleXP
+windowsxp windowsvista windows7 windows10 windows11 winxp theme windowstheme
+winampskin winamp winamp3 winamp5 winampmodern wasabi wmpskin wmp11skin wmp11 wmpskins
+msnskin messengerplus msgplus msgpluslive wlmskin wlm messenger msn msnmessenger livemessenger
+trillianskin trillian mirandaim mirandaskin miranda sonique cursorxp iconpackager objectdock rocketdock
+aimskin icqskin yahoomessenger pidginskin adiumicons adiumxtra operaskin""".split()
+QUERIES = ["visual style", "msstyles", "windows xp theme", "vista visual style", "windows 7 visual style",
+           "windows 10 theme msstyles", "messenger plus skin", "msn skin", "wmp skin", "winamp3 skin",
+           "winamp 5 modern skin", "trillian skin", "miranda skin", "sonique skin", "windows live messenger skin"]
+VS = "Windows Visual Styles"
+RULES = [  # (app, regex over lowercase title + tags + matched tag/query)
+    (VS, r"msstyles|visual[ _-]?styles?|uxtheme|(xp|vista|win(dows)?[ _]?(7|8|10|11)|windows)[ _-]?(theme|style)|(theme|style)[ _-]?(for )?(windows|win)[ _]?(xp|vista|7|8|10|11)"),
+    ("Winamp 3/5 (Modern Skins)", r"winamp ?3|winamp ?5 ?modern|winamp ?modern|modern skin|wasabi"),
+    ("Windows Media Player", r"wmp ?(11|10|12)? ?skins?|windows media player ?(skin|theme)|wmpskin"),
+    ("MSN / WLM", r"messenger ?plus|msg ?plus|msn ?(skin|theme|messenger)|wlm ?(skin|theme)|(live|msn) messenger ?(skin|theme)|messenger skin"),
+    ("Trillian", r"trillian"), ("Miranda NG", r"miranda ?(im|ng)?[ _]?(skin|theme|icons?)?"),
+    ("Sonique", r"sonique"), ("CursorXP", r"cursorxp"), ("Yahoo! Messenger", r"yahoo ?messenger"),
+    ("Pidgin", r"pidgin"), ("Adium", r"adium"), ("Opera", r"opera ?(skin|theme)"),
+]
+BAD = re.compile(r"rainmeter|bootskin|wallpaper|\bicon ?pack|cursors? set|\bsuite\b|stardock|windowblinds|\bwb\b|winamp ?(classic|2)")
+MAXPAGES = int(os.environ.get("DA_MAXPAGES", "100"))
 _tok = {}
 
 
@@ -64,52 +74,99 @@ def api(path, **params):
     return _req(f"{API}{path}?{q}", auth=_tok["t"])
 
 
-def classify(code, text):
-    """Return app name or None, from a default code plus tags/title text."""
+def classify(text):
     t = text.lower()
-    if code == "VS":
-        if any(w in t for w in ("rainmeter", "bootskin", "wallpaper", "icon pack")) and "msstyles" not in t:
-            return None
-        return VS
-    if code == "Winamp":
-        return "Winamp 3/5 (Modern Skins)" if "modern" in t else "Winamp"
-    if code == "Winamp3":
-        return "Winamp 3/5 (Modern Skins)"
-    return code
+    if BAD.search(t) and not re.search(r"msstyles|visual ?style", t):
+        return None
+    for app, rx in RULES:
+        if re.search(rx, t):
+            if app in ("Trillian", "Miranda NG", "Sonique", "Yahoo! Messenger", "Pidgin", "Adium") and not re.search(r"skin|theme|style|icons?|emoticon", t):
+                continue
+            return app
+    return None
+
+
+def paged(path, label, **p):
+    offset, n = 0, 0
+    limit = p.pop("limit", 24)
+    while n < MAXPAGES:
+        j = api(path, offset=offset, limit=limit, mature_content="false", **p)
+        if "_error" in j:
+            print(f"{label}: error {j['_error']}", flush=True)
+            return
+        for d in j.get("results", []):
+            if d.get("deviationid") and d.get("url") and not d.get("is_mature"):
+                yield d
+        n += 1
+        if not j.get("has_more"):
+            return
+        offset = j.get("next_offset", offset + limit)
 
 
 def scrape():
     token()
-    found = {}
-    for tag, code in TAGS.items():
-        offset, pages = 0, 0
-        while pages < MAXPAGES:
-            j = api("/browse/tags", tag=tag, offset=offset, limit=50, mature_content="false")
-            if "_error" in j:
-                print(f"{tag}: error {j['_error']}", flush=True)
-                break
-            for d in j.get("results", []):
-                if d.get("deviationid") and d.get("url") and not d.get("is_mature"):
-                    found.setdefault(d["deviationid"], (code, tag, d))
-            pages += 1
-            if not j.get("has_more"):
-                break
-            offset = j.get("next_offset", offset + 50)
-        print(f"{tag}: {len(found)} unique so far", flush=True)
+    found = {}  # id -> (hint, d)
 
-    ids = list(found)
+    def add(d, hint):
+        found.setdefault(d["deviationid"], (hint, d))
+
+    for tag in TAGS:
+        for d in paged("/browse/tags", tag, tag=tag, limit=50):
+            add(d, tag)
+        print(f"tag {tag}: {len(found)} candidates", flush=True)
+    for q in QUERIES:
+        for ep in ("newest", "popular"):
+            for d in paged(f"/browse/{ep}", q, q=q, limit=50):
+                add(d, q)
+        print(f"query {q!r}: {len(found)} candidates", flush=True)
+
     tags = {}
-    for i in range(0, len(ids), 50):
-        j = api("/deviation/metadata", deviationids=ids[i:i + 50], ext_submission="false", ext_camera="false", ext_stats="false", ext_collection="false")
-        for m in j.get("metadata", []):
-            tags[m["deviationid"]] = [t["tag_name"] for t in m.get("tags", []) if t.get("tag_name")]
-        if i % 500 == 0:
-            print(f"metadata {i}/{len(ids)}", flush=True)
+
+    def fetch_tags(ids):
+        ids = [i for i in ids if i not in tags]
+        for i in range(0, len(ids), 50):
+            j = api("/deviation/metadata", deviationids=ids[i:i + 50], ext_submission="false", ext_camera="false", ext_stats="false", ext_collection="false")
+            for m in j.get("metadata", []):
+                tags[m["deviationid"]] = [t["tag_name"] for t in m.get("tags", []) if t.get("tag_name")]
+            if (i // 50) % 20 == 0:
+                print(f"  metadata {i}/{len(ids)}", flush=True)
+
+    def text(did):
+        hint, d = found[did]
+        return " ".join([d.get("title", ""), hint] + tags.get(did, []))
+
+    fetch_tags(list(found))
+    # author expansion
+    done = set()
+    for rnd in range(2):
+        authors = {}
+        for did, (h, d) in found.items():
+            if classify(text(did)):
+                u = (d.get("author") or {}).get("username")
+                if u and u not in done:
+                    authors[u] = authors.get(u, 0) + 1
+        print(f"author round {rnd}: {len(authors)} authors", flush=True)
+        for k, u in enumerate(sorted(authors, key=lambda a: -authors[a])):
+            done.add(u)
+            new = []
+            for d in paged("/gallery/all", u, username=u, limit=24):
+                if d["deviationid"] not in found:
+                    add(d, "")
+                    new.append(d["deviationid"])
+            fetch_tags(new)
+            if k % 20 == 0:
+                print(f"  author {k}/{len(authors)} {u}: {len(found)} candidates", flush=True)
+        break
+
+    # download probe (result only, never the url)
+    for did in list(found)[:3]:
+        j = api(f"/deviation/download/{did}")
+        print("download probe:", j.get("_error") or ("src" in j and "src returned (signed)" or "no src"), flush=True)
 
     out = []
-    for did, (code, tag, d) in found.items():
+    for did, (hint, d) in found.items():
         dt = tags.get(did, [])
-        app = classify(code, " ".join([d.get("title", ""), tag] + dt))
+        app = classify(text(did))
         if not app:
             continue
         ts = d.get("published_time")
@@ -125,7 +182,7 @@ def scrape():
         out.append(dict(
             app=app, id=f"da-{did}", title=d.get("title") or "Untitled", date=date, page=d["url"],
             preview=prev, download=None,
-            tags=sorted({"deviantART", "Skins"} | {t for t in dt[:15]}), extra=extra,
+            tags=sorted({"deviantART", "Skins"} | set(dt[:15])), extra=extra,
         ))
     from collections import Counter
     print("per app:", dict(Counter(o["app"] for o in out)), flush=True)
