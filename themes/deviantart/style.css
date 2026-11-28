@@ -4495,7 +4495,6 @@ body.cm-v565 #pimp-preload>span.iii{background-image:url(assets/shadow-alpha-000
 /* ---- Customization Museum overrides ---- */
 /* the everyday header art (plain wordmark, plain shop icon) on every page */
 body[class] #top-middle div.icons a.a2 { padding-left: 22px; }
-/* replica tag under the original wordmark */
 /* login strip: the theme and display pickers sit in the original username and password fields */
 body[class] #rockdock select.itext { width: 121px; height: 17px; padding: 0; border: 0 none; background: transparent; position: relative; left: 4px; z-index: 40; margin-right: 12px; color: #1f2929; font: 8pt Verdana, sans-serif; vertical-align: middle; -webkit-appearance: none; appearance: none; cursor: pointer; outline: 0; }
 body[class] #rockdock select.itext option { background: #e8f0ec; color: #1f2929; }
@@ -4572,10 +4571,10 @@ body[class]:not(.deviant) a.moodbutton {
   background-image: image-set(url(assets/hubblebuttons.gif) 1x, url("assets/hi/hubblebuttons@2x.png") 2x, url("assets/hi/hubblebuttons@3x.png") 3x);
   background-size: 700px 120px; }
 
-/* the logo reads "customizationMUSEUM" in the wordmark's setting (Trebuchet MS 31pt), so its cell is 173px wider than the original's */
-body[class] #top h1 { width: 408px;
+/* the logo reads "customizationMUSEUM", set as the original wordmark is (Trebuchet MS outlines at 41.3px, the original's drawn t, cut flag on the dotless i, letter gaps and flat baseline), so its cell is 174px wider than the original's */
+body[class] #top h1 { width: 409px;
   background-image: url(assets/cm-logo.png);
   background-image: image-set(url(assets/cm-logo.png) 1x, url("assets/hi/cm-logo@2x.png") 2x, url("assets/hi/cm-logo@3x.png") 3x);
-  background-size: 413px 110px; }
-body[class] #top h1 a { width: 374px; }
-body[class] #top-middle { padding-left: 380px; }
+  background-size: 414px 110px; }
+body[class] #top h1 a { width: 375px; }
+body[class] #top-middle { padding-left: 381px; }
