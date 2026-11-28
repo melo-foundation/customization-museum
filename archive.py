@@ -58,10 +58,10 @@ def host_of(url):
 
 
 def cdx_host(host):
-    """{normalized url: (timestamp, original url)}: first 200-status capture of every URL on a host."""
+    """{normalized url: (timestamp, original url)}: first 2xx/3xx capture of every URL on a host (download links are redirects)."""
     found, key = {}, None
     while True:
-        q = f"https://web.archive.org/cdx/search/cdx?url={host}/*&output=json&fl=timestamp,original&filter=statuscode:200&collapse=urlkey&limit=50000&showResumeKey=true"
+        q = f"https://web.archive.org/cdx/search/cdx?url={host}/*&output=json&fl=timestamp,original&filter=statuscode:[23]..&collapse=urlkey&limit=50000&showResumeKey=true"
         if key:
             q += "&resumeKey=" + urllib.parse.quote(key)
         for attempt in range(6):
@@ -111,7 +111,7 @@ def spn2(url, auth):
     h = {"User-Agent": UA, "Accept": "application/json", "Authorization": "LOW " + auth}
     try:
         req = urllib.request.Request("https://web.archive.org/save", urllib.parse.urlencode({"url": url, "skip_first_archive": 1}).encode(), h)
-        job = json.load(urllib.request.urlopen(req, timeout=180)).get("job_id")
+        job = json.load(urllib.request.urlopen(req, timeout=30)).get("job_id")
         if not job:
             return None, "no job"
         for _ in range(60):
@@ -149,11 +149,10 @@ def save_missing(limit, workers=4, match=""):
         ts, err = spn2(u, auth) if auth else spn(u)
         if not auth:
             time.sleep(SPN_DELAY)
-        # 429: too many captures in flight for this account; back off. Timeouts: archive.org is slow, the capture may still land
-        if err and err.startswith("http 429"):
+        # successful submits answer in ~1s; 429s and dropped connections (timeout/reset after 130s+) are archive.org
+        # throttling us, so both get the long back-off and a short connect timeout above
+        if is_transient(err):
             time.sleep(90)
-        elif is_transient(err):
-            time.sleep(10)
         return u, ts, err
 
     for i in range(0, len(todo), workers * 5):
