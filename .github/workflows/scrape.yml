@@ -26,17 +26,20 @@ jobs:
       - run: printf '%s' "$KEYS" > .archive-keys
         env:
           KEYS: ${{ secrets.ARCHIVE_KEYS }}
+      # each source resumes from its own last run's page cache (a shared one got replaced by whichever source ran last)
       - uses: actions/cache/restore@v4
         with:
           path: .cache
-          key: scrape-${{ github.run_id }}
-          restore-keys: scrape-
+          key: scrape-${{ inputs.sources }}-${{ github.run_id }}
+          restore-keys: |
+            scrape-${{ inputs.sources }}-
+            scrape-
       - run: timeout 19000 python3 scrape.py $SOURCES
       - if: always()
         uses: actions/cache/save@v4
         with:
           path: .cache
-          key: scrape-${{ github.run_id }}
+          key: scrape-${{ inputs.sources }}-${{ github.run_id }}
       - run: |
           mkdir -p /tmp/out && for s in $SOURCES; do cp "data/$s.json" /tmp/out/; done
           git config user.name "github-actions[bot]"
