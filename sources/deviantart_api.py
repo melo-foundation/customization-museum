@@ -18,10 +18,10 @@ MAXPAGES = int(os.environ.get("DA_MAXPAGES", "60"))
 _tok = {}
 
 
-def _req(url, data=None, retries=6):
+def _req(url, data=None, retries=6, auth=None):
     for attempt in range(retries):
         try:
-            r = urllib.request.Request(url, data=data, headers={"User-Agent": UA})
+            r = urllib.request.Request(url, data=data, headers={"User-Agent": UA, **({"Authorization": "Bearer " + auth} if auth else {})})
             with urllib.request.urlopen(r, timeout=60) as resp:
                 time.sleep(1)
                 return json.load(resp)
@@ -60,9 +60,8 @@ def token():
 def api(path, **params):
     if "t" not in _tok:
         token()
-    params["access_token"] = _tok["t"]
     q = urllib.parse.urlencode(params, doseq=True)
-    return _req(f"{API}{path}?{q}")
+    return _req(f"{API}{path}?{q}", auth=_tok["t"])
 
 
 def classify(code, text):
