@@ -32,8 +32,8 @@ def _req(url, data=None, retries=6):
                 time.sleep(wait)
                 continue
             if e.code == 401 and data is None:
-                _tok.clear()
-                continue
+                print("  401:", e.read()[:300].decode("utf-8", "replace"), flush=True)
+                return {"_error": 401}
             print(f"  http {e.code}", flush=True)
             return {"_error": e.code}
         except Exception as e:
